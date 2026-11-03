@@ -28,6 +28,9 @@ python3 tools/build.py
 Fonctionnalités : responsive (menu burger sous 1100px, bouton d'appel flottant), indicateur « ouvert / fermé » à l'heure de Paris,
 données structurées schema.org, animations respectant `prefers-reduced-motion`.
 
+## Icônes
+[Tabler Icons](https://tabler.io/icons) (licence MIT, copiée dans `assets/icons/LICENSE-tabler-icons.txt`). Pour en ajouter une : copier le SVG dans `assets/icons/` puis écrire `[[icon:nom-du-fichier]]` dans `tools/build.py`.
+
 ## Photo du hero
 Le hero de l'accueil attend la photo de la devanture dans `assets/img/devanture.webp` (ou `devanture.jpg`), recouverte d'un dégradé horizontal plus foncé côté texte. Sans fichier, le hero reste noir.
 

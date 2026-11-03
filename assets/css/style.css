@@ -24,7 +24,6 @@
 
   /* Typo */
   --font: "Josefin Sans", "Trebuchet MS", Arial, sans-serif;
-  --font-ui: Montserrat, Arial, sans-serif;
   --fs-hero: clamp(2.6rem, 5.4vw, 4.1875rem);   /* 67px */
   --fs-hero-2: clamp(2rem, 3.8vw, 2.9375rem);   /* 47px */
   --fs-h2: clamp(1.8rem, 3.2vw, 2.375rem);      /* 38px */
@@ -250,9 +249,8 @@ p { margin: 0 0 1em; }
 /* Pied de page */
 .site-footer { background: var(--canvas); color: var(--text-1-muted); padding: 4rem 0 0; font-size: var(--fs-small); line-height: 1.5; border-top: 1px solid var(--line-dark); }
 .site-footer h3 { color: var(--gold); font-size: var(--fs-label); letter-spacing: .16em; text-transform: uppercase; }
-.site-footer a { text-decoration: none; font-family: var(--font-ui); font-size: .8125rem; }
+.site-footer a { text-decoration: none; font-family: var(--font); font-size: var(--fs-small); }
 .site-footer a:hover { color: var(--gold); }
-.site-footer .brand-footer, .site-footer .brand-footer * { font-family: var(--font); }
 .site-footer ul { list-style: none; padding: 0; margin: 0; display: grid; gap: .5rem; }
 .footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 2rem; }
 .brand-footer { color: var(--text-1); margin-bottom: 1rem; }
@@ -496,3 +494,20 @@ p { margin: 0 0 1em; }
 .chip-local { border-color: var(--gold); }
 .map-note { margin-top: 1.6rem; font-size: var(--fs-small); color: var(--text-1-muted); max-width: 52rem; }
 @media (max-width: 860px) { .network { grid-template-columns: 1fr; } }
+
+/* ===== Icônes (Tabler Icons, MIT) ===== */
+.ic { width: 1.25em; height: 1.25em; flex: none; stroke: currentColor; }
+.card-icon .ic { width: 28px; height: 28px; stroke: var(--gold); stroke-width: 1.8; }
+.card-dark .card-icon { background: rgba(255,255,255,.06); }
+.step-head { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 1.2rem; }
+.step-head .step-num { margin-bottom: 0; }
+.step-head .ic { width: 32px; height: 32px; stroke: var(--gold); stroke-width: 1.6; opacity: .95; }
+.steps-light .step-head .ic { stroke: var(--text-2); }
+.strip-label { display: flex; align-items: center; gap: .45rem; }
+.strip-label .ic { width: 15px; height: 15px; }
+.contact-list dt { display: flex; align-items: center; gap: .5rem; }
+.contact-list dt .ic { width: 18px; height: 18px; stroke: var(--text-2); }
+.contact-card .contact-list dt::before { display: none; }
+.foot-lines li { display: flex; align-items: flex-start; gap: .7rem; line-height: 1.45; }
+.foot-lines .ic { width: 18px; height: 18px; stroke: var(--gold); margin-top: .1rem; }
+.call-fab .ic { width: 28px; height: 28px; fill: none; stroke: var(--text-2); stroke-width: 2; }

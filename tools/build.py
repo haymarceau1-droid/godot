@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Génère les pages statiques du site (python3 tools/build.py).
 Édite le contenu ici, puis relance le script : en-tête, pied de page et navigation restent cohérents."""
-import json, os
+import json, os, re
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SITE = "https://www.godotetfils-chartres.fr"
 TEL, TEL_HREF = "02 37 83 49 77", "+33237834977"
@@ -96,7 +96,11 @@ def footer():
       </div>
       <div>
         <h3>Agence</h3>
-        <p>23 rue de la Pie, 28000 Chartres<br><a href="tel:{TEL_HREF}">{TEL}</a><br>Lun – Ven · 9h30 – 18h00</p>
+        <ul class="foot-lines">
+          <li>[[icon:map-pin]]<span>23 rue de la Pie<br>28000 Chartres</span></li>
+          <li>[[icon:phone-call]]<a href="tel:{TEL_HREF}">{TEL}</a></li>
+          <li>[[icon:clock]]<span>Lun – Ven · 9h30 – 18h00</span></li>
+        </ul>
       </div>
       <div>
         <h3>Nos services</h3>
@@ -119,7 +123,7 @@ def footer():
     </div>
   </footer>
   <a class="call-fab" href="tel:{TEL_HREF}" aria-label="Appeler l'agence au {TEL}">
-    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1z"/></svg>
+    [[icon:phone-call]]
   </a>
   <script src="assets/js/main.js" defer></script>'''
 
@@ -143,7 +147,7 @@ def page(slug, title, desc, body, ld=None, cta=True, noindex=False):
   <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&family=Montserrat:wght@400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&display=swap" rel="stylesheet">
   <script>document.documentElement.className+=" js"</script>
   <link rel="stylesheet" href="assets/css/style.css">{ld_tag}
 </head>
@@ -159,6 +163,7 @@ def page(slug, title, desc, body, ld=None, cta=True, noindex=False):
 </body>
 </html>
 '''
+    html = re.sub(r"\[\[icon:([a-z0-9-]+)\]\]", lambda m: ic(m.group(1)), html)
     with open(os.path.join(ROOT, slug), "w", encoding="utf-8") as f:
         f.write(html)
     print("écrit", slug)
@@ -183,18 +188,23 @@ def faq_block(items):
 
 def steps_block():
     return '''        <ol class="steps">
-          <li><span class="step-num">1</span><h3>Vous passez à l'agence</h3><p>Sans rendez-vous, du lundi au vendredi, avec vos bijoux, pièces ou lingots.</p></li>
-          <li><span class="step-num">2</span><h3>Nous examinons devant vous</h3><p>Contrôle du titre et pesée de chaque objet, sous vos yeux.</p></li>
-          <li><span class="step-num">3</span><h3>Nous vous faisons une offre</h3><p>Une proposition détaillée, fondée sur le cours du jour. Vous restez libre de refuser.</p></li>
-          <li><span class="step-num">4</span><h3>Vous êtes payé</h3><p>Si vous acceptez, la transaction est finalisée avec un bordereau d'achat conforme à la réglementation.</p></li>
+          <li><span class="step-head"><span class="step-num">1</span>[[icon:building-store]]</span><h3>Vous passez à l'agence</h3><p>Sans rendez-vous, du lundi au vendredi, avec vos bijoux, pièces ou lingots.</p></li>
+          <li><span class="step-head"><span class="step-num">2</span>[[icon:scale]]</span><h3>Nous examinons devant vous</h3><p>Contrôle du titre et pesée de chaque objet, sous vos yeux.</p></li>
+          <li><span class="step-head"><span class="step-num">3</span>[[icon:receipt-euro]]</span><h3>Nous vous faisons une offre</h3><p>Une proposition détaillée, fondée sur le cours du jour. Vous restez libre de refuser.</p></li>
+          <li><span class="step-head"><span class="step-num">4</span>[[icon:cash-banknote]]</span><h3>Vous êtes payé</h3><p>Si vous acceptez, la transaction est finalisée avec un bordereau d'achat conforme à la réglementation.</p></li>
         </ol>'''
 
-ICON = {
- "or": '<svg viewBox="0 0 48 48"><path d="M6 34h36l-6-14H12z"/><path d="M14 20l4-8h12l4 8"/></svg>',
- "pieces": '<svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="16"/><circle cx="24" cy="24" r="10"/></svg>',
- "argent": '<svg viewBox="0 0 48 48"><path d="M10 18h28l-14 22z"/><path d="M10 18l6-8h16l6 8"/><path d="M18 18l6 22 6-22"/></svg>',
- "change": '<svg viewBox="0 0 48 48"><path d="M8 16h26l-6-6"/><path d="M40 32H14l6 6"/></svg>',
-}
+def ic(name, cls="ic"):
+    """Inline un SVG Tabler Icons (assets/icons/<name>.svg, licence MIT)."""
+    raw = open(os.path.join(ROOT, "assets", "icons", name + ".svg"), encoding="utf-8").read()
+    inner = raw[raw.index(">", raw.index("<svg")) + 1: raw.rindex("</svg>")]
+    inner = inner.replace('<path stroke="none" d="M0 0h24v24H0z" fill="none"/>', "")
+    inner = " ".join(l.strip() for l in inner.strip().splitlines())
+    return (f'<svg class="{cls}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" '
+            f'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">{inner}</svg>')
+
+# Dans les gabarits, [[icon:nom]] est remplacé par le SVG correspondant (voir page())
+ICON = {"or": "[[icon:coin-euro]]", "pieces": "[[icon:coins]]", "argent": "[[icon:diamond]]", "change": "[[icon:exchange]]"}
 
 # ---------------------------------------------------------------- RÉSEAU (carte de France)
 import unicodedata
@@ -296,9 +306,9 @@ home = f'''    <section class="hero hero-photo">
 
     <section class="strip" aria-label="Informations pratiques">
       <div class="container strip-grid">
-        <div><span class="strip-label">Adresse</span>23 rue de la Pie, 28000 Chartres</div>
-        <div><span class="strip-label">Horaires</span>Lun – Ven · 9h30 – 18h00</div>
-        <div><span class="strip-label">Téléphone</span><a href="tel:{TEL_HREF}">{TEL}</a></div>
+        <div><span class="strip-label">[[icon:map-pin]]Adresse</span>23 rue de la Pie, 28000 Chartres</div>
+        <div><span class="strip-label">[[icon:clock]]Horaires</span>Lun – Ven · 9h30 – 18h00</div>
+        <div><span class="strip-label">[[icon:phone-call]]Téléphone</span><a href="tel:{TEL_HREF}">{TEL}</a></div>
         <div class="strip-status" data-open-status><span class="dot"></span><span class="status-text">Horaires d'ouverture</span></div>
       </div>
     </section>
@@ -380,11 +390,11 @@ vendre = hero("Vendre mon or", "Rachat d'or à Chartres", "Vendre mon or à Char
           <p>L'état n'a pas d'importance : le prix repose sur le poids et la pureté du métal.</p>
         </header>
         <div class="cards">
-          <article class="card"><h3>Bijoux</h3><p>Bagues, colliers, bracelets, chaînes, médailles, boucles d'oreilles, même cassés, démodés ou dépareillés.</p></article>
-          <article class="card"><h3>Alliances &amp; gourmettes</h3><p>Alliances anciennes, bagues de famille, gourmettes et chevalières dont vous n'avez plus l'usage.</p></article>
-          <article class="card"><h3>Or dentaire</h3><p>Couronnes, bridges et autres pièces dentaires en or sont estimés selon leur teneur en métal précieux.</p></article>
-          <article class="card"><h3>Pièces d'or</h3><p>Napoléon, Souverain, Krugerrand, 50 pesos et autres pièces d'or de collection ou d'investissement.</p></article>
-          <article class="card"><h3>Lingots &amp; lingotins</h3><p>Lingots de toutes tailles : estimation au poids et au titre, avec vos justificatifs si vous les avez.</p></article>
+          <article class="card"><div class="card-icon" aria-hidden="true">[[icon:diamond]]</div><h3>Bijoux</h3><p>Bagues, colliers, bracelets, chaînes, médailles, boucles d'oreilles, même cassés, démodés ou dépareillés.</p></article>
+          <article class="card"><div class="card-icon" aria-hidden="true">[[icon:heart-handshake]]</div><h3>Alliances &amp; gourmettes</h3><p>Alliances anciennes, bagues de famille, gourmettes et chevalières dont vous n'avez plus l'usage.</p></article>
+          <article class="card"><div class="card-icon" aria-hidden="true">[[icon:dental]]</div><h3>Or dentaire</h3><p>Couronnes, bridges et autres pièces dentaires en or sont estimés selon leur teneur en métal précieux.</p></article>
+          <article class="card"><div class="card-icon" aria-hidden="true">[[icon:coins]]</div><h3>Pièces d'or</h3><p>Napoléon, Souverain, Krugerrand, 50 pesos et autres pièces d'or de collection ou d'investissement.</p></article>
+          <article class="card"><div class="card-icon" aria-hidden="true">[[icon:scale]]</div><h3>Lingots &amp; lingotins</h3><p>Lingots de toutes tailles : estimation au poids et au titre, avec vos justificatifs si vous les avez.</p></article>
           <article class="card card-accent"><h3>Un doute ?</h3><p>Apportez l'objet : nous vous disons gratuitement ce qu'il vaut.</p><a class="link-arrow" href="contact.html">Venir à l'agence</a></article>
         </div>
       </div>
@@ -456,8 +466,8 @@ acheter = hero("Acheter de l'or", "Or d'investissement", "Acheter de l'or physiq
           <p>L'or est un métal que l'on peut détenir, transmettre et revendre. Il se prête à la diversification d'une épargne.</p>
         </header>
         <div class="cards">
-          <article class="card"><h3>Pièces</h3><p>Facilement divisibles, reconnues sur le marché, elles s'adaptent aux petits comme aux grands budgets.</p></article>
-          <article class="card"><h3>Lingots &amp; lingotins</h3><p>Du petit lingotin au lingot massif : une prime généralement plus faible par gramme pour les formats importants.</p></article>
+          <article class="card"><div class="card-icon" aria-hidden="true">[[icon:coins]]</div><h3>Pièces</h3><p>Facilement divisibles, reconnues sur le marché, elles s'adaptent aux petits comme aux grands budgets.</p></article>
+          <article class="card"><div class="card-icon" aria-hidden="true">[[icon:scale]]</div><h3>Lingots &amp; lingotins</h3><p>Du petit lingotin au lingot massif : une prime généralement plus faible par gramme pour les formats importants.</p></article>
           <article class="card card-accent"><h3>Conseil personnalisé</h3><p>Dites-nous votre projet, nous vous orientons vers le produit le plus adapté.</p><a class="link-arrow" href="contact.html">Nous contacter</a></article>
         </div>
       </div>
@@ -490,9 +500,9 @@ acheter = hero("Acheter de l'or", "Or d'investissement", "Acheter de l'or physiq
       <div class="container">
         <header class="section-head"><p class="eyebrow">Comment acheter</p><h2>Simple, sur place</h2></header>
         <ol class="steps steps-3 steps-light">
-          <li><span class="step-num">1</span><h3>Vous nous contactez</h3><p>Par téléphone ou directement à l'agence, pour connaître les produits disponibles et les tarifs du moment.</p></li>
-          <li><span class="step-num">2</span><h3>Nous vous conseillons</h3><p>Pièces ou lingots, budget, horizon : nous vous aidons à choisir sans pression.</p></li>
-          <li><span class="step-num">3</span><h3>Vous repartez avec votre or</h3><p>La transaction est finalisée à l'agence, avec les documents réglementaires. Une pièce d'identité est requise.</p></li>
+          <li><span class="step-head"><span class="step-num">1</span>[[icon:phone-call]]</span><h3>Vous nous contactez</h3><p>Par téléphone ou directement à l'agence, pour connaître les produits disponibles et les tarifs du moment.</p></li>
+          <li><span class="step-head"><span class="step-num">2</span>[[icon:shield-check]]</span><h3>Nous vous conseillons</h3><p>Pièces ou lingots, budget, horizon : nous vous aidons à choisir sans pression.</p></li>
+          <li><span class="step-head"><span class="step-num">3</span>[[icon:coins]]</span><h3>Vous repartez avec votre or</h3><p>La transaction est finalisée à l'agence, avec les documents réglementaires. Une pièce d'identité est requise.</p></li>
         </ol>
       </div>
     </section>
@@ -520,9 +530,9 @@ argent = hero("Argent &amp; bijoux", "Argent · Platine · Bijoux", "Argent, pla
           <p>Les autres métaux précieux et les bijoux méritent la même attention.</p>
         </header>
         <div class="cards">
-          <article class="card"><div class="card-icon" aria-hidden="true">''' + ICON["argent"] + '''</div><h3>Argent</h3><p>Pièces d'argent, argenterie, couverts, ménagères, objets en argent massif : estimés selon leur poids et leur titre.</p></article>
-          <article class="card"><div class="card-icon" aria-hidden="true">''' + ICON["pieces"] + '''</div><h3>Platine</h3><p>Bijoux et lingots de platine, un métal rare et dense, estimés selon leur pureté et le cours du jour.</p></article>
-          <article class="card"><div class="card-icon" aria-hidden="true">''' + ICON["or"] + '''</div><h3>Bijoux anciens</h3><p>Pièces de famille, bijoux démodés ou dépareillés : nous distinguons la valeur du métal de celle de la création.</p></article>
+          <article class="card"><div class="card-icon" aria-hidden="true">''' + "[[icon:tools-kitchen-2]]" + '''</div><h3>Argent</h3><p>Pièces d'argent, argenterie, couverts, ménagères, objets en argent massif : estimés selon leur poids et leur titre.</p></article>
+          <article class="card"><div class="card-icon" aria-hidden="true">''' + "[[icon:diamonds]]" + '''</div><h3>Platine</h3><p>Bijoux et lingots de platine, un métal rare et dense, estimés selon leur pureté et le cours du jour.</p></article>
+          <article class="card"><div class="card-icon" aria-hidden="true">''' + "[[icon:diamond]]" + '''</div><h3>Bijoux anciens</h3><p>Pièces de famille, bijoux démodés ou dépareillés : nous distinguons la valeur du métal de celle de la création.</p></article>
         </div>
       </div>
     </section>
@@ -582,8 +592,8 @@ change = hero("Change", "Bureau de change", "Changer vos devises à Chartres, si
           <p class="mt"><a class="btn btn-gold" href="tel:''' + TEL_HREF + '''">Appeler pour une devise</a></p>
         </div>
         <div class="cards cards-1">
-          <article class="card"><div class="card-icon" aria-hidden="true">''' + ICON["change"] + '''</div><h3>Avant de partir</h3><p>Anticipez : certaines devises peuvent nécessiter un délai. Un appel suffit pour vérifier.</p></article>
-          <article class="card"><div class="card-icon" aria-hidden="true">''' + ICON["change"] + '''</div><h3>Au retour</h3><p>Reprenez vos devises restantes en euros, billets de banque étrangers inclus selon disponibilité.</p></article>
+          <article class="card"><div class="card-icon" aria-hidden="true">''' + "[[icon:plane-departure]]" + '''</div><h3>Avant de partir</h3><p>Anticipez : certaines devises peuvent nécessiter un délai. Un appel suffit pour vérifier.</p></article>
+          <article class="card"><div class="card-icon" aria-hidden="true">''' + "[[icon:plane-arrival]]" + '''</div><h3>Au retour</h3><p>Reprenez vos devises restantes en euros, billets de banque étrangers inclus selon disponibilité.</p></article>
         </div>
       </div>
     </section>
@@ -623,9 +633,9 @@ maison = hero("La maison", "Depuis 1933", "Une institution du négoce de métaux
           <h2>Ce qui guide chaque estimation</h2>
         </header>
         <div class="cards">
-          <article class="card card-dark"><h3>Transparence</h3><p>Pesée, contrôle du titre et calcul du prix se font devant vous. Chaque offre est expliquée.</p></article>
-          <article class="card card-dark"><h3>Liberté</h3><p>L'estimation est gratuite et sans engagement. Vous repartez avec vos objets si l'offre ne vous convient pas.</p></article>
-          <article class="card card-dark"><h3>Proximité</h3><p>Une agence ouverte du lundi au vendredi, sans rendez-vous, avec une équipe qui prend le temps de vous conseiller.</p></article>
+          <article class="card card-dark"><div class="card-icon" aria-hidden="true">[[icon:eye-check]]</div><h3>Transparence</h3><p>Pesée, contrôle du titre et calcul du prix se font devant vous. Chaque offre est expliquée.</p></article>
+          <article class="card card-dark"><div class="card-icon" aria-hidden="true">[[icon:shield-check]]</div><h3>Liberté</h3><p>L'estimation est gratuite et sans engagement. Vous repartez avec vos objets si l'offre ne vous convient pas.</p></article>
+          <article class="card card-dark"><div class="card-icon" aria-hidden="true">[[icon:map-pin]]</div><h3>Proximité</h3><p>Une agence ouverte du lundi au vendredi, sans rendez-vous, avec une équipe qui prend le temps de vous conseiller.</p></article>
         </div>
       </div>
     </section>
@@ -672,10 +682,10 @@ contact = hero("Contact", "Votre agence", "Nous rendre visite à Chartres.",
         <div class="contact-card">
           <h2>Godot &amp; Fils Chartres</h2>
           <dl class="contact-list">
-            <div><dt>Adresse</dt><dd>23 rue de la Pie<br>28000 Chartres</dd></div>
-            <div><dt>Téléphone</dt><dd><a href="tel:{TEL_HREF}">{TEL}</a></dd></div>
+            <div><dt>[[icon:map-pin]]Adresse</dt><dd>23 rue de la Pie<br>28000 Chartres</dd></div>
+            <div><dt>[[icon:phone-call]]Téléphone</dt><dd><a href="tel:{TEL_HREF}">{TEL}</a></dd></div>
             <div>
-              <dt>Horaires</dt>
+              <dt>[[icon:clock]]Horaires</dt>
               <dd>
                 <p class="open-line" data-open-status><span class="dot"></span><span class="status-text">Horaires d'ouverture</span></p>
                 <table class="hours"><tbody>
@@ -705,9 +715,9 @@ contact = hero("Contact", "Votre agence", "Nous rendre visite à Chartres.",
       <div class="container">
         <header class="section-head"><p class="eyebrow">Avant de venir</p><h2>Ce qu'il faut apporter</h2></header>
         <div class="cards">
-          <article class="card card-dark"><h3>Une pièce d'identité</h3><p>En cours de validité, obligatoire pour toute vente de métaux précieux.</p></article>
-          <article class="card card-dark"><h3>Vos objets</h3><p>Bijoux, pièces, lingots, argenterie : même cassés ou abîmés, sans les nettoyer.</p></article>
-          <article class="card card-dark"><h3>Vos justificatifs</h3><p>Factures, certificats ou écrins d'origine, si vous les avez. Ils peuvent faciliter la transaction.</p></article>
+          <article class="card card-dark"><div class="card-icon" aria-hidden="true">[[icon:id]]</div><h3>Une pièce d'identité</h3><p>En cours de validité, obligatoire pour toute vente de métaux précieux.</p></article>
+          <article class="card card-dark"><div class="card-icon" aria-hidden="true">[[icon:diamond]]</div><h3>Vos objets</h3><p>Bijoux, pièces, lingots, argenterie : même cassés ou abîmés, sans les nettoyer.</p></article>
+          <article class="card card-dark"><div class="card-icon" aria-hidden="true">[[icon:file-certificate]]</div><h3>Vos justificatifs</h3><p>Factures, certificats ou écrins d'origine, si vous les avez. Ils peuvent faciliter la transaction.</p></article>
         </div>
       </div>
     </section>'''

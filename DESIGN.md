@@ -44,7 +44,7 @@ jamais de nouvelles teintes.
 | Titre de carte (h3), questions FAQ | Josefin Sans | 19.2px | 700 | 1.3 |
 | Corps | Josefin Sans | 16px | 400 | 24px |
 | Corps secondaire (cartes, pied) | Josefin Sans | 14px | 400 | 21px |
-| Liens utilitaires (pied de page) | Montserrat | 13px | 400 | normal |
+| Liens (pied de page) | Josefin Sans | 14px | 400 | 1.5 |
 | Labels / eyebrows | Josefin Sans | 12px | 700 | normal |
 
 - Les grandes tailles (hero, chiffres) sont en **graisse 400** : élégance par la taille,
@@ -53,7 +53,15 @@ jamais de nouvelles teintes.
   intitulés de pied de page ; jamais pour le corps de texte.
 - Josefin Sans a une ligne de base haute : compenser de 2–4px en haut dans les pastilles.
 
-## 4. Component Stylings
+## 4. Icônes
+
+**Tabler Icons** (outline, MIT) : trait de 2px à bouts arrondis, `currentColor`, fichiers dans
+`assets/icons/` et injectés en SVG inline par `tools/build.py` via `[[icon:nom]]`.
+Or `#d49732` sur pastille noire (cartes blanches) ou pastille translucide (cartes sombres).
+Choix thématiques : `coin-euro`, `coins`, `diamond(s)`, `scale` (pesée), `exchange` (change),
+`cash-banknote`, `receipt-euro`, `id`, `file-certificate`, `map-pin`, `phone-call`, `clock`.
+
+## 4bis. Component Stylings
 
 - **Rayon `5px`** pour cartes, encadrés, carte, FAQ. **Boutons, pastilles de villes et badges
   entièrement arrondis (pilule, `999px`)**. Éléments circulaires : badge 1933, bouton d'appel flottant.
@@ -107,7 +115,7 @@ noir / blanc et des bordures.
 ### Reference Tokens
 - **Primary CTA** `#d49732` (texte `#000000`) · **Canvas** `#000000` · **Surface** `#ffffff`
 - **Text** `#ffffff` / `#000000` · **Gold** `#d49732` · **Noir profond** `#111111`
-- **Font** Josefin Sans (400/700), Montserrat 13px pour liens utilitaires · **Radius** 5px
+- **Font** Josefin Sans (400/700) · **Radius** 5px
 
 ### Exemples de prompts
 1. « Crée une section "Cours de l'or" sur fond noir `#000000` : label en capitales or `#d49732`
