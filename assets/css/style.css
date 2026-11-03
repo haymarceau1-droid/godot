@@ -409,23 +409,39 @@ p { margin: 0 0 1em; }
 .section-dark .split-copy .text-link, .section-dark .split-copy strong { color: var(--text-1); }
 .section-dark .split-copy p.eyebrow, .section-soft .split-copy p.eyebrow { color: var(--gold); }
 
-/* ===== Hero photo : dégradé horizontal, plus foncé côté texte ===== */
-.hero-photo {
+/* ===== Hero photo : vraie image, voile horizontal plus sombre côté texte ===== */
+.hero-photo { position: relative; isolation: isolate; overflow: hidden; background: var(--canvas); min-height: min(84vh, 780px); display: flex; align-items: center; }
+.hero-bg { position: absolute; left: 0; right: 0; top: -4%; height: 108%; z-index: -3; transform: translateY(calc(var(--py, 0px) * .25)); will-change: transform; }
+.hero-bg img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 5% 4%; }
+.hero-shade {
+  position: absolute; inset: 0; z-index: -2; pointer-events: none;
   background:
-    linear-gradient(90deg, rgba(0,0,0,.97) 0%, rgba(0,0,0,.93) 36%, rgba(0,0,0,.7) 60%, rgba(0,0,0,.18) 100%),
-    url("../img/devanture.webp") center calc(30% + var(--py, 0px)) / cover no-repeat,
-    var(--canvas);
-  min-height: min(82vh, 760px); display: flex; align-items: center;
+    linear-gradient(0deg, rgba(0,0,0,.97) 0%, rgba(0,0,0,.82) 20%, rgba(0,0,0,0) 46%),
+    linear-gradient(180deg, rgba(0,0,0,.65) 0%, rgba(0,0,0,0) 22%),
+    linear-gradient(90deg, rgba(0,0,0,.97) 0%, rgba(0,0,0,.92) 34%, rgba(0,0,0,.62) 56%, rgba(0,0,0,.12) 100%);
 }
-.hero-photo .hero-grid { grid-template-columns: 1fr; width: min(1170px, 100% - 32px); }
+.hero-photo .hero-grid { position: relative; z-index: 1; grid-template-columns: 1fr; width: min(1170px, 100% - 32px); }
 .hero-photo .hero-copy { max-width: 40rem; }
+.hero-tag {
+  position: absolute; z-index: 1; right: max(16px, calc((100% - 1170px) / 2)); bottom: 1.5rem; margin: 0;
+  display: inline-flex; align-items: center; gap: .55rem; padding: .55rem 1.1rem; border: 1px solid var(--line-dark); border-radius: 999px;
+  background: rgba(0,0,0,.55); backdrop-filter: blur(6px); color: var(--text-1); font-size: var(--fs-small);
+}
+.hero-tag .ic { width: 18px; height: 18px; color: var(--gold); }
+@media (prefers-reduced-motion: no-preference) {
+  .hero-bg img { animation: heroZoom 14s cubic-bezier(.2,.6,.2,1) both; }
+  .hero-bg { animation: fadein 1.4s ease both; }
+}
+@keyframes heroZoom { from { scale: 1.06; } to { scale: 1; } }
 @media (max-width: 860px) {
-  .hero-photo {
+  .hero-bg img { object-position: 50% 4%; }
+  .hero-shade {
     background:
-      linear-gradient(90deg, rgba(0,0,0,.94) 0%, rgba(0,0,0,.82) 60%, rgba(0,0,0,.55) 100%),
-      url("../img/devanture.webp") 70% center / cover no-repeat,
-      var(--canvas);
+      linear-gradient(0deg, rgba(0,0,0,.95) 0%, rgba(0,0,0,.55) 22%, rgba(0,0,0,0) 45%),
+      linear-gradient(180deg, rgba(0,0,0,.7) 0%, rgba(0,0,0,0) 22%),
+      linear-gradient(90deg, rgba(0,0,0,.94) 0%, rgba(0,0,0,.84) 58%, rgba(0,0,0,.6) 100%);
   }
+  .hero-tag { display: none; }
 }
 
 /* ===== Carte de France du réseau ===== */
@@ -1308,3 +1324,13 @@ main, .site-footer { overflow-x: clip; }
 @media (max-width: 860px) { .split-photo { aspect-ratio: 16 / 11; } }
 
 .lb-btn { font-size: 1.7rem; line-height: 1; padding-bottom: .15rem; }
+
+/* Très grands écrans : le texte, centré, se rapproche de l'enseigne → voile sombre un peu plus étendu */
+@media (min-width: 1600px) {
+  .hero-shade {
+    background:
+      linear-gradient(0deg, rgba(0,0,0,.97) 0%, rgba(0,0,0,.82) 20%, rgba(0,0,0,0) 46%),
+      linear-gradient(180deg, rgba(0,0,0,.65) 0%, rgba(0,0,0,0) 22%),
+      linear-gradient(90deg, rgba(0,0,0,.97) 0%, rgba(0,0,0,.94) 46%, rgba(0,0,0,.7) 62%, rgba(0,0,0,.12) 100%);
+  }
+}

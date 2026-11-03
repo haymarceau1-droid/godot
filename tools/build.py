@@ -407,6 +407,10 @@ def reseau_section():
 FAQ_CLS = "section section-soft" if avis_section() else "section"   # alternance des fonds selon la présence des avis
 TICKER = "".join(f"<span>{w}</span>" for w in ["Achat d'or", "Vente de pièces", "Lingots", "Argent", "Bijoux", "Bureau de change", "Depuis 1933"] * 6)
 home = f'''    <section class="hero hero-photo">
+      <picture class="hero-bg" aria-hidden="true">
+        <img src="assets/img/devanture.webp" srcset="assets/img/devanture-1280.webp 1280w, assets/img/devanture.webp 1920w" sizes="100vw" width="1920" height="800" alt="" fetchpriority="high" decoding="async">
+      </picture>
+      <div class="hero-shade" aria-hidden="true"></div>
       <div class="container hero-grid">
         <div class="hero-copy">
           <p class="eyebrow">Or · Argent · Pièces · Lingots · Bijoux · Change</p>
@@ -423,6 +427,7 @@ home = f'''    <section class="hero hero-photo">
           </ul>
         </div>
       </div>
+      <p class="hero-tag">[[icon:map-pin]]<span>Agence de Chartres · 23 rue de la Pie</span></p>
     </section>
 
     <div class="ticker" aria-hidden="true"><div class="ticker-track">{TICKER}</div></div>
