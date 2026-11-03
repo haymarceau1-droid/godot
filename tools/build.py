@@ -518,8 +518,25 @@ def subnav(active):
       <div class="container"><ul>{items}</ul></div>
     </div>'''
 
+HERO_IMG = {
+    "Vendre or &amp; argent": ("or-pieces-lingots-gros-plan", "Lingots et pièces d'or : Krugerrand, Philharmonique et lingots d'un kilo", "50% 55%"),
+    "Acheter or &amp; argent": ("or-lingots-pieces", "Tas de lingots d'or d'un kilo et de pièces d'investissement sur fond noir", "45% 55%"),
+    "Argenterie &amp; bijoux": ("argent-lingot-100-onces", "Lingot d'argent pur de 100 onces posé sur des lingots d'argent bruts", "45% 50%"),
+    "Pourquoi investir dans l'or": ("or-lingots-gros-plan", "Gros plan sur des lingots d'or fin 999,9", "50% 50%"),
+    "Comparer les placements": ("argent-lingotins", "Lingots et lingotins d'argent fin de plusieurs formats", "50% 50%"),
+}
+
 def service_hero(crumb, eyebrow, h1, lead, icon, facts):
     fl = "".join(f'<li>[[icon:{i_}:thin]]<div><strong>{big}</strong><span>{small}</span></div></li>' for i_, big, small in facts)
+    if crumb in HERO_IMG:
+        f_, alt, pos = HERO_IMG[crumb]
+        side = (f'<figure class="facts-photo" style="--pos:{pos}"><img src="assets/img/{f_}.webp" width="1000" height="667" alt="{alt}" decoding="async" fetchpriority="high">'
+                f'<figcaption class="facts-over"><ul>{fl}</ul></figcaption></figure>')
+    else:
+        side = f'''<aside class="facts-card" aria-label="L'essentiel">
+          <div class="facts-mark" aria-hidden="true">[[icon:{icon}:thin]]</div>
+          <ul>{fl}</ul>
+        </aside>'''
     return f'''    <section class="page-hero service-hero">
       <div class="container service-hero-grid">
         <div>
@@ -532,10 +549,7 @@ def service_hero(crumb, eyebrow, h1, lead, icon, facts):
             <a class="btn btn-ghost" href="tel:{TEL_HREF}">Appeler l'agence</a>
           </div>
         </div>
-        <aside class="facts-card" aria-label="L'essentiel">
-          <div class="facts-mark" aria-hidden="true">[[icon:{icon}:thin]]</div>
-          <ul>{fl}</ul>
-        </aside>
+        {side}
       </div>
     </section>'''
 
