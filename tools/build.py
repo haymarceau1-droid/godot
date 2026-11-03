@@ -7,6 +7,16 @@ SITE = "https://www.godotetfils-chartres.fr"
 # Mode test : tant que INDEXABLE est False, aucune page n'est indexable (meta noindex, robots.txt, en-tête X-Robots-Tag, pas de sitemap).
 # Pour ouvrir le site aux moteurs de recherche : passer INDEXABLE à True et relancer python3 tools/build.py.
 INDEXABLE = False
+
+import hashlib
+def _asset_version():
+    h = hashlib.md5()
+    for rel in ("assets/css/style.css", "assets/js/main.js", "assets/js/consent.js"):
+        h.update(open(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), rel), "rb").read())
+    return h.hexdigest()[:8]
+
+ASSET_V = _asset_version()
+
 TEL, TEL_HREF = "02 37 83 49 77", "+33237834977"
 
 SERVICES = [
@@ -221,8 +231,8 @@ def footer():
   <a class="call-fab" href="tel:{TEL_HREF}" aria-label="Appeler l'agence au {TEL}">
     [[icon:phone-call]]
   </a>
-  <script src="assets/js/consent.js" defer></script>
-  <script src="assets/js/main.js" defer></script>'''
+  <script src="assets/js/consent.js?v={ASSET_V}" defer></script>
+  <script src="assets/js/main.js?v={ASSET_V}" defer></script>'''
 
 SEO = {   # titres (≤ ~60 caractères) et descriptions (≤ ~155) par page ; "service" ajoute le balisage Service
     "index.html": ("Godot &amp; Fils Chartres | Achat et vente d'or et d'argent",
@@ -290,7 +300,7 @@ def page(slug, title, desc, body, ld=None, cta=True, noindex=False):
   <link rel="preload" href="assets/fonts/josefin-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/josefin-sans-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
   <script>document.documentElement.className+=" js"</script>
-  <link rel="stylesheet" href="assets/css/style.css">{ld_tag}
+  <link rel="stylesheet" href="assets/css/style.css?v={ASSET_V}">{ld_tag}
 </head>
 <body>
 {header(active)}
@@ -1747,5 +1757,6 @@ if not INDEXABLE:
     headers.append({"key": "X-Robots-Tag", "value": "noindex, nofollow, noarchive"})
 with open(os.path.join(ROOT, "vercel.json"), "w", encoding="utf-8") as f:
     json.dump({"headers": [{"source": "/(.*)", "headers": headers},
-                           {"source": "/assets/(.*)", "headers": [{"key": "Cache-Control", "value": "public, max-age=2592000"}]}]}, f, indent=2)
+                           {"source": "/assets/(css|js)/(.*)", "headers": [{"key": "Cache-Control", "value": "public, max-age=0, must-revalidate"}]},
+                           {"source": "/assets/(img|fonts|icons)/(.*)", "headers": [{"key": "Cache-Control", "value": "public, max-age=604800"}]}]}, f, indent=2)
     f.write("\n")
