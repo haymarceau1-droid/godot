@@ -55,8 +55,8 @@ jamais de nouvelles teintes.
 
 ## 4. Component Stylings
 
-- **Rayon unique : `5px`** pour boutons, cartes, encadrés, carte, FAQ. Seules exceptions :
-  éléments circulaires (monogramme, pièces, badge 1933, bouton d'appel flottant).
+- **Rayon `5px`** pour cartes, encadrés, carte, FAQ. **Boutons, pastilles de villes et badges
+  entièrement arrondis (pilule, `999px`)**. Éléments circulaires : badge 1933, bouton d'appel flottant.
 - **Bouton principal** : fond or `#d49732`, texte noir 700, hauteur ≥ 48px, padding 0.85em 1.6em.
 - **Bouton secondaire** : contour 2px blanc (sur noir) ou noir (sur blanc), inversion au survol.
 - **Carte** : fond blanc, bordure 1px noir à 14 %, padding 32px ; au survol la bordure
@@ -90,7 +90,7 @@ noir / blanc et des bordures.
 - **Do** réserver les boutons or pleins (texte noir) aux actions principales.
 - **Do** utiliser l'or pour signaler la valeur : labels, chiffres, icônes — et en fond des seuls boutons d'action.
 - **Do** écrire labels et navigation en capitales interlettrées.
-- **Don't** utiliser de bleu, de dégradés, d'ombres ou de rayons autres que 5px.
+- **Don't** utiliser de bleu, d'ombres, ni de dégradés (sauf le voile horizontal du hero photo) ; rayons : 5px (blocs) ou pilule (boutons).
 - **Don't** introduire de nouvelles teintes : les nuances sont des opacités des tokens.
 
 ## 8. Responsive Behavior

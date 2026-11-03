@@ -1,0 +1,11 @@
+{
+  "name": "godot-map-tools",
+  "private": true,
+  "type": "module",
+  "description": "Génère le contour SVG de la France et projette les agences (node tools/geo/make-map.mjs)",
+  "dependencies": {
+    "d3-geo": "3.1.1",
+    "topojson-client": "3.1.0",
+    "world-atlas": "2.0.2"
+  }
+}

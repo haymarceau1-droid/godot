@@ -1,0 +1,70 @@
+{
+  "_note": "Réseau Godot & Fils en France métropolitaine, établi à partir de sources publiques (sites du réseau, annuaires, presse). Liste non exhaustive : adresse = null si non confirmée. Liste officielle : https://www.achat-or-et-argent.fr/agences-liste",
+  "officielle": "https://www.achat-or-et-argent.fr/agences-liste",
+  "villes": [
+    {"ville": "Paris", "pin": "Île-de-France", "lat": 48.8566, "lon": 2.3522, "agences": [
+      {"nom": "Paris 2 · Bourse", "adresse": "26 rue Vivienne, 75002", "url": "https://www.achat-or-et-argent.fr/agence-paris"},
+      {"nom": "Paris 5 · Panthéon", "adresse": "14 rue Soufflot, 75005", "url": "https://www.achat-or-et-argent.fr/agence-paris-5-pantheon"},
+      {"nom": "Paris 7 · Raspail", "adresse": "42 boulevard Raspail, 75007"},
+      {"nom": "Paris 8 · Élysée", "adresse": "111 rue du Faubourg Saint-Honoré, 75008", "url": "https://godotetfils.com/elysee/"},
+      {"nom": "Paris 14", "adresse": null},
+      {"nom": "Paris 15", "adresse": null},
+      {"nom": "Paris 16 · Pompe", "adresse": "55 rue de la Pompe, 75016", "url": "https://godotetfils.com/paris16/"}
+    ]},
+    {"ville": "Versailles", "pin": "Île-de-France", "lat": 48.8049, "lon": 2.1204, "agences": [
+      {"nom": "Versailles · Saint-Cloud", "adresse": "26 avenue de Saint-Cloud, 78000", "url": "https://versailles.godotetfils78.com/"},
+      {"nom": "Versailles · États-Généraux", "adresse": "8 rue des États-Généraux, 78000", "url": "https://versailles.godotetfils78.com/"}
+    ]},
+    {"ville": "Saint-Germain-en-Laye", "pin": "Île-de-France", "lat": 48.8986, "lon": 2.0937, "agences": [{"nom": "Saint-Germain-en-Laye", "adresse": null}]},
+    {"ville": "Neuilly-sur-Seine", "pin": "Île-de-France", "lat": 48.8846, "lon": 2.2686, "agences": [{"nom": "Neuilly-sur-Seine", "adresse": null}]},
+    {"ville": "Vincennes", "pin": "Île-de-France", "lat": 48.8472, "lon": 2.4394, "agences": [{"nom": "Vincennes", "adresse": "94300 Vincennes"}]},
+    {"ville": "Chartres", "lat": 48.4469, "lon": 1.4893, "local": true, "agences": [
+      {"nom": "Chartres", "adresse": "23 rue de la Pie, 28000", "tel": "02 37 83 49 77", "url": "contact.html"}
+    ]},
+    {"ville": "Lille", "pin": "Hauts-de-France", "lat": 50.6292, "lon": 3.0573, "agences": [
+      {"nom": "Lille · Gambetta", "adresse": "116 rue Léon Gambetta, 59000", "url": "https://godotetfilslille.fr/nos-agences/"},
+      {"nom": "Lille · Flandres", "adresse": "48 rue Faidherbe, 59000", "url": "https://godotetfilslille.fr/nos-agences/"}
+    ]},
+    {"ville": "Valenciennes", "pin": "Hauts-de-France", "lat": 50.3590, "lon": 3.5234, "agences": [{"nom": "Valenciennes", "adresse": null, "url": "https://godotetfilslille.fr/nos-agences/"}]},
+    {"ville": "Arras", "pin": "Hauts-de-France", "lat": 50.2910, "lon": 2.7775, "agences": [{"nom": "Arras", "adresse": null, "url": "https://godotetfilslille.fr/nos-agences/"}]},
+    {"ville": "Amiens", "lat": 49.8941, "lon": 2.2957, "agences": [{"nom": "Amiens", "adresse": null}]},
+    {"ville": "Beauvais", "lat": 49.4295, "lon": 2.0807, "agences": [{"nom": "Beauvais", "adresse": null}]},
+    {"ville": "Reims", "lat": 49.2583, "lon": 4.0317, "agences": [{"nom": "Reims", "adresse": null}]},
+    {"ville": "Troyes", "lat": 48.2973, "lon": 4.0744, "agences": [{"nom": "Troyes", "adresse": null}]},
+    {"ville": "Strasbourg", "lat": 48.5734, "lon": 7.7521, "agences": [{"nom": "Strasbourg", "adresse": null}]},
+    {"ville": "Besançon", "lat": 47.2378, "lon": 6.0241, "agences": [{"nom": "Besançon", "adresse": null}]},
+    {"ville": "Rennes", "lat": 48.1173, "lon": -1.6778, "agences": [{"nom": "Rennes", "adresse": null}]},
+    {"ville": "Saint-Brieuc", "lat": 48.5149, "lon": -2.7658, "agences": [{"nom": "Saint-Brieuc", "adresse": "6 place du Guesclin, 22000", "url": "https://www.godotetfils56.com/"}]},
+    {"ville": "Brest", "lat": 48.3904, "lon": -4.4861, "agences": [{"nom": "Brest", "adresse": null}]},
+    {"ville": "Lorient", "lat": 47.7482, "lon": -3.3702, "agences": [{"nom": "Lorient", "adresse": "2 place Alsace-Lorraine, 56100", "url": "https://www.godotetfils56.com/"}]},
+    {"ville": "Nantes", "lat": 47.2184, "lon": -1.5536, "agences": [{"nom": "Nantes", "adresse": null}]},
+    {"ville": "Angers", "lat": 47.4784, "lon": -0.5632, "agences": [{"nom": "Angers", "adresse": "5 rue d'Alsace, 49100"}]},
+    {"ville": "Tours", "lat": 47.3941, "lon": 0.6848, "agences": [{"nom": "Tours", "adresse": null}]},
+    {"ville": "Blois", "lat": 47.5861, "lon": 1.3359, "agences": [{"nom": "Blois", "adresse": null}]},
+    {"ville": "Niort", "lat": 46.3238, "lon": -0.4588, "agences": [{"nom": "Niort", "adresse": null}]},
+    {"ville": "Bordeaux", "lat": 44.8378, "lon": -0.5792, "agences": [
+      {"nom": "Bordeaux · Montesquieu", "adresse": "4 rue Montesquieu, 33000", "url": "https://godotetfils.com/bordeaux/"},
+      {"nom": "Bordeaux · Nancel-Pénard", "adresse": "40 rue du Docteur Charles Nancel-Pénard, 33000", "url": "https://www.godotetfils33.fr/"}
+    ]},
+    {"ville": "Toulouse", "lat": 43.6047, "lon": 1.4442, "agences": [{"nom": "Toulouse", "adresse": null}]},
+    {"ville": "Albi", "lat": 43.9298, "lon": 2.1480, "agences": [{"nom": "Albi", "adresse": null}]},
+    {"ville": "Castres", "lat": 43.6062, "lon": 2.2410, "agences": [{"nom": "Castres", "adresse": "1 quai du Carras, 81100", "tel": "05 67 29 01 01", "url": "https://www.achat-or-et-argent.fr/agence-castres"}]},
+    {"ville": "Montpellier", "lat": 43.6108, "lon": 3.8767, "agences": [{"nom": "Montpellier", "adresse": null}]},
+    {"ville": "Béziers", "lat": 43.3441, "lon": 3.2150, "agences": [{"nom": "Béziers", "adresse": null}]},
+    {"ville": "Alès", "lat": 44.1250, "lon": 4.0816, "agences": [{"nom": "Alès", "adresse": null}]},
+    {"ville": "Avignon", "lat": 43.9493, "lon": 4.8055, "agences": [{"nom": "Avignon", "adresse": null}]},
+    {"ville": "Marseille", "lat": 43.2965, "lon": 5.3698, "agences": [
+      {"nom": "Marseille · Castellane Prado", "adresse": "Marseille 6e"},
+      {"nom": "Marseille · Saint-Ferréol", "adresse": "Marseille 6e"},
+      {"nom": "Marseille · Joliette", "adresse": "109 rue de la République, 13003"}
+    ]},
+    {"ville": "Aix-en-Provence", "lat": 43.5297, "lon": 5.4474, "agences": [{"nom": "Aix-en-Provence", "adresse": null}]},
+    {"ville": "Toulon", "lat": 43.1242, "lon": 5.9280, "agences": [{"nom": "Toulon", "adresse": null}]},
+    {"ville": "Nice", "lat": 43.7102, "lon": 7.2620, "agences": [{"nom": "Nice", "adresse": null}]},
+    {"ville": "Lyon", "lat": 45.7640, "lon": 4.8357, "agences": [{"nom": "Lyon 2", "adresse": "5 rue Auguste Comte, 69002"}]},
+    {"ville": "Saint-Étienne", "lat": 45.4397, "lon": 4.3872, "agences": [{"nom": "Saint-Étienne", "adresse": null}]},
+    {"ville": "Bourgoin-Jallieu", "lat": 45.5862, "lon": 5.2730, "agences": [{"nom": "Bourgoin-Jallieu", "adresse": null}]},
+    {"ville": "Chambéry", "pin": "Savoie", "lat": 45.5646, "lon": 5.9178, "agences": [{"nom": "Chambéry", "adresse": null}]},
+    {"ville": "Aix-les-Bains", "pin": "Savoie", "lat": 45.6885, "lon": 5.9158, "agences": [{"nom": "Aix-les-Bains", "adresse": null}]}
+  ]
+}

@@ -58,3 +58,26 @@
     items.forEach(function (el) { el.classList.add('reveal'); io.observe(el); });
   }
 })();
+
+// Carte du réseau : clic sur un pin ou une ville => affiche la fiche correspondante
+(function () {
+  var section = document.getElementById('reseau');
+  if (!section) return;
+  var triggers = section.querySelectorAll('[data-target]');
+  var panels = section.querySelectorAll('.panel');
+  function show(id) {
+    panels.forEach(function (p) { p.classList.toggle('is-active', p.id === id); });
+    triggers.forEach(function (t) {
+      var on = t.getAttribute('data-target') === id;
+      t.classList.toggle('is-active', on);
+      if (t.tagName === 'BUTTON') t.setAttribute('aria-pressed', String(on));
+    });
+  }
+  triggers.forEach(function (t) {
+    t.addEventListener('click', function () { show(t.getAttribute('data-target')); });
+    t.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); show(t.getAttribute('data-target')); }
+    });
+  });
+  show(section.getAttribute('data-default'));
+})();

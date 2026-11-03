@@ -28,6 +28,15 @@ python3 tools/build.py
 Fonctionnalités : responsive (menu burger sous 1100px, bouton d'appel flottant), indicateur « ouvert / fermé » à l'heure de Paris,
 données structurées schema.org, animations respectant `prefers-reduced-motion`.
 
+## Photo du hero
+Le hero de l'accueil attend la photo de la devanture dans `assets/img/devanture.webp` (ou `devanture.jpg`), recouverte d'un dégradé horizontal plus foncé côté texte. Sans fichier, le hero reste noir.
+
+## Carte des agences
+La carte de la page « La maison » est générée depuis `tools/geo/agences.json` (liste des villes, coordonnées, adresses) :
+```bash
+cd tools/geo && npm install && node make-map.mjs && cd ../.. && python3 tools/build.py
+```
+
 ## Aperçu local
 ```bash
 python3 -m http.server 8000

@@ -20,6 +20,7 @@
 
   /* Forme */
   --radius: 5px;
+  --radius-btn: 999px;   /* boutons arrondis (pilule) */
 
   /* Typo */
   --font: "Josefin Sans", "Trebuchet MS", Arial, sans-serif;
@@ -56,7 +57,7 @@ p { margin: 0 0 1em; }
 .narrow { width: min(820px, 100% - 32px); }
 
 .skip { position: absolute; left: -9999px; }
-.skip:focus { left: 16px; top: 16px; z-index: 100; background: var(--gold); color: var(--text-2); padding: .6em 1em; border-radius: var(--radius); }
+.skip:focus { left: 16px; top: 16px; z-index: 100; background: var(--gold); color: var(--text-2); padding: .6em 1em; border-radius: var(--radius-btn); }
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 
 .eyebrow {
@@ -67,7 +68,7 @@ p { margin: 0 0 1em; }
 /* Boutons */
 .btn {
   display: inline-flex; align-items: center; justify-content: center; gap: .5em;
-  min-height: 48px; padding: .85em 1.6em; border-radius: var(--radius);
+  min-height: 48px; padding: .85em 1.8em; border-radius: var(--radius-btn);
   font-family: var(--font); font-weight: 700; font-size: var(--fs-body); letter-spacing: .04em;
   text-decoration: none; border: 2px solid transparent; white-space: nowrap;
   transition: background-color .2s, color .2s, border-color .2s;
@@ -433,3 +434,65 @@ p { margin: 0 0 1em; }
 .section-dark .split-copy p, .section-soft .split-copy p { color: var(--text-1-muted); }
 .section-dark .split-copy .text-link, .section-dark .split-copy strong { color: var(--text-1); }
 .section-dark .split-copy p.eyebrow, .section-soft .split-copy p.eyebrow { color: var(--gold); }
+
+/* ===== Hero photo : dégradé horizontal, plus foncé côté texte ===== */
+.hero-photo {
+  background:
+    linear-gradient(90deg, rgba(0,0,0,.96) 0%, rgba(0,0,0,.9) 30%, rgba(0,0,0,.62) 58%, rgba(0,0,0,.2) 100%),
+    url("../img/devanture.webp") center 30% / cover no-repeat,
+    url("../img/devanture.jpg") center 30% / cover no-repeat,
+    var(--canvas);
+  min-height: min(82vh, 760px); display: flex; align-items: center;
+}
+.hero-photo .hero-grid { grid-template-columns: 1fr; width: min(1170px, 100% - 32px); }
+.hero-photo .hero-copy { max-width: 40rem; }
+@media (max-width: 860px) {
+  .hero-photo {
+    background:
+      linear-gradient(90deg, rgba(0,0,0,.94) 0%, rgba(0,0,0,.82) 60%, rgba(0,0,0,.55) 100%),
+      url("../img/devanture.webp") 70% center / cover no-repeat,
+      url("../img/devanture.jpg") 70% center / cover no-repeat,
+      var(--canvas);
+  }
+}
+
+/* ===== Carte de France du réseau ===== */
+.network { display: grid; grid-template-columns: 1.05fr .95fr; gap: clamp(1.5rem, 4vw, 3.5rem); align-items: start; }
+.map-france { max-width: 620px; width: 100%; margin-inline: auto; }
+.map-france svg { width: 100%; height: auto; overflow: visible; }
+.fr-land { fill: rgba(255,255,255,.05); stroke: var(--gold); stroke-opacity: .55; stroke-width: 1.2; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+.pin { cursor: pointer; outline: none; }
+.pin-hit { fill: transparent; }
+.pin-halo { fill: var(--gold); opacity: .22; transition: opacity .2s, transform .2s; transform-box: fill-box; transform-origin: center; }
+.pin-dot { fill: var(--gold); stroke: var(--canvas); stroke-width: 2; transition: fill .2s; }
+.pin:hover .pin-halo, .pin:focus-visible .pin-halo { opacity: .5; transform: scale(1.25); }
+.pin:focus-visible .pin-dot { stroke: var(--text-1); }
+.pin.is-active .pin-halo { opacity: .55; transform: scale(1.35); }
+.pin.is-active .pin-dot { fill: var(--text-1); stroke: var(--gold); stroke-width: 3; }
+.pin-local .pin-dot { fill: var(--text-1); stroke: var(--gold); stroke-width: 3; }
+.pin-local .pin-halo { opacity: .4; }
+.map-legend { text-align: center; font-size: var(--fs-label); letter-spacing: .1em; text-transform: uppercase; color: var(--text-1-muted); margin: 1rem 0 0; }
+.legend-dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: var(--gold); vertical-align: -1px; margin-right: .3rem; }
+.legend-local { background: var(--text-1); box-shadow: 0 0 0 2px var(--gold); margin-left: .4rem; }
+
+.panel { border: 1px solid var(--gold); border-radius: var(--radius); background: var(--canvas); padding: clamp(1.4rem, 3vw, 2rem); margin-bottom: 1rem; }
+.js .panel { display: none; margin-bottom: 0; }
+.js .panel.is-active { display: block; }
+.panel h3 { font-size: 1.6rem; color: var(--text-1); margin-bottom: .2rem; }
+.panel-badge { display: inline-block; background: var(--gold); color: var(--text-2); font-size: var(--fs-label); font-weight: 700; letter-spacing: .14em; text-transform: uppercase; padding: .25em .8em; border-radius: var(--radius-btn); margin: 0 0 .8rem; }
+.panel-count { color: var(--gold); font-size: var(--fs-label); letter-spacing: .14em; text-transform: uppercase; font-weight: 700; margin-bottom: 1.2rem; }
+.agences { list-style: none; margin: 0; padding: 0; display: grid; gap: 1rem; }
+.agences li { display: grid; gap: .15rem; padding-top: 1rem; border-top: 1px solid var(--line-dark); font-size: var(--fs-small); color: var(--text-1-muted); }
+.agences strong { color: var(--text-1); font-size: 1rem; }
+.agences a:not(.text-link-light) { text-decoration: none; font-weight: 700; color: var(--text-1); }
+.text-link-light { color: var(--text-1); font-weight: 700; text-decoration: none; border-bottom: 2px solid var(--gold); justify-self: start; }
+.text-link-light:hover { color: var(--gold); }
+
+.chips-title { font-size: var(--fs-label); letter-spacing: .16em; text-transform: uppercase; color: var(--gold); margin: 3rem 0 1rem; }
+.chips { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: .5rem; }
+.chip { font: inherit; font-size: var(--fs-small); color: var(--text-1); background: transparent; border: 1px solid var(--line-dark); border-radius: var(--radius-btn); padding: .5em 1.1em; min-height: 40px; cursor: pointer; transition: border-color .2s, color .2s, background .2s; }
+.chip:hover { border-color: var(--gold); color: var(--gold); }
+.chip.is-active { background: var(--gold); border-color: var(--gold); color: var(--text-2); font-weight: 700; }
+.chip-local { border-color: var(--gold); }
+.map-note { margin-top: 1.6rem; font-size: var(--fs-small); color: var(--text-1-muted); max-width: 52rem; }
+@media (max-width: 860px) { .network { grid-template-columns: 1fr; } }
