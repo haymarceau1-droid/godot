@@ -200,6 +200,11 @@ def page(slug, title, desc, body, ld=None, cta=True, noindex=False):
 </body>
 </html>
 '''
+    _wm = [0]
+    def _wm_cls(m):
+        _wm[0] += 1
+        return f'<section class="{m.group(1)} wm-{"r" if _wm[0] % 2 else "l"}"'
+    html = re.sub(r'<section class="([^"]*\bsection-dark\b[^"]*)"', _wm_cls, html)
     html = re.sub(r"\[\[icon:([a-z0-9-]+)(?::(thin))?\]\]", lambda m: ic(m.group(1), m.group(2) or "light"), html)
     with open(os.path.join(ROOT, slug), "w", encoding="utf-8") as f:
         f.write(html)

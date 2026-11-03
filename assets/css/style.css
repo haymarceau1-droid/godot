@@ -1404,3 +1404,13 @@ main, .site-footer { overflow-x: clip; }
 }
 .facts-over { background: radial-gradient(ellipse 80% 75% at 50% 55%, rgba(0,0,0,.62) 0%, rgba(0,0,0,.4) 55%, transparent 100%); padding: 1.6rem 1.2rem; }
 .facts-over { background: rgba(0,0,0,.78); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); border-radius: var(--radius); padding: 1.3rem 1.4rem; }
+
+/* Filigrane : logo discret en bas des sections sombres, en alternance droite / gauche */
+.section-dark.wm-r, .section-dark.wm-l { position: relative; }
+.section-dark.wm-r::after, .section-dark.wm-l::after {
+  content: ""; position: absolute; bottom: clamp(1rem, 2.5vw, 2rem); width: clamp(130px, 17vw, 230px); aspect-ratio: 650 / 133;
+  background: url(../img/logo-blanc.png) center / contain no-repeat; opacity: .1; pointer-events: none;
+}
+.section-dark.wm-r::after { right: max(16px, calc((100% - 1170px) / 2)); }
+.section-dark.wm-l::after { left: max(16px, calc((100% - 1170px) / 2)); }
+.section-dark.wm-r > .container, .section-dark.wm-l > .container { position: relative; z-index: 1; }
