@@ -1,70 +1,1302 @@
 {
-  "_note": "Réseau Godot & Fils en France métropolitaine, établi à partir de sources publiques (sites du réseau, annuaires, presse). Liste non exhaustive : adresse = null si non confirmée. Liste officielle : https://www.achat-or-et-argent.fr/agences-liste",
-  "officielle": "https://www.achat-or-et-argent.fr/agences-liste",
-  "villes": [
-    {"ville": "Paris", "pin": "Île-de-France", "lat": 48.8566, "lon": 2.3522, "agences": [
-      {"nom": "Paris 2 · Bourse", "adresse": "26 rue Vivienne, 75002", "url": "https://www.achat-or-et-argent.fr/agence-paris"},
-      {"nom": "Paris 5 · Panthéon", "adresse": "14 rue Soufflot, 75005", "url": "https://www.achat-or-et-argent.fr/agence-paris-5-pantheon"},
-      {"nom": "Paris 7 · Raspail", "adresse": "42 boulevard Raspail, 75007"},
-      {"nom": "Paris 8 · Élysée", "adresse": "111 rue du Faubourg Saint-Honoré, 75008", "url": "https://godotetfils.com/elysee/"},
-      {"nom": "Paris 14", "adresse": null},
-      {"nom": "Paris 15", "adresse": null},
-      {"nom": "Paris 16 · Pompe", "adresse": "55 rue de la Pompe, 75016", "url": "https://godotetfils.com/paris16/"}
-    ]},
-    {"ville": "Versailles", "pin": "Île-de-France", "lat": 48.8049, "lon": 2.1204, "agences": [
-      {"nom": "Versailles · Saint-Cloud", "adresse": "26 avenue de Saint-Cloud, 78000", "url": "https://versailles.godotetfils78.com/"},
-      {"nom": "Versailles · États-Généraux", "adresse": "8 rue des États-Généraux, 78000", "url": "https://versailles.godotetfils78.com/"}
-    ]},
-    {"ville": "Saint-Germain-en-Laye", "pin": "Île-de-France", "lat": 48.8986, "lon": 2.0937, "agences": [{"nom": "Saint-Germain-en-Laye", "adresse": null}]},
-    {"ville": "Neuilly-sur-Seine", "pin": "Île-de-France", "lat": 48.8846, "lon": 2.2686, "agences": [{"nom": "Neuilly-sur-Seine", "adresse": null}]},
-    {"ville": "Vincennes", "pin": "Île-de-France", "lat": 48.8472, "lon": 2.4394, "agences": [{"nom": "Vincennes", "adresse": "94300 Vincennes"}]},
-    {"ville": "Chartres", "lat": 48.4469, "lon": 1.4893, "local": true, "agences": [
-      {"nom": "Chartres", "adresse": "23 rue de la Pie, 28000", "tel": "02 37 83 49 77", "url": "contact.html"}
-    ]},
-    {"ville": "Lille", "pin": "Hauts-de-France", "lat": 50.6292, "lon": 3.0573, "agences": [
-      {"nom": "Lille · Gambetta", "adresse": "116 rue Léon Gambetta, 59000", "url": "https://godotetfilslille.fr/nos-agences/"},
-      {"nom": "Lille · Flandres", "adresse": "48 rue Faidherbe, 59000", "url": "https://godotetfilslille.fr/nos-agences/"}
-    ]},
-    {"ville": "Valenciennes", "pin": "Hauts-de-France", "lat": 50.3590, "lon": 3.5234, "agences": [{"nom": "Valenciennes", "adresse": null, "url": "https://godotetfilslille.fr/nos-agences/"}]},
-    {"ville": "Arras", "pin": "Hauts-de-France", "lat": 50.2910, "lon": 2.7775, "agences": [{"nom": "Arras", "adresse": null, "url": "https://godotetfilslille.fr/nos-agences/"}]},
-    {"ville": "Amiens", "lat": 49.8941, "lon": 2.2957, "agences": [{"nom": "Amiens", "adresse": null}]},
-    {"ville": "Beauvais", "lat": 49.4295, "lon": 2.0807, "agences": [{"nom": "Beauvais", "adresse": null}]},
-    {"ville": "Reims", "lat": 49.2583, "lon": 4.0317, "agences": [{"nom": "Reims", "adresse": null}]},
-    {"ville": "Troyes", "lat": 48.2973, "lon": 4.0744, "agences": [{"nom": "Troyes", "adresse": null}]},
-    {"ville": "Strasbourg", "lat": 48.5734, "lon": 7.7521, "agences": [{"nom": "Strasbourg", "adresse": null}]},
-    {"ville": "Besançon", "lat": 47.2378, "lon": 6.0241, "agences": [{"nom": "Besançon", "adresse": null}]},
-    {"ville": "Rennes", "lat": 48.1173, "lon": -1.6778, "agences": [{"nom": "Rennes", "adresse": null}]},
-    {"ville": "Saint-Brieuc", "lat": 48.5149, "lon": -2.7658, "agences": [{"nom": "Saint-Brieuc", "adresse": "6 place du Guesclin, 22000", "url": "https://www.godotetfils56.com/"}]},
-    {"ville": "Brest", "lat": 48.3904, "lon": -4.4861, "agences": [{"nom": "Brest", "adresse": null}]},
-    {"ville": "Lorient", "lat": 47.7482, "lon": -3.3702, "agences": [{"nom": "Lorient", "adresse": "2 place Alsace-Lorraine, 56100", "url": "https://www.godotetfils56.com/"}]},
-    {"ville": "Nantes", "lat": 47.2184, "lon": -1.5536, "agences": [{"nom": "Nantes", "adresse": null}]},
-    {"ville": "Angers", "lat": 47.4784, "lon": -0.5632, "agences": [{"nom": "Angers", "adresse": "5 rue d'Alsace, 49100"}]},
-    {"ville": "Tours", "lat": 47.3941, "lon": 0.6848, "agences": [{"nom": "Tours", "adresse": null}]},
-    {"ville": "Blois", "lat": 47.5861, "lon": 1.3359, "agences": [{"nom": "Blois", "adresse": null}]},
-    {"ville": "Niort", "lat": 46.3238, "lon": -0.4588, "agences": [{"nom": "Niort", "adresse": null}]},
-    {"ville": "Bordeaux", "lat": 44.8378, "lon": -0.5792, "agences": [
-      {"nom": "Bordeaux · Montesquieu", "adresse": "4 rue Montesquieu, 33000", "url": "https://godotetfils.com/bordeaux/"},
-      {"nom": "Bordeaux · Nancel-Pénard", "adresse": "40 rue du Docteur Charles Nancel-Pénard, 33000", "url": "https://www.godotetfils33.fr/"}
-    ]},
-    {"ville": "Toulouse", "lat": 43.6047, "lon": 1.4442, "agences": [{"nom": "Toulouse", "adresse": null}]},
-    {"ville": "Albi", "lat": 43.9298, "lon": 2.1480, "agences": [{"nom": "Albi", "adresse": null}]},
-    {"ville": "Castres", "lat": 43.6062, "lon": 2.2410, "agences": [{"nom": "Castres", "adresse": "1 quai du Carras, 81100", "tel": "05 67 29 01 01", "url": "https://www.achat-or-et-argent.fr/agence-castres"}]},
-    {"ville": "Montpellier", "lat": 43.6108, "lon": 3.8767, "agences": [{"nom": "Montpellier", "adresse": null}]},
-    {"ville": "Béziers", "lat": 43.3441, "lon": 3.2150, "agences": [{"nom": "Béziers", "adresse": null}]},
-    {"ville": "Alès", "lat": 44.1250, "lon": 4.0816, "agences": [{"nom": "Alès", "adresse": null}]},
-    {"ville": "Avignon", "lat": 43.9493, "lon": 4.8055, "agences": [{"nom": "Avignon", "adresse": null}]},
-    {"ville": "Marseille", "lat": 43.2965, "lon": 5.3698, "agences": [
-      {"nom": "Marseille · Castellane Prado", "adresse": "Marseille 6e"},
-      {"nom": "Marseille · Saint-Ferréol", "adresse": "Marseille 6e"},
-      {"nom": "Marseille · Joliette", "adresse": "109 rue de la République, 13003"}
-    ]},
-    {"ville": "Aix-en-Provence", "lat": 43.5297, "lon": 5.4474, "agences": [{"nom": "Aix-en-Provence", "adresse": null}]},
-    {"ville": "Toulon", "lat": 43.1242, "lon": 5.9280, "agences": [{"nom": "Toulon", "adresse": null}]},
-    {"ville": "Nice", "lat": 43.7102, "lon": 7.2620, "agences": [{"nom": "Nice", "adresse": null}]},
-    {"ville": "Lyon", "lat": 45.7640, "lon": 4.8357, "agences": [{"nom": "Lyon 2", "adresse": "5 rue Auguste Comte, 69002"}]},
-    {"ville": "Saint-Étienne", "lat": 45.4397, "lon": 4.3872, "agences": [{"nom": "Saint-Étienne", "adresse": null}]},
-    {"ville": "Bourgoin-Jallieu", "lat": 45.5862, "lon": 5.2730, "agences": [{"nom": "Bourgoin-Jallieu", "adresse": null}]},
-    {"ville": "Chambéry", "pin": "Savoie", "lat": 45.5646, "lon": 5.9178, "agences": [{"nom": "Chambéry", "adresse": null}]},
-    {"ville": "Aix-les-Bains", "pin": "Savoie", "lat": 45.6885, "lon": 5.9158, "agences": [{"nom": "Aix-les-Bains", "adresse": null}]}
-  ]
+ "_note": "Réseau Godot & Fils : liste officielle importée par tools/geo/import-agences.py (nom, adresse, téléphone, GPS).",
+ "officielle": "https://www.achat-or-et-argent.fr/agences-liste",
+ "villes": [
+  {
+   "ville": "Aix-en-Provence",
+   "lat": 43.5275,
+   "lon": 5.4452,
+   "agences": [
+    {
+     "nom": "Aix en Provence",
+     "adresse": "33 rue Espariat, 13100 Aix-en-Provence",
+     "tel": "04 34 48 05 10",
+     "url": "https://www.achat-or-et-argent.fr/agence-aix-en-provence"
+    }
+   ]
+  },
+  {
+   "ville": "Albi",
+   "lat": 43.9273,
+   "lon": 2.1419,
+   "agences": [
+    {
+     "nom": "Albi",
+     "adresse": "21 rue Sainte-Cécile, 81000 Albi",
+     "tel": "05 19 98 07 20",
+     "url": "https://www.achat-or-et-argent.fr/agence-albi"
+    }
+   ]
+  },
+  {
+   "ville": "Alès",
+   "lat": 44.1241,
+   "lon": 4.0793,
+   "agences": [
+    {
+     "nom": "Alès",
+     "adresse": "25 rue Taisson, 30100 Alès",
+     "tel": "04 66 24 37 10",
+     "url": "https://www.achat-or-et-argent.fr/agence-ales"
+    }
+   ]
+  },
+  {
+   "ville": "Amiens",
+   "lat": 49.891,
+   "lon": 2.3052,
+   "agences": [
+    {
+     "nom": "Amiens",
+     "adresse": "11 rue Noyon, 80000 Amiens",
+     "tel": "03 22 80 39 75",
+     "url": "https://www.achat-or-et-argent.fr/agence-amiens"
+    }
+   ]
+  },
+  {
+   "ville": "Angers",
+   "lat": 47.4706,
+   "lon": -0.5507,
+   "agences": [
+    {
+     "nom": "Angers",
+     "adresse": "5 rue d'Alsace, 49100 Angers",
+     "tel": "02 41 20 12 94",
+     "url": "https://www.achat-or-et-argent.fr/agence-angers"
+    }
+   ]
+  },
+  {
+   "ville": "Angoulême",
+   "lat": 45.649,
+   "lon": 0.1559,
+   "agences": [
+    {
+     "nom": "Angouleme",
+     "adresse": "20 place de l'Hôtel de ville, 16000 Angoulême",
+     "tel": "05 16 29 04 44",
+     "url": "https://www.achat-or-et-argent.fr/agence-angouleme"
+    }
+   ]
+  },
+  {
+   "ville": "Annecy",
+   "lat": 45.9017,
+   "lon": 6.1246,
+   "agences": [
+    {
+     "nom": "Annecy",
+     "adresse": "2 rue Vaugelas, 74000 Annecy",
+     "tel": "04 50 60 29 66",
+     "url": "https://www.achat-or-et-argent.fr/agence-annecy"
+    }
+   ]
+  },
+  {
+   "ville": "Arras",
+   "lat": 50.2889,
+   "lon": 2.7763,
+   "agences": [
+    {
+     "nom": "Arras",
+     "adresse": "23 rue Léon Gambetta, 62000 Arras",
+     "tel": "03 21 15 86 11",
+     "url": "https://www.achat-or-et-argent.fr/agence-arras"
+    }
+   ]
+  },
+  {
+   "ville": "Avignon",
+   "lat": 43.9487,
+   "lon": 4.8072,
+   "agences": [
+    {
+     "nom": "Avignon",
+     "adresse": "27 rue des marchands, 84000 Avignon",
+     "tel": "04 88 61 03 56",
+     "url": "https://www.achat-or-et-argent.fr/agence-avignon"
+    }
+   ]
+  },
+  {
+   "ville": "Beauvais",
+   "lat": 49.4302,
+   "lon": 2.083,
+   "agences": [
+    {
+     "nom": "Beauvais",
+     "adresse": "32 place Jeanne Hachette, 60000 Beauvais",
+     "tel": "03 10 45 15 90",
+     "url": "https://www.achat-or-et-argent.fr/agence-beauvais"
+    }
+   ]
+  },
+  {
+   "ville": "Besançon",
+   "lat": 47.2371,
+   "lon": 6.0251,
+   "agences": [
+    {
+     "nom": "Besançon",
+     "adresse": "83 Grande Rue, 25000 Besançon",
+     "tel": "03 39 25 51 51",
+     "url": "https://www.achat-or-et-argent.fr/agence-besancon"
+    }
+   ]
+  },
+  {
+   "ville": "Blois",
+   "lat": 47.5868,
+   "lon": 1.3325,
+   "agences": [
+    {
+     "nom": "Blois",
+     "adresse": "78 rue du Commerce, 41000 Blois",
+     "tel": "02 34 46 05 05",
+     "url": "https://www.achat-or-et-argent.fr/agence-blois"
+    }
+   ]
+  },
+  {
+   "ville": "Bordeaux",
+   "lat": 44.8409,
+   "lon": -0.5811,
+   "agences": [
+    {
+     "nom": "Bordeaux Beaux-Arts",
+     "adresse": "40 rue du Dr Charles Nancel Penard, 33000 Bordeaux",
+     "tel": "05 35 54 40 54",
+     "url": "https://www.achat-or-et-argent.fr/agence-bordeaux-beaux-arts"
+    },
+    {
+     "nom": "Bordeaux Montesquieu",
+     "adresse": "4 rue Montesquieu, 33000 Bordeaux",
+     "tel": "05 35 54 05 35",
+     "url": "https://www.achat-or-et-argent.fr/agence-bordeaux-montesquieu"
+    }
+   ]
+  },
+  {
+   "ville": "Bourg-en-Bresse",
+   "lat": 46.2061,
+   "lon": 5.2227,
+   "agences": [
+    {
+     "nom": "Bourg-en-Bresse",
+     "adresse": "6 cours de Verdun, 01000 Bourg-en-Bresse",
+     "tel": "04 28 36 01 05",
+     "url": "https://www.achat-or-et-argent.fr/agence-bourg-en-bresse"
+    }
+   ]
+  },
+  {
+   "ville": "Bourges",
+   "lat": 47.0838,
+   "lon": 2.3933,
+   "agences": [
+    {
+     "nom": "Bourges",
+     "adresse": "21 rue Moyenne, 18000 Bourges",
+     "tel": "02 48 69 82 31",
+     "url": "https://www.achat-or-et-argent.fr/agence-bourges"
+    }
+   ]
+  },
+  {
+   "ville": "Bourgoin-Jallieu",
+   "lat": 45.5853,
+   "lon": 5.2771,
+   "agences": [
+    {
+     "nom": "Bourgoin Jallieu",
+     "adresse": "1 rue de la République, 38300 Bourgoin-Jallieu",
+     "tel": "04 28 35 11 55",
+     "url": "https://www.achat-or-et-argent.fr/agence-bourgoin-jallieu"
+    }
+   ]
+  },
+  {
+   "ville": "Brest",
+   "lat": 48.3944,
+   "lon": -4.4818,
+   "agences": [
+    {
+     "nom": "Brest",
+     "adresse": "93 rue Jean Jaurès, 29200 Brest",
+     "tel": "02 98 00 68 89",
+     "url": "https://www.achat-or-et-argent.fr/agence-brest"
+    }
+   ]
+  },
+  {
+   "ville": "Brive-la-Gaillarde",
+   "lat": 45.1628,
+   "lon": 1.5325,
+   "agences": [
+    {
+     "nom": "Brive la Gaillarde",
+     "adresse": "25 avenue de Paris, 19100 Brive-la-Gaillarde",
+     "tel": "05 55 17 33 50",
+     "url": "https://www.achat-or-et-argent.fr/agence-brive-la-gaillarde"
+    }
+   ]
+  },
+  {
+   "ville": "Béziers",
+   "lat": 43.343,
+   "lon": 3.2146,
+   "agences": [
+    {
+     "nom": "Béziers",
+     "adresse": "29 allées Paul Riquet, 34500 Béziers",
+     "tel": "04 67 45 75 91",
+     "url": "https://www.achat-or-et-argent.fr/agence-beziers"
+    }
+   ]
+  },
+  {
+   "ville": "Caen",
+   "lat": 49.1806,
+   "lon": -0.3582,
+   "agences": [
+    {
+     "nom": "Caen",
+     "adresse": "18 rue Saint-Jean, 14000 Caen",
+     "tel": "02 61 53 06 66",
+     "url": "https://www.achat-or-et-argent.fr/agence-caen"
+    }
+   ]
+  },
+  {
+   "ville": "Carcassonne",
+   "lat": 43.2126,
+   "lon": 2.3511,
+   "agences": [
+    {
+     "nom": "Carcassonne",
+     "adresse": "45 rue de Verdun, 11000 Carcassonne",
+     "tel": "04 48 23 02 02",
+     "url": "https://www.achat-or-et-argent.fr/agence-carcassonne"
+    }
+   ]
+  },
+  {
+   "ville": "Castres",
+   "lat": 43.607,
+   "lon": 2.2423,
+   "agences": [
+    {
+     "nom": "Castres",
+     "adresse": "1 quai du Carras, 81100 Castres",
+     "tel": "05 67 29 01 01",
+     "url": "https://www.achat-or-et-argent.fr/agence-castres"
+    }
+   ]
+  },
+  {
+   "ville": "Chalon-sur-Saône",
+   "lat": 46.7813,
+   "lon": 4.8568,
+   "agences": [
+    {
+     "nom": "Chalon sur Saône",
+     "adresse": "3 rue du Châtelet, 71100 Chalon-sur-Saône",
+     "tel": "03 10 45 15 95",
+     "url": "https://www.achat-or-et-argent.fr/agence-chalon-sur-saone"
+    }
+   ]
+  },
+  {
+   "ville": "Chambéry & Aix-les-Bains",
+   "lat": 45.6285,
+   "lon": 5.9156,
+   "agences": [
+    {
+     "nom": "Chambéry",
+     "adresse": "142 place Saint-Léger, 73000 Chambéry",
+     "tel": "04 79 26 11 68",
+     "url": "https://www.achat-or-et-argent.fr/agence-chambery"
+    },
+    {
+     "nom": "Aix les Bains",
+     "adresse": "278 rue de Genève, 73100 Aix-les-Bains",
+     "tel": "04 58 16 14 14",
+     "url": "https://www.achat-or-et-argent.fr/agence-aix-les-bains"
+    }
+   ]
+  },
+  {
+   "ville": "Chartres",
+   "lat": 48.4456,
+   "lon": 1.4884,
+   "agences": [
+    {
+     "nom": "Chartres",
+     "adresse": "23 rue de la Pie, 28000 Chartres",
+     "tel": "02 37 83 49 77",
+     "url": "contact.html"
+    }
+   ],
+   "local": true
+  },
+  {
+   "ville": "Clermont-Ferrand",
+   "lat": 45.7787,
+   "lon": 3.0834,
+   "agences": [
+    {
+     "nom": "Clermont-Ferrand",
+     "adresse": "50 rue des Gras, 63000 Clermont-Ferrand",
+     "tel": "06 79 90 89 33",
+     "url": "https://www.achat-or-et-argent.fr/agence-clermont-ferrand"
+    }
+   ]
+  },
+  {
+   "ville": "Colmar",
+   "lat": 48.0778,
+   "lon": 7.3538,
+   "agences": [
+    {
+     "nom": "Colmar",
+     "adresse": "7 place de l'École, 68000 Colmar",
+     "tel": "03 67 30 04 04",
+     "url": "https://www.achat-or-et-argent.fr/agence-colmar"
+    }
+   ]
+  },
+  {
+   "ville": "Côte d'Azur",
+   "lat": 43.6243,
+   "lon": 7.1411,
+   "agences": [
+    {
+     "nom": "Nice",
+     "adresse": "27 rue de l'Hôtel des Postes, 06000 Nice",
+     "tel": "04 22 13 13 08",
+     "url": "https://www.achat-or-et-argent.fr/agence-nice"
+    },
+    {
+     "nom": "Cannes",
+     "adresse": "42 rue des Serbes, 06400 Cannes",
+     "tel": "04 22 46 11 46",
+     "url": "https://www.achat-or-et-argent.fr/agence-cannes"
+    },
+    {
+     "nom": "Antibes",
+     "adresse": "4 place Général de Gaulle, 06600 Antibes",
+     "tel": "04 22 46 14 46",
+     "url": "https://www.achat-or-et-argent.fr/agence-antibes"
+    },
+    {
+     "nom": "Cagnes sur Mer",
+     "adresse": "10 avenue Auguste Renoir, 06800 Cagnes-sur-Mer",
+     "tel": "04 22 13 01 11",
+     "url": "https://www.achat-or-et-argent.fr/agence-cagnes-sur-mer"
+    }
+   ]
+  },
+  {
+   "ville": "Dijon",
+   "lat": 47.3218,
+   "lon": 5.0364,
+   "agences": [
+    {
+     "nom": "Dijon",
+     "adresse": "70 rue de la Liberté, 21000 Dijon",
+     "tel": "03 73 27 08 08",
+     "url": "https://www.achat-or-et-argent.fr/agence-dijon"
+    }
+   ]
+  },
+  {
+   "ville": "Grenoble",
+   "lat": 45.1865,
+   "lon": 5.7247,
+   "agences": [
+    {
+     "nom": "Grenoble",
+     "adresse": "9 place Victor Hugo, 38000 Grenoble",
+     "tel": "04 76 53 30 30",
+     "url": "https://www.achat-or-et-argent.fr/agence-grenoble"
+    },
+    {
+     "nom": "Grenoble République",
+     "adresse": "1 rue de la République, 38000 Grenoble",
+     "tel": "04 76 42 01 01",
+     "url": "https://www.achat-or-et-argent.fr/agence-grenoble-republique"
+    },
+    {
+     "nom": "Grenoble Foch",
+     "adresse": "33 boulevard Maréchal Foch, 38100 Grenoble",
+     "tel": "04 76 56 83 49",
+     "url": "https://www.achat-or-et-argent.fr/agence-grenoble-foch"
+    }
+   ]
+  },
+  {
+   "ville": "La Rochelle",
+   "lat": 46.1617,
+   "lon": -1.1482,
+   "agences": [
+    {
+     "nom": "La Rochelle",
+     "adresse": "10 rue Gambetta, 17000 La Rochelle",
+     "tel": "05 46 46 87 05",
+     "url": "https://www.achat-or-et-argent.fr/agence-la-rochelle"
+    }
+   ]
+  },
+  {
+   "ville": "Laval",
+   "lat": 48.0707,
+   "lon": -0.7756,
+   "agences": [
+    {
+     "nom": "Laval",
+     "adresse": "25 rue du Général de Gaulle, 53000 Laval",
+     "tel": "02 42 06 05 20",
+     "url": "https://www.achat-or-et-argent.fr/agence-laval"
+    }
+   ]
+  },
+  {
+   "ville": "Le Havre",
+   "lat": 49.4935,
+   "lon": 0.1099,
+   "agences": [
+    {
+     "nom": "Le Havre",
+     "adresse": "73/75 boulevard de Strasbourg, 76600 Le Havre",
+     "tel": "02 78 93 04 04",
+     "url": "https://www.achat-or-et-argent.fr/agence-le-havre"
+    }
+   ]
+  },
+  {
+   "ville": "Le Mans",
+   "lat": 48.0039,
+   "lon": 0.197,
+   "agences": [
+    {
+     "nom": "Le Mans",
+     "adresse": "19 place de la République, 72000 Le Mans",
+     "tel": "02 43 57 23 62",
+     "url": "https://www.achat-or-et-argent.fr/agence-le-mans"
+    }
+   ]
+  },
+  {
+   "ville": "Lille",
+   "lat": 50.6334,
+   "lon": 3.0604,
+   "agences": [
+    {
+     "nom": "Lille",
+     "adresse": "116 rue Léon Gambetta, 59000 Lille",
+     "tel": "03 20 92 85 03",
+     "url": "https://www.achat-or-et-argent.fr/agence-lille-gambetta"
+    },
+    {
+     "nom": "Lille 2",
+     "adresse": "48 rue Faidherbe, 59800 Lille",
+     "tel": "03 20 88 55 04",
+     "url": "https://www.achat-or-et-argent.fr/agence-lille-faidherbe"
+    }
+   ]
+  },
+  {
+   "ville": "Limoges",
+   "lat": 45.8306,
+   "lon": 1.2581,
+   "agences": [
+    {
+     "nom": "Limoges",
+     "adresse": "41 rue du Clocher, 87000 Limoges",
+     "tel": "09 51 32 73 01",
+     "url": "https://www.achat-or-et-argent.fr/agence-limoges"
+    }
+   ]
+  },
+  {
+   "ville": "Lorient",
+   "lat": 47.7499,
+   "lon": -3.362,
+   "agences": [
+    {
+     "nom": "Lorient",
+     "adresse": "2 place Alsace-Lorraine, 56100 Lorient",
+     "tel": "02 97 89 17 65",
+     "url": "https://www.achat-or-et-argent.fr/agence-lorient"
+    }
+   ]
+  },
+  {
+   "ville": "Lyon",
+   "lat": 45.7621,
+   "lon": 4.8167,
+   "agences": [
+    {
+     "nom": "Lyon 2",
+     "adresse": "5 rue Auguste Comte, 69002 Lyon",
+     "tel": "04 82 83 97 70",
+     "url": "https://www.achat-or-et-argent.fr/agence-lyon-2"
+    },
+    {
+     "nom": "Lyon",
+     "adresse": "28 avenue du Maréchal de Saxe, 69006 Lyon",
+     "tel": "04 82 83 97 70",
+     "url": "https://www.achat-or-et-argent.fr/agence-lyon"
+    },
+    {
+     "nom": "Tassin",
+     "adresse": "79 avenue de La République, 69160 Tassin-la-Demi-Lune",
+     "tel": "04 82 83 97 70",
+     "url": "https://www.achat-or-et-argent.fr/agence-tassin"
+    }
+   ]
+  },
+  {
+   "ville": "Marseille",
+   "lat": 43.2899,
+   "lon": 5.3786,
+   "agences": [
+    {
+     "nom": "Marseille Joliette",
+     "adresse": "109 rue de la République, 13002 Marseille",
+     "tel": "04 84 89 47 77",
+     "url": "https://www.achat-or-et-argent.fr/agence-marseille-joliette"
+    },
+    {
+     "nom": "Marseille",
+     "adresse": "65 rue Saint Ferréol, 13006 Marseille",
+     "tel": "04 91 66 45 04",
+     "url": "https://www.achat-or-et-argent.fr/agence-marseille"
+    },
+    {
+     "nom": "Marseille Castellane",
+     "adresse": "1 avenue du Prado, 13006 Marseille",
+     "tel": "04 34 48 04 05",
+     "url": "https://www.achat-or-et-argent.fr/agence-marseille-castellane"
+    },
+    {
+     "nom": "Marseille Paradis",
+     "adresse": "337 rue Paradis, 13008 Marseille",
+     "tel": "04 84 89 51 50",
+     "url": "https://www.achat-or-et-argent.fr/agence-marseille-paradis"
+    }
+   ]
+  },
+  {
+   "ville": "Menton",
+   "lat": 43.774,
+   "lon": 7.5007,
+   "agences": [
+    {
+     "nom": "Menton",
+     "adresse": "13 avenue Félix Faure, 06500 Menton",
+     "tel": "04 22 13 02 22",
+     "url": "https://www.achat-or-et-argent.fr/agence-menton"
+    }
+   ]
+  },
+  {
+   "ville": "Metz",
+   "lat": 49.1114,
+   "lon": 6.1724,
+   "agences": [
+    {
+     "nom": "Metz",
+     "adresse": "2 place Raymond Mondon, 57000 Metz",
+     "tel": "09 86 09 06 11",
+     "url": "https://www.achat-or-et-argent.fr/agence-metz"
+    }
+   ]
+  },
+  {
+   "ville": "Montauban",
+   "lat": 44.0176,
+   "lon": 1.3528,
+   "agences": [
+    {
+     "nom": "Montauban",
+     "adresse": "2 rue Fraîche, 82000 Montauban",
+     "tel": "05 82 73 05 05",
+     "url": "https://www.achat-or-et-argent.fr/agence-montauban"
+    }
+   ]
+  },
+  {
+   "ville": "Montpellier",
+   "lat": 43.6109,
+   "lon": 3.8749,
+   "agences": [
+    {
+     "nom": "Montpellier",
+     "adresse": "17 rue Foch, 34000 Montpellier",
+     "tel": "04 99 67 06 87",
+     "url": "https://www.achat-or-et-argent.fr/agence-montpellier"
+    }
+   ]
+  },
+  {
+   "ville": "Montélimar",
+   "lat": 44.5583,
+   "lon": 4.7509,
+   "agences": [
+    {
+     "nom": "Montélimar",
+     "adresse": "66 rue Pierre Julien, 26200 Montélimar",
+     "tel": "04 28 37 00 00",
+     "url": "https://www.achat-or-et-argent.fr/agence-montelimar"
+    }
+   ]
+  },
+  {
+   "ville": "Morteau",
+   "lat": 47.055,
+   "lon": 6.6077,
+   "agences": [
+    {
+     "nom": "Morteau",
+     "adresse": "3 rue de l'Helvetie, 25500 Morteau",
+     "tel": "03 81 43 26 61",
+     "url": "https://www.achat-or-et-argent.fr/agence-morteau"
+    }
+   ]
+  },
+  {
+   "ville": "Mulhouse",
+   "lat": 47.7457,
+   "lon": 7.3364,
+   "agences": [
+    {
+     "nom": "Mulhouse",
+     "adresse": "13 rue des Fleurs, 68100 Mulhouse",
+     "tel": "03 10 45 60 10",
+     "url": "https://www.achat-or-et-argent.fr/agence-mulhouse"
+    }
+   ]
+  },
+  {
+   "ville": "Nancy",
+   "lat": 48.6914,
+   "lon": 6.1841,
+   "agences": [
+    {
+     "nom": "Nancy",
+     "adresse": "31 bis rue Saint-Georges, 54000 Nancy",
+     "tel": "03 83 37 62 03",
+     "url": "https://www.achat-or-et-argent.fr/agence-nancy"
+    }
+   ]
+  },
+  {
+   "ville": "Nantes",
+   "lat": 47.216,
+   "lon": -1.556,
+   "agences": [
+    {
+     "nom": "Nantes",
+     "adresse": "22 rue des Halles, 44000 Nantes",
+     "tel": "02 85 52 34 34",
+     "url": "https://www.achat-or-et-argent.fr/agence-nantes"
+    }
+   ]
+  },
+  {
+   "ville": "Niort",
+   "lat": 46.3241,
+   "lon": -0.4652,
+   "agences": [
+    {
+     "nom": "Niort",
+     "adresse": "6 bis rue Sainte-Marthe, 79000 Niort",
+     "tel": "09 82 69 00 63",
+     "url": "https://www.achat-or-et-argent.fr/agence-niort"
+    }
+   ]
+  },
+  {
+   "ville": "Nîmes",
+   "lat": 43.8386,
+   "lon": 4.3539,
+   "agences": [
+    {
+     "nom": "Nîmes",
+     "adresse": "17 avenue du Général Perrier, 30900 Nîmes",
+     "tel": "04 66 76 93 80",
+     "url": "https://www.achat-or-et-argent.fr/agence-nimes"
+    }
+   ]
+  },
+  {
+   "ville": "Orléans",
+   "lat": 47.9033,
+   "lon": 1.9042,
+   "agences": [
+    {
+     "nom": "Orléans",
+     "adresse": "6 rue de la République, 45000 Orléans",
+     "tel": "02 38 77 80 59",
+     "url": "https://www.achat-or-et-argent.fr/agence-orleans"
+    }
+   ]
+  },
+  {
+   "ville": "Paris & Île-de-France",
+   "lat": 48.8262,
+   "lon": 2.2912,
+   "agences": [
+    {
+     "nom": "Paris",
+     "adresse": "26 rue Vivienne, 75002 Paris",
+     "tel": "01 42 33 00 00",
+     "url": "https://www.achat-or-et-argent.fr/agence-paris"
+    },
+    {
+     "nom": "Panthéon",
+     "adresse": "14 rue Soufflot, 75005 Paris",
+     "tel": "01 43 54 96 20",
+     "url": "https://www.achat-or-et-argent.fr/agence-paris-5-pantheon"
+    },
+    {
+     "nom": "Paris 7 - Raspail",
+     "adresse": "40 boulevard Raspail, 75007 Paris",
+     "tel": "01 89 16 41 41",
+     "url": "https://www.achat-or-et-argent.fr/agence-paris-7-raspail"
+    },
+    {
+     "nom": "Paris Saint Dominique",
+     "adresse": "45 avenue Rapp/124 rue Saint-Dominique, 75007 Paris",
+     "tel": "01 85 09 13 13",
+     "url": "https://www.achat-or-et-argent.fr/agence-paris-saint-dominique"
+    },
+    {
+     "nom": "Paris 8",
+     "adresse": "111 rue du Faubourg Saint Honoré, 75008 Paris",
+     "tel": "01 83 64 36 36",
+     "url": "https://www.achat-or-et-argent.fr/agence-paris-8-elysee"
+    },
+    {
+     "nom": "Paris 11 Saint-Antoine",
+     "adresse": "117 rue du Faubourg Saint-Antoine, 75011 Paris",
+     "tel": "01 85 09 09 02",
+     "url": "https://www.achat-or-et-argent.fr/agence-paris-11-saint-antoine"
+    },
+    {
+     "nom": "Paris 14",
+     "adresse": "33 avenue du Général Leclerc, 75014 Paris",
+     "tel": "01 83 64 41 11",
+     "url": "https://www.achat-or-et-argent.fr/agence-paris-14"
+    },
+    {
+     "nom": "Paris 15",
+     "adresse": "17 rue Cambronne, 75015 Paris",
+     "tel": "01 83 62 22 22",
+     "url": "https://www.achat-or-et-argent.fr/agence-paris-15"
+    },
+    {
+     "nom": "Auteuil",
+     "adresse": "38 rue d'Auteuil, 75016 Paris",
+     "tel": "01 85 09 09 08",
+     "url": "https://www.achat-or-et-argent.fr/agence-auteuil"
+    },
+    {
+     "nom": "Paris 16",
+     "adresse": "55 rue de la Pompe, 75016 Paris",
+     "tel": "01 45 04 15 15",
+     "url": "https://www.achat-or-et-argent.fr/agence-paris-16"
+    },
+    {
+     "nom": "Paris 17",
+     "adresse": "158 rue de Courcelles, 75017 Paris",
+     "tel": "01 83 64 31 11",
+     "url": "https://www.achat-or-et-argent.fr/agence-paris-17"
+    },
+    {
+     "nom": "Fontainebleau",
+     "adresse": "100 rue Grande, 77300 Fontainebleau",
+     "tel": "01 85 48 03 03",
+     "url": "https://www.achat-or-et-argent.fr/agence-fontainebleau"
+    },
+    {
+     "nom": "Versailles",
+     "adresse": "26 avenue de Saint-Cloud, 78000 Versailles",
+     "tel": "01 39 50 70 70",
+     "url": "https://www.achat-or-et-argent.fr/agence-versailles"
+    },
+    {
+     "nom": "Versailles Mairie",
+     "adresse": "8 rue des Etats Généraux, 78000 Versailles",
+     "tel": "01 84 73 07 07",
+     "url": "https://www.achat-or-et-argent.fr/agence-versailles-mairie"
+    },
+    {
+     "nom": "Saint Germain en Laye",
+     "adresse": "56 rue de Poissy, 78100 Saint Germain en Laye",
+     "tel": "01 85 39 16 16",
+     "url": "https://www.achat-or-et-argent.fr/agence-saint-germain-en-laye"
+    },
+    {
+     "nom": "Rambouillet",
+     "adresse": "45 rue du Général de Gaulle, 78120 Rambouillet",
+     "tel": "01 85 77 15 15",
+     "url": "https://www.achat-or-et-argent.fr/agence-rambouillet"
+    },
+    {
+     "nom": "Boulogne-Billancourt",
+     "adresse": "43 avenue Jean Baptiste Clement, 92100 Boulogne-Billancourt",
+     "tel": "01 84 19 16 16",
+     "url": "https://www.achat-or-et-argent.fr/agence-boulogne"
+    },
+    {
+     "nom": "Montrouge",
+     "adresse": "71 avenue de la République, 92120 Montrouge",
+     "tel": "01 84 74 06 26",
+     "url": "https://www.achat-or-et-argent.fr/agence-montrouge"
+    },
+    {
+     "nom": "Issy les Moulineaux",
+     "adresse": "50 rue du Général Leclerc, 92130 Issy-les-Moulineaux",
+     "tel": "01 84 19 10 10",
+     "url": "https://www.achat-or-et-argent.fr/agence-issy-les-moulineaux"
+    },
+    {
+     "nom": "Antony",
+     "adresse": "7 avenue de la Division Leclerc, 92160 Antony",
+     "tel": "01 84 19 17 17",
+     "url": "https://www.achat-or-et-argent.fr/agence-antony"
+    },
+    {
+     "nom": "Neuilly-sur-Seine Château",
+     "adresse": "10 rue du Château, 92200 Neuilly-sur-Seine",
+     "tel": "01 86 95 36 36",
+     "url": "https://www.achat-or-et-argent.fr/agence-neuilly-chateau"
+    },
+    {
+     "nom": "Neuilly-sur-Seine Peretti",
+     "adresse": "145 avenue Achille Peretti, 92200 Neuilly-sur-Seine",
+     "tel": "01 84 20 15 14",
+     "url": "https://www.achat-or-et-argent.fr/agence-neuilly-peretti"
+    },
+    {
+     "nom": "Levallois-Perret",
+     "adresse": "73 rue du président Wilson, 92300 Levallois-Perret",
+     "tel": "01 84 20 20 60",
+     "url": "https://www.achat-or-et-argent.fr/agence-levallois-perret"
+    },
+    {
+     "nom": "Courbevoie",
+     "adresse": "40 rue de Bezons, 92400 Courbevoie",
+     "tel": "01 84 20 20 99",
+     "url": "https://www.achat-or-et-argent.fr/agence-courbevoie"
+    },
+    {
+     "nom": "Rueil Malmaison",
+     "adresse": "1 place de l'Eglise, 92500 Rueil-Malmaison",
+     "tel": "01 84 20 20 80",
+     "url": "https://www.achat-or-et-argent.fr/agence-rueil-malmaison"
+    },
+    {
+     "nom": "Nogent-sur-Marne",
+     "adresse": "145 grande rue Charles de Gaulle, 94130 Nogent-sur-Marne",
+     "tel": "01 84 23 20 20",
+     "url": "https://www.achat-or-et-argent.fr/agence-nogent-sur-marne"
+    },
+    {
+     "nom": "Saint-Maur-des-Fossés",
+     "adresse": "82 Avenue du Bac, 94210 Saint-Maur-des-Fossés",
+     "tel": "01 84 23 20 23",
+     "url": "https://www.achat-or-et-argent.fr/agence-saint-maur-des-fosses"
+    },
+    {
+     "nom": "Vincennes",
+     "adresse": "32 avenue du Château, 94300 Vincennes",
+     "tel": "01 84 23 19 19",
+     "url": "https://www.achat-or-et-argent.fr/agence-vincennes"
+    }
+   ]
+  },
+  {
+   "ville": "Pau",
+   "lat": 43.2958,
+   "lon": -0.3695,
+   "agences": [
+    {
+     "nom": "Pau",
+     "adresse": "3 rue Maréchal Joffre, 64000 Pau",
+     "tel": "09 78 81 14 40",
+     "url": "https://www.achat-or-et-argent.fr/agence-pau"
+    }
+   ]
+  },
+  {
+   "ville": "Perpignan",
+   "lat": 42.6992,
+   "lon": 2.8907,
+   "agences": [
+    {
+     "nom": "Perpignan",
+     "adresse": "3 rue Justin Bardou Job, 66000 Perpignan",
+     "tel": "04 48 07 04 48",
+     "url": "https://www.achat-or-et-argent.fr/agence-perpignan"
+    }
+   ]
+  },
+  {
+   "ville": "Poitiers",
+   "lat": 46.5826,
+   "lon": 0.3417,
+   "agences": [
+    {
+     "nom": "Poitiers",
+     "adresse": "21 rue du Marché Notre Dame, 86000 Poitiers",
+     "tel": "09 82 56 32 40",
+     "url": "https://www.achat-or-et-argent.fr/agence-poitiers"
+    }
+   ]
+  },
+  {
+   "ville": "Quimper",
+   "lat": 47.9953,
+   "lon": -4.1044,
+   "agences": [
+    {
+     "nom": "Quimper",
+     "adresse": "21 rue Saint-François, 29000 Quimper",
+     "tel": "02 22 94 00 02",
+     "url": "https://www.achat-or-et-argent.fr/agence-quimper"
+    }
+   ]
+  },
+  {
+   "ville": "Reims",
+   "lat": 49.2536,
+   "lon": 4.0283,
+   "agences": [
+    {
+     "nom": "Reims",
+     "adresse": "48 rue de Vesle, 51100 Reims",
+     "tel": "03 26 47 86 92",
+     "url": "https://www.achat-or-et-argent.fr/agence-reims"
+    }
+   ]
+  },
+  {
+   "ville": "Rennes",
+   "lat": 48.1132,
+   "lon": -1.6795,
+   "agences": [
+    {
+     "nom": "Rennes",
+     "adresse": "11 rue le Bastard, 35000 Rennes",
+     "tel": "02 23 61 25 52",
+     "url": "https://www.achat-or-et-argent.fr/agence-rennes"
+    }
+   ]
+  },
+  {
+   "ville": "Rochefort",
+   "lat": 45.9494,
+   "lon": -0.9766,
+   "agences": [
+    {
+     "nom": "Rochefort",
+     "adresse": "60 avenue du Docteur Dieras, 17300 Rochefort",
+     "tel": "05 46 41 48 57",
+     "url": "https://www.achat-or-et-argent.fr/agence-rochefort"
+    }
+   ]
+  },
+  {
+   "ville": "Rodez",
+   "lat": 44.35,
+   "lon": 2.5727,
+   "agences": [
+    {
+     "nom": "Rodez",
+     "adresse": "5 rue Monteil, 12000 Rodez",
+     "tel": "05 19 98 07 60",
+     "url": "https://www.achat-or-et-argent.fr/agence-rodez"
+    }
+   ]
+  },
+  {
+   "ville": "Rouen",
+   "lat": 49.4442,
+   "lon": 1.0918,
+   "agences": [
+    {
+     "nom": "Rouen",
+     "adresse": "13 rue Jeanne D’Arc, 76000 Rouen",
+     "tel": "02 78 77 64 64",
+     "url": "https://www.achat-or-et-argent.fr/agence-rouen"
+    }
+   ]
+  },
+  {
+   "ville": "Saint-Brieuc",
+   "lat": 48.5115,
+   "lon": -2.7612,
+   "agences": [
+    {
+     "nom": "Saint Brieuc",
+     "adresse": "6 place du Guesclin, 22000 Saint-Brieuc",
+     "tel": "02 96 60 45 76",
+     "url": "https://www.achat-or-et-argent.fr/agence-saint-brieuc"
+    }
+   ]
+  },
+  {
+   "ville": "Saint-Jean-de-Luz",
+   "lat": 43.3879,
+   "lon": -1.6605,
+   "agences": [
+    {
+     "nom": "Saint-Jean-de-Luz",
+     "adresse": "40 boulevard Victor Hugo, 64500 Saint-Jean-de-Luz",
+     "tel": "05 64 11 08 88",
+     "url": "https://www.achat-or-et-argent.fr/agence-saint-jean-de-luz"
+    }
+   ]
+  },
+  {
+   "ville": "Saint-Malo",
+   "lat": 48.6339,
+   "lon": -2.0138,
+   "agences": [
+    {
+     "nom": "Saint Malo",
+     "adresse": "3 place Maréchal Leclerc, 35400 Saint-Malo",
+     "tel": "02 99 19 54 67",
+     "url": "https://www.achat-or-et-argent.fr/agence-saint-malo"
+    }
+   ]
+  },
+  {
+   "ville": "Saint-Quentin",
+   "lat": 49.8467,
+   "lon": 3.2891,
+   "agences": [
+    {
+     "nom": "Saint Quentin",
+     "adresse": "16 rue des Toiles, 02100 Saint-Quentin",
+     "tel": "03 65 99 10 10",
+     "url": "https://www.achat-or-et-argent.fr/agence-saint-quentin"
+    }
+   ]
+  },
+  {
+   "ville": "Saint-Étienne",
+   "lat": 45.4369,
+   "lon": 4.3866,
+   "agences": [
+    {
+     "nom": "Saint-Étienne",
+     "adresse": "2 bis rue Sainte-Catherine, 42000 Saint Etienne",
+     "tel": "04 82 83 58 28",
+     "url": "https://www.achat-or-et-argent.fr/agence-saint-etienne"
+    }
+   ]
+  },
+  {
+   "ville": "Salon-de-Provence",
+   "lat": 43.6412,
+   "lon": 5.0981,
+   "agences": [
+    {
+     "nom": "Salon-de-Provence",
+     "adresse": "68 cours Victor Hugo, 13300 Salon-de-Provence",
+     "tel": "04 65 01 01 30",
+     "url": "https://www.achat-or-et-argent.fr/agence-salon-de-provence"
+    }
+   ]
+  },
+  {
+   "ville": "Strasbourg",
+   "lat": 48.5828,
+   "lon": 7.7414,
+   "agences": [
+    {
+     "nom": "Strasbourg",
+     "adresse": "23 rue du 22 Novembre, 67000 Strasbourg",
+     "tel": "03 67 10 10 07",
+     "url": "https://www.achat-or-et-argent.fr/agence-strasbourg"
+    }
+   ]
+  },
+  {
+   "ville": "Sète",
+   "lat": 43.4032,
+   "lon": 3.6954,
+   "agences": [
+    {
+     "nom": "Sète",
+     "adresse": "23 rue Gambetta, 34200 Sète",
+     "tel": "04 48 14 12 13",
+     "url": "https://www.achat-or-et-argent.fr/agence-sete"
+    }
+   ]
+  },
+  {
+   "ville": "Toulon & Hyères",
+   "lat": 43.1225,
+   "lon": 5.9968,
+   "agences": [
+    {
+     "nom": "Toulon",
+     "adresse": "26 rue d'Alger, 83000 Toulon",
+     "tel": "04 94 64 34 35",
+     "url": "https://www.achat-or-et-argent.fr/agence-toulon"
+    },
+    {
+     "nom": "Toulon 2",
+     "adresse": "34 boulevard de Strasbourg, 83000 Toulon",
+     "tel": "04 34 48 05 00",
+     "url": "https://www.achat-or-et-argent.fr/agence-toulon-2"
+    },
+    {
+     "nom": "Hyères",
+     "adresse": "2-4 avenue du Général de Gaulle, 83400 Hyères",
+     "tel": "04 94 33 87 03",
+     "url": "https://www.achat-or-et-argent.fr/agence-hyeres"
+    }
+   ]
+  },
+  {
+   "ville": "Toulouse",
+   "lat": 43.6003,
+   "lon": 1.4432,
+   "agences": [
+    {
+     "nom": "Toulouse Centre",
+     "adresse": "2 bis rue Alsace Lorraine, 31000 Toulouse",
+     "tel": "05 82 95 05 05",
+     "url": "https://www.achat-or-et-argent.fr/agence-toulouse-centre"
+    }
+   ]
+  },
+  {
+   "ville": "Tours",
+   "lat": 47.3927,
+   "lon": 0.6868,
+   "agences": [
+    {
+     "nom": "Tours",
+     "adresse": "11 rue Néricault Destouches, 37000 Tours",
+     "tel": "02 47 47 12 71",
+     "url": "https://www.achat-or-et-argent.fr/agence-tours"
+    }
+   ]
+  },
+  {
+   "ville": "Troyes",
+   "lat": 48.2983,
+   "lon": 4.0739,
+   "agences": [
+    {
+     "nom": "Troyes",
+     "adresse": "2 rue de la République, 10000 Troyes",
+     "tel": "03 10 94 08 08",
+     "url": "https://www.achat-or-et-argent.fr/agence-troyes"
+    }
+   ]
+  },
+  {
+   "ville": "Valence",
+   "lat": 44.9313,
+   "lon": 4.8893,
+   "agences": [
+    {
+     "nom": "Valence",
+     "adresse": "26 rue Emile Augier, 26000 Valence",
+     "tel": "04 75 85 05 12",
+     "url": "https://www.achat-or-et-argent.fr/agence-valence"
+    }
+   ]
+  },
+  {
+   "ville": "Valenciennes",
+   "lat": 50.3566,
+   "lon": 3.5242,
+   "agences": [
+    {
+     "nom": "Valenciennes",
+     "adresse": "74 Ter rue du Quesnoy, 59300 Valenciennes",
+     "tel": "03 27 47 11 11",
+     "url": "https://www.achat-or-et-argent.fr/agence-valenciennes"
+    }
+   ]
+  },
+  {
+   "ville": "Vannes",
+   "lat": 47.6543,
+   "lon": -2.7576,
+   "agences": [
+    {
+     "nom": "Vannes",
+     "adresse": "2 Place du Marechal Joffre, 56000 Vannes",
+     "tel": "02 97 68 92 92",
+     "url": "https://www.achat-or-et-argent.fr/agence-vannes"
+    }
+   ]
+  },
+  {
+   "ville": "Vichy",
+   "lat": 46.1219,
+   "lon": 3.4235,
+   "agences": [
+    {
+     "nom": "Vichy",
+     "adresse": "20 rue Maréchal Foch, 03200 Vichy",
+     "tel": "07 83 59 61 05",
+     "url": "https://www.achat-or-et-argent.fr/agence-vichy"
+    }
+   ]
+  },
+  {
+   "ville": "Monaco, étranger & outre-mer",
+   "nopin": true,
+   "agences": [
+    {
+     "nom": "Guadeloupe",
+     "adresse": "Boulevard de Houelbourg, 97122 Baie-Mahault",
+     "tel": "05 90 86 22 22",
+     "url": "https://www.achat-or-et-argent.fr/agence-guadeloupe"
+    },
+    {
+     "nom": "Lausanne",
+     "adresse": "Rue Caroline 5, 1003 Lausanne",
+     "tel": "+41 21 512 44 68",
+     "url": "https://www.achat-or-et-argent.fr/agence-lausanne"
+    },
+    {
+     "nom": "Lugano",
+     "adresse": "Via Nassa 32, 6900 Lugano",
+     "tel": "+41 91 252 22 55",
+     "url": "https://www.achat-or-et-argent.fr/agence-lugano"
+    },
+    {
+     "nom": "Luxembourg",
+     "adresse": "68 rue de Strasbourg, 2560 Luxembourg",
+     "tel": "(+352) 26 77 09 33",
+     "url": "https://www.achat-or-et-argent.fr/agence-luxembourg"
+    },
+    {
+     "nom": "Monaco",
+     "adresse": "38 boulevard des Moulins, 98000 Monaco",
+     "tel": "+377 99 92 26 21",
+     "url": "https://www.achat-or-et-argent.fr/agence-monaco"
+    },
+    {
+     "nom": "Saint Barthélemy",
+     "adresse": "4 rue du bord de mer, 97133 Gustavia",
+     "tel": "0590 510 720",
+     "url": "https://www.achat-or-et-argent.fr/agence-saint-barthelemy"
+    }
+   ]
+  }
+ ]
 }

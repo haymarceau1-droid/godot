@@ -1510,3 +1510,6 @@ main, .site-footer { overflow-x: clip; }
   .review-avatar { width: 38px; height: 38px; }
   .reviews-nav { margin-top: .2rem; }
 }
+
+/* Réseau : les longues listes (Paris & Île-de-France) défilent dans le panneau */
+.panel .agences { max-height: min(62vh, 520px); overflow-y: auto; padding-right: .6rem; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: var(--gold) transparent; }

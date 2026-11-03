@@ -18,6 +18,7 @@ const path = geoPath(projection).digits(1);
 
 const data = JSON.parse(readFileSync("agences.json", "utf8"));
 const villes = data.villes.map((v) => {
+  if (v.nopin) return v; // Monaco, étranger, outre-mer : listés sans point sur la carte
   const [x, y] = projection([v.lon, v.lat]);
   return { ...v, x: +x.toFixed(1), y: +y.toFixed(1) };
 });

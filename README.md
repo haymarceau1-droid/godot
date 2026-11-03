@@ -82,3 +82,9 @@ puis ouvrir http://localhost:8000
 - Le navigateur ne contacte donc aucun service tiers : pas de consentement nécessaire, aucune clé exposée.
 - Si l'API est indisponible (ou hors Vercel, par exemple en local), le bloc reste simplement masqué.
 - Les cours affichés sont des cours spot indicatifs, pas les prix de l'agence ; la mention figure sous le bloc.
+
+## Réseau d'agences (carte de l'accueil)
+
+- Les agences viennent de la liste officielle https://www.achat-or-et-argent.fr/agences-liste (125 agences : nom, adresse, téléphone, GPS).
+- Pour la mettre à jour : `python3 tools/geo/import-agences.py`, puis `cd tools/geo && npm install && node make-map.mjs`, puis `python3 tools/build.py`.
+- Les agences proches (moins de 20 km) partagent un point de la carte ; l'Île-de-France forme un seul point. Monaco, la Suisse, le Luxembourg et l'outre-mer sont listés sans point sur la carte.

@@ -377,23 +377,33 @@ def slug(t):
 
 GROUP_TITLES = {"Île-de-France": "Paris &amp; Île-de-France", "Hauts-de-France": "Hauts-de-France", "Savoie": "Savoie"}
 
+def tel_href(t):
+    d = re.sub(r"[^\d+]", "", t)
+    if d.startswith("+"):
+        return d
+    if d.startswith("00"):
+        return "+" + d[2:]
+    if d.startswith(("0590", "0690", "0694", "0596", "0262", "0692")):   # outre-mer : numérotation nationale
+        return d
+    return "+33" + d[1:] if d.startswith("0") else d
+
 def reseau_section():
     m = json.load(open(os.path.join(ROOT, "tools", "geo", "france-map.json"), encoding="utf-8"))
     groups = {}
     for v in m["villes"]:
         key = v.get("pin", v["ville"])
-        g = groups.setdefault(key, {"titre": GROUP_TITLES.get(key, key), "x": v["x"], "y": v["y"], "local": False, "agences": []})
+        g = groups.setdefault(key, {"titre": GROUP_TITLES.get(key, key).replace("&amp;", "&").replace("&", "&amp;"), "x": v.get("x"), "y": v.get("y"), "local": False, "agences": []})
         g["local"] = g["local"] or v.get("local", False)
         g["agences"] += v["agences"]
     n_ag = sum(len(g["agences"]) for g in groups.values())
-    n_vi = len(m["villes"])
+    n_vi = len([v for v in m["villes"] if not v.get("nopin")])
     pins, chips, panels = [], [], []
     for key, g in sorted(groups.items(), key=lambda kv: kv[1]["titre"].replace("Î", "I")):
         sid, n = "p-" + slug(key), len(g["agences"])
         r = min(6 + (n - 1) * 1.1, 12)
         cls = "pin pin-local" if g["local"] else "pin"
         label = f'{g["titre"]}, {n} agence{"s" if n > 1 else ""}'.replace("&amp;", "et")
-        pins.append(f'''          <g class="{cls}" data-target="{sid}" tabindex="0" role="button" aria-label="{label}" transform="translate({g["x"]} {g["y"]})">
+        if g["x"] is not None: pins.append(f'''          <g class="{cls}" data-target="{sid}" tabindex="0" role="button" aria-label="{label}" transform="translate({g["x"]} {g["y"]})">
             <circle class="pin-hit" r="18"/><circle class="pin-halo" r="{r + 5:.1f}"/><circle class="pin-dot" r="{r:.1f}"/>
             <title>{g["titre"]}</title>
           </g>''')
@@ -402,7 +412,7 @@ def reseau_section():
         for a in g["agences"]:
             adr = a.get("adresse") or "Adresse à confirmer auprès de l'agence"
             adr = adr.replace("&", "&amp;")
-            tel = f'<a href="tel:+33{a["tel"].replace(" ", "")[1:]}">{a["tel"]}</a>' if a.get("tel") else ""
+            tel = f'<a href="tel:{tel_href(a["tel"])}">{a["tel"]}</a>' if a.get("tel") else ""
             ext = a.get("url")
             link = ""
             if ext:
@@ -443,7 +453,7 @@ def reseau_section():
         <ul class="chips">
 {chr(10).join(chips)}
         </ul>
-        <p class="map-note">{n_vi} villes et {n_ag} agences référencées. Liste établie à partir de sources publiques : le réseau évolue, retrouvez la <a class="text-link-light" href="{m["officielle"]}" target="_blank" rel="noopener">liste officielle des agences</a>.</p>
+        <p class="map-note">{n_ag} agences du réseau, regroupées en {n_vi} points. Liste issue de la <a class="text-link-light" href="{m["officielle"]}" target="_blank" rel="noopener">liste officielle des agences</a> : le réseau évolue, consultez-la pour les dernières ouvertures.</p>
       </div>
     </section>'''
 
