@@ -331,47 +331,54 @@
   });
 })();
 
-// ---------------------------------------------------------------- Comparateur de placements : courbes + simulateur
+// ---------------------------------------------------------------- Comparateur de placements : courbes + simulateur (inflation déduite)
 (function () {
   var dataEl = document.getElementById('cmp-data');
   if (!dataEl) return;
-  var D = JSON.parse(dataEl.textContent), S = D.series, YEARS = [2000].concat(D.years);
+  var D = JSON.parse(dataEl.textContent), ALL = D.series, YEARS = [2000].concat(D.years);
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var INF = ALL.filter(function (s) { return s.ref; })[0];
+  var A = ALL.filter(function (s) { return !s.ref; });
+  var state = { real: true, start: 2000, scale: 'log', hidden: {}, cursor: null };
 
-  // Niveaux cumulés : indice 0 = fin 2000 (base 100), puis une valeur par année
-  S.forEach(function (s) {
-    s.levels = [100];
-    s.returns.forEach(function (r) { s.levels.push(s.levels[s.levels.length - 1] * (1 + r / 100)); });
-  });
-  var byId = {}; S.forEach(function (s) { byId[s.id] = s; });
+  // Niveaux cumulés (indice 0 = fin 2000, base 100) pour chaque placement et pour les prix
+  function levels(r) { var l = [100]; r.forEach(function (x) { l.push(l[l.length - 1] * (1 + x / 100)); }); return l; }
+  A.forEach(function (s) { s.levels = levels(s.returns); });
+  var P = levels(INF.returns);
+  var byId = {}; A.forEach(function (s) { byId[s.id] = s; });
+
   var fr = function (n, d) { return n.toLocaleString('fr-FR', { minimumFractionDigits: d || 0, maximumFractionDigits: d || 0 }); };
   var mult = function (v) { var m = v / 100; return '× ' + (m < 10 ? fr(m, 1) : fr(m, 0)); };
-  var short = { or: 'Or', sp: 'S&P 500', immo: 'Immobilier', livret: 'Livret A', infl: 'Inflation' };
+  var short = { or: 'Or', sp: 'S&P 500', immo: 'Immobilier', livret: 'Livret A' };
+  var cagr = function (r, n) { var p = 1; r.slice(-n).forEach(function (x) { p *= 1 + x / 100; }); return Math.pow(p, 1 / n) - 1; };
+  var pct = new Intl.NumberFormat('fr-FR', { style: 'percent', minimumFractionDigits: 1, maximumFractionDigits: 1, signDisplay: 'always' });
+  var pf = function (x) { return pct.format(x).replace('-', '−'); };
+  var eur = new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 });
+  var realRet = function (r) { return r.map(function (x, i) { return ((1 + x / 100) / (1 + INF.returns[i] / 100) - 1) * 100; }); };
+
+  var listeners = [];   // fonctions à rappeler quand on (dés)active la déduction de l'inflation
 
   // ================================================================ GRAPHIQUE
   var root = document.querySelector('[data-cmp]');
   if (root) {
     var host = root.querySelector('[data-cmp-chart]'), tip = root.querySelector('.cmp-tip');
-    var state = { start: 2000, scale: 'log', hidden: {}, cursor: null };
     host.tabIndex = 0;
-
     var svgNS = 'http://www.w3.org/2000/svg';
     var LOG_TICKS = [20, 30, 50, 70, 100, 150, 200, 300, 500, 700, 1000, 1500, 2000, 3000, 5000];
-
-    function niceStep(range) {
-      var raw = range / 5, p = Math.pow(10, Math.floor(Math.log10(raw))), f = raw / p;
-      return (f <= 1 ? 1 : f <= 2 ? 2 : f <= 5 ? 5 : 10) * p;
-    }
+    function niceStep(range) { var raw = range / 5, p = Math.pow(10, Math.floor(Math.log10(raw))), f = raw / p; return (f <= 1 ? 1 : f <= 2 ? 2 : f <= 5 ? 5 : 10) * p; }
 
     function render() {
       var W = Math.max(280, host.clientWidth), narrow = W < 560;
       var H = narrow ? 340 : Math.round(Math.min(470, W * 0.48));
       var ml = narrow ? 44 : 54, mr = narrow ? 58 : 128, mt = 14, mb = 30;
       var i0 = YEARS.indexOf(state.start), n = YEARS.length - 1;
-      var vis = S.filter(function (s) { return !state.hidden[s.id]; });
+      var vis = A.filter(function (s) { return !state.hidden[s.id]; });
       var pts = {};
       vis.forEach(function (s) {
-        pts[s.id] = YEARS.slice(i0).map(function (y, k) { return 100 * s.levels[i0 + k] / s.levels[i0]; });
+        pts[s.id] = YEARS.slice(i0).map(function (y, k) {
+          var v = 100 * s.levels[i0 + k] / s.levels[i0];
+          return state.real ? v / (P[i0 + k] / P[i0]) : v;          // inflation déduite : on divise par l'indice des prix
+        });
       });
       var vmin = 100, vmax = 100;
       vis.forEach(function (s) { pts[s.id].forEach(function (v) { vmin = Math.min(vmin, v); vmax = Math.max(vmax, v); }); });
@@ -381,8 +388,7 @@
         hi = LOG_TICKS.filter(function (t) { return t >= vmax * 1.03; })[0] || LOG_TICKS[LOG_TICKS.length - 1];
         ticks = LOG_TICKS.filter(function (t) { return t >= lo && t <= hi; });
       } else {
-        var step = niceStep(vmax - 0);
-        lo = 0; hi = Math.ceil(vmax * 1.04 / step) * step;
+        var step = niceStep(vmax); lo = 0; hi = Math.ceil(vmax * 1.04 / step) * step;
         for (var t = 0; t <= hi + 1e-9; t += step) ticks.push(t);
       }
       var X = function (k) { return ml + (k / (n - i0)) * (W - ml - mr); };
@@ -393,30 +399,24 @@
       var sp = n - i0, xs = sp > 16 ? 5 : sp > 8 ? 2 : 1;
       var out = '<svg class="cmp-svg" width="' + W + '" height="' + H + '" viewBox="0 0 ' + W + ' ' + H + '" aria-hidden="true">';
       ticks.forEach(function (t) {
-        out += '<line class="cmp-grid" x1="' + ml + '" x2="' + (W - mr) + '" y1="' + Y(t).toFixed(1) + '" y2="' + Y(t).toFixed(1) + '"/>' +
+        out += '<line class="cmp-grid' + (t === 100 ? ' cmp-base' : '') + '" x1="' + ml + '" x2="' + (W - mr) + '" y1="' + Y(t).toFixed(1) + '" y2="' + Y(t).toFixed(1) + '"/>' +
                '<text class="cmp-tick" x="' + (ml - 8) + '" y="' + (Y(t) + 4).toFixed(1) + '" text-anchor="end">' + fr(t) + '</text>';
       });
-      for (var k = 0; k <= sp; k++) {
-        if (k % xs === 0) out += '<text class="cmp-tick" x="' + X(k).toFixed(1) + '" y="' + (H - 8) + '" text-anchor="middle">' + YEARS[i0 + k] + '</text>';
-      }
-      // lignes
+      for (var k = 0; k <= sp; k++) if (k % xs === 0) out += '<text class="cmp-tick" x="' + X(k).toFixed(1) + '" y="' + (H - 8) + '" text-anchor="middle">' + YEARS[i0 + k] + '</text>';
       vis.forEach(function (s) {
         var d = pts[s.id].map(function (v, kk) { return (kk ? 'L' : 'M') + X(kk).toFixed(1) + ' ' + Y(v).toFixed(1); }).join(' ');
-        out += '<path class="cmp-line" pathLength="1" d="' + d + '" stroke="' + s.color + '"' + (s.dashed ? ' stroke-dasharray="5 5" data-dashed="1"' : '') + '/>';
+        out += '<path class="cmp-line" pathLength="1" d="' + d + '" stroke="' + s.color + '"/>';
       });
-      // étiquettes de fin, décalées pour ne pas se chevaucher
       var labs = vis.map(function (s) { var v = pts[s.id][sp]; return { s: s, y: Y(v), v: v }; }).sort(function (a, b) { return a.y - b.y; });
       for (var q = 1; q < labs.length; q++) if (labs[q].y - labs[q - 1].y < 15) labs[q].y = labs[q - 1].y + 15;
       labs.forEach(function (l) {
         out += '<circle cx="' + X(sp).toFixed(1) + '" cy="' + Y(l.v).toFixed(1) + '" r="3.6" fill="' + l.s.color + '"/>' +
-               '<text class="cmp-end" x="' + (X(sp) + 9).toFixed(1) + '" y="' + (l.y + 4).toFixed(1) + '" fill="' + l.s.color + '">' +
-               (narrow ? mult(l.v) : short[l.s.id] + ' ' + mult(l.v)) + '</text>';
+               '<text class="cmp-end" x="' + (X(sp) + 9).toFixed(1) + '" y="' + (l.y + 4).toFixed(1) + '" fill="' + l.s.color + '">' + (narrow ? mult(l.v) : short[l.s.id] + ' ' + mult(l.v)) + '</text>';
       });
-      out += '<g class="cmp-cursor" hidden><line y1="' + mt + '" y2="' + (H - mb) + '"/></g>';
-      out += '</svg>';
+      out += '<g class="cmp-cursor" hidden><line y1="' + mt + '" y2="' + (H - mb) + '"/></g></svg>';
       host.innerHTML = out;
       host._geo = { X: X, Y: Y, pts: pts, vis: vis, i0: i0, sp: sp, W: W, H: H, ml: ml, mr: mr, mt: mt, mb: mb };
-      host.setAttribute('aria-label', 'Courbes comparées depuis ' + state.start + ' (base 100). ' + labs.map(function (l) { return short[l.s.id] + ' ' + mult(l.v); }).join(', ') + '.');
+      host.setAttribute('aria-label', 'Courbes comparées depuis ' + state.start + ', base 100, ' + (state.real ? 'inflation déduite' : 'avant inflation') + '. ' + labs.map(function (l) { return short[l.s.id] + ' ' + mult(l.v); }).join(', ') + '.');
       if (state.cursor !== null) showCursor(Math.min(state.cursor, sp));
     }
 
@@ -436,7 +436,7 @@
         cur.appendChild(c);
         rows += '<li><span class="sw" style="--c:' + s.color + '"></span><span>' + short[s.id] + '</span><b>' + mult(v) + '</b></li>';
       });
-      tip.innerHTML = '<strong>' + YEARS[g.i0 + k] + '</strong><span class="tip-sub">base 100 en ' + state.start + '</span><ul>' + rows + '</ul>';
+      tip.innerHTML = '<strong>' + YEARS[g.i0 + k] + '</strong><span class="tip-sub">base 100 en ' + state.start + ' · ' + (state.real ? 'inflation déduite' : 'avant inflation') + '</span><ul>' + rows + '</ul>';
       tip.hidden = false;
       var half = tip.offsetWidth / 2, left = Math.max(half + 4, Math.min(g.W - half - 4, x + 16));
       tip.style.left = left + 'px';
@@ -458,14 +458,11 @@
       if (e.key === 'ArrowLeft') { e.preventDefault(); showCursor(Math.max(0, (state.cursor === null ? g.sp + 1 : state.cursor) - 1)); }
       if (e.key === 'Escape') hideCursor();
     });
-
     function redraw(animate) {
       render();
       if (animate && !reduce) { root.classList.remove('in'); void root.offsetWidth; window.requestAnimationFrame(function () { root.classList.add('in'); }); }
     }
-
-    // Commandes
-    root.querySelector('[data-cmp-start]').addEventListener('change', function (e) { state.start = parseInt(e.target.value, 10); state.cursor = null; hideCursor(); redraw(true); });
+    root.querySelector('[data-cmp-start]').addEventListener('change', function (e) { state.start = parseInt(e.target.value, 10); hideCursor(); redraw(true); });
     Array.prototype.forEach.call(root.querySelectorAll('[data-cmp-scale]'), function (b) {
       b.addEventListener('click', function () {
         state.scale = b.getAttribute('data-cmp-scale');
@@ -476,13 +473,13 @@
     Array.prototype.forEach.call(root.querySelectorAll('[data-series]'), function (b) {
       b.addEventListener('click', function () {
         var id = b.getAttribute('data-series'), hiddenCount = Object.keys(state.hidden).filter(function (k) { return state.hidden[k]; }).length;
-        if (!state.hidden[id] && hiddenCount >= S.length - 1) return;      // au moins une courbe reste affichée
+        if (!state.hidden[id] && hiddenCount >= A.length - 1) return;
         state.hidden[id] = !state.hidden[id];
         b.setAttribute('aria-pressed', String(!state.hidden[id]));
         redraw(false);
       });
     });
-
+    listeners.push(function () { redraw(true); });
     render();
     if (reduce || !('IntersectionObserver' in window)) root.classList.add('in');
     else new IntersectionObserver(function (en, io) { if (en[0].isIntersecting) { root.classList.add('in'); io.disconnect(); } }, { threshold: 0.25 }).observe(root);
@@ -497,34 +494,68 @@
   var form = document.querySelector('[data-sim]');
   if (form) {
     var amountEl = form.querySelector('[data-sim-amount]'), yearsEl = form.querySelector('[data-sim-years]'), winEl = form.querySelector('[data-sim-window]');
-    var body = document.querySelector('[data-sim-body]'), cap = document.querySelector('[data-sim-caption]');
-    var eur = new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 });
-    var pct = new Intl.NumberFormat('fr-FR', { style: 'percent', minimumFractionDigits: 1, maximumFractionDigits: 1, signDisplay: 'always' });
-    var pf = function (x) { return pct.format(x).replace('-', '−'); };
-    var cagr = function (r, n) { var p = 1; r.slice(-n).forEach(function (x) { p *= 1 + x / 100; }); return Math.pow(p, 1 / n) - 1; };
+    var body = document.querySelector('[data-sim-body]'), cap = document.querySelector('[data-sim-caption]'), note = document.querySelector('[data-sim-infl]');
+    var thVal = document.querySelector('[data-sim-th-val]'), thWorst = document.querySelector('[data-sim-th-worst]');
     var clamp = function (v, a, b, d) { v = parseFloat(v); return isFinite(v) ? Math.max(a, Math.min(b, v)) : d; };
-
     function update() {
-      var amount = clamp(amountEl.value, 100, 1e7, 10000), years = Math.round(clamp(yearsEl.value, 1, 50, 10)), win = parseInt(winEl.value, 10);
-      var ig = cagr(byId.infl.returns, win);
-      var rows = S.map(function (s) {
-        var g = cagr(s.returns, win), val = amount * Math.pow(1 + g, years);
-        return { s: s, g: g, val: val, real: val / Math.pow(1 + ig, years), worst: Math.min.apply(null, s.returns.slice(-win)) / 100 };
+      var amount = clamp(amountEl.value, 100, 1e7, 10000), years = Math.round(clamp(yearsEl.value, 1, 50, 10)), win = parseInt(winEl.value, 10), real = state.real;
+      var ig = cagr(INF.returns, win);
+      var rows = A.map(function (s) {
+        var nom = cagr(s.returns, win), rr = (1 + nom) / (1 + ig) - 1;
+        var val = amount * Math.pow(1 + (real ? rr : nom), years);
+        var rets = real ? realRet(s.returns) : s.returns;
+        return { s: s, nom: nom, rr: rr, val: val, worst: Math.min.apply(null, rets.slice(-win)) / 100 };
       }).sort(function (a, b) { return b.val - a.val; });
       var top = rows[0].val;
       body.innerHTML = rows.map(function (r) {
         var gain = r.val - amount;
-        return '<tr class="sim-row' + (r.s.id === 'infl' ? ' sim-ref' : '') + '"><th scope="row"><span class="sw' + (r.s.dashed ? ' sw-dash' : '') + '" style="--c:' + r.s.color + '"></span>' + r.s.label +
-          (r.s.approx ? ' <abbr title="Estimation arrondie">≈</abbr>' : '') + '</th>' +
-          '<td data-label="Rendement annuel moyen">' + pf(r.g) + '<small>/an</small></td>' +
-          '<td data-label="Valeur au bout de la durée"><strong>' + eur.format(r.val) + '</strong><span class="mini-bar"><i style="--w:' + (r.val / top * 100).toFixed(1) + '%;--c:' + r.s.color + '"></i></span></td>' +
-          '<td data-label="Gain">' + (gain >= 0 ? '+' : '−') + eur.format(Math.abs(gain)) + '</td><td data-label="En euros d\'aujourd\'hui">' + eur.format(r.real) + '</td><td data-label="Pire année">' + pf(r.worst) + '</td></tr>';
+        return '<tr class="sim-row"><th scope="row"><span class="sw" style="--c:' + r.s.color + '"></span>' + r.s.label + (r.s.approx ? ' <abbr title="Estimation arrondie">≈</abbr>' : '') + '</th>' +
+          '<td data-label="Avant inflation" class="' + (real ? '' : 'on') + '">' + pf(r.nom) + '<small>/an</small></td>' +
+          '<td data-label="Après inflation" class="' + (real ? 'on' : '') + '">' + pf(r.rr) + '<small>/an</small></td>' +
+          '<td data-label="Valeur finale"><strong>' + eur.format(r.val) + '</strong><span class="mini-bar"><i style="--w:' + (r.val / top * 100).toFixed(1) + '%;--c:' + r.s.color + '"></i></span></td>' +
+          '<td data-label="Gain">' + (gain >= 0 ? '+' : '−') + eur.format(Math.abs(gain)) + '</td><td data-label="Pire année">' + pf(r.worst) + '</td></tr>';
       }).join('');
-      cap.textContent = 'Avec ' + eur.format(amount) + ' placés pendant ' + years + (years > 1 ? ' ans' : ' an') + ', au rendement annuel moyen des ' + win + ' dernières années.';
+      cap.textContent = 'Avec ' + eur.format(amount) + ' placés pendant ' + years + (years > 1 ? ' ans' : ' an') + ', au rendement annuel moyen des ' + win + ' dernières années' + (real ? ', inflation déduite.' : ', avant inflation.');
+      thVal.innerHTML = 'Valeur finale<br><small>' + (real ? 'en euros d’aujourd’hui' : 'en euros courants') + '</small>';
+      thWorst.innerHTML = 'Pire année<br><small>' + (real ? 'après inflation' : 'avant inflation') + '</small>';
+      note.innerHTML = real
+        ? 'L’inflation moyenne sur cette période (<strong>' + pf(ig) + '/an</strong>, Insee) est <strong>déduite</strong> : les valeurs sont exprimées en euros d’aujourd’hui, c’est-à-dire en pouvoir d’achat.'
+        : 'Valeurs en euros courants, <strong>sans déduire l’inflation</strong> (' + pf(ig) + '/an en moyenne sur cette période) : le pouvoir d’achat réel est plus faible.';
     }
     ['input', 'change'].forEach(function (ev) { form.addEventListener(ev, update); });
+    listeners.push(update);
     update();
   }
+
+  // ================================================================ MATRICE PAR PÉRIODE
+  var mat = document.querySelector('[data-matrix]');
+  if (mat) {
+    var thead = mat.querySelector('thead'), tbody = mat.querySelector('tbody'), tfoot = mat.querySelector('tfoot');
+    function drawMatrix() {
+      var real = state.real, W = D.windows;
+      var rate = function (s, n) { var g = cagr(s.returns, n); return real ? (1 + g) / (1 + cagr(INF.returns, n)) - 1 : g; };
+      thead.innerHTML = '<tr><th scope="col" data-matrix-title>' + (real ? 'Rendement annuel moyen après inflation' : 'Rendement annuel moyen avant inflation') + '</th>' + W.map(function (w) { return '<th scope="col">' + w.label + '</th>'; }).join('') + '</tr>';
+      var best = {};
+      W.forEach(function (w) { best[w.n] = A.slice().sort(function (a, b) { return rate(b, w.n) - rate(a, w.n); })[0].id; });
+      tbody.innerHTML = A.map(function (s) {
+        return '<tr><th scope="row"><span class="sw" style="--c:' + s.color + '"></span>' + s.label + (s.approx ? ' ≈' : '') + '</th>' +
+          W.map(function (w) { return '<td class="' + (best[w.n] === s.id ? 'best' : '') + '">' + pf(rate(s, w.n)) + '</td>'; }).join('') + '</tr>';
+      }).join('');
+      tfoot.innerHTML = '<tr class="ref"><th scope="row" data-matrix-foot>' + (real ? 'Inflation moyenne (déjà déduite)' : 'Pour mémoire : inflation moyenne') + '</th>' +
+        W.map(function (w) { return '<td>' + pf(cagr(INF.returns, w.n)) + '</td>'; }).join('') + '</tr>';
+    }
+    listeners.push(drawMatrix);
+  }
+
+  // ================================================================ INTERRUPTEUR « APRÈS INFLATION » (synchronisé partout)
+  var switches = Array.prototype.slice.call(document.querySelectorAll('[data-real]'));
+  switches.forEach(function (sw) {
+    sw.addEventListener('change', function () {
+      state.real = sw.checked;
+      switches.forEach(function (o) { o.checked = state.real; });
+      listeners.forEach(function (f) { f(); });
+    });
+  });
 })();
 
 // ---------------------------------------------------------------- Galerie : visionneuse (dialogue natif)

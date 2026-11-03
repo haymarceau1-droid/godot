@@ -1163,7 +1163,7 @@ CMP_SERIES = [
     {"id": "livret", "label": "Livret A", "sub": "taux moyen annuel · intérêts réinvestis (≈)", "color": "#c58ad6", "approx": True,
      "returns": [3.0, 3.0, 2.6, 2.25, 2.1, 2.44, 2.85, 3.67, 1.7, 1.5, 2.1, 2.0, 1.5, 1.1, 0.9, 0.75, 0.75, 0.75, 0.75,
                  0.55, 0.5, 1.4, 2.9, 3.0, 2.2]},
-    {"id": "infl", "label": "Inflation", "sub": "prix à la consommation en France (INSEE)", "color": "#9a9a9a", "approx": False, "dashed": True,
+    {"id": "infl", "label": "Inflation", "sub": "prix à la consommation en France (INSEE)", "color": "#9a9a9a", "approx": False, "ref": True,
      "returns": [1.6, 1.9, 2.1, 2.1, 1.7, 1.7, 1.5, 2.8, 0.1, 1.5, 2.1, 2.0, 0.9, 0.5, 0.0, 0.2, 1.0, 1.8, 1.1, 0.5, 1.6,
                  5.2, 4.9, 2.0, 0.9]},
 ]
@@ -1179,53 +1179,70 @@ def pct_fr(x, plus=True):
 def eur_fr(v):
     return f"{round(v):,}".replace(",", "&#8239;") + "&nbsp;€"
 
-def sim_rows(amount, years, window):
-    infl = next(s for s in CMP_SERIES if s["id"] == "infl")
-    ig = cmp_cagr(infl["returns"], window)
-    rows = []
-    for s in CMP_SERIES:
-        g = cmp_cagr(s["returns"], window)
-        val = amount * (1 + g) ** years
-        rows.append((s, g, val, val / (1 + ig) ** years, min(s["returns"][-window:]), max(s["returns"][-window:])))
-    return sorted(rows, key=lambda r: -r[2])
+def _infl():
+    return next(s for s in CMP_SERIES if s.get("ref"))
 
-def sim_table_html(amount=10000, years=10, window=25):
-    rows = sim_rows(amount, years, window)
-    top = max(r[2] for r in rows)
+def asset_series():
+    return [s for s in CMP_SERIES if not s.get("ref")]
+
+def real_returns(returns, infl_returns):
+    return [((1 + r / 100) / (1 + i / 100) - 1) * 100 for r, i in zip(returns, infl_returns)]
+
+def sim_rows(amount, years, window, real=True):
+    infl = _infl()["returns"]
+    ig = cmp_cagr(infl, window)
+    rows = []
+    for s in asset_series():
+        nom = cmp_cagr(s["returns"], window)
+        rr = (1 + nom) / (1 + ig) - 1
+        val = amount * (1 + (rr if real else nom)) ** years
+        rets = real_returns(s["returns"], infl) if real else s["returns"]
+        rows.append((s, nom, rr, val, min(rets[-window:])))
+    return sorted(rows, key=lambda r: -r[3])
+
+def sim_table_html(amount=10000, years=10, window=25, real=True):
+    rows = sim_rows(amount, years, window, real)
+    top = max(r[3] for r in rows)
     out = []
-    for s, g, val, real, worst, best in rows:
+    for s, nom, rr, val, worst in rows:
         approx = ' <abbr title="Estimation arrondie">≈</abbr>' if s["approx"] else ""
-        ref = " sim-ref" if s["id"] == "infl" else ""
         out.append(
-            f'<tr class="sim-row{ref}"><th scope="row"><span class="sw" style="--c:{s["color"]}"></span>{s["label"]}{approx}</th>'
-            f'<td data-label="Rendement annuel moyen">{pct_fr(g)}<small>/an</small></td>'
-            f'<td data-label="Valeur au bout de la durée"><strong>{eur_fr(val)}</strong><span class="mini-bar"><i style="--w:{val / top * 100:.1f}%;--c:{s["color"]}"></i></span></td>'
+            f'<tr class="sim-row"><th scope="row"><span class="sw" style="--c:{s["color"]}"></span>{s["label"]}{approx}</th>'
+            f'<td data-label="Avant inflation" class="{"" if real else "on"}">{pct_fr(nom)}<small>/an</small></td>'
+            f'<td data-label="Après inflation" class="{"on" if real else ""}">{pct_fr(rr)}<small>/an</small></td>'
+            f'<td data-label="Valeur finale"><strong>{eur_fr(val)}</strong><span class="mini-bar"><i style="--w:{val / top * 100:.1f}%;--c:{s["color"]}"></i></span></td>'
             f'<td data-label="Gain">{"+" if val - amount >= 0 else "−"}{eur_fr(abs(val - amount))}</td>'
-            f'<td data-label="En euros d\'aujourd\'hui">{eur_fr(real)}</td>'
             f'<td data-label="Pire année">{pct_fr(worst / 100)}</td></tr>')
     return "".join(out)
 
-def matrix_html():
+def matrix_html(real=True):
+    infl = _infl()["returns"]
     head = "".join(f'<th scope="col">{lab}</th>' for _, lab in CMP_WINDOWS)
-    best = {n: max((s for s in CMP_SERIES if s["id"] != "infl"), key=lambda s: cmp_cagr(s["returns"], n))["id"] for n, _ in CMP_WINDOWS}
+    rate = lambda s, n: ((1 + cmp_cagr(s["returns"], n)) / (1 + cmp_cagr(infl, n)) - 1) if real else cmp_cagr(s["returns"], n)
+    best = {n: max(asset_series(), key=lambda s: rate(s, n))["id"] for n, _ in CMP_WINDOWS}
     rows = ""
-    for s in CMP_SERIES:
-        cells = "".join(
-            f'<td class="{"best" if best[n] == s["id"] else ""}">{pct_fr(cmp_cagr(s["returns"], n))}</td>' for n, _ in CMP_WINDOWS)
+    for s in asset_series():
+        cells = "".join(f'<td class="{"best" if best[n] == s["id"] else ""}">{pct_fr(rate(s, n))}</td>' for n, _ in CMP_WINDOWS)
         approx = " ≈" if s["approx"] else ""
         rows += f'<tr><th scope="row"><span class="sw" style="--c:{s["color"]}"></span>{s["label"]}{approx}</th>{cells}</tr>'
-    return f'<thead><tr><th scope="col">Rendement annuel moyen</th>{head}</tr></thead><tbody>{rows}</tbody>'
+    foot = "".join(f'<td>{pct_fr(cmp_cagr(infl, n))}</td>' for n, _ in CMP_WINDOWS)
+    label = "Rendement annuel moyen après inflation" if real else "Rendement annuel moyen avant inflation"
+    flab = "Inflation moyenne (déjà déduite)" if real else "Pour mémoire : inflation moyenne"
+    return (f'<thead><tr><th scope="col" data-matrix-title>{label}</th>{head}</tr></thead><tbody>{rows}</tbody>'
+            f'<tfoot><tr class="ref"><th scope="row" data-matrix-foot>{flab}</th>{foot}</tr></tfoot>')
 
-_cmp_json = json.dumps({"years": CMP_YEARS, "series": CMP_SERIES, "windows": [w for w, _ in CMP_WINDOWS]}, ensure_ascii=False)
+_cmp_json = json.dumps({"years": CMP_YEARS, "series": CMP_SERIES,
+                        "windows": [{"n": n, "label": lab} for n, lab in CMP_WINDOWS]}, ensure_ascii=False)
 _legend = "".join(
-    f'<li><button type="button" class="chip cmp-chip" data-series="{s["id"]}" aria-pressed="true"><span class="sw{" sw-dash" if s.get("dashed") else ""}" style="--c:{s["color"]}"></span>{s["label"]}</button></li>'
-    for s in CMP_SERIES)
-_sub = "".join(f'<li><span class="sw{" sw-dash" if s.get("dashed") else ""}" style="--c:{s["color"]}"></span><div><strong>{s["label"]}</strong><span>{s["sub"]}</span></div></li>' for s in CMP_SERIES)
+    f'<li><button type="button" class="chip cmp-chip" data-series="{s["id"]}" aria-pressed="true"><span class="sw" style="--c:{s["color"]}"></span>{s["label"]}</button></li>'
+    for s in asset_series())
+_sub = "".join(f'<li><span class="sw" style="--c:{s["color"]}"></span><div><strong>{s["label"]}</strong><span>{s["sub"]}</span></div></li>' for s in asset_series())
 _win_opts = "".join(f'<option value="{n}"{" selected" if n == 25 else ""}>{lab}</option>' for n, lab in CMP_WINDOWS)
+_infl25 = cmp_cagr(_infl()["returns"], 25)
 
 comparer = service_hero("Comparer les placements", "Comparateur", "Comparer l'or aux autres placements.",
-    "Or, actions américaines, immobilier, Livret A et inflation : leurs courbes depuis 2000, et ce que deviendrait votre capital selon le rendement annuel moyen de chacun.",
-    "chart-line", [("chart-line", "5 courbes", "Or, S&P 500, immobilier, Livret A, inflation"), ("coin-euro", "Votre capital", "Simulez avec votre montant"), ("scale", "Sans parti pris", "Bonnes et mauvaises années incluses")]) + f'''
+    "Or, actions américaines, immobilier et Livret A : leurs courbes depuis 2000, avec l'inflation déduite, et ce que deviendrait votre capital selon le rendement annuel moyen de chacun.",
+    "chart-line", [("chart-line", "4 placements", "Or, S&P 500, immobilier, Livret A"), ("coin-euro", "Inflation déduite", "Rendements réels, en pouvoir d'achat"), ("scale", "Votre capital", "Simulez avec votre montant")]) + f'''
 
     <section class="section section-dark" id="courbes">
       <div class="container">
@@ -1244,13 +1261,15 @@ comparer = service_hero("Comparer les placements", "Comparateur", "Comparer l'or
               <button type="button" class="is-on" data-cmp-scale="log" aria-pressed="true">Échelle logarithmique</button>
               <button type="button" data-cmp-scale="lin" aria-pressed="false">Échelle linéaire</button>
             </div>
+            <label class="switch"><input type="checkbox" role="switch" data-real checked><span class="sw-track" aria-hidden="true"></span><span>Inflation déduite</span></label>
           </div>
           <ul class="cmp-legend" aria-label="Séries affichées">{_legend}</ul>
           <div class="cmp-chart-wrap">
-            <div class="cmp-chart" data-cmp-chart role="img" aria-label="Courbes comparées de l'or, du S&amp;P 500, de l'immobilier, du Livret A et de l'inflation depuis 2000"></div>
+            <div class="cmp-chart" data-cmp-chart role="img" aria-label="Courbes comparées de l'or, du S&amp;P 500, de l'immobilier et du Livret A depuis 2000"></div>
             <div class="chart-tip cmp-tip" role="status" aria-live="polite" hidden></div>
           </div>
           <noscript><p class="note">Le graphique interactif nécessite JavaScript. Les rendements annuels moyens figurent dans le tableau plus bas.</p></noscript>
+          <p class="note cmp-hint">« Inflation déduite » : chaque courbe est divisée par l'indice des prix à la consommation (Insee). Elle mesure alors l'évolution du pouvoir d'achat, et non plus seulement du prix. Décochez pour voir les valeurs brutes.</p>
           <p class="note cmp-hint">L'échelle logarithmique rend lisibles des courbes très différentes : à chaque graduation, la valeur double ou presque.</p>
           <ul class="cmp-sub">{_sub}</ul>
         </div>
@@ -1263,21 +1282,23 @@ comparer = service_hero("Comparer les placements", "Comparateur", "Comparer l'or
         <header class="section-head">
           <p class="eyebrow">Simulateur</p>
           <h2>Que deviendrait votre capital ?</h2>
-          <p>Saisissez un montant et une durée : le tableau applique à votre capital le rendement annuel moyen historique de chaque placement, sur la période de référence choisie.</p>
+          <p>Saisissez un montant et une durée : le tableau applique à votre capital le rendement annuel moyen historique de chaque placement, sur la période de référence choisie. L'inflation est déduite : on lit directement le pouvoir d'achat.</p>
         </header>
         <form class="sim" data-sim onsubmit="return false">
           <label class="field"><span>Capital investi</span><span class="input-wrap"><input type="number" inputmode="numeric" min="100" max="10000000" step="100" value="10000" data-sim-amount aria-label="Capital investi en euros"><b>€</b></span></label>
           <label class="field"><span>Durée du placement</span><span class="input-wrap"><input type="number" inputmode="numeric" min="1" max="50" step="1" value="10" data-sim-years aria-label="Durée en années"><b>ans</b></span></label>
           <label class="field"><span>Rendements moyens calculés sur</span><select data-sim-window aria-label="Période de référence">{_win_opts}</select></label>
+          <label class="switch sim-switch"><input type="checkbox" role="switch" data-real checked><span class="sw-track" aria-hidden="true"></span><span>Déduire l'inflation</span></label>
         </form>
-        <p class="sim-caption" data-sim-caption>Avec 10&nbsp;000&nbsp;€ placés pendant 10&nbsp;ans, au rendement annuel moyen des 25 dernières années.</p>
+        <p class="sim-caption" data-sim-caption>Avec 10&nbsp;000&nbsp;€ placés pendant 10&nbsp;ans, au rendement annuel moyen des 25 dernières années, inflation déduite.</p>
         <div class="table-wrap">
           <table class="data-table sim-table">
             <caption class="sr-only">Valeur du capital selon le placement</caption>
-            <thead><tr><th scope="col">Placement</th><th scope="col">Rendement annuel moyen</th><th scope="col">Valeur au bout de la durée</th><th scope="col">Gain</th><th scope="col">En euros d'aujourd'hui<br><small>après inflation</small></th><th scope="col">Pire année<br><small>sur la période</small></th></tr></thead>
+            <thead><tr><th scope="col">Placement</th><th scope="col">Rendement annuel moyen<br><small>avant inflation</small></th><th scope="col">Rendement annuel moyen<br><small>après inflation</small></th><th scope="col" data-sim-th-val>Valeur finale<br><small>en euros d'aujourd'hui</small></th><th scope="col">Gain</th><th scope="col" data-sim-th-worst>Pire année<br><small>après inflation</small></th></tr></thead>
             <tbody data-sim-body>{sim_table_html()}</tbody>
           </table>
         </div>
+        <p class="sim-infl" data-sim-infl>L'inflation moyenne sur cette période (<strong>{pct_fr(_infl25)}/an</strong>, Insee) est <strong>déduite</strong> : les valeurs sont exprimées en euros d'aujourd'hui, c'est-à-dire en pouvoir d'achat.</p>
         <aside class="notice notice-light"><strong>À lire avant d'interpréter :</strong> c'est une simulation à rendement constant, ce qui ne correspond jamais à la réalité : une année sur deux peut être négative. Les résultats passés ne préjugent pas des résultats futurs, et les chiffres ne tiennent compte ni des frais, ni de la fiscalité, ni des droits de mutation ou de l'entretien pour l'immobilier. L'or et le S&amp;P 500 sont exprimés en dollars : pour un investisseur en euros, les variations du change modifient le résultat.</aside>
       </div>
     </section>
@@ -1287,14 +1308,14 @@ comparer = service_hero("Comparer les placements", "Comparateur", "Comparer l'or
         <header class="section-head">
           <p class="eyebrow">À retenir</p>
           <h2>Le classement change avec la période</h2>
-          <p>Le meilleur placement d'une période n'est pas celui de la suivante. La case dorée indique le meilleur rendement annuel moyen de chaque période.</p>
+          <p>Le meilleur placement d'une période n'est pas celui de la suivante. La case dorée indique le meilleur rendement annuel moyen de chaque période ; l'inflation est déduite (l'interrupteur du graphique ou du simulateur permet de la remettre).</p>
         </header>
         <div class="table-wrap table-dark">
-          <table class="data-table matrix">{matrix_html()}</table>
+          <table class="data-table matrix" data-matrix>{matrix_html()}</table>
         </div>
         <div class="cards-feature cards-feature-dark takeaways">
           {feature("scale", "Un classement qui bouge", "L'or domine sur 25, 10 et 5 ans, mais les actions américaines passent devant sur 15 ans : le résultat dépend de la période choisie.")}
-          {feature("chart-line", "Le risque n'est pas le même", "Les actions ont connu des années à −37 % (2008) ; l'or des années à −27 % (2013) ; le Livret A, jamais d'année négative, mais un rendement souvent proche de l'inflation.")}
+          {feature("chart-line", "Le risque n'est pas le même", "Les actions ont connu des années à −37 % (2008) ; l'or des années à −27 % (2013) ; le Livret A, jamais négatif en euros courants mais souvent négatif une fois l'inflation déduite (2022 : environ −3,6 %).")}
           {feature("diamond", "L'immobilier, un cas à part", "Il est peu liquide, nécessite souvent un emprunt et génère des frais, des charges et des loyers qui ne figurent pas ici.")}
           {feature("coins", "Se diversifier", "Aucun placement n'est le meilleur chaque année. Beaucoup d'épargnants répartissent leur patrimoine entre plusieurs supports.")}
         </div>
@@ -1309,7 +1330,7 @@ comparer = service_hero("Comparer les placements", "Comparateur", "Comparer l'or
           <li><strong>S&amp;P 500 :</strong> rendement total annuel dividendes réinvestis, en dollars, d'après <a href="https://smartasset.com/investing/sp-500-average-annual-return" target="_blank" rel="noopener">SmartAsset</a> et <a href="https://www.slickcharts.com/sp500/returns/details" target="_blank" rel="noopener">Slickcharts</a>.</li>
           <li><strong>Immobilier :</strong> variations annuelles arrondies de l'indice Notaires-Insee des logements anciens en France (<a href="https://www.insee.fr/fr/statistiques/5371271" target="_blank" rel="noopener">Insee</a>). Estimation à ± 1 ou 2 points selon les années : à utiliser comme un ordre de grandeur.</li>
           <li><strong>Livret A :</strong> taux moyen de chaque année (<a href="https://mes-livrets.fr/guides/historique-taux-livret-a/" target="_blank" rel="noopener">historique des taux</a>), arrondi, intérêts réinvestis. Estimation.</li>
-          <li><strong>Inflation :</strong> moyenne annuelle des prix à la consommation, <a href="https://www.insee.fr/fr/statistiques/serie/011813530" target="_blank" rel="noopener">Insee</a>.</li>
+          <li><strong>Inflation (déduite des rendements) :</strong> moyenne annuelle des prix à la consommation, <a href="https://www.insee.fr/fr/statistiques/serie/011813530" target="_blank" rel="noopener">Insee</a>.</li>
           <li>Rendement annuel moyen = taux de croissance annualisé sur la période. Données arrêtées à fin 2025 (S&amp;P 500 et or), mises à jour en novembre 2026. Ce comparateur est une information générale, pas un conseil en investissement ; investir comporte un risque de perte en capital.</li>
         </ul>
         <div class="hero-actions">
