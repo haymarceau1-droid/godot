@@ -529,6 +529,7 @@ HERO_IMG = {
     "Argenterie &amp; bijoux": ("argent-lingot-100-onces", "Lingot d'argent pur de 100 onces posé sur des lingots d'argent bruts", "45% 50%"),
     "Pourquoi investir dans l'or": ("or-lingots-gros-plan", "Gros plan sur des lingots d'or fin 999,9", "50% 50%"),
     "Change": ("change-billets-devises", "Billets de nombreuses devises étrangères : dollars, pesos, yuans, roupies", "50% 50%"),
+    "Numismatique": ("numismatique-pieces-anciennes", "Pièces anciennes de collection en argent, bronze et cuivre posées sur du bois", "40% 50%"),
     "Comparer les placements": ("argent-lingotins", "Lingots et lingotins d'argent fin de plusieurs formats", "50% 50%"),
 }
 
