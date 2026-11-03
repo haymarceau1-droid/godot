@@ -1409,7 +1409,7 @@ main, .site-footer { overflow-x: clip; }
 .section-dark.wm-r, .section-dark.wm-l { position: relative; }
 .section-dark.wm-r::after, .section-dark.wm-l::after {
   content: ""; position: absolute; bottom: clamp(1rem, 2.5vw, 2rem); width: clamp(130px, 17vw, 230px); aspect-ratio: 650 / 133;
-  background: url(../img/logo-blanc.png) center / contain no-repeat; opacity: .1; pointer-events: none;
+  background: url(../img/logo-blanc.png) center / contain no-repeat; opacity: .2; pointer-events: none;
 }
 .section-dark.wm-r::after { right: max(16px, calc((100% - 1170px) / 2)); }
 .section-dark.wm-l::after { left: max(16px, calc((100% - 1170px) / 2)); }
