@@ -1,23 +1,25 @@
-// Godot & Fils Chartres — interactions
+// Godot & Fils Chartres — interactions et animations légères
 (function () {
-  // Menu mobile
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!reduce) document.documentElement.classList.add('motion');
+
+  // ---------------------------------------------------------------- Menu mobile
   var toggle = document.querySelector('.nav-toggle');
   var nav = document.getElementById('nav');
+  function setMenu(open) {
+    nav.classList.toggle('open', open);
+    document.body.classList.toggle('menu-open', open);
+    toggle.setAttribute('aria-expanded', String(open));
+    toggle.setAttribute('aria-label', open ? 'Fermer le menu' : 'Ouvrir le menu');
+  }
   if (toggle && nav) {
-    toggle.addEventListener('click', function () {
-      var open = nav.classList.toggle('open');
-      toggle.setAttribute('aria-expanded', String(open));
-      toggle.setAttribute('aria-label', open ? 'Fermer le menu' : 'Ouvrir le menu');
-    });
-    nav.addEventListener('click', function (e) {
-      if (e.target.tagName === 'A') {
-        nav.classList.remove('open');
-        toggle.setAttribute('aria-expanded', 'false');
-      }
-    });
+    toggle.addEventListener('click', function () { setMenu(!nav.classList.contains('open')); });
+    nav.addEventListener('click', function (e) { if (e.target.closest('a')) setMenu(false); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && nav.classList.contains('open')) { setMenu(false); toggle.focus(); } });
+    window.addEventListener('resize', function () { if (window.innerWidth > 1220 && nav.classList.contains('open')) setMenu(false); });
   }
 
-  // Statut ouvert / fermé (heure de Paris). Lun–Ven 9h30–18h00.
+  // ---------------------------------------------------------------- Statut ouvert / fermé (heure de Paris, lun–ven 9h30–18h00)
   var HOURS = { 1: [570, 1080], 2: [570, 1080], 3: [570, 1080], 4: [570, 1080], 5: [570, 1080] };
   function parisNow() {
     var parts = new Intl.DateTimeFormat('en-GB', {
@@ -47,19 +49,92 @@
   var y = document.querySelector('[data-year]');
   if (y) y.textContent = new Date().getFullYear();
 
-  // Apparition au défilement
-  var items = document.querySelectorAll('.card, .steps li, .split > *, .faq details, .contact-grid > *, .section-head');
-  if ('IntersectionObserver' in window) {
+  // ---------------------------------------------------------------- Apparition au défilement (décalée, directionnelle)
+  var SEL = '.section-head, .card, .card-row, .other-card, .coin-card, .tips li, .steps li, .formula > *, ' +
+            '.faq details, .contact-grid > *, .split > *, .network > *, .notice, .table-wrap, ' +
+            '.cta-inner > *, .footer-grid > *, .checks li';
+  if (!reduce && 'IntersectionObserver' in window) {
+    var wide = window.matchMedia('(min-width: 861px)').matches;
+    var items = Array.prototype.slice.call(document.querySelectorAll(SEL));
+    // On ignore les éléments imbriqués dans un autre élément animé du même bloc pour éviter les doubles effets
+    items = items.filter(function (el) { return !el.closest('.panel') && !el.closest('.hero'); });
+    var rank = new Map();
+    items.forEach(function (el) {
+      var n = rank.get(el.parentNode) || 0;
+      rank.set(el.parentNode, n + 1);
+      el._delay = Math.min(n, 6) * 80;
+    });
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (en) {
-        if (en.isIntersecting) { en.target.classList.add('visible'); io.unobserve(en.target); }
+        if (!en.isIntersecting) return;
+        var el = en.target;
+        io.unobserve(el);
+        el.style.transitionDelay = el._delay + 'ms';
+        el.classList.add('visible');
+        // Une fois l'animation jouée, on rend l'élément à son style normal (survols, etc.)
+        setTimeout(function () {
+          el.classList.remove('reveal', 'reveal-left', 'reveal-right', 'reveal-pop', 'visible');
+          el.style.transitionDelay = '';
+        }, el._delay + 900);
       });
-    }, { threshold: 0.12 });
-    items.forEach(function (el) { el.classList.add('reveal'); io.observe(el); });
+    }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
+    items.forEach(function (el) {
+      el.classList.add('reveal');
+      if (wide && el.matches('.split > *')) el.classList.add(el === el.parentNode.firstElementChild ? 'reveal-left' : 'reveal-right');
+      else if (el.matches('.coin-card, .f-box, .tips li, .steps li')) el.classList.add('reveal-pop');
+      io.observe(el);
+    });
+  }
+
+  // ---------------------------------------------------------------- Défilement : barre de progression, en-tête, parallaxe
+  var header = document.querySelector('.site-header');
+  var hero = document.querySelector('.hero-photo');
+  var bar = null;
+  if (!reduce) {
+    bar = document.createElement('div');
+    bar.className = 'progress';
+    bar.setAttribute('aria-hidden', 'true');
+    document.body.appendChild(bar);
+  }
+  var ticking = false;
+  function onScroll() {
+    var y = window.pageYOffset || document.documentElement.scrollTop;
+    if (header) header.classList.toggle('is-scrolled', y > 8);
+    if (bar) {
+      var max = document.documentElement.scrollHeight - window.innerHeight;
+      bar.style.transform = 'scaleX(' + (max > 0 ? Math.min(y / max, 1) : 0) + ')';
+    }
+    if (hero && !reduce && y < window.innerHeight * 1.2) hero.style.setProperty('--py', (y * 0.14).toFixed(1) + 'px');
+    ticking = false;
+  }
+  window.addEventListener('scroll', function () {
+    if (!ticking) { ticking = true; window.requestAnimationFrame(onScroll); }
+  }, { passive: true });
+  onScroll();
+
+  // ---------------------------------------------------------------- Compteurs (année de fondation)
+  var counters = document.querySelectorAll('[data-count]');
+  if (counters.length && !reduce && 'IntersectionObserver' in window) {
+    var co = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (!en.isIntersecting) return;
+        co.unobserve(en.target);
+        var el = en.target, to = parseInt(el.getAttribute('data-count'), 10), from = parseInt(el.getAttribute('data-from'), 10) || 0;
+        var t0 = null, dur = 1200;
+        function step(t) {
+          if (t0 === null) t0 = t;
+          var p = Math.min((t - t0) / dur, 1), e = 1 - Math.pow(1 - p, 3);
+          el.textContent = String(Math.round(from + (to - from) * e));
+          if (p < 1) window.requestAnimationFrame(step); else el.textContent = String(to);
+        }
+        window.requestAnimationFrame(step);
+      });
+    }, { threshold: 0.6 });
+    counters.forEach(function (el) { co.observe(el); });
   }
 })();
 
-// Carte du réseau : clic sur un pin ou une ville => affiche la fiche correspondante
+// ---------------------------------------------------------------- Carte du réseau
 (function () {
   var section = document.getElementById('reseau');
   if (!section) return;
@@ -80,4 +155,19 @@
     });
   });
   show(section.getAttribute('data-default'));
+
+  // Les points apparaissent un à un quand la carte entre dans l'écran
+  var map = section.querySelector('.map-france');
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!map) return;
+  if (reduce || !('IntersectionObserver' in window)) { map.classList.add('in'); return; }
+  var pins = map.querySelectorAll('.pin');
+  var mo = new IntersectionObserver(function (entries) {
+    if (!entries[0].isIntersecting) return;
+    mo.disconnect();
+    pins.forEach(function (p, i) { p.style.setProperty('--d', (350 + i * 40) + 'ms'); });
+    map.classList.add('in');
+    setTimeout(function () { pins.forEach(function (p) { p.style.removeProperty('--d'); }); }, 350 + pins.length * 40 + 900);
+  }, { threshold: 0.25 });
+  mo.observe(map);
 })();

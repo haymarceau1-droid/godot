@@ -51,9 +51,12 @@ FAQ = [
 
 def esc_json(o): return json.dumps(o, ensure_ascii=False, indent=2)
 
+MENU_ICONS = {"vendre-or.html": "coin-euro", "acheter-or.html": "coins", "argent-bijoux.html": "diamond",
+              "change.html": "exchange", "la-maison.html": "building-store", "contact.html": "map-pin"}
+
 def header(active):
     links = "\n".join(
-        f'        <a href="{h}"{" aria-current=\"page\"" if h == active else ""}>{t}</a>' for h, t in NAV)
+        f'          <a href="{h}"{" aria-current=\"page\"" if h == active else ""}>[[icon:{MENU_ICONS[h]}]]<span>{t}</span></a>' for h, t in NAV)
     return f'''  <a class="skip" href="#contenu">Aller au contenu</a>
   <header class="site-header" id="haut">
     <div class="container header-inner">
@@ -63,9 +66,15 @@ def header(active):
       <button class="nav-toggle" aria-expanded="false" aria-controls="nav" aria-label="Ouvrir le menu">
         <span></span><span></span><span></span>
       </button>
-      <nav id="nav" class="nav" aria-label="Navigation principale">
+      <nav id="nav" class="menu" aria-label="Navigation principale">
+        <div class="menu-links">
 {links}
-        <a class="btn btn-gold btn-sm" href="tel:{TEL_HREF}">{TEL}</a>
+        </div>
+        <a class="btn btn-gold btn-sm menu-cta" href="tel:{TEL_HREF}">[[icon:phone-call]]<span>{TEL}</span></a>
+        <div class="menu-foot">
+          <p>[[icon:map-pin]]<span>23 rue de la Pie, 28000 Chartres</span></p>
+          <p>[[icon:clock]]<span>Lun – Ven · 9h30 – 18h00</span></p>
+        </div>
       </nav>
     </div>
   </header>'''
@@ -115,6 +124,7 @@ def footer():
           <li><a href="faq.html">Questions fréquentes</a></li>
           <li><a href="contact.html">Contact &amp; accès</a></li>
           <li><a href="mentions-legales.html">Mentions légales</a></li>
+          <li><button type="button" class="linklike" data-consent-open>Gérer les cookies</button></li>
         </ul>
       </div>
     </div>
@@ -125,6 +135,7 @@ def footer():
   <a class="call-fab" href="tel:{TEL_HREF}" aria-label="Appeler l'agence au {TEL}">
     [[icon:phone-call]]
   </a>
+  <script src="assets/js/consent.js" defer></script>
   <script src="assets/js/main.js" defer></script>'''
 
 def page(slug, title, desc, body, ld=None, cta=True, noindex=False):
@@ -145,9 +156,8 @@ def page(slug, title, desc, body, ld=None, cta=True, noindex=False):
   <meta property="og:locale" content="fr_FR">
   <meta name="theme-color" content="#000000">
   <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="preload" href="assets/fonts/josefin-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/josefin-sans-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
   <script>document.documentElement.className+=" js"</script>
   <link rel="stylesheet" href="assets/css/style.css">{ld_tag}
 </head>
@@ -285,6 +295,7 @@ def reseau_section():
     </section>'''
 
 # ---------------------------------------------------------------- ACCUEIL
+TICKER = "".join(f"<span>{w}</span>" for w in ["Achat d'or", "Vente de pièces", "Lingots", "Argent", "Bijoux", "Bureau de change", "Depuis 1933"] * 6)
 home = f'''    <section class="hero hero-photo">
       <div class="container hero-grid">
         <div class="hero-copy">
@@ -296,13 +307,15 @@ home = f'''    <section class="hero hero-photo">
             <a class="btn btn-ghost" href="tel:{TEL_HREF}">Appeler l'agence</a>
           </div>
           <ul class="hero-proof" aria-label="Nos engagements">
-            <li><strong>1933</strong><span>année de fondation</span></li>
+            <li><strong data-count="1933" data-from="1900">1933</strong><span>année de fondation</span></li>
             <li><strong>0 €</strong><span>pour une estimation</span></li>
             <li><strong>Sans RDV</strong><span>du lundi au vendredi</span></li>
           </ul>
         </div>
       </div>
     </section>
+
+    <div class="ticker" aria-hidden="true"><div class="ticker-track">{TICKER}</div></div>
 
     <section class="strip" aria-label="Informations pratiques">
       <div class="container strip-grid">
@@ -343,7 +356,7 @@ home = f'''    <section class="hero hero-photo">
 
     <section class="section" id="maison">
       <div class="container split">
-        <div class="split-visual" aria-hidden="true"><div class="year-badge"><span>Fondée en</span><strong>1933</strong></div></div>
+        <div class="split-visual" aria-hidden="true"><div class="year-badge"><span>Fondée en</span><strong data-count="1933" data-from="1900">1933</strong></div></div>
         <div class="split-copy">
           <p class="eyebrow">La maison</p>
           <h2>Une institution du négoce de métaux précieux</h2>
@@ -690,7 +703,7 @@ maison = hero("La maison", "Depuis 1933", "Une institution du négoce de métaux
 
     <section class="section">
       <div class="container split">
-        <div class="split-visual" aria-hidden="true"><div class="year-badge"><span>Fondée en</span><strong>1933</strong></div></div>
+        <div class="split-visual" aria-hidden="true"><div class="year-badge"><span>Fondée en</span><strong data-count="1933" data-from="1900">1933</strong></div></div>
         <div class="split-copy">
           <p class="eyebrow">Notre histoire</p>
           <h2>Près d'un siècle de savoir-faire</h2>
@@ -779,8 +792,17 @@ contact = hero("Contact", "Votre agence", "Nous rendre visite à Chartres.",
             <a class="btn btn-outline" href="https://www.google.com/maps/search/?api=1&amp;query=23+rue+de+la+Pie+28000+Chartres" target="_blank" rel="noopener">Itinéraire</a>
           </div>
         </div>
-        <div class="map">
-          <iframe title="Plan d'accès à l'agence Godot &amp; Fils Chartres" src="https://maps.google.com/maps?q=23%20rue%20de%20la%20Pie%2C%2028000%20Chartres&amp;z=16&amp;output=embed" loading="lazy"></iframe>
+        <div class="map" data-map-consent>
+          <iframe title="Plan d'accès à l'agence Godot &amp; Fils Chartres" data-src="https://maps.google.com/maps?q=23%20rue%20de%20la%20Pie%2C%2028000%20Chartres&amp;z=16&amp;output=embed" loading="lazy" hidden></iframe>
+          <div class="map-placeholder">
+            [[icon:map-pin]]
+            <h3>Plan d'accès</h3>
+            <p>Le plan est fourni par Google Maps, qui peut déposer des cookies. Il ne s'affiche qu'avec votre accord.</p>
+            <div class="hero-actions">
+              <button type="button" class="btn btn-gold" data-consent-maps>Afficher le plan</button>
+              <a class="btn btn-ghost" href="https://www.google.com/maps/search/?api=1&amp;query=23+rue+de+la+Pie+28000+Chartres" target="_blank" rel="noopener">Ouvrir dans Google Maps</a>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -811,7 +833,7 @@ legal = '''    <section class="legal">
         <h2>Propriété intellectuelle</h2>
         <p>L'ensemble des contenus de ce site (textes, visuels, logos) est protégé par le droit de la propriété intellectuelle. Toute reproduction sans autorisation préalable est interdite.</p>
         <h2>Données personnelles</h2>
-        <p>Ce site ne collecte aucune donnée personnelle via formulaire. La carte d'accès intégrée à la page Contact est fournie par un service tiers susceptible de déposer des cookies. Pour toute question relative à vos données, contactez l'agence.</p>
+        <p>Ce site ne collecte aucune donnée personnelle via formulaire et n'utilise aucun cookie de mesure d'audience ni de publicité. Les polices sont hébergées sur le site. Le plan d'accès de la page Contact est fourni par Google Maps, qui peut déposer des cookies : il n'est chargé qu'avec votre accord, que vous pouvez modifier à tout moment via « Gérer les cookies » en bas de page. Votre choix est mémorisé dans le stockage local de votre navigateur pendant 6 mois. Pour toute question relative à vos données, contactez l'agence.</p>
       </div>
     </section>'''
 page("mentions-legales.html", "Mentions légales — Godot &amp; Fils Chartres", "Mentions légales du site Godot & Fils Chartres.", legal, cta=False, noindex=True)

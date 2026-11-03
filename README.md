@@ -28,6 +28,12 @@ python3 tools/build.py
 Fonctionnalités : responsive (menu burger sous 1100px, bouton d'appel flottant), indicateur « ouvert / fermé » à l'heure de Paris,
 données structurées schema.org, animations respectant `prefers-reduced-motion`.
 
+## Cookies et vie privée
+Le site n'utilise aucun cookie de suivi et héberge sa police (`assets/fonts/`). Seul le plan Google Maps de la page Contact est soumis à consentement : bannière dans `assets/js/consent.js`, choix mémorisé 6 mois dans le navigateur, réouvrable via « Gérer les cookies » en bas de page.
+
+## Animations
+Apparitions au défilement, barre de progression, bandeau défilant, carte animée : `assets/js/main.js` + fin de `assets/css/style.css`. Tout est désactivé si l'utilisateur a demandé « réduire les animations ».
+
 ## Icônes
 [Tabler Icons](https://tabler.io/icons) (licence MIT, copiée dans `assets/icons/LICENSE-tabler-icons.txt`). Pour en ajouter une : copier le SVG dans `assets/icons/` puis écrire `[[icon:nom-du-fichier]]` dans `tools/build.py`.
 
