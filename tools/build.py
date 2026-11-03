@@ -539,9 +539,9 @@ home = f'''    <section class="hero hero-photo">
           <div class="seg" role="group" aria-label="Période de la courbe">
             <button type="button" data-range="1d" aria-pressed="false">1 j</button>
             <button type="button" data-range="7d" aria-pressed="false">7 j</button>
-            <button type="button" data-range="1m" class="is-on" aria-pressed="true">1 mois</button>
+            <button type="button" data-range="1m" aria-pressed="false">1 mois</button>
             <button type="button" data-range="1y" aria-pressed="false">1 an</button>
-            <button type="button" data-range="5y" aria-pressed="false">5 ans</button>
+            <button type="button" data-range="5y" class="is-on" aria-pressed="true">5 ans</button>
           </div>
         </header>
         <div class="prices-grid" aria-live="polite">

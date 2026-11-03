@@ -601,7 +601,7 @@
   var tf = new Intl.DateTimeFormat('fr-FR', { hour: '2-digit', minute: '2-digit' });
   var df = { '1d': { hour: '2-digit', minute: '2-digit' }, '7d': { weekday: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }, '1m': { day: 'numeric', month: 'short' }, '1y': { day: 'numeric', month: 'short', year: 'numeric' }, '5y': { month: 'short', year: 'numeric' } };
   var colors = { or: '#e2ab45', argent: '#cfd3d8' };
-  var range = '1m', last = {}, data = null, svgNS = 'http://www.w3.org/2000/svg';
+  var range = '5y', last = {}, data = null, svgNS = 'http://www.w3.org/2000/svg';
 
   function set(key, text) {
     var el = box.querySelector('[data-p="' + key + '"]');
