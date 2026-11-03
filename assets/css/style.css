@@ -1388,3 +1388,18 @@ main, .site-footer { overflow-x: clip; }
 .facts-over { background: none; padding-top: 0; inset: auto 0 .5rem 0; }
 .facts-over li strong, .facts-over li span { text-shadow: 0 1px 10px #000, 0 0 3px #000; }
 .facts-over { background: linear-gradient(0deg, rgba(0,0,0,.7) 0%, rgba(0,0,0,.45) 60%, transparent 100%); padding-top: 2.5rem; inset: auto 8% .8rem 8%; }
+
+/* Photo pleine hauteur du hero (comme l'accueil) */
+@media (min-width: 1025px) {
+  .service-hero { position: relative; overflow: hidden; }
+  .service-hero-grid:has(.facts-photo) { grid-template-columns: minmax(0, 1fr); }
+  .service-hero-grid:has(.facts-photo) > div:first-child { max-width: 560px; position: relative; z-index: 1; padding-block: 1rem; }
+  .facts-photo { position: absolute; top: 0; right: 0; bottom: 0; width: 56%; aspect-ratio: auto; z-index: 0; }
+  .facts-photo img {
+    -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 45%), linear-gradient(180deg, #000 0, #000 80%, transparent 100%);
+    mask-image: linear-gradient(90deg, transparent 0, #000 45%), linear-gradient(180deg, #000 0, #000 80%, transparent 100%);
+    -webkit-mask-composite: source-in; mask-composite: intersect;
+  }
+  .facts-over { inset: auto max(1.5rem, calc((100vw - 1200px) / 2)) 1.6rem auto; width: min(340px, 40%); }
+}
+.facts-over { background: radial-gradient(ellipse 80% 75% at 50% 55%, rgba(0,0,0,.62) 0%, rgba(0,0,0,.4) 55%, transparent 100%); padding: 1.6rem 1.2rem; }
