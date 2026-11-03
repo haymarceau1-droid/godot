@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Comparer l'or, les actions, l'immobilier et le Livret A | Godot &amp; Fils Chartres</title>
+  <meta name="description" content="Comparateur de placements : courbes de l'or, du S&P 500, de l'immobilier, du Livret A et de l'inflation depuis 2000, et simulateur de capital selon le rendement annuel moyen historique.">
+  <link rel="canonical" href="https://www.godotetfils-chartres.fr/comparer.html">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Comparer l'or, les actions, l'immobilier et le Livret A | Godot &amp; Fils Chartres">
+  <meta property="og:description" content="Comparateur de placements : courbes de l'or, du S&P 500, de l'immobilier, du Livret A et de l'inflation depuis 2000, et simulateur de capital selon le rendement annuel moyen historique.">
+  <meta property="og:locale" content="fr_FR">
+  <meta name="theme-color" content="#000000">
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="assets/fonts/josefin-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/josefin-sans-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <script>document.documentElement.className+=" js"</script>
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <a class="skip" href="#contenu">Aller au contenu</a>
+  <header class="site-header" id="haut">
+    <div class="container header-inner">
+      <a class="brand" href="index.html" aria-label="Godot &amp; Fils Chartres, accueil">
+        <img src="assets/img/logo-blanc.png" width="650" height="133" alt="Godot &amp; Fils, depuis 1933">
+      </a>
+      <button class="nav-toggle" aria-expanded="false" aria-controls="nav" aria-label="Ouvrir le menu">
+        <span></span><span></span>
+      </button>
+      <nav id="nav" class="menu" aria-label="Navigation principale">
+        <div class="menu-links">
+          <span class="menu-glide" aria-hidden="true"></span>
+          <div class="menu-dd">
+            <button type="button" class="menu-dd-btn" aria-expanded="false" aria-haspopup="true" aria-controls="menu-panel"><span>Nos services</span><svg class="ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M212.24,100.24l-80,80a6,6,0,0,1-8.48,0l-80-80a6,6,0,0,1,8.48-8.48L128,167.51l75.76-75.75a6,6,0,0,1,8.48,8.48Z"/></svg></button>
+            <div class="menu-panel" id="menu-panel" role="group" aria-label="Nos services"><div class="container mega-inner"><div class="mega-list"><p class="mega-title">Nos services</p><div class="mega-grid"><a href="vendre-or.html"><svg class="ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M188.47,193.66a6,6,0,0,1-.47,8.48A78,78,0,0,1,58.25,150H40a6,6,0,0,1,0-12H58V118H40a6,6,0,0,1,0-12H58.25A78,78,0,0,1,188,53.86a6,6,0,0,1-8,9A66,66,0,0,0,70.29,106H136a6,6,0,0,1,0,12H70v20h50a6,6,0,0,1,0,12H70.29A66,66,0,0,0,180,193.2,6,6,0,0,1,188.47,193.66Z"/></svg><span><strong>Vendre mon or</strong><small>Faites estimer et rachetez vos objets en or, sans rendez-vous.</small></span></a><a href="acheter-or.html"><svg class="ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M224.56,103.81C213.43,97.75,198.47,93.39,182,91.34V84c0-12.12-9.58-23.1-27-30.93C139.16,45.93,118.2,42,96,42S52.84,45.93,37,53.07C19.58,60.9,10,71.88,10,84v40c0,12.12,9.58,23.1,27,30.93,10.49,4.72,23.21,8,37,9.73V172c0,12.12,9.58,23.1,27,30.93C116.84,210.07,137.8,214,160,214s43.16-3.93,59-11.07c17.39-7.83,27-18.81,27-30.93V132C246,121.35,238.39,111.34,224.56,103.81Zm-5.74,10.54C228.61,119.68,234,126,234,132c0,14.19-30.39,30-74,30a166.9,166.9,0,0,1-21.21-1.34A110.79,110.79,0,0,0,155,154.93c17.39-7.83,27-18.81,27-30.93V103.43C196.4,105.36,209.3,109.16,218.82,114.35ZM108.16,153.58c-3.92.27-8,.42-12.16.42-5.3,0-10.4-.24-15.28-.67a2.22,2.22,0,0,0-.37,0c-3.58-.33-7-.77-10.35-1.3V124.12A178,178,0,0,0,96,126a178,178,0,0,0,26-1.88V152c-4.34.69-8.91,1.22-13.69,1.56ZM170,105.89V124c0,9.54-13.75,19.8-36,25.51V121.85a115,115,0,0,0,21-6.92A66.2,66.2,0,0,0,170,105.89ZM96,54c43.61,0,74,15.81,74,30s-30.39,30-74,30S22,98.19,22,84,52.39,54,96,54ZM22,124V105.89a66.2,66.2,0,0,0,15,9,115,115,0,0,0,21,6.92v27.66C35.75,143.8,22,133.54,22,124Zm64,48v-6.28c3.3.18,6.63.28,10,.28q5.91,0,11.66-.37A123.17,123.17,0,0,0,122,169.84v27.67C99.75,191.8,86,181.54,86,172Zm48,28V172.1a177.84,177.84,0,0,0,26,1.9,178,178,0,0,0,26-1.88V200a170,170,0,0,1-52,0Zm64-2.49V169.85a115,115,0,0,0,21-6.92,66.2,66.2,0,0,0,15-9V172C234,181.54,220.25,191.8,198,197.51Z"/></svg><span><strong>Acheter de l'or</strong><small>Pièces et lingots d'investissement, avec conseil personnalisé.</small></span></a><a href="numismatique.html"><svg class="ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M206.68,65.63C186.23,55.41,159,50,128,50S69.77,55.41,49.32,65.63C29.41,75.58,18,89.57,18,104v48c0,14.43,11.41,28.42,31.32,38.37C69.77,200.59,97,206,128,206s58.23-5.41,78.68-15.63C226.59,180.42,238,166.43,238,152V104C238,89.57,226.59,75.58,206.68,65.63Zm-152,10.74C73.21,67.1,99.25,62,128,62s54.79,5.1,73.32,14.37C217,84.21,226,94.28,226,104s-9,19.79-24.68,27.63C182.79,140.9,156.75,146,128,146s-54.79-5.1-73.32-14.37C39,123.79,30,113.72,30,104S39,84.21,54.68,76.37ZM122,157.93v36c-19.24-.48-37.07-3.28-52-8.11v-35.4C85.27,154.93,102.85,157.49,122,157.93Zm12,0c19.15-.44,36.73-3,52-7.52v35.4c-14.93,4.83-32.76,7.63-52,8.11ZM30,152V129a76,76,0,0,0,19.32,13.36q4.16,2.07,8.68,3.88v35c-1.13-.52-2.24-1-3.32-1.58C39,171.79,30,161.72,30,152Zm171.32,27.63c-1.08.54-2.19,1.06-3.32,1.58v-35q4.51-1.81,8.68-3.88A76,76,0,0,0,226,129v23C226,161.72,217,171.79,201.32,179.63Z"/></svg><span><strong>Numismatique</strong><small>Pièces de collection : valeur du métal et valeur numismatique.</small></span></a><a href="argent-bijoux.html"><svg class="ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M244.52,100.05l-56-64A6,6,0,0,0,184,34H72a6,6,0,0,0-4.52,2l-56,64a6,6,0,0,0,.13,8l112,120a6,6,0,0,0,8.78,0l112-120A6,6,0,0,0,244.52,100.05ZM75.94,110l34.6,86.49L29.81,110Zm91.2,0L128,207.84,88.86,110ZM92,98l36-48,36,48Zm88.06,12h46.13l-80.73,86.49Zm46.72-12H179L140,46h41.28ZM74.72,46H116L77,98H29.22Z"/></svg><span><strong>Argent &amp; bijoux</strong><small>Argenterie, platine et bijoux anciens estimés avec soin.</small></span></a><a href="change.html"><svg class="ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M222,48V152a14,14,0,0,1-14,14H94.49l13.75,13.76a6,6,0,1,1-8.48,8.48l-24-24a6,6,0,0,1,0-8.48l24-24a6,6,0,0,1,8.48,8.48L94.49,154H208a2,2,0,0,0,2-2V48a2,2,0,0,0-2-2H96a2,2,0,0,0-2,2v8a6,6,0,0,1-12,0V48A14,14,0,0,1,96,34H208A14,14,0,0,1,222,48ZM168,194a6,6,0,0,0-6,6v8a2,2,0,0,1-2,2H48a2,2,0,0,1-2-2V104a2,2,0,0,1,2-2H161.51l-13.75,13.76a6,6,0,1,0,8.48,8.48l24-24a6,6,0,0,0,0-8.48l-24-24a6,6,0,0,0-8.48,8.48L161.51,90H48a14,14,0,0,0-14,14V208a14,14,0,0,0,14,14H160a14,14,0,0,0,14-14v-8A6,6,0,0,0,168,194Z"/></svg><span><strong>Bureau de change</strong><small>Devises étrangères pour vos voyages, achat et vente.</small></span></a><a href="comparer.html" aria-current="page"><svg class="ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M237.57,133.77l-32-80h0a6,6,0,0,0-6.86-3.63L134,64.52V40a6,6,0,0,0-12,0V67.19l-67.3,15a6,6,0,0,0-4.27,3.63h0v0l-32,80A6.1,6.1,0,0,0,18,168c0,21.86,23.31,30,38,30s38-8.14,38-30a6.1,6.1,0,0,0-.43-2.23L64.19,92.33,122,79.48V210H104a6,6,0,0,0,0,12h48a6,6,0,0,0,0-12H134V76.81l56.21-12.49-27.78,69.45A6.1,6.1,0,0,0,162,136c0,21.86,23.31,30,38,30s38-8.14,38-30A6.1,6.1,0,0,0,237.57,133.77ZM56,186a36.89,36.89,0,0,1-17.48-4.56c-5.37-3.13-8.15-7.18-8.49-12.37l26-64.91,26,64.91C81.06,182.85,62.58,186,56,186Zm144-32a36.89,36.89,0,0,1-17.48-4.56c-5.37-3.13-8.15-7.18-8.49-12.37l26-64.91,26,64.91C225.06,150.85,206.58,154,200,154Z"/></svg><span><strong>Comparer les placements</strong><small>Or, actions, immobilier, Livret A : courbes et simulateur</small></span></a></div></div><aside class="mega-aside"><p class="mega-title">Estimation gratuite</p><p>Sans rendez-vous du lundi au vendredi, de 9h30 à 18h00. Le samedi matin, sur rendez-vous.</p><a class="btn btn-gold btn-sm" href="tel:+33237834977"><span>02 37 83 49 77</span></a><a class="link-more" href="contact.html">Venir à l'agence</a></aside></div></div>
+          </div>
+          <a href="pourquoi-investir-or.html"><svg class="ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M230,208a6,6,0,0,1-6,6H32a6,6,0,0,1-6-6V48a6,6,0,0,1,12,0V161.52l53.76-53.76a6,6,0,0,1,8.48,0L128,135.51,185.52,78H160a6,6,0,0,1,0-12h40a6,6,0,0,1,6,6v40a6,6,0,0,1-12,0V86.48l-61.76,61.76a6,6,0,0,1-8.48,0L96,120.49l-58,58V202H224A6,6,0,0,1,230,208Z"/></svg><span>Pourquoi investir ?</span></a>
+          <a href="la-maison.html"><svg class="ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M26.22,94.41A6,6,0,0,0,26,96v16A38,38,0,0,0,42,143V216a6,6,0,0,0,6,6H208a6,6,0,0,0,6-6V143A38,38,0,0,0,230,112V96a5.91,5.91,0,0,0-.23-1.64L215.43,44.15A14.07,14.07,0,0,0,202,34H54A14.07,14.07,0,0,0,40.57,44.15Zm25.89-47A2,2,0,0,1,54,46H202a2,2,0,0,1,1.92,1.45L216.05,90H40ZM102,102h52v10a26,26,0,0,1-52,0Zm-64,0H90v10a26,26,0,0,1-38.18,23,6,6,0,0,0-1.65-1A26,26,0,0,1,38,112ZM202,210H54V148.66a38,38,0,0,0,42-16.21,37.95,37.95,0,0,0,64,0,38,38,0,0,0,42,16.21Zm3.83-76a6,6,0,0,0-1.65,1A26,26,0,0,1,166,112V102h52v10A26,26,0,0,1,205.83,134Z"/></svg><span>La maison</span></a>
+          <a href="contact.html"><svg class="ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M128,66a38,38,0,1,0,38,38A38,38,0,0,0,128,66Zm0,64a26,26,0,1,1,26-26A26,26,0,0,1,128,130Zm0-112a86.1,86.1,0,0,0-86,86c0,30.91,14.34,63.74,41.47,94.94a252.32,252.32,0,0,0,41.09,38,6,6,0,0,0,6.88,0,252.32,252.32,0,0,0,41.09-38c27.13-31.2,41.47-64,41.47-94.94A86.1,86.1,0,0,0,128,18Zm0,206.51C113,212.93,54,163.62,54,104a74,74,0,0,1,148,0C202,163.62,143,212.93,128,224.51Z"/></svg><span>Contact</span></a>
+        </div>
+        <span class="menu-status" data-open-status data-short><span class="dot"></span><span class="status-text">Horaires d'ouverture</span></span>
+        <a class="btn btn-gold btn-sm menu-cta" href="tel:+33237834977"><span>02 37 83 49 77</span></a>
+        <div class="menu-foot">
+          <p><svg class="ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M128,66a38,38,0,1,0,38,38A38,38,0,0,0,128,66Zm0,64a26,26,0,1,1,26-26A26,26,0,0,1,128,130Zm0-112a86.1,86.1,0,0,0-86,86c0,30.91,14.34,63.74,41.47,94.94a252.32,252.32,0,0,0,41.09,38,6,6,0,0,0,6.88,0,252.32,252.32,0,0,0,41.09-38c27.13-31.2,41.47-64,41.47-94.94A86.1,86.1,0,0,0,128,18Zm0,206.51C113,212.93,54,163.62,54,104a74,74,0,0,1,148,0C202,163.62,143,212.93,128,224.51Z"/></svg><span>23 rue de la Pie, 28000 Chartres</span></p>
+          <p><svg class="ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M128,26A102,102,0,1,0,230,128,102.12,102.12,0,0,0,128,26Zm0,192a90,90,0,1,1,90-90A90.1,90.1,0,0,1,128,218Zm62-90a6,6,0,0,1-6,6H128a6,6,0,0,1-6-6V72a6,6,0,0,1,12,0v50h50A6,6,0,0,1,190,128Z"/></svg><span>Lun – Ven · 9h30 – 18h00<br>Samedi matin sur rendez-vous</span></p>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main id="contenu">
+    <section class="page-hero service-hero">
+      <div class="container service-hero-grid">
+        <div>
+          <nav class="crumbs" aria-label="Fil d'Ariane"><a href="index.html">Accueil</a> <span aria-hidden="true">/</span> <span>Comparer les placements</span></nav>
+          <p class="eyebrow">Comparateur</p>
+          <h1>Comparer l'or aux autres placements.</h1>
+          <p class="lead">Or, actions américaines, immobilier, Livret A et inflation : leurs courbes depuis 2000, et ce que deviendrait votre capital selon le rendement annuel moyen de chacun.</p>
+          <div class="hero-actions">
+            <a class="btn btn-gold" href="contact.html">Venir à l'agence</a>
+            <a class="btn btn-ghost" href="tel:+33237834977">Appeler l'agence</a>
+          </div>
+        </div>
+        <aside class="facts-card" aria-label="L'essentiel">
+          <div class="facts-mark" aria-hidden="true"><svg class="ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M228,208a4,4,0,0,1-4,4H32a4,4,0,0,1-4-4V48a4,4,0,0,1,8,0V166.34l57.17-57.17a4,4,0,0,1,5.66,0L128,138.34,190.34,76H160a4,4,0,0,1,0-8h40a4,4,0,0,1,4,4v40a4,4,0,0,1-8,0V81.66l-65.17,65.17a4,4,0,0,1-5.66,0L96,117.66l-60,60V204H224A4,4,0,0,1,228,208Z"/></svg></div>
+          <ul><li><svg class="ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M228,208a4,4,0,0,1-4,4H32a4,4,0,0,1-4-4V48a4,4,0,0,1,8,0V166.34l57.17-57.17a4,4,0,0,1,5.66,0L128,138.34,190.34,76H160a4,4,0,0,1,0-8h40a4,4,0,0,1,4,4v40a4,4,0,0,1-8,0V81.66l-65.17,65.17a4,4,0,0,1-5.66,0L96,117.66l-60,60V204H224A4,4,0,0,1,228,208Z"/></svg><div><strong>5 courbes</strong><span>Or, S&P 500, immobilier, Livret A, inflation</span></div></li><li><svg class="ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M187,195a4,4,0,0,1-.31,5.65A76,76,0,0,1,60.11,148H40a4,4,0,0,1,0-8H60V116H40a4,4,0,0,1,0-8H60.11A76,76,0,0,1,186.67,55.35a4,4,0,1,1-5.34,6A68,68,0,0,0,68.13,108H136a4,4,0,0,1,0,8H68v24h52a4,4,0,0,1,0,8H68.13a68,68,0,0,0,113.2,46.69A4,4,0,0,1,187,195Z"/></svg><div><strong>Votre capital</strong><span>Simulez avec votre montant</span></div></li><li><svg class="ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M235.71,134.51l-32-80h0a4,4,0,0,0-4.57-2.41L132,67V40a4,4,0,0,0-8,0V68.79L55.13,84.1a4,4,0,0,0-2.84,2.41h0v0h0l-32,80A4,4,0,0,0,20,168c0,20.4,22.08,28,36,28s36-7.6,36-28a4,4,0,0,0-.29-1.49L61.46,90.88,124,77V212H104a4,4,0,0,0,0,8h48a4,4,0,0,0,0-8H132V75.21l61.47-13.66-29.18,73A4,4,0,0,0,164,136c0,20.4,22.08,28,36,28s36-7.6,36-28A4,4,0,0,0,235.71,134.51ZM56,188c-7.15,0-27.37-3.56-28-19.27l28-70,28,70C83.37,184.44,63.15,188,56,188Zm144-32c-7.15,0-27.37-3.56-28-19.27l28-70,28,70C227.37,152.44,207.15,156,200,156Z"/></svg><div><strong>Sans parti pris</strong><span>Bonnes et mauvaises années incluses</span></div></li></ul>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section section-dark" id="courbes">
+      <div class="container">
+        <header class="section-head">
+          <p class="eyebrow">Les courbes</p>
+          <h2>25 ans de placements, côte à côte</h2>
+          <p>Chaque courbe part de 100 au point de départ choisi : on lit directement de combien un placement a progressé. Passez la souris sur le graphique pour comparer année par année.</p>
+        </header>
+        <div class="cmp" data-cmp>
+          <div class="cmp-controls">
+            <label class="field"><span>Base 100 en</span>
+              <select data-cmp-start aria-label="Année de départ">
+                <option value="2000" selected>2000</option><option value="2005">2005</option><option value="2010">2010</option><option value="2015">2015</option><option value="2020">2020</option>
+              </select></label>
+            <div class="seg" role="group" aria-label="Échelle du graphique">
+              <button type="button" class="is-on" data-cmp-scale="log" aria-pressed="true">Échelle logarithmique</button>
+              <button type="button" data-cmp-scale="lin" aria-pressed="false">Échelle linéaire</button>
+            </div>
+          </div>
+          <ul class="cmp-legend" aria-label="Séries affichées"><li><button type="button" class="chip cmp-chip" data-series="or" aria-pressed="true"><span class="sw" style="--c:#e2ab45"></span>Or</button></li><li><button type="button" class="chip cmp-chip" data-series="sp" aria-pressed="true"><span class="sw" style="--c:#4fb583"></span>S&P 500</button></li><li><button type="button" class="chip cmp-chip" data-series="immo" aria-pressed="true"><span class="sw" style="--c:#d98a63"></span>Immobilier ancien</button></li><li><button type="button" class="chip cmp-chip" data-series="livret" aria-pressed="true"><span class="sw" style="--c:#c58ad6"></span>Livret A</button></li><li><button type="button" class="chip cmp-chip" data-series="infl" aria-pressed="true"><span class="sw sw-dash" style="--c:#9a9a9a"></span>Inflation</button></li></ul>
+          <div class="cmp-chart-wrap">
+            <div class="cmp-chart" data-cmp-chart role="img" aria-label="Courbes comparées de l'or, du S&amp;P 500, de l'immobilier, du Livret A et de l'inflation depuis 2000"></div>
+            <div class="chart-tip cmp-tip" role="status" aria-live="polite" hidden></div>
+          </div>
+          <noscript><p class="note">Le graphique interactif nécessite JavaScript. Les rendements annuels moyens figurent dans le tableau plus bas.</p></noscript>
+          <p class="note cmp-hint">L'échelle logarithmique rend lisibles des courbes très différentes : à chaque graduation, la valeur double ou presque.</p>
+          <ul class="cmp-sub"><li><span class="sw" style="--c:#e2ab45"></span><div><strong>Or</strong><span>en dollars · prix de fin d'année (LBMA)</span></div></li><li><span class="sw" style="--c:#4fb583"></span><div><strong>S&P 500</strong><span>actions américaines · dividendes réinvestis · en dollars</span></div></li><li><span class="sw" style="--c:#d98a63"></span><div><strong>Immobilier ancien</strong><span>France · indice Notaires-Insee · valeurs arrondies (≈)</span></div></li><li><span class="sw" style="--c:#c58ad6"></span><div><strong>Livret A</strong><span>taux moyen annuel · intérêts réinvestis (≈)</span></div></li><li><span class="sw sw-dash" style="--c:#9a9a9a"></span><div><strong>Inflation</strong><span>prix à la consommation en France (INSEE)</span></div></li></ul>
+        </div>
+        <script type="application/json" id="cmp-data">{"years": [2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025], "series": [{"id": "or", "label": "Or", "sub": "en dollars · prix de fin d'année (LBMA)", "color": "#e2ab45", "approx": false, "returns": [1.04, 25.57, 19.89, 4.65, 17.77, 23.2, 31.92, 5.31, 23.86, 29.24, 8.93, 8.26, -27.33, 0.12, -12.11, 8.1, 12.66, -0.93, 18.49, 24.55, -4.33, 0.36, 13.8, 27.25, 66.43]}, {"id": "sp", "label": "S&P 500", "sub": "actions américaines · dividendes réinvestis · en dollars", "color": "#4fb583", "approx": false, "returns": [-11.89, -22.1, 28.68, 10.88, 4.91, 15.79, 5.49, -37.0, 26.46, 15.06, 2.11, 16.0, 32.39, 13.69, 1.38, 11.96, 21.83, -4.38, 31.49, 18.4, 28.71, -18.11, 26.29, 25.02, 17.88]}, {"id": "immo", "label": "Immobilier ancien", "sub": "France · indice Notaires-Insee · valeurs arrondies (≈)", "color": "#d98a63", "approx": true, "returns": [7.8, 8.3, 11.7, 15.2, 15.3, 12.1, 6.6, 1.2, -7.1, 6.3, 1.3, -1.3, -2.8, -1.6, 0.4, 2.7, 3.4, 3.3, 3.6, 5.7, 6.4, 4.7, -4.2, -2.1, 1.1]}, {"id": "livret", "label": "Livret A", "sub": "taux moyen annuel · intérêts réinvestis (≈)", "color": "#c58ad6", "approx": true, "returns": [3.0, 3.0, 2.6, 2.25, 2.1, 2.44, 2.85, 3.67, 1.7, 1.5, 2.1, 2.0, 1.5, 1.1, 0.9, 0.75, 0.75, 0.75, 0.75, 0.55, 0.5, 1.4, 2.9, 3.0, 2.2]}, {"id": "infl", "label": "Inflation", "sub": "prix à la consommation en France (INSEE)", "color": "#9a9a9a", "approx": false, "dashed": true, "returns": [1.6, 1.9, 2.1, 2.1, 1.7, 1.7, 1.5, 2.8, 0.1, 1.5, 2.1, 2.0, 0.9, 0.5, 0.0, 0.2, 1.0, 1.8, 1.1, 0.5, 1.6, 5.2, 4.9, 2.0, 0.9]}], "windows": [25, 15, 10, 5]}</script>
+      </div>
+    </section>
+
+    <section class="section" id="simulateur">
+      <div class="container">
+        <header class="section-head">
+          <p class="eyebrow">Simulateur</p>
+          <h2>Que deviendrait votre capital ?</h2>
+          <p>Saisissez un montant et une durée : le tableau applique à votre capital le rendement annuel moyen historique de chaque placement, sur la période de référence choisie.</p>
+        </header>
+        <form class="sim" data-sim onsubmit="return false">
+          <label class="field"><span>Capital investi</span><span class="input-wrap"><input type="number" inputmode="numeric" min="100" max="10000000" step="100" value="10000" data-sim-amount aria-label="Capital investi en euros"><b>€</b></span></label>
+          <label class="field"><span>Durée du placement</span><span class="input-wrap"><input type="number" inputmode="numeric" min="1" max="50" step="1" value="10" data-sim-years aria-label="Durée en années"><b>ans</b></span></label>
+          <label class="field"><span>Rendements moyens calculés sur</span><select data-sim-window aria-label="Période de référence"><option value="25" selected>25 ans · 2001–2025</option><option value="15">15 ans · 2011–2025</option><option value="10">10 ans · 2016–2025</option><option value="5">5 ans · 2021–2025</option></select></label>
+        </form>
+        <p class="sim-caption" data-sim-caption>Avec 10&nbsp;000&nbsp;€ placés pendant 10&nbsp;ans, au rendement annuel moyen des 25 dernières années.</p>
+        <div class="table-wrap">
+          <table class="data-table sim-table">
+            <caption class="sr-only">Valeur du capital selon le placement</caption>
+            <thead><tr><th scope="col">Placement</th><th scope="col">Rendement annuel moyen</th><th scope="col">Valeur au bout de la durée</th><th scope="col">Gain</th><th scope="col">En euros d'aujourd'hui<br><small>après inflation</small></th><th scope="col">Pire année<br><small>sur la période</small></th></tr></thead>
+            <tbody data-sim-body><tr class="sim-row"><th scope="row"><span class="sw" style="--c:#e2ab45"></span>Or</th><td data-label="Rendement annuel moyen">+11,7&nbsp;%<small>/an</small></td><td data-label="Valeur au bout de la durée"><strong>30&#8239;284&nbsp;€</strong><span class="mini-bar"><i style="--w:100.0%;--c:#e2ab45"></i></span></td><td data-label="Gain">+20&#8239;284&nbsp;€</td><td data-label="En euros d'aujourd'hui">25&#8239;685&nbsp;€</td><td data-label="Pire année">−27,3&nbsp;%</td></tr><tr class="sim-row"><th scope="row"><span class="sw" style="--c:#4fb583"></span>S&P 500</th><td data-label="Rendement annuel moyen">+8,8&nbsp;%<small>/an</small></td><td data-label="Valeur au bout de la durée"><strong>23&#8239;295&nbsp;€</strong><span class="mini-bar"><i style="--w:76.9%;--c:#4fb583"></i></span></td><td data-label="Gain">+13&#8239;295&nbsp;€</td><td data-label="En euros d'aujourd'hui">19&#8239;757&nbsp;€</td><td data-label="Pire année">−37,0&nbsp;%</td></tr><tr class="sim-row"><th scope="row"><span class="sw" style="--c:#d98a63"></span>Immobilier ancien <abbr title="Estimation arrondie">≈</abbr></th><td data-label="Rendement annuel moyen">+3,8&nbsp;%<small>/an</small></td><td data-label="Valeur au bout de la durée"><strong>14&#8239;473&nbsp;€</strong><span class="mini-bar"><i style="--w:47.8%;--c:#d98a63"></i></span></td><td data-label="Gain">+4&#8239;473&nbsp;€</td><td data-label="En euros d'aujourd'hui">12&#8239;275&nbsp;€</td><td data-label="Pire année">−7,1&nbsp;%</td></tr><tr class="sim-row"><th scope="row"><span class="sw" style="--c:#c58ad6"></span>Livret A <abbr title="Estimation arrondie">≈</abbr></th><td data-label="Rendement annuel moyen">+1,8&nbsp;%<small>/an</small></td><td data-label="Valeur au bout de la durée"><strong>12&#8239;007&nbsp;€</strong><span class="mini-bar"><i style="--w:39.7%;--c:#c58ad6"></i></span></td><td data-label="Gain">+2&#8239;007&nbsp;€</td><td data-label="En euros d'aujourd'hui">10&#8239;184&nbsp;€</td><td data-label="Pire année">+0,5&nbsp;%</td></tr><tr class="sim-row sim-ref"><th scope="row"><span class="sw" style="--c:#9a9a9a"></span>Inflation</th><td data-label="Rendement annuel moyen">+1,7&nbsp;%<small>/an</small></td><td data-label="Valeur au bout de la durée"><strong>11&#8239;791&nbsp;€</strong><span class="mini-bar"><i style="--w:38.9%;--c:#9a9a9a"></i></span></td><td data-label="Gain">+1&#8239;791&nbsp;€</td><td data-label="En euros d'aujourd'hui">10&#8239;000&nbsp;€</td><td data-label="Pire année">+0,0&nbsp;%</td></tr></tbody>
+          </table>
+        </div>
+        <aside class="notice notice-light"><strong>À lire avant d'interpréter :</strong> c'est une simulation à rendement constant, ce qui ne correspond jamais à la réalité : une année sur deux peut être négative. Les résultats passés ne préjugent pas des résultats futurs, et les chiffres ne tiennent compte ni des frais, ni de la fiscalité, ni des droits de mutation ou de l'entretien pour l'immobilier. L'or et le S&amp;P 500 sont exprimés en dollars : pour un investisseur en euros, les variations du change modifient le résultat.</aside>
+      </div>
+    </section>
+
+    <section class="section section-dark">
+      <div class="container">
+        <header class="section-head">
+          <p class="eyebrow">À retenir</p>
+          <h2>Le classement change avec la période</h2>
+          <p>Le meilleur placement d'une période n'est pas celui de la suivante. La case dorée indique le meilleur rendement annuel moyen de chaque période.</p>
+        </header>
+        <div class="table-wrap table-dark">
+          <table class="data-table matrix"><thead><tr><th scope="col">Rendement annuel moyen</th><th scope="col">25 ans · 2001–2025</th><th scope="col">15 ans · 2011–2025</th><th scope="col">10 ans · 2016–2025</th><th scope="col">5 ans · 2021–2025</th></tr></thead><tbody><tr><th scope="row"><span class="sw" style="--c:#e2ab45"></span>Or</th><td class="best">+11,7&nbsp;%</td><td class="">+7,9&nbsp;%</td><td class="best">+15,2&nbsp;%</td><td class="best">+18,3&nbsp;%</td></tr><tr><th scope="row"><span class="sw" style="--c:#4fb583"></span>S&P 500</th><td class="">+8,8&nbsp;%</td><td class="best">+14,1&nbsp;%</td><td class="">+14,8&nbsp;%</td><td class="">+14,4&nbsp;%</td></tr><tr><th scope="row"><span class="sw" style="--c:#d98a63"></span>Immobilier ancien ≈</th><td class="">+3,8&nbsp;%</td><td class="">+1,3&nbsp;%</td><td class="">+2,4&nbsp;%</td><td class="">+1,1&nbsp;%</td></tr><tr><th scope="row"><span class="sw" style="--c:#c58ad6"></span>Livret A ≈</th><td class="">+1,8&nbsp;%</td><td class="">+1,4&nbsp;%</td><td class="">+1,4&nbsp;%</td><td class="">+2,0&nbsp;%</td></tr><tr><th scope="row"><span class="sw" style="--c:#9a9a9a"></span>Inflation</th><td class="">+1,7&nbsp;%</td><td class="">+1,6&nbsp;%</td><td class="">+1,9&nbsp;%</td><td class="">+2,9&nbsp;%</td></tr></tbody></table>
+        </div>
+        <div class="cards-feature cards-feature-dark takeaways">
+          <article class="card-row"><span class="card-icon" aria-hidden="true"><svg class="ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M237.57,133.77l-32-80h0a6,6,0,0,0-6.86-3.63L134,64.52V40a6,6,0,0,0-12,0V67.19l-67.3,15a6,6,0,0,0-4.27,3.63h0v0l-32,80A6.1,6.1,0,0,0,18,168c0,21.86,23.31,30,38,30s38-8.14,38-30a6.1,6.1,0,0,0-.43-2.23L64.19,92.33,122,79.48V210H104a6,6,0,0,0,0,12h48a6,6,0,0,0,0-12H134V76.81l56.21-12.49-27.78,69.45A6.1,6.1,0,0,0,162,136c0,21.86,23.31,30,38,30s38-8.14,38-30A6.1,6.1,0,0,0,237.57,133.77ZM56,186a36.89,36.89,0,0,1-17.48-4.56c-5.37-3.13-8.15-7.18-8.49-12.37l26-64.91,26,64.91C81.06,182.85,62.58,186,56,186Zm144-32a36.89,36.89,0,0,1-17.48-4.56c-5.37-3.13-8.15-7.18-8.49-12.37l26-64.91,26,64.91C225.06,150.85,206.58,154,200,154Z"/></svg></span><div><h3>Un classement qui bouge</h3><p>L'or domine sur 25, 10 et 5 ans, mais les actions américaines passent devant sur 15 ans : le résultat dépend de la période choisie.</p></div></article>
+          <article class="card-row"><span class="card-icon" aria-hidden="true"><svg class="ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M230,208a6,6,0,0,1-6,6H32a6,6,0,0,1-6-6V48a6,6,0,0,1,12,0V161.52l53.76-53.76a6,6,0,0,1,8.48,0L128,135.51,185.52,78H160a6,6,0,0,1,0-12h40a6,6,0,0,1,6,6v40a6,6,0,0,1-12,0V86.48l-61.76,61.76a6,6,0,0,1-8.48,0L96,120.49l-58,58V202H224A6,6,0,0,1,230,208Z"/></svg></span><div><h3>Le risque n'est pas le même</h3><p>Les actions ont connu des années à −37 % (2008) ; l'or des années à −27 % (2013) ; le Livret A, jamais d'année négative, mais un rendement souvent proche de l'inflation.</p></div></article>
+          <article class="card-row"><span class="card-icon" aria-hidden="true"><svg class="ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M244.52,100.05l-56-64A6,6,0,0,0,184,34H72a6,6,0,0,0-4.52,2l-56,64a6,6,0,0,0,.13,8l112,120a6,6,0,0,0,8.78,0l112-120A6,6,0,0,0,244.52,100.05ZM75.94,110l34.6,86.49L29.81,110Zm91.2,0L128,207.84,88.86,110ZM92,98l36-48,36,48Zm88.06,12h46.13l-80.73,86.49Zm46.72-12H179L140,46h41.28ZM74.72,46H116L77,98H29.22Z"/></svg></span><div><h3>L'immobilier, un cas à part</h3><p>Il est peu liquide, nécessite souvent un emprunt et génère des frais, des charges et des loyers qui ne figurent pas ici.</p></div></article>
+          <article class="card-row"><span class="card-icon" aria-hidden="true"><svg class="ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M224.56,103.81C213.43,97.75,198.47,93.39,182,91.34V84c0-12.12-9.58-23.1-27-30.93C139.16,45.93,118.2,42,96,42S52.84,45.93,37,53.07C19.58,60.9,10,71.88,10,84v40c0,12.12,9.58,23.1,27,30.93,10.49,4.72,23.21,8,37,9.73V172c0,12.12,9.58,23.1,27,30.93C116.84,210.07,137.8,214,160,214s43.16-3.93,59-11.07c17.39-7.83,27-18.81,27-30.93V132C246,121.35,238.39,111.34,224.56,103.81Zm-5.74,10.54C228.61,119.68,234,126,234,132c0,14.19-30.39,30-74,30a166.9,166.9,0,0,1-21.21-1.34A110.79,110.79,0,0,0,155,154.93c17.39-7.83,27-18.81,27-30.93V103.43C196.4,105.36,209.3,109.16,218.82,114.35ZM108.16,153.58c-3.92.27-8,.42-12.16.42-5.3,0-10.4-.24-15.28-.67a2.22,2.22,0,0,0-.37,0c-3.58-.33-7-.77-10.35-1.3V124.12A178,178,0,0,0,96,126a178,178,0,0,0,26-1.88V152c-4.34.69-8.91,1.22-13.69,1.56ZM170,105.89V124c0,9.54-13.75,19.8-36,25.51V121.85a115,115,0,0,0,21-6.92A66.2,66.2,0,0,0,170,105.89ZM96,54c43.61,0,74,15.81,74,30s-30.39,30-74,30S22,98.19,22,84,52.39,54,96,54ZM22,124V105.89a66.2,66.2,0,0,0,15,9,115,115,0,0,0,21,6.92v27.66C35.75,143.8,22,133.54,22,124Zm64,48v-6.28c3.3.18,6.63.28,10,.28q5.91,0,11.66-.37A123.17,123.17,0,0,0,122,169.84v27.67C99.75,191.8,86,181.54,86,172Zm48,28V172.1a177.84,177.84,0,0,0,26,1.9,178,178,0,0,0,26-1.88V200a170,170,0,0,1-52,0Zm64-2.49V169.85a115,115,0,0,0,21-6.92,66.2,66.2,0,0,0,15-9V172C234,181.54,220.25,191.8,198,197.51Z"/></svg></span><div><h3>Se diversifier</h3><p>Aucun placement n'est le meilleur chaque année. Beaucoup d'épargnants répartissent leur patrimoine entre plusieurs supports.</p></div></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container narrow">
+        <header class="section-head"><p class="eyebrow">Sources et méthode</p><h2>D'où viennent ces données</h2></header>
+        <ul class="sources">
+          <li><strong>Or :</strong> prix de fin d'année du fixing LBMA PM, en dollars (variation d'une fin d'année à l'autre). Voir la page <a href="pourquoi-investir-or.html">Pourquoi investir dans l'or</a> et les sources <a href="https://www.lbma.org.uk/prices-and-data/lbma-annual-precious-metals-forecast-survey" target="_blank" rel="noopener">LBMA</a> et <a href="https://www.gold.org/goldhub/data/gold-prices" target="_blank" rel="noopener">World Gold Council</a>. Les écarts avec d'autres sources sont de l'ordre d'un point par an.</li>
+          <li><strong>S&amp;P 500 :</strong> rendement total annuel dividendes réinvestis, en dollars, d'après <a href="https://smartasset.com/investing/sp-500-average-annual-return" target="_blank" rel="noopener">SmartAsset</a> et <a href="https://www.slickcharts.com/sp500/returns/details" target="_blank" rel="noopener">Slickcharts</a>.</li>
+          <li><strong>Immobilier :</strong> variations annuelles arrondies de l'indice Notaires-Insee des logements anciens en France (<a href="https://www.insee.fr/fr/statistiques/5371271" target="_blank" rel="noopener">Insee</a>). Estimation à ± 1 ou 2 points selon les années : à utiliser comme un ordre de grandeur.</li>
+          <li><strong>Livret A :</strong> taux moyen de chaque année (<a href="https://mes-livrets.fr/guides/historique-taux-livret-a/" target="_blank" rel="noopener">historique des taux</a>), arrondi, intérêts réinvestis. Estimation.</li>
+          <li><strong>Inflation :</strong> moyenne annuelle des prix à la consommation, <a href="https://www.insee.fr/fr/statistiques/serie/011813530" target="_blank" rel="noopener">Insee</a>.</li>
+          <li>Rendement annuel moyen = taux de croissance annualisé sur la période. Données arrêtées à fin 2025 (S&amp;P 500 et or), mises à jour en novembre 2026. Ce comparateur est une information générale, pas un conseil en investissement ; investir comporte un risque de perte en capital.</li>
+        </ul>
+        <div class="hero-actions">
+          <a class="btn btn-gold" href="pourquoi-investir-or.html">Pourquoi investir dans l'or</a>
+          <a class="btn btn-outline" href="acheter-or.html">Acheter de l'or</a>
+        </div>
+      </div>
+    </section>
+    <section class="cta-band">
+      <div class="container cta-inner">
+        <div>
+          <h2>Estimation gratuite, sans rendez-vous.</h2>
+          <p>Passez nous voir au 23 rue de la Pie, du lundi au vendredi de 9h30 à 18h00, et le samedi matin sur rendez-vous.</p>
+        </div>
+        <div class="cta-actions">
+          <a class="btn btn-gold" href="contact.html">Venir à l'agence</a>
+          <a class="btn btn-outline" href="tel:+33237834977">02 37 83 49 77</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div>
+        <a class="brand brand-footer" href="index.html">
+          <img src="assets/img/logo-blanc.png" width="650" height="133" alt="Godot &amp; Fils, depuis 1933">
+        </a>
+        <p>Achat et vente d'or, d'argent et de métaux précieux. Bureau de change.</p>
+      </div>
+      <div>
+        <h3>Agence</h3>
+        <ul class="foot-lines">
+          <li><svg class="ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M128,66a38,38,0,1,0,38,38A38,38,0,0,0,128,66Zm0,64a26,26,0,1,1,26-26A26,26,0,0,1,128,130Zm0-112a86.1,86.1,0,0,0-86,86c0,30.91,14.34,63.74,41.47,94.94a252.32,252.32,0,0,0,41.09,38,6,6,0,0,0,6.88,0,252.32,252.32,0,0,0,41.09-38c27.13-31.2,41.47-64,41.47-94.94A86.1,86.1,0,0,0,128,18Zm0,206.51C113,212.93,54,163.62,54,104a74,74,0,0,1,148,0C202,163.62,143,212.93,128,224.51Z"/></svg><span>23 rue de la Pie<br>28000 Chartres</span></li>
+          <li><svg class="ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M146.2,46.45a6,6,0,0,1,7.35-4.25,84.24,84.24,0,0,1,60.25,60.25,6,6,0,0,1-4.25,7.35,5.94,5.94,0,0,1-1.55.2,6,6,0,0,1-5.8-4.45A72.34,72.34,0,0,0,150.45,53.8,6,6,0,0,1,146.2,46.45ZM142.45,85.8C157,89.68,166.32,99,170.2,113.55A6,6,0,0,0,176,118a5.94,5.94,0,0,0,1.55-.2,6,6,0,0,0,4.25-7.35c-5-18.71-17.54-31.25-36.25-36.25a6,6,0,1,0-3.1,11.6Zm79.44,97A54.25,54.25,0,0,1,168,230C89.7,230,26,166.3,26,88A54.25,54.25,0,0,1,73.17,34.11,14,14,0,0,1,87.73,42.5l21.1,47.1a14,14,0,0,1-1.12,13.28,6,6,0,0,1-.42.57L86.22,128.51a1.89,1.89,0,0,0,0,1.67c7.66,15.68,24.1,32,40,39.65a1.88,1.88,0,0,0,1.68-.06l24.69-21a4.81,4.81,0,0,1,.56-.42,14,14,0,0,1,13.28-1.22l47.24,21.17A14,14,0,0,1,221.89,182.83ZM210,181.32a2,2,0,0,0-1.21-2l-47.25-21.17a1.92,1.92,0,0,0-1.6.1l-24.68,21c-.18.15-.37.29-.56.42a14,14,0,0,1-13.77,1c-18.36-8.87-36.66-27-45.53-45.19a14,14,0,0,1,.91-13.73,4.73,4.73,0,0,1,.43-.57L97.79,96.09a2,2,0,0,0,0-1.67L76.74,47.31A2,2,0,0,0,74.9,46h-.23A42.24,42.24,0,0,0,38,88c0,71.68,58.32,130,130,130A42.24,42.24,0,0,0,210,181.32Z"/></svg><a href="tel:+33237834977">02 37 83 49 77</a></li>
+          <li><svg class="ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M128,26A102,102,0,1,0,230,128,102.12,102.12,0,0,0,128,26Zm0,192a90,90,0,1,1,90-90A90.1,90.1,0,0,1,128,218Zm62-90a6,6,0,0,1-6,6H128a6,6,0,0,1-6-6V72a6,6,0,0,1,12,0v50h50A6,6,0,0,1,190,128Z"/></svg><span>Lun – Ven · 9h30 – 18h00<br>Samedi matin sur rendez-vous</span></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Nos services</h3>
+        <ul>
+          <li><a href="vendre-or.html">Vendre mon or</a></li>
+          <li><a href="acheter-or.html">Acheter de l'or</a></li>
+          <li><a href="numismatique.html">Numismatique</a></li>
+          <li><a href="argent-bijoux.html">Argent &amp; bijoux</a></li>
+          <li><a href="change.html">Bureau de change</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Informations</h3>
+        <ul>
+          <li><a href="la-maison.html">La maison</a></li>
+          <li><a href="pourquoi-investir-or.html">Pourquoi investir dans l'or</a></li>
+          <li><a href="comparer.html">Comparer les placements</a></li>
+          <li><a href="faq.html">Questions fréquentes</a></li>
+          <li><a href="contact.html">Contact &amp; accès</a></li>
+          <li><a href="mentions-legales.html">Mentions légales</a></li>
+          <li><button type="button" class="linklike" data-consent-open>Gérer les cookies</button></li>
+        </ul>
+      </div>
+    </div>
+    <div class="container footer-bottom">
+      <p>© <span data-year>2026</span> Godot &amp; Fils Chartres. Tous droits réservés.</p>
+    </div>
+  </footer>
+  <a class="call-fab" href="tel:+33237834977" aria-label="Appeler l'agence au 02 37 83 49 77">
+    <svg class="ic" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M146.2,46.45a6,6,0,0,1,7.35-4.25,84.24,84.24,0,0,1,60.25,60.25,6,6,0,0,1-4.25,7.35,5.94,5.94,0,0,1-1.55.2,6,6,0,0,1-5.8-4.45A72.34,72.34,0,0,0,150.45,53.8,6,6,0,0,1,146.2,46.45ZM142.45,85.8C157,89.68,166.32,99,170.2,113.55A6,6,0,0,0,176,118a5.94,5.94,0,0,0,1.55-.2,6,6,0,0,0,4.25-7.35c-5-18.71-17.54-31.25-36.25-36.25a6,6,0,1,0-3.1,11.6Zm79.44,97A54.25,54.25,0,0,1,168,230C89.7,230,26,166.3,26,88A54.25,54.25,0,0,1,73.17,34.11,14,14,0,0,1,87.73,42.5l21.1,47.1a14,14,0,0,1-1.12,13.28,6,6,0,0,1-.42.57L86.22,128.51a1.89,1.89,0,0,0,0,1.67c7.66,15.68,24.1,32,40,39.65a1.88,1.88,0,0,0,1.68-.06l24.69-21a4.81,4.81,0,0,1,.56-.42,14,14,0,0,1,13.28-1.22l47.24,21.17A14,14,0,0,1,221.89,182.83ZM210,181.32a2,2,0,0,0-1.21-2l-47.25-21.17a1.92,1.92,0,0,0-1.6.1l-24.68,21c-.18.15-.37.29-.56.42a14,14,0,0,1-13.77,1c-18.36-8.87-36.66-27-45.53-45.19a14,14,0,0,1,.91-13.73,4.73,4.73,0,0,1,.43-.57L97.79,96.09a2,2,0,0,0,0-1.67L76.74,47.31A2,2,0,0,0,74.9,46h-.23A42.24,42.24,0,0,0,38,88c0,71.68,58.32,130,130,130A42.24,42.24,0,0,0,210,181.32Z"/></svg>
+  </a>
+  <script src="assets/js/consent.js" defer></script>
+  <script src="assets/js/main.js" defer></script>
+</body>
+</html>

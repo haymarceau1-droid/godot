@@ -64,7 +64,7 @@ def header(active):
     in_svc = active in [h for h, _, _, _ in SERVICES]
     items = "".join(
         f'<a href="{h}"{cur(h)}>[[icon:{ico}]]<span><strong>{t}</strong><small>{d}</small></span></a>' for h, t, ico, d in SERVICES)
-    items += f'<a class="mega-extra" href="faq.html"{cur("faq.html")}>[[icon:zoom-check]]<span><strong>Questions fréquentes</strong><small>Estimation, documents, prix de rachat…</small></span></a>'
+    items += f'<a href="comparer.html"{cur("comparer.html")}>[[icon:scale]]<span><strong>Comparer les placements</strong><small>Or, actions, immobilier, Livret A : courbes et simulateur</small></span></a>'
     panel = (
         '<div class="container mega-inner">'
         f'<div class="mega-list"><p class="mega-title">Nos services</p><div class="mega-grid">{items}</div></div>'
@@ -147,6 +147,7 @@ def footer():
         <ul>
           <li><a href="la-maison.html">La maison</a></li>
           <li><a href="pourquoi-investir-or.html">Pourquoi investir dans l'or</a></li>
+          <li><a href="comparer.html">Comparer les placements</a></li>
           <li><a href="faq.html">Questions fréquentes</a></li>
           <li><a href="contact.html">Contact &amp; accès</a></li>
           <li><a href="mentions-legales.html">Mentions légales</a></li>
@@ -1081,6 +1082,7 @@ pourquoi = service_hero("Pourquoi investir dans l'or", "Or d'investissement", "P
         <p class="lead-dark">Pièces d'investissement (Napoléon, Souverain, Krugerrand, Maple Leaf…) ou lingots : l'agence vous renseigne sur les disponibilités et le tarif du jour, sans engagement.</p>
         <div class="hero-actions">
           <a class="btn btn-gold" href="acheter-or.html">Découvrir pièces et lingots</a>
+          <a class="btn btn-ghost" href="comparer.html">Comparer à d'autres placements</a>
           <a class="btn btn-ghost" href="contact.html">Nous contacter</a>
         </div>
       </div>
@@ -1101,6 +1103,189 @@ pourquoi = service_hero("Pourquoi investir dans l'or", "Or d'investissement", "P
 {faq_section("Investir dans l'or", FAQ[2][1], cls="section-soft")}'''
 page("pourquoi-investir-or.html", "Pourquoi investir dans l'or ? Rendements historiques, inflation, risques | Godot &amp; Fils Chartres",
      "Pourquoi investir dans l'or : rendement annuel moyen, évolution du prix de l'once depuis 2000, comparaison avec l'inflation en France, valeur refuge, risques et fiscalité. Information générale.", pourquoi)
+
+# ---------------------------------------------------------------- COMPARER LES PLACEMENTS
+# Séries annuelles 2001-2025 (base 100 à fin 2000). Voir les sources en bas de la page.
+#  - Or : prix de fin d'année, fixing LBMA PM, en dollars (variation d'une fin d'année à l'autre)
+#  - S&P 500 : rendement total (dividendes réinvestis), en dollars
+#  - Immobilier : indice Notaires-Insee des logements anciens, France (variations annuelles arrondies, ≈)
+#  - Livret A : taux moyen annuel, intérêts réinvestis (≈, arrondi)
+#  - Inflation : prix à la consommation, moyenne annuelle (INSEE)
+from math import prod
+CMP_YEARS = list(range(2001, 2026))
+_GOLD_YE = {2000: 273.65, 2001: 276.50, 2002: 347.20, 2003: 416.25, 2004: 435.60, 2005: 513.00, 2006: 632.00, 2007: 833.75,
+            2008: 878.00, 2009: 1087.50, 2010: 1405.50, 2011: 1531.00, 2012: 1657.50, 2013: 1204.50, 2014: 1206.00, 2015: 1060.00,
+            2016: 1145.90, 2017: 1291.00, 2018: 1279.00, 2019: 1515.50, 2020: 1887.60, 2021: 1805.85, 2022: 1812.35,
+            2023: 2062.40, 2024: 2624.50, 2025: 4368.00}
+CMP_SERIES = [
+    {"id": "or", "label": "Or", "sub": "en dollars · prix de fin d'année (LBMA)", "color": "#e2ab45", "approx": False,
+     "returns": [round(100 * (_GOLD_YE[y] / _GOLD_YE[y - 1] - 1), 2) for y in CMP_YEARS]},
+    {"id": "sp", "label": "S&P 500", "sub": "actions américaines · dividendes réinvestis · en dollars", "color": "#4fb583", "approx": False,
+     "returns": [-11.89, -22.10, 28.68, 10.88, 4.91, 15.79, 5.49, -37.00, 26.46, 15.06, 2.11, 16.00, 32.39, 13.69, 1.38,
+                 11.96, 21.83, -4.38, 31.49, 18.40, 28.71, -18.11, 26.29, 25.02, 17.88]},
+    {"id": "immo", "label": "Immobilier ancien", "sub": "France · indice Notaires-Insee · valeurs arrondies (≈)", "color": "#d98a63", "approx": True,
+     "returns": [7.8, 8.3, 11.7, 15.2, 15.3, 12.1, 6.6, 1.2, -7.1, 6.3, 1.3, -1.3, -2.8, -1.6, 0.4, 2.7, 3.4, 3.3, 3.6,
+                 5.7, 6.4, 4.7, -4.2, -2.1, 1.1]},
+    {"id": "livret", "label": "Livret A", "sub": "taux moyen annuel · intérêts réinvestis (≈)", "color": "#c58ad6", "approx": True,
+     "returns": [3.0, 3.0, 2.6, 2.25, 2.1, 2.44, 2.85, 3.67, 1.7, 1.5, 2.1, 2.0, 1.5, 1.1, 0.9, 0.75, 0.75, 0.75, 0.75,
+                 0.55, 0.5, 1.4, 2.9, 3.0, 2.2]},
+    {"id": "infl", "label": "Inflation", "sub": "prix à la consommation en France (INSEE)", "color": "#9a9a9a", "approx": False, "dashed": True,
+     "returns": [1.6, 1.9, 2.1, 2.1, 1.7, 1.7, 1.5, 2.8, 0.1, 1.5, 2.1, 2.0, 0.9, 0.5, 0.0, 0.2, 1.0, 1.8, 1.1, 0.5, 1.6,
+                 5.2, 4.9, 2.0, 0.9]},
+]
+CMP_WINDOWS = [(25, "25 ans · 2001–2025"), (15, "15 ans · 2011–2025"), (10, "10 ans · 2016–2025"), (5, "5 ans · 2021–2025")]
+
+def cmp_cagr(returns, n):
+    return prod(1 + x / 100 for x in returns[-n:]) ** (1 / n) - 1
+
+def pct_fr(x, plus=True):
+    s = f"{x * 100:+.1f}" if plus else f"{x * 100:.1f}"
+    return s.replace(".", ",").replace("-", "−") + "&nbsp;%"
+
+def eur_fr(v):
+    return f"{round(v):,}".replace(",", "&#8239;") + "&nbsp;€"
+
+def sim_rows(amount, years, window):
+    infl = next(s for s in CMP_SERIES if s["id"] == "infl")
+    ig = cmp_cagr(infl["returns"], window)
+    rows = []
+    for s in CMP_SERIES:
+        g = cmp_cagr(s["returns"], window)
+        val = amount * (1 + g) ** years
+        rows.append((s, g, val, val / (1 + ig) ** years, min(s["returns"][-window:]), max(s["returns"][-window:])))
+    return sorted(rows, key=lambda r: -r[2])
+
+def sim_table_html(amount=10000, years=10, window=25):
+    rows = sim_rows(amount, years, window)
+    top = max(r[2] for r in rows)
+    out = []
+    for s, g, val, real, worst, best in rows:
+        approx = ' <abbr title="Estimation arrondie">≈</abbr>' if s["approx"] else ""
+        ref = " sim-ref" if s["id"] == "infl" else ""
+        out.append(
+            f'<tr class="sim-row{ref}"><th scope="row"><span class="sw" style="--c:{s["color"]}"></span>{s["label"]}{approx}</th>'
+            f'<td data-label="Rendement annuel moyen">{pct_fr(g)}<small>/an</small></td>'
+            f'<td data-label="Valeur au bout de la durée"><strong>{eur_fr(val)}</strong><span class="mini-bar"><i style="--w:{val / top * 100:.1f}%;--c:{s["color"]}"></i></span></td>'
+            f'<td data-label="Gain">{"+" if val - amount >= 0 else "−"}{eur_fr(abs(val - amount))}</td>'
+            f'<td data-label="En euros d\'aujourd\'hui">{eur_fr(real)}</td>'
+            f'<td data-label="Pire année">{pct_fr(worst / 100)}</td></tr>')
+    return "".join(out)
+
+def matrix_html():
+    head = "".join(f'<th scope="col">{lab}</th>' for _, lab in CMP_WINDOWS)
+    best = {n: max((s for s in CMP_SERIES if s["id"] != "infl"), key=lambda s: cmp_cagr(s["returns"], n))["id"] for n, _ in CMP_WINDOWS}
+    rows = ""
+    for s in CMP_SERIES:
+        cells = "".join(
+            f'<td class="{"best" if best[n] == s["id"] else ""}">{pct_fr(cmp_cagr(s["returns"], n))}</td>' for n, _ in CMP_WINDOWS)
+        approx = " ≈" if s["approx"] else ""
+        rows += f'<tr><th scope="row"><span class="sw" style="--c:{s["color"]}"></span>{s["label"]}{approx}</th>{cells}</tr>'
+    return f'<thead><tr><th scope="col">Rendement annuel moyen</th>{head}</tr></thead><tbody>{rows}</tbody>'
+
+_cmp_json = json.dumps({"years": CMP_YEARS, "series": CMP_SERIES, "windows": [w for w, _ in CMP_WINDOWS]}, ensure_ascii=False)
+_legend = "".join(
+    f'<li><button type="button" class="chip cmp-chip" data-series="{s["id"]}" aria-pressed="true"><span class="sw{" sw-dash" if s.get("dashed") else ""}" style="--c:{s["color"]}"></span>{s["label"]}</button></li>'
+    for s in CMP_SERIES)
+_sub = "".join(f'<li><span class="sw{" sw-dash" if s.get("dashed") else ""}" style="--c:{s["color"]}"></span><div><strong>{s["label"]}</strong><span>{s["sub"]}</span></div></li>' for s in CMP_SERIES)
+_win_opts = "".join(f'<option value="{n}"{" selected" if n == 25 else ""}>{lab}</option>' for n, lab in CMP_WINDOWS)
+
+comparer = service_hero("Comparer les placements", "Comparateur", "Comparer l'or aux autres placements.",
+    "Or, actions américaines, immobilier, Livret A et inflation : leurs courbes depuis 2000, et ce que deviendrait votre capital selon le rendement annuel moyen de chacun.",
+    "chart-line", [("chart-line", "5 courbes", "Or, S&P 500, immobilier, Livret A, inflation"), ("coin-euro", "Votre capital", "Simulez avec votre montant"), ("scale", "Sans parti pris", "Bonnes et mauvaises années incluses")]) + f'''
+
+    <section class="section section-dark" id="courbes">
+      <div class="container">
+        <header class="section-head">
+          <p class="eyebrow">Les courbes</p>
+          <h2>25 ans de placements, côte à côte</h2>
+          <p>Chaque courbe part de 100 au point de départ choisi : on lit directement de combien un placement a progressé. Passez la souris sur le graphique pour comparer année par année.</p>
+        </header>
+        <div class="cmp" data-cmp>
+          <div class="cmp-controls">
+            <label class="field"><span>Base 100 en</span>
+              <select data-cmp-start aria-label="Année de départ">
+                <option value="2000" selected>2000</option><option value="2005">2005</option><option value="2010">2010</option><option value="2015">2015</option><option value="2020">2020</option>
+              </select></label>
+            <div class="seg" role="group" aria-label="Échelle du graphique">
+              <button type="button" class="is-on" data-cmp-scale="log" aria-pressed="true">Échelle logarithmique</button>
+              <button type="button" data-cmp-scale="lin" aria-pressed="false">Échelle linéaire</button>
+            </div>
+          </div>
+          <ul class="cmp-legend" aria-label="Séries affichées">{_legend}</ul>
+          <div class="cmp-chart-wrap">
+            <div class="cmp-chart" data-cmp-chart role="img" aria-label="Courbes comparées de l'or, du S&amp;P 500, de l'immobilier, du Livret A et de l'inflation depuis 2000"></div>
+            <div class="chart-tip cmp-tip" role="status" aria-live="polite" hidden></div>
+          </div>
+          <noscript><p class="note">Le graphique interactif nécessite JavaScript. Les rendements annuels moyens figurent dans le tableau plus bas.</p></noscript>
+          <p class="note cmp-hint">L'échelle logarithmique rend lisibles des courbes très différentes : à chaque graduation, la valeur double ou presque.</p>
+          <ul class="cmp-sub">{_sub}</ul>
+        </div>
+        <script type="application/json" id="cmp-data">{_cmp_json}</script>
+      </div>
+    </section>
+
+    <section class="section" id="simulateur">
+      <div class="container">
+        <header class="section-head">
+          <p class="eyebrow">Simulateur</p>
+          <h2>Que deviendrait votre capital ?</h2>
+          <p>Saisissez un montant et une durée : le tableau applique à votre capital le rendement annuel moyen historique de chaque placement, sur la période de référence choisie.</p>
+        </header>
+        <form class="sim" data-sim onsubmit="return false">
+          <label class="field"><span>Capital investi</span><span class="input-wrap"><input type="number" inputmode="numeric" min="100" max="10000000" step="100" value="10000" data-sim-amount aria-label="Capital investi en euros"><b>€</b></span></label>
+          <label class="field"><span>Durée du placement</span><span class="input-wrap"><input type="number" inputmode="numeric" min="1" max="50" step="1" value="10" data-sim-years aria-label="Durée en années"><b>ans</b></span></label>
+          <label class="field"><span>Rendements moyens calculés sur</span><select data-sim-window aria-label="Période de référence">{_win_opts}</select></label>
+        </form>
+        <p class="sim-caption" data-sim-caption>Avec 10&nbsp;000&nbsp;€ placés pendant 10&nbsp;ans, au rendement annuel moyen des 25 dernières années.</p>
+        <div class="table-wrap">
+          <table class="data-table sim-table">
+            <caption class="sr-only">Valeur du capital selon le placement</caption>
+            <thead><tr><th scope="col">Placement</th><th scope="col">Rendement annuel moyen</th><th scope="col">Valeur au bout de la durée</th><th scope="col">Gain</th><th scope="col">En euros d'aujourd'hui<br><small>après inflation</small></th><th scope="col">Pire année<br><small>sur la période</small></th></tr></thead>
+            <tbody data-sim-body>{sim_table_html()}</tbody>
+          </table>
+        </div>
+        <aside class="notice notice-light"><strong>À lire avant d'interpréter :</strong> c'est une simulation à rendement constant, ce qui ne correspond jamais à la réalité : une année sur deux peut être négative. Les résultats passés ne préjugent pas des résultats futurs, et les chiffres ne tiennent compte ni des frais, ni de la fiscalité, ni des droits de mutation ou de l'entretien pour l'immobilier. L'or et le S&amp;P 500 sont exprimés en dollars : pour un investisseur en euros, les variations du change modifient le résultat.</aside>
+      </div>
+    </section>
+
+    <section class="section section-dark">
+      <div class="container">
+        <header class="section-head">
+          <p class="eyebrow">À retenir</p>
+          <h2>Le classement change avec la période</h2>
+          <p>Le meilleur placement d'une période n'est pas celui de la suivante. La case dorée indique le meilleur rendement annuel moyen de chaque période.</p>
+        </header>
+        <div class="table-wrap table-dark">
+          <table class="data-table matrix">{matrix_html()}</table>
+        </div>
+        <div class="cards-feature cards-feature-dark takeaways">
+          {feature("scale", "Un classement qui bouge", "L'or domine sur 25, 10 et 5 ans, mais les actions américaines passent devant sur 15 ans : le résultat dépend de la période choisie.")}
+          {feature("chart-line", "Le risque n'est pas le même", "Les actions ont connu des années à −37 % (2008) ; l'or des années à −27 % (2013) ; le Livret A, jamais d'année négative, mais un rendement souvent proche de l'inflation.")}
+          {feature("diamond", "L'immobilier, un cas à part", "Il est peu liquide, nécessite souvent un emprunt et génère des frais, des charges et des loyers qui ne figurent pas ici.")}
+          {feature("coins", "Se diversifier", "Aucun placement n'est le meilleur chaque année. Beaucoup d'épargnants répartissent leur patrimoine entre plusieurs supports.")}
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container narrow">
+        <header class="section-head"><p class="eyebrow">Sources et méthode</p><h2>D'où viennent ces données</h2></header>
+        <ul class="sources">
+          <li><strong>Or :</strong> prix de fin d'année du fixing LBMA PM, en dollars (variation d'une fin d'année à l'autre). Voir la page <a href="pourquoi-investir-or.html">Pourquoi investir dans l'or</a> et les sources <a href="https://www.lbma.org.uk/prices-and-data/lbma-annual-precious-metals-forecast-survey" target="_blank" rel="noopener">LBMA</a> et <a href="https://www.gold.org/goldhub/data/gold-prices" target="_blank" rel="noopener">World Gold Council</a>. Les écarts avec d'autres sources sont de l'ordre d'un point par an.</li>
+          <li><strong>S&amp;P 500 :</strong> rendement total annuel dividendes réinvestis, en dollars, d'après <a href="https://smartasset.com/investing/sp-500-average-annual-return" target="_blank" rel="noopener">SmartAsset</a> et <a href="https://www.slickcharts.com/sp500/returns/details" target="_blank" rel="noopener">Slickcharts</a>.</li>
+          <li><strong>Immobilier :</strong> variations annuelles arrondies de l'indice Notaires-Insee des logements anciens en France (<a href="https://www.insee.fr/fr/statistiques/5371271" target="_blank" rel="noopener">Insee</a>). Estimation à ± 1 ou 2 points selon les années : à utiliser comme un ordre de grandeur.</li>
+          <li><strong>Livret A :</strong> taux moyen de chaque année (<a href="https://mes-livrets.fr/guides/historique-taux-livret-a/" target="_blank" rel="noopener">historique des taux</a>), arrondi, intérêts réinvestis. Estimation.</li>
+          <li><strong>Inflation :</strong> moyenne annuelle des prix à la consommation, <a href="https://www.insee.fr/fr/statistiques/serie/011813530" target="_blank" rel="noopener">Insee</a>.</li>
+          <li>Rendement annuel moyen = taux de croissance annualisé sur la période. Données arrêtées à fin 2025 (S&amp;P 500 et or), mises à jour en novembre 2026. Ce comparateur est une information générale, pas un conseil en investissement ; investir comporte un risque de perte en capital.</li>
+        </ul>
+        <div class="hero-actions">
+          <a class="btn btn-gold" href="pourquoi-investir-or.html">Pourquoi investir dans l'or</a>
+          <a class="btn btn-outline" href="acheter-or.html">Acheter de l'or</a>
+        </div>
+      </div>
+    </section>'''
+page("comparer.html", "Comparer l'or, les actions, l'immobilier et le Livret A | Godot &amp; Fils Chartres",
+     "Comparateur de placements : courbes de l'or, du S&P 500, de l'immobilier, du Livret A et de l'inflation depuis 2000, et simulateur de capital selon le rendement annuel moyen historique.", comparer)
 
 # ---------------------------------------------------------------- LA MAISON
 maison = hero("La maison", "Depuis 1933", "Une institution du négoce de métaux précieux.",
@@ -1234,7 +1419,7 @@ legal = '''    <section class="legal">
 page("mentions-legales.html", "Mentions légales — Godot &amp; Fils Chartres", "Mentions légales du site Godot & Fils Chartres.", legal, cta=False, noindex=True)
 
 # ---------------------------------------------------------------- sitemap / robots
-pages = ["index.html"] + [h for h, _ in NAV] + ["pourquoi-investir-or.html", "faq.html"]
+pages = ["index.html"] + [h for h, _ in NAV] + ["pourquoi-investir-or.html", "comparer.html", "faq.html"]
 with open(os.path.join(ROOT, "sitemap.xml"), "w") as f:
     f.write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n')
     for p in pages:
