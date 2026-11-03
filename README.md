@@ -3,7 +3,7 @@
 Site vitrine statique (HTML/CSS/JS, sans dépendance) pour l'agence Godot & Fils de Chartres,
 en remplacement de https://www.godotetfils-chartres.fr/.
 
-Design system : voir [`DESIGN.md`](DESIGN.md) (canvas noir, surfaces blanches, or `#d49732`, CTA bleu `#0071e3`, Josefin Sans, rayon 5px, aplats).
+Design system : voir [`DESIGN.md`](DESIGN.md) (canvas noir, surfaces blanches, or `#d49732`, CTA or, Josefin Sans, rayon 5px, aplats).
 
 ## Contenu
 - `index.html` — page unique : accueil, services, étapes d'estimation, la maison, FAQ, agence (horaires, carte)

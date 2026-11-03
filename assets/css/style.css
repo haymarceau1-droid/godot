@@ -1,22 +1,22 @@
 /* Godot & Fils Chartres — refonte 2026
    Design system : voir DESIGN.md
-   Canvas noir · surfaces blanches · or #d49732 · CTA bleu #0071e3 · Josefin Sans · rayon 5px · aplats */
+   Canvas noir · surfaces blanches · or #d49732 · CTA or · Josefin Sans · rayon 5px · aplats */
 :root {
   /* Couleurs */
   --canvas: #000000;
   --surface: #ffffff;
-  --accent: #0071e3;
-  --accent-hover: #0077ed;
+  --accent: #d49732;
+  --accent-hover: #e0a845;
   --text-1: #ffffff;
   --text-2: #000000;
   --gold: #d49732;
-  --navy: #1b2432;
+  --navy: #111111;
 
   /* Dérivés (opacités des tokens, pas de nouvelles teintes) */
   --text-1-muted: rgba(255, 255, 255, .72);
-  --text-2-muted: rgba(27, 36, 50, .78);
+  --text-2-muted: rgba(0, 0, 0, .72);
   --line-dark: rgba(255, 255, 255, .14);
-  --line-light: rgba(27, 36, 50, .14);
+  --line-light: rgba(0, 0, 0, .14);
 
   /* Forme */
   --radius: 5px;
@@ -56,7 +56,7 @@ p { margin: 0 0 1em; }
 .narrow { width: min(820px, 100% - 32px); }
 
 .skip { position: absolute; left: -9999px; }
-.skip:focus { left: 16px; top: 16px; z-index: 100; background: var(--accent); color: var(--text-1); padding: .6em 1em; border-radius: var(--radius); }
+.skip:focus { left: 16px; top: 16px; z-index: 100; background: var(--gold); color: var(--text-2); padding: .6em 1em; border-radius: var(--radius); }
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 
 .eyebrow {
@@ -73,7 +73,7 @@ p { margin: 0 0 1em; }
   transition: background-color .2s, color .2s, border-color .2s;
 }
 .btn-sm { min-height: 40px; padding: .5em 1.1em; font-size: var(--fs-small); }
-.btn-gold, .btn-primary { background: var(--accent); color: var(--text-1); }
+.btn-gold, .btn-primary { background: var(--gold); color: var(--text-2); }
 .btn-gold:hover, .btn-primary:hover { background: var(--accent-hover); }
 .btn-ghost { color: var(--text-1); border-color: var(--text-1); }
 .btn-ghost:hover { background: var(--text-1); color: var(--text-2); }
@@ -179,7 +179,7 @@ p { margin: 0 0 1em; }
 .card-accent { background: var(--canvas); color: var(--text-1); border-color: var(--canvas); display: flex; flex-direction: column; justify-content: center; }
 .card-accent h3 { color: var(--gold); }
 .card-accent p { color: var(--text-1-muted); margin-bottom: 1.2rem; }
-.link-arrow { color: var(--text-1); font-weight: 700; text-decoration: none; border-bottom: 2px solid var(--accent); align-self: flex-start; padding-bottom: 2px; }
+.link-arrow { color: var(--text-1); font-weight: 700; text-decoration: none; border-bottom: 2px solid var(--gold); align-self: flex-start; padding-bottom: 2px; }
 .link-arrow::after { content: " →"; }
 
 /* Étapes */
@@ -241,7 +241,8 @@ p { margin: 0 0 1em; }
 .hours { border-collapse: collapse; width: 100%; max-width: 320px; font-size: var(--fs-small); }
 .hours th, .hours td { text-align: left; padding: .35rem 0; font-weight: 400; border-bottom: 1px solid var(--line-light); }
 .hours td { text-align: right; }
-.hours tr.today th, .hours tr.today td { font-weight: 700; color: var(--accent); }
+.hours tr.today th, .hours tr.today td { font-weight: 700; color: var(--text-2); }
+.hours tr.today th { box-shadow: inset 3px 0 0 var(--gold); padding-left: .6rem; }
 .map { border-radius: var(--radius); overflow: hidden; min-height: 420px; border: 1px solid var(--line-light); background: var(--canvas); }
 .map iframe { width: 100%; height: 100%; min-height: 420px; border: 0; }
 
@@ -260,9 +261,9 @@ p { margin: 0 0 1em; }
 /* Bouton d'appel flottant (mobile) */
 .call-fab {
   display: none; position: fixed; right: 16px; bottom: 16px; z-index: 60;
-  width: 56px; height: 56px; border-radius: 50%; background: var(--accent); place-items: center;
+  width: 56px; height: 56px; border-radius: 50%; background: var(--gold); place-items: center;
 }
-.call-fab svg { width: 26px; height: 26px; fill: var(--text-1); }
+.call-fab svg { width: 26px; height: 26px; fill: var(--text-2); }
 
 /* Apparition au défilement */
 @media (prefers-reduced-motion: no-preference) {

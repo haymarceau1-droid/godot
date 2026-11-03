@@ -12,8 +12,8 @@ alternent avec le noir pour donner du rythme et de la lisibilité aux contenus l
 (services, la maison, agence). Le ton est sobre, rassurant, patrimonial — une maison de 1933 —
 sans ostentation : pas de dégradés, pas d'effets brillants, l'or est un aplat.
 
-Métaphores : écrin (noir), métal (or), confiance institutionnelle (bleu nuit `#1b2432`),
-action claire (bleu `#0071e3`, réservé aux appels à l'action).
+Métaphores : écrin (noir), métal (or), confiance institutionnelle (noir profond `#111111`),
+action claire (boutons or pleins, texte noir).
 
 ## 2. Color Palette & Roles
 
@@ -22,16 +22,16 @@ action claire (bleu `#0071e3`, réservé aux appels à l'action).
 - **Secondary Surface** `#ffffff` — sections de contenu, cartes, carte agence
 
 ### Accent & Interactive
-- **Primary Accent** `#0071e3` — boutons principaux (Appeler, Venir à l'agence), bouton
-  d'appel flottant, soulignement des liens d'action, jour courant dans les horaires, focus
+- **Primary Accent** `#d49732` — boutons principaux (texte noir), bouton d'appel flottant,
+  soulignement des liens d'action, focus. *Aucun bleu n'est utilisé sur le site.*
 
 ### Text & Neutrals
-- **Text Tier 1** `#ffffff` — texte sur fond noir / bleu nuit
+- **Text Tier 1** `#ffffff` — texte sur fond noir / noir profond
 - **Text Tier 2** `#000000` — texte sur fond blanc
 - **Text Tier 3** `#d49732` — or : labels (eyebrows), chiffres, numéros, icônes, survols de nav
-- **Text Tier 4** `#1b2432` — bleu nuit : titres sur fond blanc, bandeau infos, section FAQ
+- **Text Tier 4** `#111111` — noir profond (remplace le noir profond `#111111`) : titres sur fond blanc, bandeau infos, section FAQ
 
-Les variantes « muted » sont des opacités de ces tokens (72 % blanc, 78 % bleu nuit),
+Les variantes « muted » sont des opacités de ces tokens (72 % blanc, 72 % noir),
 jamais de nouvelles teintes.
 
 ## 3. Typography Rules
@@ -57,11 +57,11 @@ jamais de nouvelles teintes.
 
 - **Rayon unique : `5px`** pour boutons, cartes, encadrés, carte, FAQ. Seules exceptions :
   éléments circulaires (monogramme, pièces, badge 1933, bouton d'appel flottant).
-- **Bouton principal** : fond `#0071e3`, texte blanc 700, hauteur ≥ 48px, padding 0.85em 1.6em.
+- **Bouton principal** : fond or `#d49732`, texte noir 700, hauteur ≥ 48px, padding 0.85em 1.6em.
 - **Bouton secondaire** : contour 2px blanc (sur noir) ou noir (sur blanc), inversion au survol.
-- **Carte** : fond blanc, bordure 1px bleu nuit à 14 %, padding 32px ; au survol la bordure
+- **Carte** : fond blanc, bordure 1px noir à 14 %, padding 32px ; au survol la bordure
   passe à l'or. Icône dans une pastille noire 52px, trait or.
-- **Carte accent** : fond noir, titre or, lien souligné bleu.
+- **Carte accent** : fond noir, titre or, lien souligné or.
 - **Encadré « À prévoir »** : bordure 1px or, fond transparent.
 - **FAQ** : `details` sur fond noir, bordure 1px blanc à 14 %, bordure or quand ouvert, « + » or.
 
@@ -71,8 +71,8 @@ jamais de nouvelles teintes.
 - Grilles : 3 colonnes (services), 4 (étapes, bandeau infos), 2 asymétriques (la maison,
   agence : 0.9fr / 1.1fr).
 - Espacement **aéré** : 64–96px de padding vertical par section, 20px entre cartes.
-- Alternance des fonds : noir (hero) → bleu nuit (bandeau) → blanc (services) → noir (étapes)
-  → blanc (maison) → bleu nuit (FAQ) → blanc (agence) → noir (pied).
+- Alternance des fonds : noir (hero) → noir profond (bandeau) → blanc (services) → noir (étapes)
+  → blanc (maison) → noir profond (FAQ) → blanc (agence) → noir (pied).
 
 ## 6. Depth & Elevation
 
@@ -87,10 +87,10 @@ noir / blanc et des bordures.
 
 ## 7. Do's and Don'ts
 
-- **Do** réserver le bleu `#0071e3` aux actions (boutons, liens d'action, focus).
-- **Do** utiliser l'or pour signaler la valeur : labels, chiffres, icônes — jamais en fond de bouton.
+- **Do** réserver les boutons or pleins (texte noir) aux actions principales.
+- **Do** utiliser l'or pour signaler la valeur : labels, chiffres, icônes — et en fond des seuls boutons d'action.
 - **Do** écrire labels et navigation en capitales interlettrées.
-- **Don't** utiliser de dégradés, d'ombres ou de rayons autres que 5px.
+- **Don't** utiliser de bleu, de dégradés, d'ombres ou de rayons autres que 5px.
 - **Don't** introduire de nouvelles teintes : les nuances sont des opacités des tokens.
 
 ## 8. Responsive Behavior
@@ -98,25 +98,25 @@ noir / blanc et des bordures.
 - **≥ 1025px** : grilles complètes, visuel lingots/pièces dans le hero.
 - **≤ 1024px** : services et étapes en 2 colonnes, bandeau infos 2×2, visuel du hero masqué.
 - **≤ 860px** : menu burger (panneau noir plein largeur), sections en 1 colonne, bouton
-  d'appel flottant bleu 56px en bas à droite.
+  d'appel flottant or 56px en bas à droite.
 - **≤ 560px** : tout en 1 colonne, boutons du hero pleine largeur.
 - Cibles tactiles ≥ 48px (boutons, liens de menu mobile, bouton d'appel).
 
 ## 9. Agent Prompt Guide
 
 ### Reference Tokens
-- **Primary CTA** `#0071e3` · **Canvas** `#000000` · **Surface** `#ffffff`
-- **Text** `#ffffff` / `#000000` · **Gold** `#d49732` · **Navy** `#1b2432`
+- **Primary CTA** `#d49732` (texte `#000000`) · **Canvas** `#000000` · **Surface** `#ffffff`
+- **Text** `#ffffff` / `#000000` · **Gold** `#d49732` · **Noir profond** `#111111`
 - **Font** Josefin Sans (400/700), Montserrat 13px pour liens utilitaires · **Radius** 5px
 
 ### Exemples de prompts
 1. « Crée une section "Cours de l'or" sur fond noir `#000000` : label en capitales or `#d49732`
    12px interlettré 0.2em, titre Josefin Sans 38px 700 blanc, trois cartes blanches à bordure
-   1px `rgba(27,36,50,.14)` et rayon 5px affichant un prix en Josefin Sans 47px 400 or. Pas
+   1px `rgba(0,0,0,.14)` et rayon 5px affichant un prix en Josefin Sans 47px 400 or. Pas
    d'ombre ni de dégradé. »
 2. « Génère un formulaire de prise de contact sur surface blanche : libellés en capitales or
-   12px, champs bordés 1px bleu nuit `#1b2432` à 14 %, rayon 5px, hauteur 48px, focus contour
-   2px `#0071e3` ; bouton d'envoi plein `#0071e3` texte blanc 700. »
-3. « Ajoute un bandeau d'avis clients sur fond bleu nuit `#1b2432` : citations en Josefin Sans
+   12px, champs bordés 1px noir profond `#111111` à 14 %, rayon 5px, hauteur 48px, focus contour
+   2px or `#d49732` ; bouton d'envoi plein or `#d49732` texte noir 700. »
+3. « Ajoute un bandeau d'avis clients sur fond noir profond `#111111` : citations en Josefin Sans
    19.2px 400 blanc, nom du client en capitales or 12px, séparateurs 1px blanc à 14 %, grille
    3 colonnes repliée en 1 colonne sous 860px. »
