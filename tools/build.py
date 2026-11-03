@@ -834,21 +834,47 @@ numis = service_hero("Numismatique", "Pièces de collection", "Numismatique : qu
 page("numismatique.html", "Numismatique à Chartres — Estimation de pièces de collection | Godot &amp; Fils",
      "Pièces de collection à Chartres : Napoléon, Hercule, Semeuse, louis d'or. Valeur du métal et valeur numismatique, estimation gratuite chez Godot & Fils.", numis)
 
+# ---------------------------------------------------------------- HISTOIRE (frise chronologique)
+# ⚠ Dates et faits issus de sources publiques (sites du réseau, presse spécialisée) : à valider avec l'agence.
+TIMELINE = [
+    ("1933", "building-store", "Une maison née à Paris",
+     "Godot &amp; Fils voit le jour en 1933. Son siège historique se trouve rue Vivienne, dans le quartier de la Bourse, à Paris.", ""),
+    ("2017", "heart-handshake", "Le réseau s'ouvre à la proximité",
+     "La maison ouvre sa première agence en franchise : son savoir-faire s'installe au plus près de ses clients.", ""),
+    ("2020", "map-pin", "Chartres rejoint le réseau",
+     "L'agence du 23 rue de la Pie ouvre ses portes, avec le même savoir-faire et un accueil de proximité en centre-ville.", ""),
+    ("Aujourd'hui", "world", "Des agences partout en France",
+     "De Paris à Marseille, de Lille à Bordeaux : retrouvez l'agence la plus proche de chez vous sur la carte du réseau.",
+     '<a class="link-more" href="#reseau">Voir la carte</a>'),
+]
+
+def histoire_section():
+    items = "".join(
+        f'<li class="tl-item"><span class="tl-dot">[[icon:{ico}]]</span>'
+        f'<div class="tl-card"><p class="tl-year">{y}</p><h3>{t}</h3><p>{d}</p>{link}</div></li>'
+        for y, ico, t, d, link in TIMELINE)
+    return f'''    <section class="section" id="histoire">
+      <div class="container">
+        <header class="section-head">
+          <p class="eyebrow">Notre histoire</p>
+          <h2>Près d'un siècle de savoir-faire</h2>
+          <p>Fondée en 1933, la maison Godot &amp; Fils s'est imposée comme une référence du négoce de l'or et des métaux précieux. Son réseau d'agences est présent dans de nombreuses villes, de Paris à Versailles en passant par Saint-Germain-en-Laye.</p>
+        </header>
+        <div class="history-stats">
+          <div><strong data-since="1933">90+</strong><span>ans d'expérience</span></div>
+          <div><strong>5</strong><span>domaines d'expertise</span></div>
+          <div><strong>0 €</strong><span>pour une estimation</span></div>
+        </div>
+        <ol class="timeline" aria-label="Les grandes dates de la maison">{items}</ol>
+        <p class="history-end">À Chartres, l'agence du 23 rue de la Pie perpétue cette tradition : une expertise rigoureuse, des conseils personnalisés et un accueil de proximité, dans le centre de la ville.</p>
+      </div>
+    </section>'''
+
 # ---------------------------------------------------------------- LA MAISON
 maison = hero("La maison", "Depuis 1933", "Une institution du négoce de métaux précieux.",
               "Depuis 1933, la maison Godot & Fils accompagne particuliers et épargnants dans l'achat et la vente d'or, d'argent et de métaux précieux.", actions=False) + '''
 
-    <section class="section">
-      <div class="container split">
-        <div class="split-visual" aria-hidden="true"><div class="year-badge"><span>Fondée en</span><strong data-count="1933" data-from="1900">1933</strong></div></div>
-        <div class="split-copy">
-          <p class="eyebrow">Notre histoire</p>
-          <h2>Près d'un siècle de savoir-faire</h2>
-          <p>Fondée en 1933, la maison Godot &amp; Fils s'est imposée comme une référence du négoce de l'or et des métaux précieux. Son réseau d'agences est présent dans de nombreuses villes, de Paris à Versailles en passant par Saint-Germain-en-Laye.</p>
-          <p>À Chartres, l'agence du 23 rue de la Pie perpétue cette tradition : une expertise rigoureuse, des conseils personnalisés et un accueil de proximité, dans le centre de la ville.</p>
-        </div>
-      </div>
-    </section>
+''' + histoire_section() + '''
 
     <section class="section section-dark">
       <div class="container">

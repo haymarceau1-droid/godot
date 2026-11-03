@@ -29,6 +29,9 @@ python3 tools/build.py
 Fonctionnalités : responsive (méga menu « Nos services » sur ordinateur, panneau plein écran sous 1220px, bouton d'appel flottant), indicateur « ouvert / fermé » à l'heure de Paris,
 données structurées schema.org, animations respectant `prefers-reduced-motion`.
 
+## Frise « Notre histoire »
+Les dates de la page « La maison » sont dans `TIMELINE` (`tools/build.py`). Elles viennent de sources publiques : à valider avec l'agence (1933, 2017, 2020).
+
 ## Cookies et vie privée
 Le site n'utilise aucun cookie de suivi et héberge sa police (`assets/fonts/`). Seul le plan Google Maps de la page Contact est soumis à consentement : bannière dans `assets/js/consent.js`, choix mémorisé 6 mois dans le navigateur, réouvrable via « Gérer les cookies » en bas de page.
 

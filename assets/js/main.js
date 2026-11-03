@@ -73,7 +73,7 @@
   // ---------------------------------------------------------------- Apparition au défilement (décalée, directionnelle)
   var SEL = '.section-head, .card, .card-row, .other-card, .coin-card, .tips li, .steps li, .formula > *, ' +
             '.faq details, .contact-grid > *, .split > *, .network > *, .notice, .table-wrap, ' +
-            '.cta-inner > *, .footer-grid > *, .checks li';
+            '.cta-inner > *, .footer-grid > *, .checks li, .tl-card, .history-stats > div';
   if (!reduce && 'IntersectionObserver' in window) {
     var wide = window.matchMedia('(min-width: 861px)').matches;
     var items = Array.prototype.slice.call(document.querySelectorAll(SEL));
@@ -110,6 +110,8 @@
   // ---------------------------------------------------------------- Défilement : barre de progression, en-tête, parallaxe
   var header = document.querySelector('.site-header');
   var hero = document.querySelector('.hero-photo');
+  var timeline = document.querySelector('.timeline');
+  var tlItems = timeline ? Array.prototype.slice.call(timeline.querySelectorAll('.tl-item')) : [];
   var bar = null;
   if (!reduce) {
     bar = document.createElement('div');
@@ -126,12 +128,24 @@
       bar.style.transform = 'scaleX(' + (max > 0 ? Math.min(y / max, 1) : 0) + ')';
     }
     if (hero && !reduce && y < window.innerHeight * 1.2) hero.style.setProperty('--py', (y * 0.14).toFixed(1) + 'px');
+    if (timeline) {
+      var r = timeline.getBoundingClientRect(), vh = window.innerHeight;
+      var prog = Math.max(0, Math.min(1, (vh * 0.62 - r.top) / r.height));
+      timeline.style.setProperty('--tl', reduce ? 1 : prog.toFixed(3));
+      tlItems.forEach(function (it) { it.classList.toggle('reached', reduce || it.getBoundingClientRect().top < vh * 0.62); });
+    }
     ticking = false;
   }
   window.addEventListener('scroll', function () {
     if (!ticking) { ticking = true; window.requestAnimationFrame(onScroll); }
   }, { passive: true });
   onScroll();
+
+  // Années d'expérience : calculées à partir de l'année de fondation
+  document.querySelectorAll('[data-since]').forEach(function (el) {
+    var n = new Date().getFullYear() - parseInt(el.getAttribute('data-since'), 10);
+    if (n > 0) { el.textContent = String(n); el.setAttribute('data-count', String(n)); el.setAttribute('data-from', '0'); }
+  });
 
   // ---------------------------------------------------------------- Compteurs (année de fondation)
   var counters = document.querySelectorAll('[data-count]');
