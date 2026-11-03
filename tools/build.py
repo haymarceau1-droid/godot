@@ -83,6 +83,7 @@ def header(active):
       </button>
       <nav id="nav" class="menu" aria-label="Navigation principale">
         <div class="menu-links">
+          <span class="menu-glide" aria-hidden="true"></span>
           <div class="menu-dd">
             <button type="button" class="menu-dd-btn{dd_cls}" aria-expanded="false" aria-haspopup="true" aria-controls="menu-panel"><span>Nos services</span>[[icon:chevron-down]]</button>
             <div class="menu-panel" id="menu-panel" role="group" aria-label="Nos services">{panel}</div>
@@ -90,6 +91,7 @@ def header(active):
           <a href="la-maison.html"{cur("la-maison.html")}>[[icon:building-store]]<span>La maison</span></a>
           <a href="contact.html"{cur("contact.html")}>[[icon:map-pin]]<span>Contact</span></a>
         </div>
+        <span class="menu-status" data-open-status data-short><span class="dot"></span><span class="status-text">Horaires d'ouverture</span></span>
         <a class="btn btn-gold btn-sm menu-cta" href="tel:{TEL_HREF}">[[icon:phone-call]]<span>{TEL}</span></a>
         <div class="menu-foot">
           <p>[[icon:map-pin]]<span>23 rue de la Pie, 28000 Chartres</span></p>

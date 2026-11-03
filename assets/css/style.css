@@ -767,9 +767,9 @@ button.btn { font-family: var(--font); cursor: pointer; }
    MENU
    ===================================================================== */
 .menu { display: flex; align-items: center; gap: 1rem; }
-.menu-links { display: flex; align-items: center; gap: 2px; padding: 4px; border: 1px solid var(--line-dark); border-radius: 999px; background: rgba(255,255,255,.03); }
+.menu-links { position: relative; display: flex; align-items: center; gap: 2px; padding: 4px; border: 1px solid var(--line-dark); border-radius: 999px; background: rgba(255,255,255,.03); }
 .menu-links > a, .menu-dd-btn {
-  display: inline-flex; align-items: center; gap: .4rem; white-space: nowrap; text-decoration: none; color: var(--text-1);
+  position: relative; z-index: 1; display: inline-flex; align-items: center; gap: .4rem; white-space: nowrap; text-decoration: none; color: var(--text-1);
   padding: .55em 1em; border: 0; border-radius: 999px; background: transparent; cursor: pointer;
   font-family: inherit; text-transform: uppercase; letter-spacing: .07em; font-size: .8125rem;
   transition: background-color .2s, color .2s;
@@ -777,7 +777,8 @@ button.btn { font-family: var(--font); cursor: pointer; }
 .menu-links > a .ic { display: none; }
 .menu-dd-btn .ic { width: 14px; height: 14px; stroke-width: 2.4; transition: rotate .25s ease; }
 .menu-dd:hover .menu-dd-btn .ic, .menu-dd.open .menu-dd-btn .ic { rotate: 180deg; }
-.menu-links > a:hover, .menu-dd-btn:hover, .menu-dd:hover .menu-dd-btn, .menu-dd.open .menu-dd-btn { background: rgba(255,255,255,.09); color: var(--gold); }
+.menu-links > a:hover, .menu-dd-btn:hover, .menu-dd.open .menu-dd-btn { color: var(--gold); }
+.menu-links > a[aria-current="page"]:hover, .menu-dd-btn.is-current:hover, .menu-dd.open .menu-dd-btn.is-current { color: var(--on-btn); }
 .menu-links > a[aria-current="page"], .menu-dd-btn.is-current { background: var(--btn); color: var(--on-btn); font-weight: 700; }
 .menu-cta { gap: .55rem; }
 .menu-cta .ic { width: 18px; height: 18px; stroke-width: 2; }
@@ -788,7 +789,7 @@ button.btn { font-family: var(--font); cursor: pointer; }
 @media (min-width: 1221px) {
   .menu-dd { position: static; }
   .menu-panel {
-    position: absolute; left: 0; right: 0; top: 100%; padding: 2rem 0 2.3rem;
+    position: fixed; left: 0; right: 0; top: 73px; padding: 2rem 0 2.3rem;
     background: var(--canvas); border-top: 1px solid var(--line-dark); border-bottom: 1px solid rgba(226,171,69,.55);
     opacity: 0; visibility: hidden; translate: 0 10px;
     transition: opacity .25s ease, translate .25s ease, visibility 0s linear .25s;
@@ -989,3 +990,29 @@ main, .site-footer { overflow-x: clip; }
 }
 /* Le bouton d'appel flottant et la pastille active brillent aussi au toucher/focus clavier */
 .btn:focus-visible { box-shadow: 0 0 0 3px rgba(226,171,69,.45); }
+
+
+/* =====================================================================
+   MENU : surlignage glissant, pastille d'ouverture, apparition échelonnée
+   ===================================================================== */
+.menu-glide {
+  position: absolute; z-index: 0; top: 4px; bottom: 4px; left: 0; width: 0; border-radius: 999px; pointer-events: none;
+  background: rgba(255,255,255,.11); box-shadow: inset 0 0 0 1px rgba(226,171,69,.35); opacity: 0;
+  transition: left .32s cubic-bezier(.3,.8,.3,1), width .32s cubic-bezier(.3,.8,.3,1), opacity .2s ease;
+}
+.menu-status { display: inline-flex; align-items: center; gap: .55rem; white-space: nowrap; font-size: .8125rem; color: var(--text-1-muted); }
+.menu-status .status-text { font-weight: 400; }
+.menu-status.is-open .status-text { color: var(--text-1); }
+@media (max-width: 1220px) { .menu-glide, .menu-status { display: none; } }
+
+@media (min-width: 1221px) and (prefers-reduced-motion: no-preference) {
+  .menu-dd.open .mega-grid a, .menu-dd.open .mega-aside, .menu-dd.open .mega-list > .mega-title { animation: rise .45s cubic-bezier(.2,.7,.2,1) both; }
+  .menu-dd.open .mega-grid a:nth-child(1) { animation-delay: .04s; }
+  .menu-dd.open .mega-grid a:nth-child(2) { animation-delay: .08s; }
+  .menu-dd.open .mega-grid a:nth-child(3) { animation-delay: .12s; }
+  .menu-dd.open .mega-grid a:nth-child(4) { animation-delay: .16s; }
+  .menu-dd.open .mega-grid a:nth-child(5) { animation-delay: .20s; }
+  .menu-dd.open .mega-grid a:nth-child(6) { animation-delay: .24s; }
+  .menu-dd.open .mega-aside { animation-delay: .14s; }
+}
+.menu-panel .mega-grid a:focus-visible { outline: 2px solid var(--gold); outline-offset: -2px; }

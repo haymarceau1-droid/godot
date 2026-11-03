@@ -39,6 +39,48 @@
     window.addEventListener('resize', function () { if (!wideMenu()) setDD(false); });
   }
 
+  // Surlignage glissant dans la barre de menu (ordinateur)
+  var linksBar = document.querySelector('.menu-links');
+  var glide = linksBar && linksBar.querySelector('.menu-glide');
+  if (glide) {
+    var targets = linksBar.querySelectorAll(':scope > a, :scope > .menu-dd > .menu-dd-btn');
+    var moveGlide = function (el) {
+      if (window.innerWidth <= 1220) return;
+      var hidden = getComputedStyle(glide).opacity === '0';
+      if (hidden) glide.style.transition = 'none';
+      glide.style.left = el.offsetLeft + 'px';
+      glide.style.width = el.offsetWidth + 'px';
+      if (hidden) { void glide.offsetWidth; glide.style.transition = ''; }
+      glide.style.opacity = '1';
+    };
+    targets.forEach(function (el) {
+      el.addEventListener('mouseenter', function () { moveGlide(el); });
+      el.addEventListener('focus', function () { moveGlide(el); });
+    });
+    linksBar.addEventListener('mouseleave', function () { glide.style.opacity = '0'; });
+    linksBar.addEventListener('focusout', function (e) { if (!linksBar.contains(e.relatedTarget)) glide.style.opacity = '0'; });
+  }
+
+  // Méga menu au clavier : flèche bas pour ouvrir, flèches pour naviguer, Début/Fin
+  var ddRoot = document.querySelector('.menu-dd');
+  if (ddRoot) {
+    var ddButton = ddRoot.querySelector('.menu-dd-btn'), panelLinks = ddRoot.querySelectorAll('.menu-panel a');
+    ddButton.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowDown' && window.innerWidth > 1220) {
+        e.preventDefault(); ddRoot.classList.add('open'); ddButton.setAttribute('aria-expanded', 'true');
+        document.body.classList.add('mega-open');
+        window.requestAnimationFrame(function () { panelLinks[0].focus(); });
+      }
+    });
+    ddRoot.querySelector('.menu-panel').addEventListener('keydown', function (e) {
+      var list = Array.prototype.slice.call(panelLinks), i = list.indexOf(document.activeElement), n = list.length;
+      if (e.key === 'ArrowDown' || e.key === 'ArrowRight') { e.preventDefault(); list[(i + 1) % n].focus(); }
+      else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') { e.preventDefault(); list[(i - 1 + n) % n].focus(); }
+      else if (e.key === 'Home') { e.preventDefault(); list[0].focus(); }
+      else if (e.key === 'End') { e.preventDefault(); list[n - 1].focus(); }
+    });
+  }
+
   // ---------------------------------------------------------------- Statut ouvert / fermé (heure de Paris, lun–ven 9h30–18h00)
   var HOURS = { 1: [570, 1080], 2: [570, 1080], 3: [570, 1080], 4: [570, 1080], 5: [570, 1080] };
   function parisNow() {
@@ -54,14 +96,15 @@
     var now = parisNow();
     var slot = HOURS[now.day];
     var open = slot && now.minutes >= slot[0] && now.minutes < slot[1];
-    var status = document.querySelector('[data-open-status]');
-    if (status) {
-      var sat = now.day === 6;
+    var sat = now.day === 6;
+    document.querySelectorAll('[data-open-status]').forEach(function (status) {
+      var short = status.hasAttribute('data-short');
       status.classList.add(open ? 'is-open' : (sat ? 'is-rdv' : 'is-closed'));
       status.querySelector('.status-text').textContent = open
-        ? "Ouvert en ce moment · jusqu'à 18h00"
-        : (sat ? 'Samedi matin : sur rendez-vous' : 'Fermé actuellement · ouvert du lundi au vendredi');
-    }
+        ? (short ? "Ouvert · jusqu'à 18h" : "Ouvert en ce moment · jusqu'à 18h00")
+        : (sat ? (short ? 'Sam. matin sur RDV' : 'Samedi matin : sur rendez-vous')
+               : (short ? 'Fermé · lun–ven 9h30–18h' : 'Fermé actuellement · ouvert du lundi au vendredi'));
+    });
     var row = document.querySelector('.hours tr[data-day="' + now.day + '"]');
     if (row) row.classList.add('today');
   } catch (e) { /* navigateur sans Intl : on garde le texte par défaut */ }
