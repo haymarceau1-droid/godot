@@ -78,7 +78,7 @@ def cta_band():
           <p>Passez nous voir au 23 rue de la Pie, du lundi au vendredi de 9h30 à 18h00.</p>
         </div>
         <div class="cta-actions">
-          <a class="btn btn-dark" href="contact.html">Venir à l'agence</a>
+          <a class="btn btn-gold" href="contact.html">Venir à l'agence</a>
           <a class="btn btn-outline" href="tel:{TEL_HREF}">{TEL}</a>
         </div>
       </div>

@@ -13,7 +13,7 @@ alternent avec le noir pour donner du rythme et de la lisibilité aux contenus l
 sans ostentation : pas de dégradés, pas d'effets brillants, l'or est un aplat.
 
 Métaphores : écrin (noir), métal (or), confiance institutionnelle (noir profond `#111111`),
-action claire (boutons or pleins, texte noir).
+action claire (boutons or foncé, texte blanc).
 
 ## 2. Color Palette & Roles
 
@@ -22,7 +22,8 @@ action claire (boutons or pleins, texte noir).
 - **Secondary Surface** `#ffffff` — sections de contenu, cartes, carte agence
 
 ### Accent & Interactive
-- **Primary Accent** `#d49732` — boutons principaux (texte noir), bouton d'appel flottant,
+- **Primary Accent** `#d49732` — focus, filets, icônes et petits textes sur fond sombre (jamais en aplat sous du texte noir) ;
+  les boutons utilisent l'or foncé `#9a6a12` avec texte blanc,
   soulignement des liens d'action, focus. *Aucun bleu n'est utilisé sur le site.*
 
 ### Text & Neutrals
@@ -65,7 +66,7 @@ Choix thématiques : `coin-euro`, `coins`, `diamond(s)`, `scale` (pesée), `exch
 
 - **Rayon `5px`** pour cartes, encadrés, carte, FAQ. **Boutons, pastilles de villes et badges
   entièrement arrondis (pilule, `999px`)**. Éléments circulaires : badge 1933, bouton d'appel flottant.
-- **Bouton principal** : fond or `#d49732`, texte noir 700, hauteur ≥ 48px, padding 0.85em 1.6em.
+- **Bouton principal** : fond or foncé `#9a6a12` (survol `#7d560c`), texte blanc 700, hauteur ≥ 48px, padding 0.85em 1.6em.
 - **Bouton secondaire** : contour 2px blanc (sur noir) ou noir (sur blanc), inversion au survol.
 - **Carte** : fond blanc, bordure 1px noir à 14 %, padding 32px ; au survol la bordure
   passe à l'or. Icône dans une pastille noire 52px, trait or.
@@ -95,7 +96,8 @@ noir / blanc et des bordures.
 
 ## 7. Do's and Don'ts
 
-- **Do** réserver les boutons or pleins (texte noir) aux actions principales.
+- **Do** réserver les boutons en or foncé `#9a6a12` (texte blanc) aux actions principales.
+- **Don't** poser de texte ou d'icône noirs sur un aplat doré : l'or `#d49732` reste un accent (texte, filets, icônes) sur fond sombre.
 - **Do** utiliser l'or pour signaler la valeur : labels, chiffres, icônes — et en fond des seuls boutons d'action.
 - **Do** écrire labels et navigation en capitales interlettrées.
 - **Don't** utiliser de bleu, d'ombres, ni de dégradés (sauf le voile horizontal du hero photo) ; rayons : 5px (blocs) ou pilule (boutons).
@@ -124,7 +126,7 @@ noir / blanc et des bordures.
    d'ombre ni de dégradé. »
 2. « Génère un formulaire de prise de contact sur surface blanche : libellés en capitales or
    12px, champs bordés 1px noir profond `#111111` à 14 %, rayon 5px, hauteur 48px, focus contour
-   2px or `#d49732` ; bouton d'envoi plein or `#d49732` texte noir 700. »
+   2px or `#d49732` ; bouton d'envoi plein or foncé `#9a6a12` texte blanc 700. »
 3. « Ajoute un bandeau d'avis clients sur fond noir profond `#111111` : citations en Josefin Sans
    19.2px 400 blanc, nom du client en capitales or 12px, séparateurs 1px blanc à 14 %, grille
    3 colonnes repliée en 1 colonne sous 860px. »
