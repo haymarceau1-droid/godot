@@ -349,7 +349,7 @@
 
   var fr = function (n, d) { return n.toLocaleString('fr-FR', { minimumFractionDigits: d || 0, maximumFractionDigits: d || 0 }); };
   var mult = function (v) { var m = v / 100; return '× ' + (m < 10 ? fr(m, 1) : fr(m, 0)); };
-  var short = { or: 'Or', sp: 'S&P 500', immo: 'Immobilier', livret: 'Livret A' };
+  var short = { or: 'Or', sp: 'S&P 500', cac: 'CAC 40', immo: 'Immobilier', livret: 'Livret A' };
   var cagr = function (r, n) { var p = 1; r.slice(-n).forEach(function (x) { p *= 1 + x / 100; }); return Math.pow(p, 1 / n) - 1; };
   var pct = new Intl.NumberFormat('fr-FR', { style: 'percent', minimumFractionDigits: 1, maximumFractionDigits: 1, signDisplay: 'always' });
   var pf = function (x) { return pct.format(x).replace('-', '−'); };

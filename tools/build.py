@@ -1157,6 +1157,8 @@ CMP_SERIES = [
     {"id": "sp", "label": "S&P 500", "sub": "actions américaines · dividendes réinvestis · en dollars", "color": "#4fb583", "approx": False,
      "returns": [-11.89, -22.10, 28.68, 10.88, 4.91, 15.79, 5.49, -37.00, 26.46, 15.06, 2.11, 16.00, 32.39, 13.69, 1.38,
                  11.96, 21.83, -4.38, 31.49, 18.40, 28.71, -18.11, 26.29, 25.02, 17.88]},
+    {"id": "cac", "label": "CAC 40", "sub": "actions françaises · dividendes réinvestis · en euros (2002-2007 estimés)", "color": "#e07a9b", "approx": True,
+     "returns": [-19.8, -32.0, 19.12, 10.3, 26.3, 20.53, 4.51, -40.3, 27.58, 0.55, -13.39, 20.37, 22.22, 2.71, 11.94, 8.88, 12.73, -8.0, 30.45, -4.96, 31.88, -6.68, 20.14, 0.92, 14.28]},
     {"id": "immo", "label": "Immobilier ancien", "sub": "France · indice Notaires-Insee · valeurs arrondies (≈)", "color": "#d98a63", "approx": True,
      "returns": [7.8, 8.3, 11.7, 15.2, 15.3, 12.1, 6.6, 1.2, -7.1, 6.3, 1.3, -1.3, -2.8, -1.6, 0.4, 2.7, 3.4, 3.3, 3.6,
                  5.7, 6.4, 4.7, -4.2, -2.1, 1.1]},
@@ -1241,8 +1243,8 @@ _win_opts = "".join(f'<option value="{n}"{" selected" if n == 25 else ""}>{lab}<
 _infl25 = cmp_cagr(_infl()["returns"], 25)
 
 comparer = service_hero("Comparer les placements", "Comparateur", "Comparer l'or aux autres placements.",
-    "Or, actions américaines, immobilier et Livret A : leurs courbes depuis 2000, avec l'inflation déduite, et ce que deviendrait votre capital selon le rendement annuel moyen de chacun.",
-    "chart-line", [("chart-line", "4 placements", "Or, S&P 500, immobilier, Livret A"), ("coin-euro", "Inflation déduite", "Rendements réels, en pouvoir d'achat"), ("scale", "Votre capital", "Simulez avec votre montant")]) + f'''
+    "Or, actions américaines et françaises, immobilier et Livret A : leurs courbes depuis 2000, avec l'inflation déduite, et ce que deviendrait votre capital selon le rendement annuel moyen de chacun.",
+    "chart-line", [("chart-line", "5 placements", "Or, S&P 500, CAC 40, immobilier, Livret A"), ("coin-euro", "Inflation déduite", "Rendements réels, en pouvoir d'achat"), ("scale", "Votre capital", "Simulez avec votre montant")]) + f'''
 
     <section class="section section-dark" id="courbes">
       <div class="container">
@@ -1265,7 +1267,7 @@ comparer = service_hero("Comparer les placements", "Comparateur", "Comparer l'or
           </div>
           <ul class="cmp-legend" aria-label="Séries affichées">{_legend}</ul>
           <div class="cmp-chart-wrap">
-            <div class="cmp-chart" data-cmp-chart role="img" aria-label="Courbes comparées de l'or, du S&amp;P 500, de l'immobilier et du Livret A depuis 2000"></div>
+            <div class="cmp-chart" data-cmp-chart role="img" aria-label="Courbes comparées de l'or, du S&amp;P 500, du CAC 40, de l'immobilier et du Livret A depuis 2000"></div>
             <div class="chart-tip cmp-tip" role="status" aria-live="polite" hidden></div>
           </div>
           <noscript><p class="note">Le graphique interactif nécessite JavaScript. Les rendements annuels moyens figurent dans le tableau plus bas.</p></noscript>
@@ -1314,7 +1316,7 @@ comparer = service_hero("Comparer les placements", "Comparateur", "Comparer l'or
           <table class="data-table matrix" data-matrix>{matrix_html()}</table>
         </div>
         <div class="cards-feature cards-feature-dark takeaways">
-          {feature("scale", "Un classement qui bouge", "L'or domine sur 25, 10 et 5 ans, mais les actions américaines passent devant sur 15 ans : le résultat dépend de la période choisie.")}
+          {feature("scale", "Un classement qui bouge", "L'or domine sur 25, 10 et 5 ans, mais les actions américaines passent devant sur 15 ans, le CAC 40 restant en retrait : le résultat dépend de la période choisie.")}
           {feature("chart-line", "Le risque n'est pas le même", "Les actions ont connu des années à −37 % (2008) ; l'or des années à −27 % (2013) ; le Livret A, jamais négatif en euros courants mais souvent négatif une fois l'inflation déduite (2022 : environ −3,6 %).")}
           {feature("diamond", "L'immobilier, un cas à part", "Il est peu liquide, nécessite souvent un emprunt et génère des frais, des charges et des loyers qui ne figurent pas ici.")}
           {feature("coins", "Se diversifier", "Aucun placement n'est le meilleur chaque année. Beaucoup d'épargnants répartissent leur patrimoine entre plusieurs supports.")}
@@ -1328,6 +1330,7 @@ comparer = service_hero("Comparer les placements", "Comparateur", "Comparer l'or
         <ul class="sources">
           <li><strong>Or :</strong> prix de fin d'année du fixing LBMA PM, en dollars (variation d'une fin d'année à l'autre). Voir la page <a href="pourquoi-investir-or.html">Pourquoi investir dans l'or</a> et les sources <a href="https://www.lbma.org.uk/prices-and-data/lbma-annual-precious-metals-forecast-survey" target="_blank" rel="noopener">LBMA</a> et <a href="https://www.gold.org/goldhub/data/gold-prices" target="_blank" rel="noopener">World Gold Council</a>. Les écarts avec d'autres sources sont de l'ordre d'un point par an.</li>
           <li><strong>S&amp;P 500 :</strong> rendement total annuel dividendes réinvestis, en dollars, d'après <a href="https://smartasset.com/investing/sp-500-average-annual-return" target="_blank" rel="noopener">SmartAsset</a> et <a href="https://www.slickcharts.com/sp500/returns/details" target="_blank" rel="noopener">Slickcharts</a>.</li>
+          <li><strong>CAC 40 :</strong> rendement annuel dividendes réinvestis (CAC 40 GR), en euros : valeurs publiées pour 2001 et 2008-2025 (<a href="https://www.zonebourse.com/cours/indice/CAC-40-DIVIDENDES-REINVES-3869660/cotations/" target="_blank" rel="noopener">Zonebourse</a>, <a href="https://live.euronext.com/sites/default/files/documentation/index-fact-sheets/CAC_40_Index_Factsheet.pdf" target="_blank" rel="noopener">Euronext</a>) ; pour 2002-2007, variation du cours de clôture augmentée d'un rendement du dividende estimé à environ 3 % (≈).</li>
           <li><strong>Immobilier :</strong> variations annuelles arrondies de l'indice Notaires-Insee des logements anciens en France (<a href="https://www.insee.fr/fr/statistiques/5371271" target="_blank" rel="noopener">Insee</a>). Estimation à ± 1 ou 2 points selon les années : à utiliser comme un ordre de grandeur.</li>
           <li><strong>Livret A :</strong> taux moyen de chaque année (<a href="https://mes-livrets.fr/guides/historique-taux-livret-a/" target="_blank" rel="noopener">historique des taux</a>), arrondi, intérêts réinvestis. Estimation.</li>
           <li><strong>Inflation (déduite des rendements) :</strong> moyenne annuelle des prix à la consommation, <a href="https://www.insee.fr/fr/statistiques/serie/011813530" target="_blank" rel="noopener">Insee</a>.</li>

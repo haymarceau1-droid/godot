@@ -12,7 +12,7 @@ Design system : voir [`DESIGN.md`](DESIGN.md) (canvas noir, surfaces blanches, o
 | `vendre-or.html` | Rachat d'or : objets acceptés, calcul du prix, titres de l'or |
 | `acheter-or.html` | Or d'investissement : pièces, lingots, fiches des références |
 | `pourquoi-investir-or.html` | Pourquoi investir dans l'or : graphique 2000-2025, or vs inflation, risques, sources |
-| `comparer.html` | Comparateur : courbes or / S&P 500 / immobilier / Livret A, inflation déduite (interrupteur) + simulateur de capital |
+| `comparer.html` | Comparateur : courbes or / S&P 500 / CAC 40 / immobilier / Livret A, inflation déduite (interrupteur) + simulateur de capital |
 | `numismatique.html` | Pièces de collection : ce qui fait la valeur, grades, conservation |
 | `argent-bijoux.html` | Argent, platine et bijoux |
 | `change.html` | Bureau de change |
@@ -32,7 +32,7 @@ Fonctionnalités : responsive (méga menu « Nos services » sur ordinateur, pan
 données structurées schema.org, animations respectant `prefers-reduced-motion`.
 
 ## Données du comparateur
-Rendements annuels 2001-2025 dans `CMP_SERIES` (`tools/build.py`). Or, S&P 500 et inflation : sources citées en bas de page. **Immobilier et Livret A : valeurs arrondies, à affiner avec les séries officielles (Insee-Notaires, Banque de France)**. À mettre à jour chaque année puis `python3 tools/build.py`.
+Rendements annuels 2001-2025 dans `CMP_SERIES` (`tools/build.py`). Or, S&P 500 et inflation : sources citées en bas de page. **CAC 40 : 2002-2007 estimés (cours + dividende ≈ 3 %). Immobilier et Livret A : valeurs arrondies, à affiner avec les séries officielles (Insee-Notaires, Banque de France)**. À mettre à jour chaque année puis `python3 tools/build.py`.
 
 ## Données de la page « Pourquoi investir dans l'or »
 Prix moyens annuels dans `GOLD_AVG` et événements dans `EVENTS` (`tools/build.py`) ; sources listées en bas de la page (LBMA, NMA, INSEE, World Gold Council). À mettre à jour chaque année, puis `python3 tools/build.py`.
