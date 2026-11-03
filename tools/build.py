@@ -459,7 +459,6 @@ home = f'''    <section class="hero hero-photo">
             <a class="btn btn-ghost" href="tel:{TEL_HREF}">Appeler l'agence</a>
           </div>
           <ul class="hero-proof" aria-label="Nos engagements">
-            <li><strong data-count="1933" data-from="1900">1933</strong><span>année de fondation</span></li>
             <li><strong>0 €</strong><span>pour une estimation</span></li>
             <li><strong>Sans RDV</strong><span>du lundi au vendredi</span></li>
           </ul>
