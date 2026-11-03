@@ -34,7 +34,7 @@ FAQ_G = {
   ("Quels documents dois-je apporter ?", "Une pièce d'identité en cours de validité, obligatoire pour toute vente de métaux précieux. Pour les pièces et lingots, apportez aussi les factures ou certificats d'achat si vous en avez : ils peuvent avoir une incidence sur la fiscalité applicable."),
  ],
  "vendre": [
-  ("Comment est calculé le prix de rachat ?", "Le prix dépend du poids, du titre (pureté) du métal et du cours de l'or ou de l'argent au jour de la transaction. Pour certaines pièces de collection, la valeur numismatique peut également être prise en compte."),
+  ("Comment est calculé le prix de rachat ?", "Le prix dépend du poids, du titre (pureté) du métal et du cours de l'or ou de l'argent au jour de la transaction. Les prix sont affichés en agence, avant même toute proposition. Pour certaines pièces de collection, la valeur numismatique peut également être prise en compte."),
   ("Rachetez-vous l'or et l'argent cassés ou abîmés ?", "Oui. Bijoux cassés, chaînes emmêlées, boucles d'oreilles orphelines, or dentaire, argenterie bosselée : tout est estimé selon sa teneur en métal précieux."),
   ("Puis-je vendre des lingots et des pièces d'investissement ?", "Oui. Les lingots, lingotins et pièces (Napoléon, Souverain, Krugerrand, Maple Leaf…) sont estimés au poids et au titre. Apportez vos justificatifs d'achat si vous les avez."),
   ("Que se passe-t-il si je refuse l'offre ?", "Rien : vous repartez avec vos objets, sans frais. L'estimation est faite devant vous, la décision vous appartient."),
@@ -44,7 +44,7 @@ FAQ_G = {
   ("Puis-je acheter de l'or ou de l'argent pour investir ?", "Oui. Nous proposons des pièces et des lingots d'investissement en or et en argent. Contactez l'agence pour connaître les disponibilités et les tarifs du moment."),
   ("Quelle différence entre une pièce et un lingot ?", "Les pièces sont facilement divisibles et reconnues sur le marché ; les lingots, plus massifs, portent généralement une prime plus faible par gramme. Nous vous aidons à choisir selon votre projet."),
   ("Or ou argent : que choisir ?", "L'argent coûte moins cher au gramme, ce qui permet de démarrer avec un petit budget, mais son prix est en général plus volatil que celui de l'or. Les deux peuvent se combiner : nous vous conseillons selon votre projet."),
-  ("Les prix changent-ils dans la journée ?", "Oui. Les prix de l'or et de l'argent suivent les marchés : le tarif applicable est celui du moment de la transaction. Appelez l'agence pour connaître le tarif du jour."),
+  ("Les prix changent-ils dans la journée ?", "Oui. Les prix de l'or et de l'argent suivent les marchés : le tarif applicable est celui du moment de la transaction. Les prix sont affichés en agence, avant même toute proposition ; vous pouvez aussi appeler pour connaître le tarif du jour."),
   ("Puis-je revendre mes pièces ou lingots plus tard ?", "Oui : l'or et l'argent physiques se revendent, au cours du moment. Conservez vos factures et certificats d'achat : ils peuvent avoir une incidence sur la fiscalité, dont les règles sont spécifiques."),
  ],
  "argent": [
@@ -63,7 +63,7 @@ FAQ_G = {
  "change": [
   ("Puis-je changer des devises à l'agence ?", "Oui, l'agence est aussi bureau de change : achat et vente de devises étrangères, avant votre départ comme à votre retour de voyage."),
   ("Quelles devises sont disponibles ?", "Les devises disponibles varient : appelez-nous avant de venir pour confirmer celle dont vous avez besoin, au 02 37 83 49 77."),
-  ("Quel taux de change appliquez-vous ?", "Les taux suivent les marchés et évoluent : appelez l'agence pour connaître le taux du jour avant de vous déplacer."),
+  ("Quel taux de change appliquez-vous ?", "Les taux suivent les marchés et évoluent. Ils sont affichés en agence, avant même toute proposition ; vous pouvez aussi appeler l'agence pour connaître le taux du jour avant de vous déplacer."),
   ("Faut-il une pièce d'identité pour changer ?", "Oui, une pièce d'identité est à présenter au guichet."),
  ],
  "investir": [
@@ -563,7 +563,7 @@ home = f'''    <section class="hero hero-photo">
           <p>Pour estimer vos bijoux, pièces ou lingots, ce sont le poids, le titre et le cours du moment qui comptent.</p>
           <a class="btn btn-gold" href="vendre-or.html">Faire estimer mon or ou mon argent</a>
         </div>
-        <p class="note prices-note">Cours spot indicatif des marchés internationaux (métal pur, hors frais et primes), converti en euros. Ce n'est pas le prix de rachat ou de vente de l'agence : le tarif applicable est celui du moment de la transaction. Les performances passées ne préjugent pas des performances futures.</p>
+        <p class="note prices-note">Cours spot indicatif des marchés internationaux (métal pur, hors frais et primes), converti en euros. Ce n'est pas le prix de rachat ou de vente de l'agence : le tarif applicable est celui du moment de la transaction. Les prix et les taux sont affichés en agence, avant même toute proposition. Les performances passées ne préjugent pas des performances futures.</p>
       </div>
     </section>
 
@@ -705,7 +705,7 @@ vendre = service_hero("Vendre or &amp; argent", "Rachat d'or et d'argent à Char
         <header class="section-head">
           <p class="eyebrow">Comment est fixé le prix</p>
           <h2>Un calcul simple, expliqué avant de décider</h2>
-          <p>Le prix de rachat dépend du poids de l'objet, de son titre (la proportion de métal pur, gravée par un poinçon) et du cours de l'or ou de l'argent au moment de la transaction.</p>
+          <p>Le prix de rachat dépend du poids de l'objet, de son titre (la proportion de métal pur, gravée par un poinçon) et du cours de l'or ou de l'argent au moment de la transaction. Les prix et les taux sont affichés en agence, avant même toute proposition.</p>
         </header>
 {FORMULA}
         <div class="split split-top">
@@ -792,7 +792,7 @@ acheter = service_hero("Acheter or &amp; argent", "Or &amp; argent d'investissem
         <div class="coin-grid">
 {coin_cards}
         </div>
-        <aside class="notice"><strong>Bon à savoir :</strong> les prix de l'or et de l'argent varient en permanence. Un investissement comporte un risque de perte en capital et la fiscalité des métaux précieux a ses propres règles : renseignez-vous avant d'acheter.</aside>
+        <aside class="notice"><strong>Bon à savoir :</strong> les prix de l'or et de l'argent varient en permanence et sont affichés en agence, avant même toute proposition. Un investissement comporte un risque de perte en capital et la fiscalité des métaux précieux a ses propres règles : renseignez-vous avant d'acheter.</aside>
       </div>
     </section>
 
@@ -884,7 +884,7 @@ change = service_hero("Change", "Bureau de change", "Changer vos devises à Char
         <header class="section-head">
           <p class="eyebrow">Notre service</p>
           <h2>Un change simple, sur place</h2>
-          <p>Avant un voyage ou après un séjour à l'étranger, l'agence vous accueille pour changer vos euros en devises, ou vos devises en euros. Les devises disponibles varient selon les périodes.</p>
+          <p>Avant un voyage ou après un séjour à l'étranger, l'agence vous accueille pour changer vos euros en devises, ou vos devises en euros. Les devises disponibles varient selon les périodes. Les prix et les taux sont affichés en agence, avant même toute proposition.</p>
         </header>
         <div class="cards-feature">
           {feature("plane-departure", "Avant de partir", "Anticipez : certaines devises peuvent nécessiter un délai. Un appel suffit pour vérifier.")}
