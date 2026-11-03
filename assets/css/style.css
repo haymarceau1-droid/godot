@@ -299,9 +299,9 @@ p { margin: 0 0 1em; }
 }
 
 /* Logo */
-.brand img { height: 44px; width: auto; }
+.brand img { height: 34px; width: auto; }
 .brand-footer img { height: 52px; }
-@media (max-width: 560px) { .brand img { height: 36px; } }
+@media (max-width: 560px) { .brand img { height: 28px; } }
 
 /* ===== Pages intérieures ===== */
 .mt { margin-top: 1.8rem; }
@@ -682,7 +682,7 @@ p { margin: 0 0 1em; }
 .site-header { transition: border-color .3s ease; }
 .site-header.is-scrolled { border-bottom-color: rgba(212,151,50,.5); }
 .brand img { transition: height .3s ease; }
-.site-header.is-scrolled .brand img { height: 38px; }
+.site-header.is-scrolled .brand img { height: 30px; }
 
 /* --- Apparition au défilement --- */
 .motion .reveal { opacity: 0; translate: 0 26px; transition: opacity .7s ease, translate .7s cubic-bezier(.2,.7,.2,1), scale .7s cubic-bezier(.2,.7,.2,1); }
