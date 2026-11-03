@@ -588,3 +588,40 @@
   });
   dlg.addEventListener('close', function () { if (opener) opener.focus(); });
 })();
+
+
+// ---------------------------------------------------------------- Cours de l'or et de l'argent (accueil)
+// Les données viennent de /api/cours (fonction serverless du site) : le navigateur n'appelle aucun service tiers.
+(function () {
+  var box = document.querySelector('[data-prices]');
+  if (!box || !window.fetch) return;
+  var timeEl = box.querySelector('[data-prices-time]');
+  var nf2 = new Intl.NumberFormat('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  var nf0 = new Intl.NumberFormat('fr-FR', { maximumFractionDigits: 0 });
+  var tf = new Intl.DateTimeFormat('fr-FR', { hour: '2-digit', minute: '2-digit' });
+  var last = {};
+  function set(key, text) {
+    var el = box.querySelector('[data-p="' + key + '"]');
+    if (!el) return;
+    if (last[key] !== undefined && last[key] !== text) {
+      var card = el.closest('.price-card');
+      if (card) { card.classList.remove('flash'); void card.offsetWidth; card.classList.add('flash'); }
+    }
+    last[key] = text; el.textContent = text;
+  }
+  function load() {
+    fetch('/api/cours', { headers: { accept: 'application/json' } })
+      .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+      .then(function (d) {
+        if (!d || !d.or || !d.argent) throw new Error('format');
+        set('or-g', nf2.format(d.or.eur_g)); set('or-oz', nf2.format(d.or.eur_oz));
+        set('argent-g', nf2.format(d.argent.eur_g)); set('argent-oz', nf2.format(d.argent.eur_oz));
+        timeEl.textContent = 'Mis à jour à ' + tf.format(new Date(d.updatedAt)) + ' · actualisation automatique';
+        box.hidden = false;
+      })
+      .catch(function () {});
+  }
+  load();
+  setInterval(function () { if (!document.hidden) load(); }, 60000);
+  document.addEventListener('visibilitychange', function () { if (!document.hidden) load(); });
+})();

@@ -45,7 +45,7 @@
         '<img src="assets/img/logo-blanc.png" width="650" height="133" alt="Godot &amp; Fils, depuis 1933">' +
       '</div>' +
       '<h2 id="ck-title">Votre vie privée compte</h2>' +
-      '<p id="ck-text">Ce site n’utilise aucun cookie de suivi. Seul le plan d’accès à l’agence, fourni par Google Maps, peut en déposer : il ne s’affiche qu’avec votre accord. Vous pouvez changer d’avis à tout moment depuis le pied de page.</p>' +
+      '<p id="ck-text">Aucun cookie de suivi sur ce site. Seul le plan d’accès (Google Maps) peut en déposer, et uniquement avec votre accord. Modifiable à tout moment depuis le pied de page.</p>' +
       '<div class="cookie-custom" hidden>' +
         '<label class="ck-row"><span><strong>Nécessaires</strong><small>Mémorise votre choix. Toujours actifs.</small></span>' +
           '<input type="checkbox" role="switch" checked disabled></label>' +
@@ -75,7 +75,7 @@
         if (open) {
           moreBtn.textContent = 'Masquer';
           actions.innerHTML = '<button type="button" class="btn btn-ghost" data-ck="refuse">Tout refuser</button>' +
-                              '<button type="button" class="btn btn-gold" data-ck="save">Enregistrer mes choix</button>';
+                              '<button type="button" class="btn btn-gold" data-ck="save">Enregistrer</button>';
         } else {
           moreBtn.textContent = 'Personnaliser';
           actions.innerHTML = '<button type="button" class="btn btn-ghost" data-ck="refuse">Tout refuser</button>' +

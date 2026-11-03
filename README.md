@@ -73,3 +73,12 @@ puis ouvrir http://localhost:8000
 - Logo officiel et photos réelles de l'agence (le « G » doré est provisoire)
 - Liste exacte des pièces et lingots proposés, devises disponibles au change
 - Mentions légales : raison sociale, SIRET, hébergeur, directeur de la publication
+
+
+## Cours de l'or et de l'argent en direct (accueil)
+
+- Le bloc « Cours en direct » de l'accueil lit `/api/cours`, une fonction serverless Vercel (`api/cours.js`).
+- La fonction interroge côté serveur gold-api.com (cours XAU / XAG en dollars, sans clé) et Frankfurter / BCE (taux USD→EUR, avec open.er-api.com en secours), puis renvoie les prix en euros par once et par gramme. Réponse mise en cache 60 s.
+- Le navigateur ne contacte donc aucun service tiers : pas de consentement nécessaire, aucune clé exposée.
+- Si l'API est indisponible (ou hors Vercel, par exemple en local), le bloc reste simplement masqué.
+- Les cours affichés sont des cours spot indicatifs, pas les prix de l'agence ; la mention figure sous le bloc.
