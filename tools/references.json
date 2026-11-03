@@ -1,0 +1,66 @@
+[
+ {
+  "file": "banco-de-mexico",
+  "alt": "Banco de México"
+ },
+ {
+  "file": "banque-de-france",
+  "alt": "Banque de France, Eurosystème"
+ },
+ {
+  "file": "carte-bancaire",
+  "alt": "Cartes Bancaires CB"
+ },
+ {
+  "file": "heraeus",
+  "alt": "Heraeus"
+ },
+ {
+  "file": "ngc",
+  "alt": "NGC, Numismatic Guaranty Corporation"
+ },
+ {
+  "file": "new-zealand-mint",
+  "alt": "New Zealand Mint"
+ },
+ {
+  "file": "pcgs",
+  "alt": "PCGS"
+ },
+ {
+  "file": "rand-refinery",
+  "alt": "Rand Refinery"
+ },
+ {
+  "file": "monnaie-royale-canadienne",
+  "alt": "Monnaie royale canadienne"
+ },
+ {
+  "file": "eurocard-mastercard",
+  "alt": "Eurocard Mastercard"
+ },
+ {
+  "file": "acpr",
+  "alt": "ACPR, Banque de France"
+ },
+ {
+  "file": "alliance-europeenne-des-experts",
+  "alt": "Alliance européenne des experts"
+ },
+ {
+  "file": "sncaf",
+  "alt": "SNCAF, syndicat national des changeurs"
+ },
+ {
+  "file": "monnaie-de-paris",
+  "alt": "Monnaie de Paris"
+ },
+ {
+  "file": "perth-mint",
+  "alt": "The Perth Mint"
+ },
+ {
+  "file": "royal-mint",
+  "alt": "The Royal Mint"
+ }
+]

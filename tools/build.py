@@ -155,7 +155,23 @@ def cta_band():
       </div>
     </section>'''
 
+_ref_path = os.path.join(ROOT, "tools", "references.json")
+REFERENCES = json.load(open(_ref_path, encoding="utf-8")) if os.path.exists(_ref_path) else []
+SOCIAL = [("facebook", "Facebook", "https://www.facebook.com/profile.php?id=100063818612511"),
+          ("instagram", "Instagram", "https://www.instagram.com/godot.chartres/"),
+          ("youtube", "YouTube", "https://www.youtube.com/channel/UCN-FwhVlacmvbK8Yno6wCug")]
+
 def footer():
+    refs = ""
+    if REFERENCES:
+        tiles = "".join(f'<li><img src="assets/img/references/{r["file"]}.webp" width="350" height="250" loading="lazy" decoding="async" alt="{r["alt"]}"></li>' for r in REFERENCES)
+        refs = f'''
+    <div class="container footer-refs" aria-label="Monnaies, institutions et moyens de paiement">
+      <h3>Monnaies, institutions et moyens de paiement</h3>
+      <ul>{tiles}</ul>
+      <p>Les logos et marques cités appartiennent à leurs titulaires respectifs.</p>
+    </div>'''
+    social = "".join(f'<li><a href="{u}" target="_blank" rel="noopener" aria-label="{n} (nouvelle fenêtre)">[[icon:{i}]]</a></li>' for i, n, u in SOCIAL)
     svc = "\n".join(f'          <li><a href="{h}">{t}</a></li>' for h, t, _, _ in SERVICES)
     return f'''  <footer class="site-footer">
     <div class="container footer-grid">
@@ -164,6 +180,7 @@ def footer():
           <img src="assets/img/logo-blanc.png" width="650" height="133" alt="Godot &amp; Fils">
         </a>
         <p>Achat et vente d'or, d'argent et de métaux précieux. Bureau de change.</p>
+        <ul class="social">{social}</ul>
       </div>
       <div>
         <h3>Agence</h3>
@@ -192,6 +209,7 @@ def footer():
         </ul>
       </div>
     </div>
+    {refs}
     <div class="container footer-bottom">
       <p>© <span data-year>2026</span> Godot &amp; Fils Chartres. Tous droits réservés.</p>
       <p class="footer-legal">Les informations de ce site sont données à titre indicatif et ne constituent jamais un conseil en investissement. Investir comporte un risque de perte en capital.</p>
@@ -318,7 +336,7 @@ def steps_block():
           <li><span class="step-head"><span class="step-num">4</span>[[icon:cash-banknote:thin]]</span><h3>Vous êtes payé</h3><p>Si vous acceptez, la transaction est finalisée avec un bordereau d'achat conforme à la réglementation.</p></li>
         </ol>'''
 
-ICON_ALIAS = {'coin-euro': 'currency-eur', 'coins': 'coins', 'diamond': 'sketch-logo', 'diamonds': 'diamonds-four', 'exchange': 'swap', 'medal': 'coin', 'building-store': 'storefront', 'map-pin': 'map-pin', 'phone-call': 'phone-call', 'clock': 'clock', 'id': 'identification-card', 'file-certificate': 'certificate', 'eye-check': 'eye', 'heart-handshake': 'handshake', 'shield-check': 'shield-check', 'scale': 'scales', 'receipt-euro': 'receipt', 'cash-banknote': 'money', 'chart-line': 'chart-line-up', 'plus': 'plus', 'equal': 'equals', 'x': 'x', 'chevron-down': 'caret-down', 'chevron-left': 'caret-left', 'chevron-right': 'caret-right', 'star': 'star', 'zoom-check': 'magnifying-glass', 'world': 'globe-hemisphere-west', 'hourglass': 'hourglass', 'dental': 'tooth', 'tools-kitchen-2': 'fork-knife', 'plane-departure': 'airplane-takeoff', 'plane-arrival': 'airplane-landing', 'star-fill': 'star-fill'}
+ICON_ALIAS = {'facebook': 'facebook-logo', 'instagram': 'instagram-logo', 'youtube': 'youtube-logo', 'coin-euro': 'currency-eur', 'coins': 'coins', 'diamond': 'sketch-logo', 'diamonds': 'diamonds-four', 'exchange': 'swap', 'medal': 'coin', 'building-store': 'storefront', 'map-pin': 'map-pin', 'phone-call': 'phone-call', 'clock': 'clock', 'id': 'identification-card', 'file-certificate': 'certificate', 'eye-check': 'eye', 'heart-handshake': 'handshake', 'shield-check': 'shield-check', 'scale': 'scales', 'receipt-euro': 'receipt', 'cash-banknote': 'money', 'chart-line': 'chart-line-up', 'plus': 'plus', 'equal': 'equals', 'x': 'x', 'chevron-down': 'caret-down', 'chevron-left': 'caret-left', 'chevron-right': 'caret-right', 'star': 'star', 'zoom-check': 'magnifying-glass', 'world': 'globe-hemisphere-west', 'hourglass': 'hourglass', 'dental': 'tooth', 'tools-kitchen-2': 'fork-knife', 'plane-departure': 'airplane-takeoff', 'plane-arrival': 'airplane-landing', 'star-fill': 'star-fill'}
 
 def ic(name, weight="light", cls="ic"):
     """Inline un SVG Phosphor Icons (assets/icons/, licence MIT). weight : light (défaut) ou thin (grands pictogrammes)."""

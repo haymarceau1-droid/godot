@@ -1535,3 +1535,20 @@ main, .site-footer { overflow-x: clip; }
 .legal-points li { padding: 1rem 1.2rem; border: 1px solid var(--line-light); border-radius: var(--radius); background: var(--surface); color: var(--text-2-muted); line-height: 1.6; }
 .legal-points strong { color: var(--text-2); }
 .footer-legal { margin: .4rem 0 0; font-size: .8125rem; color: var(--text-1-muted); max-width: 90ch; }
+
+/* Pied de page : réseaux sociaux et logos de référence */
+.social { list-style: none; display: flex; gap: .6rem; margin: 1rem 0 0; padding: 0; }
+.social a { display: grid; place-items: center; width: 42px; height: 42px; border: 1px solid var(--line-dark); border-radius: 50%; color: var(--text-1); transition: border-color .2s, color .2s; }
+.social a:hover { border-color: var(--gold); color: var(--gold); }
+.social .ic { width: 20px; height: 20px; }
+.footer-refs { padding: 2.2rem 0 1.4rem; margin-top: 2.5rem; border-top: 1px solid var(--line-dark); }
+.footer-refs h3 { margin: 0 0 1.2rem; }
+.footer-refs ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(118px, 1fr)); gap: .6rem; }
+.footer-refs li { aspect-ratio: 7 / 5; border-radius: 10px; background: #fff; overflow: hidden; display: grid; place-items: center; }
+.footer-refs img { width: 100%; height: 100%; object-fit: contain; filter: grayscale(1); opacity: .8; transition: filter .3s, opacity .3s; }
+.footer-refs li:hover img { filter: none; opacity: 1; }
+.footer-refs p { margin: 1rem 0 0; font-size: .75rem; color: var(--text-1-muted); }
+@media (max-width: 560px) { .footer-refs ul { grid-template-columns: repeat(3, 1fr); gap: .5rem; } }
+.site-footer .social { display: flex; flex-direction: row; flex-wrap: wrap; align-items: center; gap: .6rem; }
+.site-footer .social li { margin: 0; }
+.footer-refs img { opacity: .9; }
