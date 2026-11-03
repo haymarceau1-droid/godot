@@ -1056,3 +1056,12 @@ main, .site-footer { overflow-x: clip; }
 .round-btn:hover:not(:disabled) { border-color: var(--gold); color: var(--gold); }
 .round-btn:disabled { opacity: .35; cursor: default; }
 @media (max-width: 560px) { .reviews-nav .btn { margin-left: 0; flex: 1 1 100%; } }
+
+/* Avis sur fond blanc */
+#avis .rating { border-color: var(--line-light); }
+#avis .rating strong { color: var(--gold-deep); }
+#avis .rating > span { color: var(--text-2-muted); }
+#avis .round-btn { border-color: var(--line-light); color: var(--text-2); }
+#avis .round-btn:hover:not(:disabled) { border-color: var(--gold-deep); color: var(--gold-deep); }
+#avis .star .ic { stroke: rgba(0,0,0,.25); }
+#avis .star-on .ic { stroke: var(--gold); fill: var(--gold); }

@@ -269,7 +269,7 @@ def avis_section():
         resume = (f'<div class="rating"><strong>{n_txt}</strong><div class="review-stars" role="img" aria-label="Note moyenne {n_txt} sur 5">{stars(round(float(note)))}</div>'
                   f'<span>sur 5{total}</span></div>')
     lien = data.get("lien_google", "https://www.google.com/maps/search/?api=1&query=Godot+et+Fils+Chartres+23+rue+de+la+Pie")
-    return f'''    <section class="section section-dark" id="avis">
+    return f'''    <section class="section" id="avis">
       <div class="container">
         <div class="reviews-head">
           <header class="section-head">
@@ -284,7 +284,7 @@ def avis_section():
           <div class="reviews-nav">
             <button type="button" class="round-btn" data-rev="prev" aria-label="Avis précédents">[[icon:chevron-left]]</button>
             <button type="button" class="round-btn" data-rev="next" aria-label="Avis suivants">[[icon:chevron-right]]</button>
-            <a class="btn btn-ghost btn-sm" href="{lien}" target="_blank" rel="noopener">Voir tous les avis sur Google</a>
+            <a class="btn btn-outline btn-sm" href="{lien}" target="_blank" rel="noopener">Voir tous les avis sur Google</a>
           </div>
         </div>
       </div>
@@ -369,7 +369,7 @@ def reseau_section():
     </section>'''
 
 # ---------------------------------------------------------------- ACCUEIL
-FAQ_CLS = "section" if avis_section() else "section section-soft"   # alternance des fonds selon la présence des avis
+FAQ_CLS = "section section-soft" if avis_section() else "section"   # alternance des fonds selon la présence des avis
 TICKER = "".join(f"<span>{w}</span>" for w in ["Achat d'or", "Vente de pièces", "Lingots", "Argent", "Bijoux", "Bureau de change", "Depuis 1933"] * 6)
 home = f'''    <section class="hero hero-photo">
       <div class="container hero-grid">
@@ -449,27 +449,6 @@ home = f'''    <section class="hero hero-photo">
     </section>
 
 {reseau_section()}
-
-    <section class="section" id="numismatique">
-      <div class="container split">
-        <div class="numis-visual" aria-hidden="true">
-          <div class="nv-medal">[[icon:medal]]</div>
-          <span class="nv-chip nv-1">TTB</span><span class="nv-chip nv-2">SUP</span><span class="nv-chip nv-3">FDC</span>
-          <p>Rareté · État · Demande</p>
-        </div>
-        <div class="split-copy">
-          <p class="eyebrow">Numismatique</p>
-          <h2>Une pièce peut valoir plus que son poids de métal</h2>
-          <p>Napoléon, Hercule, Semeuse, louis d'or… Certaines pièces ont une valeur de collection qui s'ajoute à leur métal. Apportez-les sans les nettoyer : l'estimation est gratuite.</p>
-          <ul class="checks">
-            <li>Valeur du métal et valeur numismatique distinguées</li>
-            <li>Explication du grade et de la rareté</li>
-            <li>Aucune obligation de vendre</li>
-          </ul>
-          <p class="mt"><a class="btn btn-outline" href="numismatique.html">Découvrir la numismatique</a></p>
-        </div>
-      </div>
-    </section>
 
 {avis_section()}
 
