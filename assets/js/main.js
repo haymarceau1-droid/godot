@@ -339,7 +339,7 @@
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var INF = ALL.filter(function (s) { return s.ref; })[0];
   var A = ALL.filter(function (s) { return !s.ref; });
-  var state = { real: true, start: 2000, scale: 'log', hidden: {}, cursor: null };
+  var state = { real: false, start: 2000, scale: 'log', hidden: {}, cursor: null };
 
   // Niveaux cumulés (indice 0 = fin 2000, base 100) pour chaque placement et pour les prix
   function levels(r) { var l = [100]; r.forEach(function (x) { l.push(l[l.length - 1] * (1 + x / 100)); }); return l; }

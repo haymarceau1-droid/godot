@@ -1202,7 +1202,7 @@ def sim_rows(amount, years, window, real=True):
         rows.append((s, nom, rr, val, min(rets[-window:])))
     return sorted(rows, key=lambda r: -r[3])
 
-def sim_table_html(amount=10000, years=10, window=25, real=True):
+def sim_table_html(amount=10000, years=10, window=25, real=False):
     rows = sim_rows(amount, years, window, real)
     top = max(r[3] for r in rows)
     out = []
@@ -1217,7 +1217,7 @@ def sim_table_html(amount=10000, years=10, window=25, real=True):
             f'<td data-label="Pire année">{pct_fr(worst / 100)}</td></tr>')
     return "".join(out)
 
-def matrix_html(real=True):
+def matrix_html(real=False):
     infl = _infl()["returns"]
     head = "".join(f'<th scope="col">{lab}</th>' for _, lab in CMP_WINDOWS)
     rate = lambda s, n: ((1 + cmp_cagr(s["returns"], n)) / (1 + cmp_cagr(infl, n)) - 1) if real else cmp_cagr(s["returns"], n)
@@ -1243,8 +1243,8 @@ _win_opts = "".join(f'<option value="{n}"{" selected" if n == 25 else ""}>{lab}<
 _infl25 = cmp_cagr(_infl()["returns"], 25)
 
 comparer = service_hero("Comparer les placements", "Comparateur", "Comparer l'or aux autres placements.",
-    "Or, actions américaines et françaises, immobilier et Livret A : leurs courbes depuis 2000, avec l'inflation déduite, et ce que deviendrait votre capital selon le rendement annuel moyen de chacun.",
-    "chart-line", [("chart-line", "5 placements", "Or, S&P 500, CAC 40, immobilier, Livret A"), ("coin-euro", "Inflation déduite", "Rendements réels, en pouvoir d'achat"), ("scale", "Votre capital", "Simulez avec votre montant")]) + f'''
+    "Or, actions américaines et françaises, immobilier et Livret A : leurs courbes depuis 2000, avec l'option « inflation déduite » pour lire le pouvoir d'achat réel, et ce que deviendrait votre capital selon le rendement annuel moyen de chacun.",
+    "chart-line", [("chart-line", "5 placements", "Or, S&P 500, CAC 40, immobilier, Livret A"), ("coin-euro", "Option inflation", "Voir le pouvoir d'achat réel"), ("scale", "Votre capital", "Simulez avec votre montant")]) + f'''
 
     <section class="section section-dark" id="courbes">
       <div class="container">
@@ -1263,7 +1263,7 @@ comparer = service_hero("Comparer les placements", "Comparateur", "Comparer l'or
               <button type="button" class="is-on" data-cmp-scale="log" aria-pressed="true">Échelle logarithmique</button>
               <button type="button" data-cmp-scale="lin" aria-pressed="false">Échelle linéaire</button>
             </div>
-            <label class="switch"><input type="checkbox" role="switch" data-real checked><span class="sw-track" aria-hidden="true"></span><span>Inflation déduite</span></label>
+            <label class="switch"><input type="checkbox" role="switch" data-real><span class="sw-track" aria-hidden="true"></span><span>Inflation déduite</span></label>
           </div>
           <ul class="cmp-legend" aria-label="Séries affichées">{_legend}</ul>
           <div class="cmp-chart-wrap">
@@ -1271,7 +1271,7 @@ comparer = service_hero("Comparer les placements", "Comparateur", "Comparer l'or
             <div class="chart-tip cmp-tip" role="status" aria-live="polite" hidden></div>
           </div>
           <noscript><p class="note">Le graphique interactif nécessite JavaScript. Les rendements annuels moyens figurent dans le tableau plus bas.</p></noscript>
-          <p class="note cmp-hint">« Inflation déduite » : chaque courbe est divisée par l'indice des prix à la consommation (Insee). Elle mesure alors l'évolution du pouvoir d'achat, et non plus seulement du prix. Décochez pour voir les valeurs brutes.</p>
+          <p class="note cmp-hint">« Inflation déduite » : chaque courbe est divisée par l'indice des prix à la consommation (Insee). Elle mesure alors l'évolution du pouvoir d'achat, et non plus seulement du prix. Cochez « Inflation déduite » pour la prendre en compte ; par défaut, les valeurs sont brutes.</p>
           <p class="note cmp-hint">L'échelle logarithmique rend lisibles des courbes très différentes : à chaque graduation, la valeur double ou presque.</p>
           <ul class="cmp-sub">{_sub}</ul>
         </div>
@@ -1284,23 +1284,23 @@ comparer = service_hero("Comparer les placements", "Comparateur", "Comparer l'or
         <header class="section-head">
           <p class="eyebrow">Simulateur</p>
           <h2>Que deviendrait votre capital ?</h2>
-          <p>Saisissez un montant et une durée : le tableau applique à votre capital le rendement annuel moyen historique de chaque placement, sur la période de référence choisie. L'inflation est déduite : on lit directement le pouvoir d'achat.</p>
+          <p>Saisissez un montant et une durée : le tableau applique à votre capital le rendement annuel moyen historique de chaque placement, sur la période de référence choisie. Cochez « Déduire l'inflation » pour lire le pouvoir d'achat réel.</p>
         </header>
         <form class="sim" data-sim onsubmit="return false">
           <label class="field"><span>Capital investi</span><span class="input-wrap"><input type="number" inputmode="numeric" min="100" max="10000000" step="100" value="10000" data-sim-amount aria-label="Capital investi en euros"><b>€</b></span></label>
           <label class="field"><span>Durée du placement</span><span class="input-wrap"><input type="number" inputmode="numeric" min="1" max="50" step="1" value="10" data-sim-years aria-label="Durée en années"><b>ans</b></span></label>
           <label class="field"><span>Rendements moyens calculés sur</span><select data-sim-window aria-label="Période de référence">{_win_opts}</select></label>
-          <label class="switch sim-switch"><input type="checkbox" role="switch" data-real checked><span class="sw-track" aria-hidden="true"></span><span>Déduire l'inflation</span></label>
+          <label class="switch sim-switch"><input type="checkbox" role="switch" data-real><span class="sw-track" aria-hidden="true"></span><span>Déduire l'inflation</span></label>
         </form>
-        <p class="sim-caption" data-sim-caption>Avec 10&nbsp;000&nbsp;€ placés pendant 10&nbsp;ans, au rendement annuel moyen des 25 dernières années, inflation déduite.</p>
+        <p class="sim-caption" data-sim-caption>Avec 10&nbsp;000&nbsp;€ placés pendant 10&nbsp;ans, au rendement annuel moyen des 25 dernières années, avant inflation.</p>
         <div class="table-wrap">
           <table class="data-table sim-table">
             <caption class="sr-only">Valeur du capital selon le placement</caption>
-            <thead><tr><th scope="col">Placement</th><th scope="col">Rendement annuel moyen<br><small>avant inflation</small></th><th scope="col">Rendement annuel moyen<br><small>après inflation</small></th><th scope="col" data-sim-th-val>Valeur finale<br><small>en euros d'aujourd'hui</small></th><th scope="col">Gain</th><th scope="col" data-sim-th-worst>Pire année<br><small>après inflation</small></th></tr></thead>
+            <thead><tr><th scope="col">Placement</th><th scope="col">Rendement annuel moyen<br><small>avant inflation</small></th><th scope="col">Rendement annuel moyen<br><small>après inflation</small></th><th scope="col" data-sim-th-val>Valeur finale<br><small>en euros courants</small></th><th scope="col">Gain</th><th scope="col" data-sim-th-worst>Pire année<br><small>avant inflation</small></th></tr></thead>
             <tbody data-sim-body>{sim_table_html()}</tbody>
           </table>
         </div>
-        <p class="sim-infl" data-sim-infl>L'inflation moyenne sur cette période (<strong>{pct_fr(_infl25)}/an</strong>, Insee) est <strong>déduite</strong> : les valeurs sont exprimées en euros d'aujourd'hui, c'est-à-dire en pouvoir d'achat.</p>
+        <p class="sim-infl" data-sim-infl>Valeurs en euros courants, <strong>sans déduire l'inflation</strong> ({pct_fr(_infl25)}/an en moyenne sur cette période) : le pouvoir d'achat réel est plus faible. Cochez « Déduire l'inflation » pour le voir.</p>
         <aside class="notice notice-light"><strong>À lire avant d'interpréter :</strong> c'est une simulation à rendement constant, ce qui ne correspond jamais à la réalité : une année sur deux peut être négative. Les résultats passés ne préjugent pas des résultats futurs, et les chiffres ne tiennent compte ni des frais, ni de la fiscalité, ni des droits de mutation ou de l'entretien pour l'immobilier. L'or et le S&amp;P 500 sont exprimés en dollars : pour un investisseur en euros, les variations du change modifient le résultat.</aside>
       </div>
     </section>
@@ -1310,7 +1310,7 @@ comparer = service_hero("Comparer les placements", "Comparateur", "Comparer l'or
         <header class="section-head">
           <p class="eyebrow">À retenir</p>
           <h2>Le classement change avec la période</h2>
-          <p>Le meilleur placement d'une période n'est pas celui de la suivante. La case dorée indique le meilleur rendement annuel moyen de chaque période ; l'inflation est déduite (l'interrupteur du graphique ou du simulateur permet de la remettre).</p>
+          <p>Le meilleur placement d'une période n'est pas celui de la suivante. La case dorée indique le meilleur rendement annuel moyen de chaque période ; l'interrupteur « Inflation déduite » du graphique ou du simulateur permet de lire les rendements réels.</p>
         </header>
         <div class="table-wrap table-dark">
           <table class="data-table matrix" data-matrix>{matrix_html()}</table>
