@@ -7,10 +7,10 @@ SITE = "https://www.godotetfils-chartres.fr"
 TEL, TEL_HREF = "02 37 83 49 77", "+33237834977"
 
 SERVICES = [
-    ("vendre-or.html", "Vendre mon or", "coin-euro", "Faites estimer et rachetez vos objets en or, sans rendez-vous."),
-    ("acheter-or.html", "Acheter de l'or", "coins", "Pièces et lingots d'investissement, avec conseil personnalisé."),
+    ("vendre-or.html", "Vendre or &amp; argent", "coin-euro", "Faites estimer et rachetez vos objets en or et en argent, sans rendez-vous."),
+    ("acheter-or.html", "Acheter or &amp; argent", "coins", "Pièces et lingots d'or et d'argent, avec conseil personnalisé."),
     ("numismatique.html", "Numismatique", "medal", "Pièces de collection : valeur du métal et valeur numismatique."),
-    ("argent-bijoux.html", "Argent &amp; bijoux", "diamond", "Argenterie, platine et bijoux anciens estimés avec soin."),
+    ("argent-bijoux.html", "Argenterie &amp; bijoux", "diamond", "Argenterie, platine et bijoux anciens estimés avec soin."),
     ("change.html", "Bureau de change", "exchange", "Devises étrangères pour vos voyages, achat et vente."),
 ]
 NAV = [(h, t) for h, t, _, _ in SERVICES] + [("la-maison.html", "La maison"), ("contact.html", "Contact")]
@@ -35,12 +35,12 @@ FAQ = [
     ]),
     ("Vendre", [
         ("Comment est calculé le prix de rachat ?", "Le prix dépend du poids, du titre (pureté) du métal et du cours de l'or ou de l'argent au jour de la transaction. Pour certaines pièces de collection, la valeur numismatique peut également être prise en compte."),
-        ("Rachetez-vous l'or cassé ou abîmé ?", "Oui. Bijoux cassés, chaînes emmêlées, boucles d'oreilles orphelines, or dentaire : tout est estimé selon sa teneur en métal précieux."),
+        ("Rachetez-vous l'or et l'argent cassés ou abîmés ?", "Oui. Bijoux cassés, chaînes emmêlées, boucles d'oreilles orphelines, or dentaire, argenterie bosselée : tout est estimé selon sa teneur en métal précieux."),
         ("Que se passe-t-il si je refuse l'offre ?", "Rien : vous repartez avec vos objets, sans frais. L'estimation est faite devant vous, la décision vous appartient."),
         ("Mes bijoux sont-ils fondus ?", "Les bijoux rachetés pour leur métal sont généralement destinés au recyclage. Si vous souhaitez conserver une pièce de valeur, dites-le lors de l'estimation."),
     ]),
     ("Acheter", [
-        ("Puis-je acheter de l'or pour investir ?", "Oui. Nous proposons des pièces et des lingots d'investissement. Contactez l'agence pour connaître les disponibilités et les tarifs du moment."),
+        ("Puis-je acheter de l'or ou de l'argent pour investir ?", "Oui. Nous proposons des pièces et des lingots d'investissement en or et en argent. Contactez l'agence pour connaître les disponibilités et les tarifs du moment."),
         ("Les prix changent-ils dans la journée ?", "Oui. Les prix de l'or et de l'argent suivent les marchés : le tarif applicable est celui du moment de la transaction."),
         ("Quel est le rendement annuel moyen de l'or ?", "Entre 2000 et 2025, le prix moyen de l'once a progressé d'environ 10,6 % par an en dollars (environ 8,5 % par an depuis 1971). Ce rendement varie fortement selon la période (environ +3,8 % par an entre 2010 et 2020), il ne tient compte ni des frais ni de la fiscalité, et les performances passées ne préjugent pas des performances futures."),
         ("L'or protège-t-il vraiment de l'inflation ?", "Sur le long terme, son prix a nettement dépassé l'inflation : en euros, l'once a été multipliée par environ 7 entre 2000 et 2024, contre ×1,5 pour les prix en France. Ce n'est pourtant pas vrai chaque année : en 2022, l'inflation a atteint 5,2 % alors que l'or est resté stable en dollars. Les performances passées ne préjugent pas des performances futures."),
@@ -414,7 +414,7 @@ home = f'''    <section class="hero hero-photo">
       <div class="container hero-grid">
         <div class="hero-copy">
           <p class="eyebrow">Or · Argent · Pièces · Lingots · Bijoux · Change</p>
-          <h1>Votre or estimé à sa <em>juste valeur</em>, au cœur de Chartres.</h1>
+          <h1>Votre or et votre argent estimés à leur <em>juste valeur</em>, au cœur de Chartres.</h1>
           <p class="lead">Achat et vente de métaux précieux par une maison fondée en 1933. Estimation gratuite, sans engagement et sans rendez-vous.</p>
           <div class="hero-actions">
             <a class="btn btn-gold" href="contact.html">Venir à l'agence</a>
@@ -446,12 +446,12 @@ home = f'''    <section class="hero hero-photo">
         <header class="section-head">
           <p class="eyebrow">Nos services</p>
           <h2>Tout ce qui brille, et bien plus encore.</h2>
-          <p>Que vous souhaitiez vendre des bijoux hérités, investir dans l'or physique ou préparer un voyage, l'agence vous reçoit et vous conseille.</p>
+          <p>Que vous souhaitiez vendre des bijoux hérités, investir dans l'or et l'argent physiques ou préparer un voyage, l'agence vous reçoit et vous conseille.</p>
         </header>
         <div class="cards cards-4">
-          <article class="card"><div class="card-icon" aria-hidden="true">{ICON["or"]}</div><h3>Vendre mon or</h3><p>Bijoux, débris, alliances, chaînes, or dentaire, pièces et lingots : nous rachetons votre or, quel que soit son état.</p><a class="link-more" href="vendre-or.html">Vendre mon or</a></article>
-          <article class="card"><div class="card-icon" aria-hidden="true">{ICON["pieces"]}</div><h3>Acheter de l'or</h3><p>Napoléon, Souverain, Krugerrand, lingots et lingotins : constituez une épargne tangible, conseillé par des spécialistes.</p><a class="link-more" href="acheter-or.html">Acheter de l'or</a></article>
-          <article class="card"><div class="card-icon" aria-hidden="true">{ICON["argent"]}</div><h3>Argent &amp; bijoux</h3><p>Argenterie, pièces d'argent, platine, bijoux anciens ou démodés : une expertise attentive pour chaque pièce.</p><a class="link-more" href="argent-bijoux.html">Argent &amp; bijoux</a></article>
+          <article class="card"><div class="card-icon" aria-hidden="true">{ICON["or"]}</div><h3>Vendre or &amp; argent</h3><p>Bijoux, débris, alliances, chaînes, argenterie, pièces et lingots : nous rachetons votre or et votre argent, quel que soit leur état.</p><a class="link-more" href="vendre-or.html">Vendre or &amp; argent</a></article>
+          <article class="card"><div class="card-icon" aria-hidden="true">{ICON["pieces"]}</div><h3>Acheter or &amp; argent</h3><p>Napoléon, Souverain, Krugerrand, Maple Leaf argent, lingots et lingotins : constituez une épargne tangible, conseillé par des spécialistes.</p><a class="link-more" href="acheter-or.html">Acheter or &amp; argent</a></article>
+          <article class="card"><div class="card-icon" aria-hidden="true">{ICON["argent"]}</div><h3>Argenterie &amp; bijoux</h3><p>Argenterie, pièces d'argent, platine, bijoux anciens ou démodés : une expertise attentive pour chaque pièce.</p><a class="link-more" href="argent-bijoux.html">Argenterie &amp; bijoux</a></article>
           <article class="card"><div class="card-icon" aria-hidden="true">{ICON["change"]}</div><h3>Bureau de change</h3><p>Achat et vente de devises étrangères pour vos voyages ou au retour : un service simple, sur place.</p><a class="link-more" href="change.html">Bureau de change</a></article>
         </div>
       </div>
@@ -461,7 +461,7 @@ home = f'''    <section class="hero hero-photo">
       <div class="container">
         <header class="section-head">
           <p class="eyebrow">Comment ça marche</p>
-          <h2>Vendre votre or en quatre étapes</h2>
+          <h2>Vendre votre or ou votre argent en quatre étapes</h2>
           <p>Un parcours transparent, en face à face, pour que vous décidiez en toute sérénité.</p>
         </header>
 {steps_block()}
@@ -475,13 +475,13 @@ home = f'''    <section class="hero hero-photo">
         <div class="split-copy">
           <p class="eyebrow">La maison</p>
           <h2>Une institution du négoce de métaux précieux</h2>
-          <p>Fondée en 1933, la maison Godot &amp; Fils s'est imposée comme une référence du négoce de l'or et des métaux précieux. Son réseau d'agences est présent dans de nombreuses villes, de Paris à Versailles en passant par Saint-Germain-en-Laye.</p>
+          <p>Fondée en 1933, la maison Godot &amp; Fils s'est imposée comme une référence du négoce de l'or, de l'argent et des métaux précieux. Son réseau d'agences est présent dans de nombreuses villes, de Paris à Versailles en passant par Saint-Germain-en-Laye.</p>
           <p>À Chartres, notre agence perpétue ce savoir-faire : une expertise rigoureuse, des conseils personnalisés et un accueil de proximité.</p>
           <ul class="checks">
             <li>Expertise réalisée sur place, sous vos yeux</li>
             <li>Offre fondée sur le cours du jour</li>
             <li>Confidentialité et transactions sécurisées</li>
-            <li>Conseils pour l'investissement dans l'or physique</li>
+            <li>Conseils pour l'investissement dans l'or et l'argent physiques</li>
           </ul>
           <p class="mt"><a class="btn btn-outline" href="la-maison.html">Découvrir la maison</a></p>
         </div>
@@ -574,22 +574,23 @@ FORMULA = '''        <div class="formula" role="img" aria-label="Poids multipli�
         </div>'''
 
 # ---------------------------------------------------------------- VENDRE
-vendre = service_hero("Vendre mon or", "Rachat d'or à Chartres", "Vendre mon or à Chartres, au prix du jour.",
-    "Bijoux, alliances, or dentaire, pièces, lingots : faites estimer vos objets gratuitement, sous vos yeux, sans rendez-vous et sans engagement.",
+vendre = service_hero("Vendre or &amp; argent", "Rachat d'or et d'argent à Chartres", "Vendre mon or et mon argent à Chartres, au prix du jour.",
+    "Bijoux, alliances, or dentaire, argenterie, pièces, lingots : faites estimer vos objets gratuitement, sous vos yeux, sans rendez-vous et sans engagement.",
     "coin-euro", [("coin-euro", "0 €", "Estimation gratuite"), ("building-store", "Sans RDV", "Du lundi au vendredi"), ("scale", "Sous vos yeux", "Pesée et contrôle du titre")]) + "\n" + subnav("vendre-or.html") + f'''
 
     <section class="section">
       <div class="container">
         <header class="section-head">
           <p class="eyebrow">Ce que nous rachetons</p>
-          <h2>Tout objet contenant de l'or</h2>
+          <h2>Tout objet contenant de l'or ou de l'argent</h2>
           <p>L'état n'a pas d'importance : le prix repose sur le poids et la pureté du métal.</p>
         </header>
         <div class="cards-feature">
           {feature("diamond", "Bijoux", "Bagues, colliers, bracelets, chaînes, médailles, boucles d'oreilles, même cassés, démodés ou dépareillés.")}
           {feature("heart-handshake", "Alliances &amp; gourmettes", "Alliances anciennes, bagues de famille, gourmettes et chevalières dont vous n'avez plus l'usage.")}
           {feature("dental", "Or dentaire", "Couronnes, bridges et autres pièces dentaires en or sont estimés selon leur teneur en métal précieux.")}
-          {feature("coins", "Pièces d'or", "Napoléon, Souverain, Krugerrand, 50 pesos et autres pièces d'or de collection ou d'investissement.")}
+          {feature("coins", "Pièces d'or &amp; d'argent", "Napoléon, Souverain, Krugerrand, 50 pesos, Hercule, Semeuse et autres pièces d'or ou d'argent de collection ou d'investissement.")}
+          {feature("tools-kitchen-2", "Argenterie", "Couverts, ménagères, plateaux et objets en argent massif, même bosselés ou dépareillés.")}
           {feature("scale", "Lingots &amp; lingotins", "Lingots de toutes tailles : estimation au poids et au titre, avec vos justificatifs si vous les avez.")}
           <article class="card-row card-row-accent"><div><h3>Un doute ?</h3><p>Apportez l'objet : nous vous disons gratuitement ce qu'il vaut.</p><a class="link-arrow" href="contact.html">Venir à l'agence</a></div></article>
         </div>
@@ -613,7 +614,7 @@ vendre = service_hero("Vendre mon or", "Rachat d'or à Chartres", "Vendre mon or
         <header class="section-head">
           <p class="eyebrow">Comment est fixé le prix</p>
           <h2>Un calcul simple, expliqué avant de décider</h2>
-          <p>Le prix de rachat dépend du poids de l'objet, de son titre (la proportion d'or pur, gravée par un poinçon) et du cours de l'or au moment de la transaction.</p>
+          <p>Le prix de rachat dépend du poids de l'objet, de son titre (la proportion de métal pur, gravée par un poinçon) et du cours de l'or ou de l'argent au moment de la transaction.</p>
         </header>
 {FORMULA}
         <div class="split split-top">
@@ -628,27 +629,29 @@ vendre = service_hero("Vendre mon or", "Rachat d'or à Chartres", "Vendre mon or
           <div>
             <div class="table-wrap">
               <table class="data-table">
-                <caption>Les titres de l'or les plus courants</caption>
-                <thead><tr><th scope="col">Carats</th><th scope="col">Titre (pureté)</th><th scope="col">Teneur en or</th></tr></thead>
+                <caption>Les titres de l'or et de l'argent les plus courants</caption>
+                <thead><tr><th scope="col">Métal</th><th scope="col">Titre (pureté)</th><th scope="col">Teneur en métal pur</th></tr></thead>
                 <tbody>
                   <tr><th scope="row">24 carats</th><td>999 ‰</td><td>99,9 %</td></tr>
                   <tr><th scope="row">18 carats</th><td>750 ‰</td><td>75 %</td></tr>
                   <tr><th scope="row">14 carats</th><td>585 ‰</td><td>58,5 %</td></tr>
                   <tr><th scope="row">9 carats</th><td>375 ‰</td><td>37,5 %</td></tr>
+                  <tr><th scope="row">Argent 925</th><td>925 ‰</td><td>92,5 % d'argent</td></tr>
+                  <tr><th scope="row">Argent 800</th><td>800 ‰</td><td>80 % d'argent</td></tr>
                 </tbody>
               </table>
             </div>
-            <p class="note">En France, l'or 18 carats (750 ‰) est le plus répandu en bijouterie.</p>
+            <p class="note">En France, l'or 18 carats (750 ‰) est le plus répandu en bijouterie, et l'argent 925 (« sterling ») en argenterie et en bijoux.</p>
           </div>
         </div>
       </div>
     </section>
 
-{faq_section("Vendre son or", FAQ[0][1][2:] + FAQ[1][1])}
+{faq_section("Vendre son or et son argent", FAQ[0][1][2:] + FAQ[1][1])}
 
 {others("vendre-or.html")}'''
-page("vendre-or.html", "Vendre son or à Chartres — Rachat d'or, bijoux et pièces | Godot &amp; Fils",
-     "Vendez votre or à Chartres : bijoux, alliances, or dentaire, pièces et lingots. Estimation gratuite et sans rendez-vous chez Godot & Fils, 23 rue de la Pie.", vendre)
+page("vendre-or.html", "Vendre son or et son argent à Chartres — Rachat d'or, d'argent, bijoux et pièces | Godot &amp; Fils",
+     "Vendez votre or et votre argent à Chartres : bijoux, alliances, or dentaire, argenterie, pièces et lingots. Estimation gratuite et sans rendez-vous chez Godot & Fils, 23 rue de la Pie.", vendre)
 
 # ---------------------------------------------------------------- ACHETER
 COINS = [
@@ -658,20 +661,26 @@ COINS = [
     ("Maple Leaf (1 once)", "Canada", "999,9 ‰", "31,1"),
     ("Philharmonique (1 once)", "Autriche", "999,9 ‰", "31,1"),
 ]
+COINS_AG = [
+    ("Maple Leaf argent (1 once)", "Canada", "999,9 ‰", "31,1"),
+    ("Philharmonique argent (1 once)", "Autriche", "999 ‰", "31,1"),
+    ("Silver Eagle (1 once)", "États-Unis", "999 ‰", "31,1"),
+    ("Britannia argent (1 once)", "Royaume-Uni", "999 ‰", "31,1"),
+]
 coin_cards = "\n".join(
-    f'''          <article class="coin-card"><div class="medal"><strong>{g}</strong><span>g d'or fin</span></div><h3>{n}</h3><dl><div><dt>Origine</dt><dd>{o}</dd></div><div><dt>Titre</dt><dd>{t}</dd></div></dl></article>'''
-    for n, o, t, g in COINS)
+    f'''          <article class="coin-card"><div class="medal"><strong>{g}</strong><span>g {m} fin</span></div><h3>{n}</h3><dl><div><dt>Origine</dt><dd>{o}</dd></div><div><dt>Titre</dt><dd>{t}</dd></div></dl></article>'''
+    for m, lst in (("d'or", COINS), ("d'argent", COINS_AG)) for n, o, t, g in lst)
 
-acheter = service_hero("Acheter de l'or", "Or d'investissement", "Acheter de l'or physique : pièces et lingots.",
+acheter = service_hero("Acheter or &amp; argent", "Or &amp; argent d'investissement", "Acheter de l'or et de l'argent physiques : pièces et lingots.",
     "Une épargne tangible, détenue en main propre. L'agence vous conseille selon votre projet et les disponibilités du moment.",
     "coins", [("coins", "Pièces &amp; lingots", "Selon les disponibilités"), ("shield-check", "Conseil", "Personnalisé, sans pression"), ("phone-call", "Tarif du jour", "Sur simple appel")]) + "\n" + subnav("acheter-or.html") + f'''
 
     <section class="section">
       <div class="container">
         <header class="section-head">
-          <p class="eyebrow">Pourquoi de l'or physique</p>
+          <p class="eyebrow">Pourquoi de l'or et de l'argent physiques</p>
           <h2>Un actif tangible, reconnu partout</h2>
-          <p>L'or est un métal que l'on peut détenir, transmettre et revendre. Il se prête à la diversification d'une épargne.</p>
+          <p>L'or et l'argent sont des métaux que l'on peut détenir, transmettre et revendre. Ils se prêtent à la diversification d'une épargne.</p>
           <p><a class="text-link" href="pourquoi-investir-or.html">Pourquoi investir dans l'or ? Rendements, inflation, risques →</a></p>
         </header>
         <div class="cards-feature cards-feature-3">
@@ -692,7 +701,7 @@ acheter = service_hero("Acheter de l'or", "Or d'investissement", "Acheter de l'o
         <div class="coin-grid">
 {coin_cards}
         </div>
-        <aside class="notice"><strong>Bon à savoir :</strong> le prix de l'or varie en permanence. Un investissement comporte un risque de perte en capital et la fiscalité de l'or a ses propres règles : renseignez-vous avant d'acheter.</aside>
+        <aside class="notice"><strong>Bon à savoir :</strong> les prix de l'or et de l'argent varient en permanence. Un investissement comporte un risque de perte en capital et la fiscalité des métaux précieux a ses propres règles : renseignez-vous avant d'acheter.</aside>
       </div>
     </section>
 
@@ -702,19 +711,19 @@ acheter = service_hero("Acheter de l'or", "Or d'investissement", "Acheter de l'o
         <ol class="steps steps-3 steps-light">
           <li><span class="step-head"><span class="step-num">1</span>[[icon:phone-call:thin]]</span><h3>Vous nous contactez</h3><p>Par téléphone ou directement à l'agence, pour connaître les produits disponibles et les tarifs du moment.</p></li>
           <li><span class="step-head"><span class="step-num">2</span>[[icon:shield-check:thin]]</span><h3>Nous vous conseillons</h3><p>Pièces ou lingots, budget, horizon : nous vous aidons à choisir sans pression.</p></li>
-          <li><span class="step-head"><span class="step-num">3</span>[[icon:coins:thin]]</span><h3>Vous repartez avec votre or</h3><p>La transaction est finalisée à l'agence, avec les documents réglementaires. Une pièce d'identité est requise.</p></li>
+          <li><span class="step-head"><span class="step-num">3</span>[[icon:coins:thin]]</span><h3>Vous repartez avec votre or ou votre argent</h3><p>La transaction est finalisée à l'agence, avec les documents réglementaires. Une pièce d'identité est requise.</p></li>
         </ol>
       </div>
     </section>
 
-{faq_section("Acheter de l'or", FAQ[2][1])}
+{faq_section("Acheter or et argent", FAQ[2][1])}
 
 {others("acheter-or.html")}'''
-page("acheter-or.html", "Acheter de l'or à Chartres — Pièces et lingots d'investissement | Godot &amp; Fils",
-     "Achetez de l'or physique à Chartres : Napoléon, Souverain, Krugerrand, Maple Leaf, lingots et lingotins. Conseils personnalisés chez Godot & Fils.", acheter)
+page("acheter-or.html", "Acheter or et argent à Chartres — Pièces et lingots d'investissement | Godot &amp; Fils",
+     "Achetez de l'or et de l'argent physiques à Chartres : Napoléon, Souverain, Krugerrand, Maple Leaf, Silver Eagle, lingots et lingotins. Conseils personnalisés chez Godot & Fils.", acheter)
 
 # ---------------------------------------------------------------- ARGENT & BIJOUX
-argent = service_hero("Argent &amp; bijoux", "Argent · Platine · Bijoux", "Argent, platine et bijoux : une expertise pour chaque pièce.",
+argent = service_hero("Argenterie &amp; bijoux", "Argent · Platine · Bijoux", "Argent, platine et bijoux : une expertise pour chaque pièce.",
     "Argenterie, pièces d'argent, platine, bijoux anciens ou démodés : nous les estimons avec soin, gratuitement et sans engagement.",
     "diamond", [("diamond", "Expertise", "Chaque pièce est examinée"), ("coin-euro", "0 €", "Estimation gratuite"), ("id", "Pièce d'identité", "Requise pour vendre")]) + "\n" + subnav("argent-bijoux.html") + f'''
 
@@ -935,7 +944,7 @@ def histoire_section():
         <header class="section-head">
           <p class="eyebrow">Notre histoire</p>
           <h2>Près d'un siècle de savoir-faire</h2>
-          <p>Fondée en 1933, la maison Godot &amp; Fils s'est imposée comme une référence du négoce de l'or et des métaux précieux. Son réseau d'agences est présent dans de nombreuses villes, de Paris à Versailles en passant par Saint-Germain-en-Laye.</p>
+          <p>Fondée en 1933, la maison Godot &amp; Fils s'est imposée comme une référence du négoce de l'or, de l'argent et des métaux précieux. Son réseau d'agences est présent dans de nombreuses villes, de Paris à Versailles en passant par Saint-Germain-en-Laye.</p>
         </header>
         <div class="history-stats">
           <div><strong data-since="1933">90+</strong><span>ans d'expérience</span></div>
@@ -1112,7 +1121,7 @@ pourquoi = service_hero("Pourquoi investir dans l'or", "Or d'investissement", "P
 
     <section class="section section-soft">
       <div class="container narrow">
-        <header class="section-head"><p class="eyebrow">Passer à l'action</p><h2>Acheter de l'or à Chartres</h2></header>
+        <header class="section-head"><p class="eyebrow">Passer à l'action</p><h2>Acheter or et argent à Chartres</h2></header>
         <p class="lead-dark">Pièces d'investissement (Napoléon, Souverain, Krugerrand, Maple Leaf…) ou lingots : l'agence vous renseigne sur les disponibilités et le tarif du jour, sans engagement.</p>
         <div class="hero-actions">
           <a class="btn btn-gold" href="acheter-or.html">Découvrir pièces et lingots</a>
@@ -1338,7 +1347,7 @@ comparer = service_hero("Comparer les placements", "Comparateur", "Comparer l'or
         </ul>
         <div class="hero-actions">
           <a class="btn btn-gold" href="pourquoi-investir-or.html">Pourquoi investir dans l'or</a>
-          <a class="btn btn-outline" href="acheter-or.html">Acheter de l'or</a>
+          <a class="btn btn-outline" href="acheter-or.html">Acheter or &amp; argent</a>
         </div>
       </div>
     </section>'''
@@ -1371,8 +1380,8 @@ maison = hero("La maison", "Depuis 1933", "Une institution du négoce de métaux
       <div class="container narrow">
         <header class="section-head"><p class="eyebrow">Ce que nous faisons</p><h2>Un seul interlocuteur pour vos métaux précieux</h2></header>
         <ul class="checks checks-lg">
-          <li><a class="text-link" href="vendre-or.html">Rachat d'or</a> : bijoux, or dentaire, pièces et lingots</li>
-          <li><a class="text-link" href="acheter-or.html">Vente d'or d'investissement</a> : pièces et lingots</li>
+          <li><a class="text-link" href="vendre-or.html">Rachat d'or et d'argent</a> : bijoux, argenterie, pièces et lingots</li>
+          <li><a class="text-link" href="acheter-or.html">Vente d'or et d'argent d'investissement</a> : pièces et lingots</li>
           <li><a class="text-link" href="argent-bijoux.html">Argent, platine et bijoux</a> : estimation et rachat</li>
           <li><a class="text-link" href="change.html">Bureau de change</a> : devises étrangères</li>
         </ul>
@@ -1393,7 +1402,7 @@ faq_sections = "\n".join(f'''    <section class="section{" section-soft" if i % 
 faq_ld = {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
     {"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for _, items in FAQ for q, a in items]}
 page("faq.html", "Questions fréquentes — Godot &amp; Fils Chartres",
-     "Toutes les réponses à vos questions sur la vente d'or, l'achat de pièces et lingots, l'estimation gratuite et le bureau de change à Chartres.",
+     "Toutes les réponses à vos questions sur la vente d'or et d'argent, l'achat de pièces et lingots, l'estimation gratuite et le bureau de change à Chartres.",
      hero("Questions fréquentes", "FAQ", "Vous vous posez des questions ?",
           "Estimation, documents, prix de rachat, investissement, change : retrouvez ici les réponses les plus courantes.", actions=False) + "\n\n" + faq_sections,
      ld=faq_ld)
