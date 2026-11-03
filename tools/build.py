@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Génère les pages statiques du site (python3 tools/build.py).
 Édite le contenu ici, puis relance le script : en-tête, pied de page et navigation restent cohérents."""
-import json, os, re
+import datetime, json, os, re
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SITE = "https://www.godotetfils-chartres.fr"
 TEL, TEL_HREF = "02 37 83 49 77", "+33237834977"
@@ -16,8 +16,11 @@ SERVICES = [
 NAV = [(h, t) for h, t, _, _ in SERVICES] + [("la-maison.html", "La maison"), ("contact.html", "Contact")]
 
 LD_STORE = {
-    "@context": "https://schema.org", "@type": "JewelryStore",
-    "name": "Godot & Fils Chartres",
+    "@context": "https://schema.org", "@type": "JewelryStore", "@id": SITE + "/#agence",
+    "name": "Godot & Fils Chartres", "image": SITE + "/assets/img/og-agence.jpg",
+    "geo": {"@type": "GeoCoordinates", "latitude": 48.4456, "longitude": 1.4884},
+    "hasMap": "https://www.google.com/maps/search/?api=1&query=Godot+et+Fils+Chartres+23+rue+de+la+Pie",
+    "areaServed": {"@type": "City", "name": "Chartres"},
     "description": "Achat et vente d'or, d'argent, de pièces, de lingots et de bijoux. Bureau de change.",
     "url": SITE + "/", "telephone": TEL_HREF, "foundingDate": "2020",
     "logo": SITE + "/assets/img/logo-noir.png",
@@ -200,9 +203,46 @@ def footer():
   <script src="assets/js/consent.js" defer></script>
   <script src="assets/js/main.js" defer></script>'''
 
+SEO = {   # titres (≤ ~60 caractères) et descriptions (≤ ~155) par page ; "service" ajoute le balisage Service
+    "index.html": ("Godot &amp; Fils Chartres | Achat et vente d'or et d'argent",
+        "Agence Godot &amp; Fils à Chartres, 23 rue de la Pie : achat et vente d'or, d'argent, pièces, lingots et bijoux. Estimation gratuite, sans rendez-vous.", None),
+    "vendre-or.html": ("Vendre son or et son argent à Chartres | Godot &amp; Fils",
+        "Vendez or, argent, bijoux, pièces et lingots à Chartres. Estimation gratuite sous vos yeux, sans rendez-vous, prix affichés en agence. 23 rue de la Pie.", "Rachat d'or et d'argent"),
+    "acheter-or.html": ("Acheter or et argent à Chartres : pièces, lingots | Godot &amp; Fils",
+        "Achetez pièces et lingots d'or et d'argent à Chartres : Napoléon, Souverain, Krugerrand, Maple Leaf, Philharmonique. Conseils et prix en agence.", "Vente de pièces et lingots d'or et d'argent"),
+    "numismatique.html": ("Numismatique à Chartres : estimation de pièces | Godot &amp; Fils",
+        "Faites estimer vos pièces de collection à Chartres (Napoléon, Hercule, Semeuse, louis d'or) : valeur du métal et valeur numismatique. Gratuit.", "Estimation de pièces de collection"),
+    "argent-bijoux.html": ("Argenterie, platine et bijoux à Chartres | Godot &amp; Fils",
+        "Rachat d'argenterie, de pièces d'argent, de platine et de bijoux anciens à Chartres. Estimation gratuite et sans engagement chez Godot &amp; Fils.", "Rachat d'argenterie, platine et bijoux"),
+    "change.html": ("Bureau de change à Chartres | Godot &amp; Fils",
+        "Bureau de change à Chartres : achat et vente de devises étrangères avant ou après votre voyage. Taux affichés en agence, 23 rue de la Pie.", "Bureau de change"),
+    "pourquoi-investir-or.html": ("Pourquoi investir dans l'or ? Rendements et risques | Godot &amp; Fils",
+        "Rendement annuel moyen de l'or depuis 2000, effet de l'inflation, valeur refuge et risques. Information générale, jamais un conseil en investissement.", None),
+    "comparer.html": ("Comparer or, actions, immobilier, Livret A | Godot &amp; Fils",
+        "Comparez l'or, le S&amp;P 500, le CAC 40, l'immobilier et le Livret A depuis 2000 et simulez votre capital. Information générale, pas un conseil.", None),
+    "la-maison.html": ("La maison Godot &amp; Fils : histoire et réseau d'agences",
+        "Découvrez l'histoire de la maison Godot &amp; Fils, ses engagements, son réseau de 125 agences et l'agence de Chartres, 23 rue de la Pie.", None),
+}
+CRUMB = {"vendre-or.html": "Vendre or et argent", "acheter-or.html": "Acheter or et argent", "numismatique.html": "Numismatique",
+         "argent-bijoux.html": "Argenterie et bijoux", "change.html": "Bureau de change", "pourquoi-investir-or.html": "Pourquoi investir dans l'or",
+         "comparer.html": "Comparer les placements", "la-maison.html": "La maison", "contact.html": "Contact", "faq.html": "Questions fréquentes"}
+OG_IMG = SITE + "/assets/img/og-agence.jpg"
+
 def page(slug, title, desc, body, ld=None, cta=True, noindex=False):
     active = slug
-    ld_tag = f'\n  <script type="application/ld+json">\n{esc_json(ld)}\n  </script>' if ld else ""
+    service = None
+    if slug in SEO:
+        title, desc, service = SEO[slug]
+    lds = [ld] if ld else []
+    if not noindex and slug != "index.html" and slug in CRUMB:
+        lds.append({"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
+            {"@type": "ListItem", "position": 1, "name": "Accueil", "item": SITE + "/"},
+            {"@type": "ListItem", "position": 2, "name": CRUMB[slug], "item": f"{SITE}/{slug}"}]})
+    if service:
+        lds.append({"@context": "https://schema.org", "@type": "Service", "name": service, "serviceType": service,
+                    "provider": {"@id": SITE + "/#agence"}, "areaServed": {"@type": "City", "name": "Chartres"},
+                    "url": f"{SITE}/{slug}", "description": re.sub(r"&amp;", "&", desc)})
+    ld_tag = "".join(f'\n  <script type="application/ld+json">\n{esc_json(x)}\n  </script>' for x in lds)
     robots = '\n  <meta name="robots" content="noindex">' if noindex else ""
     canon = "" if noindex else f'\n  <link rel="canonical" href="{SITE}/{"" if slug == "index.html" else slug}">'
     html = f'''<!doctype html>
@@ -216,6 +256,13 @@ def page(slug, title, desc, body, ld=None, cta=True, noindex=False):
   <meta property="og:title" content="{title}">
   <meta property="og:description" content="{desc}">
   <meta property="og:locale" content="fr_FR">
+  <meta property="og:site_name" content="Godot &amp; Fils Chartres">
+  <meta property="og:url" content="{SITE}/{"" if slug == "index.html" else slug}">
+  <meta property="og:image" content="{OG_IMG}">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Devanture de l'agence Godot &amp; Fils, 23 rue de la Pie à Chartres">
+  <meta name="twitter:card" content="summary_large_image">
   <meta name="theme-color" content="#000000">
   <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
   <link rel="preload" href="assets/fonts/josefin-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
@@ -1658,7 +1705,7 @@ pages = ["index.html"] + [h for h, _ in NAV] + ["pourquoi-investir-or.html", "co
 with open(os.path.join(ROOT, "sitemap.xml"), "w") as f:
     f.write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n')
     for p in pages:
-        f.write(f"  <url><loc>{SITE}/{'' if p == 'index.html' else p}</loc></url>\n")
+        f.write(f"  <url><loc>{SITE}/{'' if p == 'index.html' else p}</loc><lastmod>{datetime.date.today().isoformat()}</lastmod></url>\n")
     f.write("</urlset>\n")
 with open(os.path.join(ROOT, "robots.txt"), "w") as f:
-    f.write(f"User-agent: *\nAllow: /\nSitemap: {SITE}/sitemap.xml\n")
+    f.write(f"User-agent: *\nAllow: /\nDisallow: /api/\nSitemap: {SITE}/sitemap.xml\n")
