@@ -244,6 +244,35 @@ def ic(name, weight="light", cls="ic"):
 # Dans les gabarits, [[icon:nom]] est remplacé par le SVG correspondant (voir page())
 ICON = {"or": "[[icon:coin-euro]]", "pieces": "[[icon:coins]]", "argent": "[[icon:diamond]]", "change": "[[icon:exchange]]"}
 
+# ---------------------------------------------------------------- GALERIE DE L'AGENCE
+PHOTOS = [
+    ("agence-facade.webp", 819, 610, "Devanture de l'agence Godot & Fils au 23 rue de la Pie à Chartres, avec ses pièces et lingots en vitrine",
+     "La devanture, 23 rue de la Pie"),
+    ("agence-accueil.webp", 820, 610, "Hall d'accueil de l'agence Godot & Fils : guichet vitré, diplômes encadrés et plante verte",
+     "Le hall d'accueil et son guichet vitré"),
+    ("agence-salon.webp", 820, 610, "Espace d'attente de l'agence Godot & Fils avec fauteuils blancs et table basse",
+     "L'espace d'attente"),
+]
+
+def agence_gallery(dark=True):
+    esc = lambda t: t.replace("&", "&amp;")
+    figs = "".join(
+        f'<figure class="g-item{" g-main" if i == 0 else ""}"><button type="button" class="g-btn" data-lightbox="assets/img/{f}" '
+        f'data-alt="{esc(alt)}" data-caption="{esc(cap)}" aria-label="Agrandir la photo : {esc(cap)}">'
+        f'<img src="assets/img/{f}" width="{w}" height="{h}" alt="{esc(alt)}" loading="lazy" decoding="async"></button>'
+        f'<figcaption>{esc(cap)}</figcaption></figure>'
+        for i, (f, w, h, alt, cap) in enumerate(PHOTOS))
+    return f'''    <section class="section{" section-dark" if dark else ""}" id="agence">
+      <div class="container">
+        <header class="section-head">
+          <p class="eyebrow">L'agence</p>
+          <h2>Une agence sécurisée, au cœur de Chartres</h2>
+          <p>Du lundi au vendredi, sans rendez-vous : un hall d'accueil, un guichet vitré et un espace d'attente. Agence sécurisée et télésurveillée.</p>
+        </header>
+        <div class="gallery">{figs}</div>
+      </div>
+    </section>'''
+
 # ---------------------------------------------------------------- AVIS GOOGLE
 # Les avis viennent de tools/avis.json (à remplir avec de VRAIS avis : copier-coller depuis Google Business Profile).
 # Tant que la liste est vide, la section n'est pas générée.
@@ -437,7 +466,7 @@ home = f'''    <section class="hero hero-photo">
 
     <section class="section" id="maison">
       <div class="container split">
-        <div class="split-visual" aria-hidden="true"><div class="year-badge"><span>Fondée en</span><strong data-count="1933" data-from="1900">1933</strong></div></div>
+        <figure class="split-photo"><img src="assets/img/agence-facade.webp" width="819" height="610" alt="Devanture de l'agence Godot &amp; Fils au 23 rue de la Pie à Chartres" loading="lazy" decoding="async"><span class="photo-badge">Depuis 1933</span></figure>
         <div class="split-copy">
           <p class="eyebrow">La maison</p>
           <h2>Une institution du négoce de métaux précieux</h2>
@@ -1291,9 +1320,9 @@ page("comparer.html", "Comparer l'or, les actions, l'immobilier et le Livret A |
 maison = hero("La maison", "Depuis 1933", "Une institution du négoce de métaux précieux.",
               "Depuis 1933, la maison Godot & Fils accompagne particuliers et épargnants dans l'achat et la vente d'or, d'argent et de métaux précieux.", actions=False) + '''
 
-''' + histoire_section() + '''
+''' + histoire_section() + '\n\n' + agence_gallery(True) + '''
 
-    <section class="section section-dark">
+    <section class="section">
       <div class="container">
         <header class="section-head">
           <p class="eyebrow">Nos engagements</p>
@@ -1398,7 +1427,7 @@ contact = hero("Contact", "Votre agence", "Nous rendre visite à Chartres.",
       </div>
     </section>'''
 page("contact.html", "Contact et accès — Godot &amp; Fils Chartres, 23 rue de la Pie",
-     "Agence Godot & Fils Chartres : 23 rue de la Pie, 28000 Chartres. Ouvert du lundi au vendredi de 9h30 à 18h00, samedi matin sur rendez-vous. Tél. 02 37 83 49 77.", contact, ld=LD_STORE, cta=False)
+     "Agence Godot & Fils Chartres : 23 rue de la Pie, 28000 Chartres. Ouvert du lundi au vendredi de 9h30 à 18h00, samedi matin sur rendez-vous. Tél. 02 37 83 49 77.", contact + agence_gallery(False), ld=LD_STORE, cta=False)
 
 # ---------------------------------------------------------------- MENTIONS LÉGALES
 legal = '''    <section class="legal">

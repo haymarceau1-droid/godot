@@ -526,3 +526,34 @@
     update();
   }
 })();
+
+// ---------------------------------------------------------------- Galerie : visionneuse (dialogue natif)
+(function () {
+  var btns = Array.prototype.slice.call(document.querySelectorAll('[data-lightbox]'));
+  if (!btns.length || typeof HTMLDialogElement === 'undefined') return;
+  var dlg = document.createElement('dialog');
+  dlg.className = 'lightbox';
+  dlg.setAttribute('aria-label', 'Photo agrandie');
+  dlg.innerHTML = '<figure><img alt=""><figcaption></figcaption></figure>' +
+    '<button type="button" class="lb-btn lb-prev" aria-label="Photo précédente"><span aria-hidden="true">‹</span></button>' +
+    '<button type="button" class="lb-btn lb-next" aria-label="Photo suivante"><span aria-hidden="true">›</span></button>' +
+    '<button type="button" class="lb-btn lb-close" aria-label="Fermer"><span aria-hidden="true">×</span></button>';
+  document.body.appendChild(dlg);
+  var img = dlg.querySelector('img'), cap = dlg.querySelector('figcaption'), cur = 0, opener = null;
+  function show(i) {
+    cur = (i + btns.length) % btns.length;
+    var b = btns[cur];
+    img.src = b.getAttribute('data-lightbox'); img.alt = b.getAttribute('data-alt') || '';
+    cap.textContent = b.getAttribute('data-caption') || '';
+  }
+  btns.forEach(function (b, i) { b.addEventListener('click', function () { opener = b; show(i); dlg.showModal(); }); });
+  dlg.querySelector('.lb-prev').addEventListener('click', function () { show(cur - 1); });
+  dlg.querySelector('.lb-next').addEventListener('click', function () { show(cur + 1); });
+  dlg.querySelector('.lb-close').addEventListener('click', function () { dlg.close(); });
+  dlg.addEventListener('click', function (e) { if (e.target === dlg) dlg.close(); });       // clic sur le fond
+  dlg.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowLeft') show(cur - 1);
+    if (e.key === 'ArrowRight') show(cur + 1);
+  });
+  dlg.addEventListener('close', function () { if (opener) opener.focus(); });
+})();

@@ -52,8 +52,8 @@ Apparitions au défilement, barre de progression, bandeau défilant, carte anim�
 ## Icônes
 [Phosphor Icons](https://phosphoricons.com) (licence MIT, copiée dans `assets/icons/LICENSE-phosphor-icons.txt`), graisses **Light** (par défaut) et **Thin** (grands pictogrammes). Dans `tools/build.py`, écrire `[[icon:nom]]` (ou `[[icon:nom:thin]]`) ; `nom` est un nom sémantique associé à un pictogramme Phosphor dans `ICON_ALIAS`. Pour en ajouter un : copier ses SVG `-light` et `-thin` dans `assets/icons/` et l'ajouter à `ICON_ALIAS`.
 
-## Photo du hero
-Le hero de l'accueil attend la photo de la devanture dans `assets/img/devanture.webp` (ou `devanture.jpg`), recouverte d'un dégradé horizontal plus foncé côté texte. Sans fichier, le hero reste noir.
+## Photos
+`assets/img/devanture.webp` : photo du hero de l'accueil, sous un dégradé horizontal plus sombre côté texte (`.hero-photo` dans le CSS). `agence-facade.webp`, `agence-accueil.webp`, `agence-salon.webp` : galerie « L'agence » (pages La maison et Contact, visionneuse au clic) et section « La maison » de l'accueil ; liste et légendes dans `PHOTOS` (`tools/build.py`).
 
 ## Carte des agences
 La carte de la page « La maison » est générée depuis `tools/geo/agences.json` (liste des villes, coordonnées, adresses) :

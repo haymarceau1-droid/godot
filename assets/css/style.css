@@ -412,9 +412,8 @@ p { margin: 0 0 1em; }
 /* ===== Hero photo : dégradé horizontal, plus foncé côté texte ===== */
 .hero-photo {
   background:
-    linear-gradient(90deg, rgba(0,0,0,.96) 0%, rgba(0,0,0,.9) 30%, rgba(0,0,0,.62) 58%, rgba(0,0,0,.2) 100%),
+    linear-gradient(90deg, rgba(0,0,0,.97) 0%, rgba(0,0,0,.93) 36%, rgba(0,0,0,.7) 60%, rgba(0,0,0,.18) 100%),
     url("../img/devanture.webp") center calc(30% + var(--py, 0px)) / cover no-repeat,
-    url("../img/devanture.jpg") center calc(30% + var(--py, 0px)) / cover no-repeat,
     var(--canvas);
   min-height: min(82vh, 760px); display: flex; align-items: center;
 }
@@ -425,7 +424,6 @@ p { margin: 0 0 1em; }
     background:
       linear-gradient(90deg, rgba(0,0,0,.94) 0%, rgba(0,0,0,.82) 60%, rgba(0,0,0,.55) 100%),
       url("../img/devanture.webp") 70% center / cover no-repeat,
-      url("../img/devanture.jpg") 70% center / cover no-repeat,
       var(--canvas);
   }
 }
@@ -1267,3 +1265,46 @@ main, .site-footer { overflow-x: clip; }
   .sim-table td[data-label^="Valeur"] .mini-bar { margin-top: .35rem; }
   .sim-table td strong { line-height: 1.2; }
 }
+
+/* =====================================================================
+   PHOTOS : galerie de l'agence, visionneuse, photo de « La maison »
+   ===================================================================== */
+.gallery { display: grid; grid-template-columns: 1.35fr 1fr; grid-template-rows: 1fr 1fr; gap: 1.1rem; }
+.g-item { position: relative; margin: 0; overflow: hidden; border-radius: var(--radius); background: #111; }
+.g-main { grid-row: 1 / span 2; }
+.g-btn { display: block; width: 100%; height: 100%; padding: 0; border: 0; background: none; cursor: zoom-in; }
+.g-item img { display: block; width: 100%; height: 100%; object-fit: cover; aspect-ratio: 4 / 3; transition: transform .6s cubic-bezier(.2,.7,.2,1); }
+.g-main img { aspect-ratio: auto; min-height: 100%; }
+.g-btn:hover img, .g-btn:focus-visible img { transform: scale(1.04); }
+.g-btn:focus-visible { outline: 2px solid var(--gold); outline-offset: -4px; }
+.g-item figcaption {
+  position: absolute; left: 0; right: 0; bottom: 0; padding: .7rem 1rem; font-size: var(--fs-small); color: var(--text-1);
+  background: rgba(0,0,0,.72); pointer-events: none;
+}
+@media (max-width: 860px) {
+  .gallery { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+  .g-main { grid-column: 1 / -1; grid-row: auto; }
+  .g-main img { aspect-ratio: 4 / 3; min-height: 0; }
+}
+@media (max-width: 520px) { .gallery { grid-template-columns: 1fr; } }
+
+/* Visionneuse */
+.lightbox { width: min(1100px, 94vw); max-height: 92vh; padding: 0; border: 1px solid var(--gold); border-radius: var(--radius); background: #000; color: var(--text-1); overflow: hidden; }
+.lightbox::backdrop { background: rgba(0,0,0,.86); }
+.lightbox figure { margin: 0; }
+.lightbox img { display: block; width: 100%; max-height: 78vh; object-fit: contain; background: #000; }
+.lightbox figcaption { padding: .9rem 1.2rem; font-size: var(--fs-small); color: var(--text-1-muted); border-top: 1px solid var(--line-dark); }
+.lb-btn { position: absolute; top: 50%; translate: 0 -50%; display: grid; place-items: center; width: 46px; height: 46px; border: 1px solid var(--line-dark); border-radius: 50%; background: rgba(0,0,0,.7); color: var(--text-1); cursor: pointer; transition: border-color .2s, color .2s; }
+.lb-btn:hover { border-color: var(--gold); color: var(--gold); }
+.lb-btn .ic { width: 22px; height: 22px; }
+.lb-prev { left: .8rem; } .lb-next { right: .8rem; }
+.lb-close { top: .8rem; right: .8rem; translate: none; }
+@media (prefers-reduced-motion: no-preference) { .lightbox[open] { animation: fadein .25s ease both; } }
+
+/* Photo de la section « La maison » (accueil) */
+.split-photo { position: relative; margin: 0; overflow: hidden; border-radius: var(--radius); aspect-ratio: 4 / 5; }
+.split-photo img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 30% 50%; }
+.photo-badge { position: absolute; left: 1rem; bottom: 1rem; padding: .5rem 1.1rem; border: 1px solid var(--gold); border-radius: 999px; background: rgba(0,0,0,.8); color: var(--gold); font-size: var(--fs-small); font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+@media (max-width: 860px) { .split-photo { aspect-ratio: 16 / 11; } }
+
+.lb-btn { font-size: 1.7rem; line-height: 1; padding-bottom: .15rem; }
