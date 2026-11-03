@@ -5,14 +5,28 @@ en remplacement de https://www.godotetfils-chartres.fr/.
 
 Design system : voir [`DESIGN.md`](DESIGN.md) (canvas noir, surfaces blanches, or `#d49732`, CTA or, Josefin Sans, rayon 5px, aplats).
 
-## Contenu
-- `index.html` — page unique : accueil, services, étapes d'estimation, la maison, FAQ, agence (horaires, carte)
-- `mentions-legales.html` — mentions légales (champs à compléter)
-- `assets/css/style.css`, `assets/js/main.js`, `assets/img/`
+## Pages
+| Fichier | Contenu |
+|---|---|
+| `index.html` | Accueil : services, étapes, la maison, FAQ |
+| `vendre-or.html` | Rachat d'or : objets acceptés, calcul du prix, titres de l'or |
+| `acheter-or.html` | Or d'investissement : pièces, lingots, tableau des références |
+| `argent-bijoux.html` | Argent, platine et bijoux |
+| `change.html` | Bureau de change |
+| `la-maison.html` | Histoire et engagements (depuis 1933) |
+| `faq.html` | Questions fréquentes (données structurées FAQPage) |
+| `contact.html` | Adresse, horaires, statut ouvert/fermé, carte |
+| `mentions-legales.html` | Mentions légales (champs à compléter) |
 
-Fonctionnalités : design responsive (menu mobile, bouton d'appel flottant), indicateur
-« ouvert / fermé » calculé à l'heure de Paris, jour courant surligné dans les horaires,
-données structurées schema.org (SEO local), animations respectant `prefers-reduced-motion`.
+Les pages sont **générées** par `tools/build.py` (en-tête, pied de page, navigation, SEO communs).
+Pour modifier un texte ou ajouter une page : éditer `tools/build.py`, puis lancer
+```bash
+python3 tools/build.py
+```
+`sitemap.xml` et `robots.txt` sont régénérés au passage. Styles : `assets/css/style.css`, script : `assets/js/main.js`.
+
+Fonctionnalités : responsive (menu burger sous 1100px, bouton d'appel flottant), indicateur « ouvert / fermé » à l'heure de Paris,
+données structurées schema.org, animations respectant `prefers-reduced-motion`.
 
 ## Aperçu local
 ```bash
