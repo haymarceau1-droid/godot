@@ -79,7 +79,7 @@ def header(active):
         <img src="assets/img/logo-blanc.png" width="650" height="133" alt="Godot &amp; Fils, depuis 1933">
       </a>
       <button class="nav-toggle" aria-expanded="false" aria-controls="nav" aria-label="Ouvrir le menu">
-        <span></span><span></span><span></span>
+        <span></span><span></span>
       </button>
       <nav id="nav" class="menu" aria-label="Navigation principale">
         <div class="menu-links">
