@@ -1334,3 +1334,16 @@ main, .site-footer { overflow-x: clip; }
       linear-gradient(90deg, rgba(0,0,0,.97) 0%, rgba(0,0,0,.94) 46%, rgba(0,0,0,.7) 62%, rgba(0,0,0,.12) 100%);
   }
 }
+
+/* ===== Mobile : le texte d'abord, puis la photo en dessous ===== */
+@media (max-width: 860px) {
+  .hero-photo { flex-direction: column; align-items: stretch; justify-content: flex-start; min-height: 0; padding-bottom: 0; overflow: hidden; }
+  .hero-photo .hero-grid { order: 1; width: calc(100% - 32px); margin-inline: auto; }
+  .hero-shade { display: none; }
+  .hero-bg {
+    order: 2; position: relative; inset: auto; z-index: 0; height: auto; aspect-ratio: 4 / 3; margin-top: 1.5rem; overflow: hidden; transform: none; will-change: auto;
+    -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 24%, #000 100%);
+            mask-image: linear-gradient(180deg, transparent 0%, #000 24%, #000 100%);
+  }
+  .hero-bg img { object-position: 54% 22%; }
+}
