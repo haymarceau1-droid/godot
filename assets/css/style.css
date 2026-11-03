@@ -1065,3 +1065,8 @@ main, .site-footer { overflow-x: clip; }
 #avis .round-btn:hover:not(:disabled) { border-color: var(--gold-deep); color: var(--gold-deep); }
 #avis .star .ic { stroke: rgba(0,0,0,.25); }
 #avis .star-on .ic { stroke: var(--gold); fill: var(--gold); }
+
+/* Le bouton « Nos services » a exactement la même hauteur que les liens : la pastille active épouse la capsule */
+.menu-dd { display: flex; }
+.menu-dd-btn { line-height: 1.5; margin: 0; }
+@media (min-width: 1221px) { .menu-links > a, .menu-dd-btn { min-height: 34px; box-sizing: border-box; } }
