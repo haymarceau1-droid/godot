@@ -1403,3 +1403,4 @@ main, .site-footer { overflow-x: clip; }
   .facts-over { inset: auto max(1.5rem, calc((100vw - 1200px) / 2)) 1.6rem auto; width: min(340px, 40%); }
 }
 .facts-over { background: radial-gradient(ellipse 80% 75% at 50% 55%, rgba(0,0,0,.62) 0%, rgba(0,0,0,.4) 55%, transparent 100%); padding: 1.6rem 1.2rem; }
+.facts-over { background: rgba(0,0,0,.78); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); border-radius: var(--radius); padding: 1.3rem 1.4rem; }
