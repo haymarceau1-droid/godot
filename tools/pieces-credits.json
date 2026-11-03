@@ -1,0 +1,51 @@
+{
+ "napoleon-20-francs": {
+  "titre": "20 francs Louis-Napoléon Avers.png",
+  "artist": "Tradewater (original) and Prométhée (derivative work)",
+  "license": "CC BY 3.0",
+  "licurl": "https://creativecommons.org/licenses/by/3.0",
+  "page": "https://commons.wikimedia.org/wiki/File:20_francs_Louis-Napol%C3%A9on_Avers.png"
+ },
+ "souverain": {
+  "titre": "1963 Gold Sovereign – Elizabeth II Obverse.png",
+  "artist": "Royal Mint & Mary Gillick",
+  "license": "Public domain",
+  "licurl": null,
+  "page": "https://commons.wikimedia.org/wiki/File:1963_Gold_Sovereign_%E2%80%93_Elizabeth_II_Obverse.png"
+ },
+ "krugerrand": {
+  "titre": "Krugerrand 1oz 2017 obverse.jpg",
+  "artist": "Jedesto",
+  "license": "CC BY-SA 4.0",
+  "licurl": "https://creativecommons.org/licenses/by-sa/4.0",
+  "page": "https://commons.wikimedia.org/wiki/File:Krugerrand_1oz_2017_obverse.jpg"
+ },
+ "philharmonique": {
+  "titre": "1 oz Vienna Philharmonic 2017 reverse.png",
+  "artist": "CoinInvest GmbH",
+  "license": "CC BY-SA 4.0",
+  "licurl": "https://creativecommons.org/licenses/by-sa/4.0",
+  "page": "https://commons.wikimedia.org/wiki/File:1_oz_Vienna_Philharmonic_2017_reverse.png"
+ },
+ "maple-leaf-argent": {
+  "titre": "1-ounce Silver Canadian Maple Leaf MADE OF +.9999% PURE SILVER.jpg",
+  "artist": "ARAR123",
+  "license": "CC BY-SA 4.0",
+  "licurl": "https://creativecommons.org/licenses/by-sa/4.0",
+  "page": "https://commons.wikimedia.org/wiki/File:1-ounce_Silver_Canadian_Maple_Leaf_MADE_OF_%2B.9999%25_PURE_SILVER.jpg"
+ },
+ "silver-eagle": {
+  "titre": "2022-american-eagle-silver-one-ounce-bullion-coin-obverse.png",
+  "artist": "United States Mint",
+  "license": "Public domain",
+  "licurl": null,
+  "page": "https://commons.wikimedia.org/wiki/File:2022-american-eagle-silver-one-ounce-bullion-coin-obverse.png"
+ },
+ "britannia-argent": {
+  "titre": "British Britannia Silver 2021 1Oz. .999 Fine Silver 2 Pounds English coin.jpg",
+  "artist": "ARAR123",
+  "license": "CC BY-SA 4.0",
+  "licurl": "https://creativecommons.org/licenses/by-sa/4.0",
+  "page": "https://commons.wikimedia.org/wiki/File:British_Britannia_Silver_2021_1Oz._.999_Fine_Silver_2_Pounds_English_coin.jpg"
+ }
+}

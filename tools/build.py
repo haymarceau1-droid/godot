@@ -774,9 +774,34 @@ COINS_AG = [
     ("Silver Eagle (1 once)", "États-Unis", "999 ‰", "31,1"),
     ("Britannia argent (1 once)", "Royaume-Uni", "999 ‰", "31,1"),
 ]
-coin_cards = "\n".join(
-    f'''          <article class="coin-card"><div class="medal"><strong>{g}</strong><span>g {m} fin</span></div><h3>{n}</h3><dl><div><dt>Origine</dt><dd>{o}</dd></div><div><dt>Titre</dt><dd>{t}</dd></div></dl></article>'''
-    for m, lst in (("d'or", COINS), ("d'argent", COINS_AG)) for n, o, t, g in lst)
+COIN_IMG = {"20 francs Napoléon": "napoleon-20-francs", "Souverain": "souverain", "Krugerrand (1 once)": "krugerrand",
+            "Philharmonique (1 once)": "philharmonique", "Maple Leaf argent (1 once)": "maple-leaf-argent",
+            "Silver Eagle (1 once)": "silver-eagle", "Britannia argent (1 once)": "britannia-argent"}
+_cred_path = os.path.join(ROOT, "tools", "pieces-credits.json")
+COIN_CREDITS = json.load(open(_cred_path, encoding="utf-8")) if os.path.exists(_cred_path) else {}
+
+def coin_card(n, o, t, g, metal):
+    slug = COIN_IMG.get(n)
+    if slug and os.path.exists(os.path.join(ROOT, "assets", "img", "pieces", slug + ".webp")):
+        visual = (f'<div class="coin-photo"><img src="assets/img/pieces/{slug}.webp" width="360" height="360" loading="lazy" decoding="async" '
+                  f'alt="Pièce {n}"></div>')
+    else:
+        visual = f'<div class="medal"><strong>{g}</strong><span>g {metal} fin</span></div>'
+    return (f'          <article class="coin-card">{visual}<h3>{n}</h3><dl><div><dt>Origine</dt><dd>{o}</dd></div>'
+            f'<div><dt>Titre</dt><dd>{t}</dd></div><div><dt>Métal fin</dt><dd>{g} g</dd></div></dl></article>')
+
+coin_cards = "\n".join(coin_card(n, o, t, g, m) for m, lst in (("d'or", COINS), ("d'argent", COINS_AG)) for n, o, t, g in lst)
+
+def coin_credits():
+    if not COIN_CREDITS:
+        return ""
+    items = []
+    for slug, c in COIN_CREDITS.items():
+        lic = f'<a href="{c["licurl"]}" target="_blank" rel="noopener">{c["license"]}</a>' if c.get("licurl") else c["license"]
+        artist = (c["artist"] or "auteur inconnu").replace("&", "&amp;")
+        items.append(f'<li><a href="{c["page"]}" target="_blank" rel="noopener">{c["titre"].rsplit(".", 1)[0]}</a> : {artist}, {lic}</li>')
+    return ('<details class="photo-credits"><summary>Crédits des photos</summary><ul>' + "".join(items) +
+            '</ul><p>Photographies Wikimedia Commons, utilisées selon leurs licences ; certaines ont été recadrées.</p></details>')
 
 acheter = service_hero("Acheter or &amp; argent", "Or &amp; argent d'investissement", "Acheter de l'or et de l'argent physiques : pièces et lingots.",
     "Une épargne tangible, détenue en main propre. L'agence vous conseille selon votre projet et les disponibilités du moment.",
@@ -808,6 +833,7 @@ acheter = service_hero("Acheter or &amp; argent", "Or &amp; argent d'investissem
         <div class="coin-grid">
 {coin_cards}
         </div>
+        {coin_credits()}
         <aside class="notice"><strong>Bon à savoir :</strong> les prix de l'or et de l'argent varient en permanence et sont affichés en agence, avant même toute proposition. Un investissement comporte un risque de perte en capital et la fiscalité des métaux précieux a ses propres règles : renseignez-vous avant d'acheter.</aside>
       </div>
     </section>
