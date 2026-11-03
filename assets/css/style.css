@@ -1070,3 +1070,8 @@ main, .site-footer { overflow-x: clip; }
 .menu-dd { display: flex; }
 .menu-dd-btn { line-height: 1.5; margin: 0; }
 @media (min-width: 1221px) { .menu-links > a, .menu-dd-btn { min-height: 34px; box-sizing: border-box; } }
+
+/* Josefin Sans place ses capitales haut dans la ligne : on recentre optiquement le texte dans les capsules du menu */
+@media (min-width: 1221px) {
+  .menu-links > a, .menu-dd-btn { padding-top: calc(.55em + 2px); padding-bottom: calc(.55em - 2px); }
+}
