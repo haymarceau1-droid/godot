@@ -1478,3 +1478,7 @@ main, .site-footer { overflow-x: clip; }
 @keyframes price-flash { 0% { border-color: var(--gold); background: rgba(226,171,69,.12); } 100% { border-color: var(--line-dark); background: rgba(255,255,255,.03); } }
 @media (max-width: 760px) { .prices-grid { grid-template-columns: 1fr; } .price-cta .btn { width: 100%; text-align: center; } }
 .pc-cursor[hidden] { display: none; }
+/* Logo en filigrane derrière les courbes */
+.price-chart::before { content: ""; position: absolute; left: 50%; top: 75px; width: min(60%, 260px); aspect-ratio: 650 / 133; translate: -50% -50%; background: url(../img/logo-blanc.png) center / contain no-repeat; opacity: .12; pointer-events: none; }
+.price-chart svg { position: relative; z-index: 1; }
+.prices.wm-r::after, .prices.wm-l::after { display: none; }
