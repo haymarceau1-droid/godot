@@ -6,7 +6,7 @@ l'extraction du site d'origine ; les sections d'analyse en décrivent l'usage.
 ## 1. Visual Theme & Atmosphere
 
 Une vitrine de joaillier, la nuit : un **canvas noir** qui joue le rôle de l'écrin de velours,
-sur lequel l'**or (`#d49732`)** est la seule couleur chaude — il désigne ce qui a de la valeur
+sur lequel l'**or (`#e2ab45`)** est la seule couleur chaude — il désigne ce qui a de la valeur
 (chiffres clés, labels, numéros d'étape, année de fondation). Les **surfaces blanches**
 alternent avec le noir pour donner du rythme et de la lisibilité aux contenus longs
 (services, la maison, agence). Le ton est sobre, rassurant, patrimonial — une maison de 1933 —
@@ -22,14 +22,14 @@ action claire (boutons or foncé, texte blanc).
 - **Secondary Surface** `#ffffff` — sections de contenu, cartes, carte agence
 
 ### Accent & Interactive
-- **Primary Accent** `#d49732` — focus, filets, icônes et petits textes sur fond sombre (jamais en aplat sous du texte noir) ;
-  les boutons utilisent l'or foncé `#9a6a12` avec texte blanc,
+- **Primary Accent** `#e2ab45` — focus, filets, icônes et petits textes sur fond sombre (jamais en aplat sous du texte noir) ;
+  les boutons utilisent l'or foncé `#9e6c14` avec texte blanc,
   soulignement des liens d'action, focus. *Aucun bleu n'est utilisé sur le site.*
 
 ### Text & Neutrals
 - **Text Tier 1** `#ffffff` — texte sur fond noir / noir profond
 - **Text Tier 2** `#000000` — texte sur fond blanc
-- **Text Tier 3** `#d49732` — or : labels (eyebrows), chiffres, numéros, icônes, survols de nav
+- **Text Tier 3** `#e2ab45` — or : labels (eyebrows), chiffres, numéros, icônes, survols de nav
 - **Text Tier 4** `#111111` — noir profond (remplace le noir profond `#111111`) : titres sur fond blanc, bandeau infos, section FAQ
 
 Les variantes « muted » sont des opacités de ces tokens (72 % blanc, 72 % noir),
@@ -58,7 +58,7 @@ jamais de nouvelles teintes.
 
 **Tabler Icons** (outline, MIT) : trait de 2px à bouts arrondis, `currentColor`, fichiers dans
 `assets/icons/` et injectés en SVG inline par `tools/build.py` via `[[icon:nom]]`.
-Or `#d49732` sur pastille noire (cartes blanches) ou pastille translucide (cartes sombres).
+Or `#e2ab45` sur pastille noire (cartes blanches) ou pastille translucide (cartes sombres).
 Choix thématiques : `coin-euro`, `coins`, `diamond(s)`, `scale` (pesée), `exchange` (change),
 `cash-banknote`, `receipt-euro`, `id`, `file-certificate`, `map-pin`, `phone-call`, `clock`.
 
@@ -66,7 +66,7 @@ Choix thématiques : `coin-euro`, `coins`, `diamond(s)`, `scale` (pesée), `exch
 
 - **Rayon `5px`** pour cartes, encadrés, carte, FAQ. **Boutons, pastilles de villes et badges
   entièrement arrondis (pilule, `999px`)**. Éléments circulaires : badge 1933, bouton d'appel flottant.
-- **Bouton principal** : fond or foncé `#9a6a12` (survol `#7d560c`), texte blanc 700, hauteur ≥ 48px, padding 0.85em 1.6em.
+- **Bouton principal** : fond or foncé `#9e6c14` (survol `#835a10`), texte blanc 700, hauteur ≥ 48px, padding 0.85em 1.6em.
 - **Bouton secondaire** : contour 2px blanc (sur noir) ou noir (sur blanc), inversion au survol.
 - **Carte** : fond blanc, bordure 1px noir à 14 %, padding 32px ; au survol la bordure
   passe à l'or. Icône dans une pastille noire 52px, trait or.
@@ -96,8 +96,8 @@ noir / blanc et des bordures.
 
 ## 7. Do's and Don'ts
 
-- **Do** réserver les boutons en or foncé `#9a6a12` (texte blanc) aux actions principales.
-- **Don't** poser de texte ou d'icône noirs sur un aplat doré : l'or `#d49732` reste un accent (texte, filets, icônes) sur fond sombre.
+- **Do** réserver les boutons en or foncé `#9e6c14` (texte blanc) aux actions principales.
+- **Don't** poser de texte ou d'icône noirs sur un aplat doré : l'or `#e2ab45` reste un accent (texte, filets, icônes) sur fond sombre.
 - **Do** utiliser l'or pour signaler la valeur : labels, chiffres, icônes — et en fond des seuls boutons d'action.
 - **Do** écrire labels et navigation en capitales interlettrées.
 - **Don't** utiliser de bleu, d'ombres, ni de dégradés (sauf le voile horizontal du hero photo) ; rayons : 5px (blocs) ou pilule (boutons).
@@ -115,18 +115,18 @@ noir / blanc et des bordures.
 ## 9. Agent Prompt Guide
 
 ### Reference Tokens
-- **Primary CTA** `#d49732` (texte `#000000`) · **Canvas** `#000000` · **Surface** `#ffffff`
-- **Text** `#ffffff` / `#000000` · **Gold** `#d49732` · **Noir profond** `#111111`
+- **Primary CTA** `#e2ab45` (texte `#000000`) · **Canvas** `#000000` · **Surface** `#ffffff`
+- **Text** `#ffffff` / `#000000` · **Gold** `#e2ab45` · **Noir profond** `#111111`
 - **Font** Josefin Sans (400/700) · **Radius** 5px
 
 ### Exemples de prompts
-1. « Crée une section "Cours de l'or" sur fond noir `#000000` : label en capitales or `#d49732`
+1. « Crée une section "Cours de l'or" sur fond noir `#000000` : label en capitales or `#e2ab45`
    12px interlettré 0.2em, titre Josefin Sans 38px 700 blanc, trois cartes blanches à bordure
    1px `rgba(0,0,0,.14)` et rayon 5px affichant un prix en Josefin Sans 47px 400 or. Pas
    d'ombre ni de dégradé. »
 2. « Génère un formulaire de prise de contact sur surface blanche : libellés en capitales or
    12px, champs bordés 1px noir profond `#111111` à 14 %, rayon 5px, hauteur 48px, focus contour
-   2px or `#d49732` ; bouton d'envoi plein or foncé `#9a6a12` texte blanc 700. »
+   2px or `#e2ab45` ; bouton d'envoi plein or foncé `#9e6c14` texte blanc 700. »
 3. « Ajoute un bandeau d'avis clients sur fond noir profond `#111111` : citations en Josefin Sans
    19.2px 400 blanc, nom du client en capitales or 12px, séparateurs 1px blanc à 14 %, grille
    3 colonnes repliée en 1 colonne sous 860px. »

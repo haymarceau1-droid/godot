@@ -1,6 +1,6 @@
 /* Godot & Fils Chartres — refonte 2026
    Design system : voir DESIGN.md
-   Canvas noir · surfaces blanches · or #d49732 · CTA or · Josefin Sans · rayon 5px · aplats */
+   Canvas noir · surfaces blanches · or #e2ab45 · CTA or · Josefin Sans · rayon 5px · aplats */
 /* Josefin Sans hébergée sur le site (SIL OFL, voir assets/fonts/) : aucune requête vers un service tiers */
 @font-face { font-family: "Josefin Sans"; font-style: normal; font-weight: 400; font-display: swap; src: url("../fonts/josefin-sans-latin-400-normal.woff2") format("woff2"); }
 @font-face { font-family: "Josefin Sans"; font-style: normal; font-weight: 700; font-display: swap; src: url("../fonts/josefin-sans-latin-700-normal.woff2") format("woff2"); }
@@ -9,12 +9,12 @@
   /* Couleurs */
   --canvas: #000000;
   --surface: #ffffff;
-  --accent: #d49732;
+  --accent: #e2ab45;
   --text-1: #ffffff;
   --text-2: #000000;
-  --gold: #d49732;
-  --gold-deep: #9a6a12;        /* or foncé : fonds de boutons, texte blanc dessus (≈ 4,9:1) */
-  --gold-deep-hover: #7d560c;
+  --gold: #e2ab45;
+  --gold-deep: #9e6c14;        /* or foncé : fonds de boutons, texte blanc dessus (≈ 4,5:1) */
+  --gold-deep-hover: #835a10;
   --navy: #111111;
 
   /* Dérivés (opacités des tokens, pas de nouvelles teintes) */
@@ -204,11 +204,11 @@ p { margin: 0 0 1em; }
 .checks li::before {
   content: ""; position: absolute; left: 0; top: .1em; width: 1.1rem; height: 1.1rem; border-radius: 50%;
   border: 1.5px solid var(--gold-deep);
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4 8.5l2.5 2.5L12 5.5' fill='none' stroke='%239a6a12' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / 80% no-repeat;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4 8.5l2.5 2.5L12 5.5' fill='none' stroke='%239e6c14' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / 80% no-repeat;
 }
 .section-dark .checks li::before, .section-soft .checks li::before {
   border-color: var(--gold);
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4 8.5l2.5 2.5L12 5.5' fill='none' stroke='%23d49732' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4 8.5l2.5 2.5L12 5.5' fill='none' stroke='%23e2ab45' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
 }
 
 /* FAQ */
@@ -554,7 +554,7 @@ p { margin: 0 0 1em; }
 .medal {
   width: 118px; height: 118px; margin: 0 auto 1.2rem; border-radius: 50%;
   display: flex; flex-direction: column; align-items: center; justify-content: center;
-  border: 2px solid var(--gold); box-shadow: inset 0 0 0 6px var(--canvas), inset 0 0 0 7px rgba(212,151,50,.5);
+  border: 2px solid var(--gold); box-shadow: inset 0 0 0 6px var(--canvas), inset 0 0 0 7px rgba(226,171,69,.5);
 }
 .medal strong { font-size: 1.7rem; font-weight: 700; line-height: 1; color: var(--gold); }
 .medal span { font-size: .6875rem; letter-spacing: .08em; text-transform: uppercase; color: var(--text-1-muted); margin-top: .3rem; }
@@ -674,7 +674,7 @@ p { margin: 0 0 1em; }
 
 /* --- En-tête : filet doré au défilement --- */
 .site-header { transition: border-color .3s ease; }
-.site-header.is-scrolled { border-bottom-color: rgba(212,151,50,.5); }
+.site-header.is-scrolled { border-bottom-color: rgba(226,171,69,.5); }
 .brand img { transition: height .3s ease; }
 .site-header.is-scrolled .brand img { height: 30px; }
 
@@ -785,7 +785,7 @@ button.btn { font-family: var(--font); cursor: pointer; }
   .menu-dd { position: static; }
   .menu-panel {
     position: absolute; left: 0; right: 0; top: 100%; padding: 2rem 0 2.3rem;
-    background: var(--canvas); border-top: 1px solid var(--line-dark); border-bottom: 1px solid rgba(212,151,50,.55);
+    background: var(--canvas); border-top: 1px solid var(--line-dark); border-bottom: 1px solid rgba(226,171,69,.55);
     opacity: 0; visibility: hidden; translate: 0 10px;
     transition: opacity .25s ease, translate .25s ease, visibility 0s linear .25s;
   }
@@ -903,7 +903,7 @@ main, .site-footer { overflow-x: clip; }
 
 /* Visuel de la section numismatique (accueil) */
 .numis-visual { position: relative; aspect-ratio: 5 / 4; border-radius: var(--radius); background: var(--canvas); display: grid; place-items: center; overflow: hidden; }
-.nv-medal { width: 44%; aspect-ratio: 1; border-radius: 50%; border: 2px solid var(--gold); box-shadow: inset 0 0 0 10px var(--canvas), inset 0 0 0 12px rgba(212,151,50,.5); display: grid; place-items: center; }
+.nv-medal { width: 44%; aspect-ratio: 1; border-radius: 50%; border: 2px solid var(--gold); box-shadow: inset 0 0 0 10px var(--canvas), inset 0 0 0 12px rgba(226,171,69,.5); display: grid; place-items: center; }
 .nv-medal .ic { width: 46%; height: 46%; stroke: var(--gold); stroke-width: 1.3; }
 .nv-chip { position: absolute; padding: .3em .95em; border-radius: 999px; border: 1px solid var(--gold); color: var(--gold); font-weight: 700; font-size: .8125rem; letter-spacing: .08em; background: var(--canvas); }
 .nv-1 { top: 14%; left: 12%; }
@@ -940,7 +940,7 @@ main, .site-footer { overflow-x: clip; }
 .tl-card { grid-row: 1; padding: 1.5rem 1.6rem; border: 1px solid var(--line-light); border-radius: var(--radius); background: var(--surface); transition: border-color .3s; }
 .tl-item:nth-child(odd) .tl-card { grid-column: 1; text-align: right; }
 .tl-item:nth-child(even) .tl-card { grid-column: 3; }
-.tl-item.reached .tl-card { border-color: rgba(154,106,18,.55); }
+.tl-item.reached .tl-card { border-color: rgba(158,108,20,.55); }
 .tl-year { margin: 0 0 .3rem; font-size: var(--fs-hero-2); font-weight: 400; line-height: 1; color: var(--gold-deep); }
 .tl-card h3 { color: var(--text-2); margin-bottom: .4rem; }
 .tl-card p:not(.tl-year) { margin: 0; color: var(--text-2-muted); font-size: var(--fs-small); }
