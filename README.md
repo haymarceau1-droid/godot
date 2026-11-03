@@ -88,3 +88,8 @@ puis ouvrir http://localhost:8000
 - Les agences viennent de la liste officielle https://www.achat-or-et-argent.fr/agences-liste (125 agences : nom, adresse, téléphone, GPS).
 - Pour la mettre à jour : `python3 tools/geo/import-agences.py`, puis `cd tools/geo && npm install && node make-map.mjs`, puis `python3 tools/build.py`.
 - Les agences proches (moins de 20 km) partagent un point de la carte ; l'Île-de-France forme un seul point. Monaco, la Suisse, le Luxembourg et l'outre-mer sont listés sans point sur la carte.
+
+## Indexation (mode test)
+
+Le site est volontairement **non indexable** tant que `INDEXABLE = False` dans `tools/build.py` : balise `noindex, nofollow` sur chaque page, `robots.txt` en `Disallow: /`, en-tête `X-Robots-Tag` (via `vercel.json`) et aucun sitemap.
+Pour ouvrir le site aux moteurs de recherche : passer `INDEXABLE = True`, relancer `python3 tools/build.py` et déployer (sitemap, canoniques et `robots.txt` autorisant l'exploration sont alors générés ; la page Mentions légales reste en `noindex`).

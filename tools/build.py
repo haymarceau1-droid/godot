@@ -4,6 +4,9 @@
 import datetime, json, os, re
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SITE = "https://www.godotetfils-chartres.fr"
+# Mode test : tant que INDEXABLE est False, aucune page n'est indexable (meta noindex, robots.txt, en-tête X-Robots-Tag, pas de sitemap).
+# Pour ouvrir le site aux moteurs de recherche : passer INDEXABLE à True et relancer python3 tools/build.py.
+INDEXABLE = False
 TEL, TEL_HREF = "02 37 83 49 77", "+33237834977"
 
 SERVICES = [
@@ -261,7 +264,8 @@ def page(slug, title, desc, body, ld=None, cta=True, noindex=False):
                     "provider": {"@id": SITE + "/#agence"}, "areaServed": {"@type": "City", "name": "Chartres"},
                     "url": f"{SITE}/{slug}", "description": re.sub(r"&amp;", "&", desc)})
     ld_tag = "".join(f'\n  <script type="application/ld+json">\n{esc_json(x)}\n  </script>' for x in lds)
-    robots = '\n  <meta name="robots" content="noindex">' if noindex else ""
+    noindex = noindex or not INDEXABLE
+    robots = '\n  <meta name="robots" content="noindex, nofollow">' if noindex else ""
     canon = "" if noindex else f'\n  <link rel="canonical" href="{SITE}/{"" if slug == "index.html" else slug}">'
     html = f'''<!doctype html>
 <html lang="fr">
@@ -1720,10 +1724,28 @@ page("mentions-legales.html", "Mentions légales — Godot &amp; Fils Chartres",
 
 # ---------------------------------------------------------------- sitemap / robots
 pages = ["index.html"] + [h for h, _ in NAV] + ["pourquoi-investir-or.html", "comparer.html", "faq.html"]
-with open(os.path.join(ROOT, "sitemap.xml"), "w") as f:
-    f.write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n')
-    for p in pages:
-        f.write(f"  <url><loc>{SITE}/{'' if p == 'index.html' else p}</loc><lastmod>{datetime.date.today().isoformat()}</lastmod></url>\n")
-    f.write("</urlset>\n")
+if INDEXABLE:
+    with open(os.path.join(ROOT, "sitemap.xml"), "w") as f:
+        f.write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n')
+        for p in pages:
+            f.write(f"  <url><loc>{SITE}/{'' if p == 'index.html' else p}</loc><lastmod>{datetime.date.today().isoformat()}</lastmod></url>\n")
+        f.write("</urlset>\n")
+    robots_txt = f"User-agent: *\nAllow: /\nDisallow: /api/\nSitemap: {SITE}/sitemap.xml\n"
+else:
+    if os.path.exists(os.path.join(ROOT, "sitemap.xml")):
+        os.remove(os.path.join(ROOT, "sitemap.xml"))
+    robots_txt = "User-agent: *\nDisallow: /\n"
 with open(os.path.join(ROOT, "robots.txt"), "w") as f:
-    f.write(f"User-agent: *\nAllow: /\nDisallow: /api/\nSitemap: {SITE}/sitemap.xml\n")
+    f.write(robots_txt)
+
+# En-têtes Vercel (sécurité + X-Robots-Tag tant que le site est en test)
+headers = [{"key": "X-Content-Type-Options", "value": "nosniff"},
+           {"key": "Referrer-Policy", "value": "strict-origin-when-cross-origin"},
+           {"key": "X-Frame-Options", "value": "SAMEORIGIN"},
+           {"key": "Permissions-Policy", "value": "camera=(), microphone=(), geolocation=()"}]
+if not INDEXABLE:
+    headers.append({"key": "X-Robots-Tag", "value": "noindex, nofollow, noarchive"})
+with open(os.path.join(ROOT, "vercel.json"), "w", encoding="utf-8") as f:
+    json.dump({"headers": [{"source": "/(.*)", "headers": headers},
+                           {"source": "/assets/(.*)", "headers": [{"key": "Cache-Control", "value": "public, max-age=2592000"}]}]}, f, indent=2)
+    f.write("\n")
