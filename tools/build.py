@@ -69,7 +69,7 @@ def header(active):
         f'<div class="mega-list"><p class="mega-title">Nos services</p><div class="mega-grid">{items}</div></div>'
         '<aside class="mega-aside"><p class="mega-title">Estimation gratuite</p>'
         '<p>Sans rendez-vous du lundi au vendredi, de 9h30 à 18h00. Le samedi matin, sur rendez-vous.</p>'
-        f'<a class="btn btn-gold btn-sm" href="tel:{TEL_HREF}">[[icon:phone-call]]<span>{TEL}</span></a>'
+        f'<a class="btn btn-gold btn-sm" href="tel:{TEL_HREF}"><span>{TEL}</span></a>'
         '<a class="link-more" href="contact.html">Venir à l\'agence</a></aside>'
         '</div>')
     dd_cls = " is-current" if in_svc else ""
@@ -93,7 +93,7 @@ def header(active):
           <a href="contact.html"{cur("contact.html")}>[[icon:map-pin]]<span>Contact</span></a>
         </div>
         <span class="menu-status" data-open-status data-short><span class="dot"></span><span class="status-text">Horaires d'ouverture</span></span>
-        <a class="btn btn-gold btn-sm menu-cta" href="tel:{TEL_HREF}">[[icon:phone-call]]<span>{TEL}</span></a>
+        <a class="btn btn-gold btn-sm menu-cta" href="tel:{TEL_HREF}"><span>{TEL}</span></a>
         <div class="menu-foot">
           <p>[[icon:map-pin]]<span>23 rue de la Pie, 28000 Chartres</span></p>
           <p>[[icon:clock]]<span>Lun – Ven · 9h30 – 18h00<br>Samedi matin sur rendez-vous</span></p>
