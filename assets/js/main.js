@@ -249,3 +249,29 @@
   }, { threshold: 0.25 });
   mo.observe(map);
 })();
+
+// ---------------------------------------------------------------- Avis : carrousel
+(function () {
+  var root = document.querySelector('[data-reviews]');
+  if (!root) return;
+  var track = root.querySelector('.reviews-track');
+  var prev = root.querySelector('[data-rev="prev"]'), next = root.querySelector('[data-rev="next"]');
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function step() {
+    var card = track.querySelector('.review');
+    return card ? card.getBoundingClientRect().width + 20 : 300;
+  }
+  function update() {
+    prev.disabled = track.scrollLeft <= 4;
+    next.disabled = track.scrollLeft + track.clientWidth >= track.scrollWidth - 4;
+  }
+  prev.addEventListener('click', function () { track.scrollBy({ left: -step(), behavior: reduce ? 'auto' : 'smooth' }); });
+  next.addEventListener('click', function () { track.scrollBy({ left: step(), behavior: reduce ? 'auto' : 'smooth' }); });
+  track.addEventListener('scroll', function () { window.requestAnimationFrame(update); }, { passive: true });
+  track.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowRight') { e.preventDefault(); next.click(); }
+    if (e.key === 'ArrowLeft') { e.preventDefault(); prev.click(); }
+  });
+  window.addEventListener('resize', update);
+  update();
+})();

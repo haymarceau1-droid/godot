@@ -1,0 +1,10 @@
+{
+  "_aide": "Copiez ce format dans tools/avis.json avec VOS VRAIS avis Google (texte, prénom/nom affiché, note, date). Ne jamais inventer d'avis. Lancez ensuite : python3 tools/build.py",
+  "lien_google": "https://www.google.com/maps/search/?api=1&query=Godot+et+Fils+Chartres+23+rue+de+la+Pie",
+  "note_moyenne": 4.8,
+  "nombre_avis": 120,
+  "avis": [
+    { "auteur": "Prénom N.", "note": 5, "date": "il y a 2 mois", "texte": "Texte exact de l'avis, tel qu'il apparaît sur Google." },
+    { "auteur": "Prénom N.", "note": 5, "date": "mars 2026", "texte": "Un deuxième avis…" }
+  ]
+}

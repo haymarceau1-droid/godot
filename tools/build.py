@@ -238,6 +238,58 @@ def ic(name, cls="ic"):
 # Dans les gabarits, [[icon:nom]] est remplacé par le SVG correspondant (voir page())
 ICON = {"or": "[[icon:coin-euro]]", "pieces": "[[icon:coins]]", "argent": "[[icon:diamond]]", "change": "[[icon:exchange]]"}
 
+# ---------------------------------------------------------------- AVIS GOOGLE
+# Les avis viennent de tools/avis.json (à remplir avec de VRAIS avis : copier-coller depuis Google Business Profile).
+# Tant que la liste est vide, la section n'est pas générée.
+def avis_section():
+    path = os.environ.get("AVIS_FILE", os.path.join(ROOT, "tools", "avis.json"))
+    if not os.path.exists(path):
+        return ""
+    data = json.load(open(path, encoding="utf-8"))
+    avis = [a for a in data.get("avis", []) if a.get("texte") and a.get("auteur")]
+    if not avis:
+        return ""
+    esc = lambda t: str(t).replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+    stars = lambda n: "".join(f'<span class="star{" star-on" if i < n else ""}">[[icon:star]]</span>' for i in range(5))
+    cards = []
+    for a in avis:
+        n = max(1, min(5, int(a.get("note", 5))))
+        initiale = esc(a["auteur"].strip()[:1].upper())
+        meta = " · ".join(x for x in [esc(a["date"]) if a.get("date") else "", "Avis Google"] if x)
+        cards.append(
+            f'<article class="review"><div class="review-stars" role="img" aria-label="{n} sur 5">{stars(n)}</div>'
+            f'<blockquote><p>{esc(a["texte"])}</p></blockquote>'
+            f'<footer><span class="review-avatar" aria-hidden="true">{initiale}</span>'
+            f'<div><strong>{esc(a["auteur"])}</strong><span>{meta}</span></div></footer></article>')
+    note, nb = data.get("note_moyenne"), data.get("nombre_avis")
+    resume = ""
+    if note:
+        n_txt = str(note).replace(".", ",")
+        total = f" · {nb} avis Google" if nb else " · avis Google"
+        resume = (f'<div class="rating"><strong>{n_txt}</strong><div class="review-stars" role="img" aria-label="Note moyenne {n_txt} sur 5">{stars(round(float(note)))}</div>'
+                  f'<span>sur 5{total}</span></div>')
+    lien = data.get("lien_google", "https://www.google.com/maps/search/?api=1&query=Godot+et+Fils+Chartres+23+rue+de+la+Pie")
+    return f'''    <section class="section section-dark" id="avis">
+      <div class="container">
+        <div class="reviews-head">
+          <header class="section-head">
+            <p class="eyebrow">Avis clients</p>
+            <h2>Ils nous ont fait confiance</h2>
+            <p>Les avis de nos clients, publiés sur Google.</p>
+          </header>
+          {resume}
+        </div>
+        <div class="reviews" data-reviews>
+          <div class="reviews-track" tabindex="0" role="region" aria-label="Avis clients, défilement horizontal">{"".join(cards)}</div>
+          <div class="reviews-nav">
+            <button type="button" class="round-btn" data-rev="prev" aria-label="Avis précédents">[[icon:chevron-left]]</button>
+            <button type="button" class="round-btn" data-rev="next" aria-label="Avis suivants">[[icon:chevron-right]]</button>
+            <a class="btn btn-ghost btn-sm" href="{lien}" target="_blank" rel="noopener">Voir tous les avis sur Google</a>
+          </div>
+        </div>
+      </div>
+    </section>'''
+
 # ---------------------------------------------------------------- RÉSEAU (carte de France)
 import unicodedata
 def slug(t):
@@ -317,6 +369,7 @@ def reseau_section():
     </section>'''
 
 # ---------------------------------------------------------------- ACCUEIL
+FAQ_CLS = "section" if avis_section() else "section section-soft"   # alternance des fonds selon la présence des avis
 TICKER = "".join(f"<span>{w}</span>" for w in ["Achat d'or", "Vente de pièces", "Lingots", "Argent", "Bijoux", "Bureau de change", "Depuis 1933"] * 6)
 home = f'''    <section class="hero hero-photo">
       <div class="container hero-grid">
@@ -418,7 +471,9 @@ home = f'''    <section class="hero hero-photo">
       </div>
     </section>
 
-    <section class="section section-soft" id="faq">
+{avis_section()}
+
+    <section class="{FAQ_CLS}" id="faq">
       <div class="container narrow">
         <header class="section-head">
           <p class="eyebrow">Questions fréquentes</p>

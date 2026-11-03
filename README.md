@@ -29,6 +29,9 @@ python3 tools/build.py
 Fonctionnalités : responsive (méga menu « Nos services » sur ordinateur, panneau plein écran sous 1220px, bouton d'appel flottant), indicateur « ouvert / fermé » à l'heure de Paris,
 données structurées schema.org, animations respectant `prefers-reduced-motion`.
 
+## Avis Google (accueil)
+La section est alimentée par `tools/avis.json` (format dans `tools/avis.exemple.json`) : prénom/nom, note, date et texte **réels** copiés depuis Google. Tant que `avis` est vide, rien ne s'affiche. Après modification : `python3 tools/build.py`. Ne jamais inventer d'avis.
+
 ## Frise « Notre histoire »
 Les dates de la page « La maison » sont dans `TIMELINE` (`tools/build.py`). Elles viennent de sources publiques : à valider avec l'agence (1933, 2017, 2020).
 
