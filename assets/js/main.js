@@ -662,6 +662,8 @@
     set('argent-g', nf2.format(data.argent.eur_g)); set('argent-oz', nf2.format(data.argent.eur_oz));
     timeEl.textContent = 'Mis à jour à ' + tf.format(new Date(data.updatedAt)) + ' · actualisation automatique';
     chart('or'); chart('argent');
+    var src = box.querySelector('[data-source]');
+    if (src) src.textContent = 'Source : cours instantané gold-api.com · historique ' + ((range === '1d' || range === '7d') ? 'Yahoo Finance (contrats à terme, taux de change du moment)' : 'Stooq / Yahoo Finance') + ' · taux de change BCE (Frankfurter).';
     box.hidden = false;
   }
 

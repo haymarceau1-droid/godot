@@ -1482,3 +1482,4 @@ main, .site-footer { overflow-x: clip; }
 .price-chart::before { content: ""; position: absolute; left: 50%; top: 75px; width: min(60%, 260px); aspect-ratio: 650 / 133; translate: -50% -50%; background: url(../img/logo-blanc.png) center / contain no-repeat; opacity: .12; pointer-events: none; }
 .price-chart svg { position: relative; z-index: 1; }
 .prices.wm-r::after, .prices.wm-l::after { display: none; }
+.price-source { margin: .9rem 0 0; font-size: .8125rem; color: var(--text-1-muted); }
