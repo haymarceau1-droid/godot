@@ -465,7 +465,6 @@ home = f'''    <section class="hero hero-photo">
           </ul>
         </div>
       </div>
-      <p class="hero-tag">[[icon:map-pin]]<span>Agence de Chartres · 23 rue de la Pie</span></p>
     </section>
 
     <div class="ticker" aria-hidden="true"><div class="ticker-track">{TICKER}</div></div>
