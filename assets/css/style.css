@@ -310,3 +310,8 @@ p { margin: 0 0 1em; }
   .hero-actions .btn { flex: 1 1 100%; }
   .brand-name { font-size: 1.15rem; }
 }
+
+/* Logo */
+.brand img { height: 44px; width: auto; }
+.brand-footer img { height: 52px; }
+@media (max-width: 560px) { .brand img { height: 36px; } }
