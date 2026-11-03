@@ -67,6 +67,7 @@ FAQ_G = {
   ("Faut-il une pièce d'identité pour changer ?", "Oui, une pièce d'identité est à présenter au guichet."),
  ],
  "investir": [
+  ("Vos informations constituent-elles un conseil en investissement ?", "Non, jamais. Les textes, chiffres, graphiques et simulations de ce site sont des informations générales à visée pédagogique : ce ne sont ni des conseils en investissement, ni des recommandations personnalisées, ni des offres d'achat ou de vente. Ils ne tiennent pas compte de votre situation. Investir comporte un risque de perte en capital et les performances passées ne préjugent pas des performances futures. Avant toute décision, rapprochez-vous d'un professionnel qualifié et indépendant."),
   ("Quel est le rendement annuel moyen de l'or ?", "Entre 2000 et 2025, le prix moyen de l'once a progressé d'environ 10,6 % par an en dollars (environ 8,5 % par an depuis 1971). Ce rendement varie fortement selon la période (environ +3,8 % par an entre 2010 et 2020), il ne tient compte ni des frais ni de la fiscalité, et les performances passées ne préjugent pas des performances futures."),
   ("L'or protège-t-il vraiment de l'inflation ?", "Sur le long terme, son prix a nettement dépassé l'inflation : en euros, l'once a été multipliée par environ 7 entre 2000 et 2024, contre ×1,5 pour les prix en France. Ce n'est pourtant pas vrai chaque année : en 2022, l'inflation a atteint 5,2 % alors que l'or est resté stable en dollars. Les performances passées ne préjugent pas des performances futures."),
   ("L'or est-il un placement sans risque ?", "Non. Son prix fluctue et peut stagner ou reculer pendant des années ; il ne verse ni dividende ni intérêt, et un investissement comporte un risque de perte en capital. Cette page est une information générale, pas un conseil en investissement."),
@@ -190,6 +191,7 @@ def footer():
     </div>
     <div class="container footer-bottom">
       <p>© <span data-year>2026</span> Godot &amp; Fils Chartres. Tous droits réservés.</p>
+      <p class="footer-legal">Les informations de ce site sont données à titre indicatif et ne constituent jamais un conseil en investissement. Investir comporte un risque de perte en capital.</p>
     </div>
   </footer>
   <a class="call-fab" href="tel:{TEL_HREF}" aria-label="Appeler l'agence au {TEL}">
@@ -579,7 +581,7 @@ home = f'''    <section class="hero hero-photo">
           <p>Pour estimer vos bijoux, pièces ou lingots, ce sont le poids, le titre et le cours du moment qui comptent.</p>
           <a class="btn btn-gold" href="vendre-or.html">Faire estimer mon or ou mon argent</a>
         </div>
-        <p class="note prices-note">Cours spot indicatif des marchés internationaux (métal pur, hors frais et primes), converti en euros. Ce n'est pas le prix de rachat ou de vente de l'agence : le tarif applicable est celui du moment de la transaction. Les prix et les taux sont affichés en agence, avant même toute proposition. Les performances passées ne préjugent pas des performances futures.</p>
+        <p class="note prices-note">Cours spot indicatif des marchés internationaux (métal pur, hors frais et primes), converti en euros. Ce n'est pas le prix de rachat ou de vente de l'agence : le tarif applicable est celui du moment de la transaction. Les prix et les taux sont affichés en agence, avant même toute proposition. Ces cours sont donnés à titre purement informatif : ils ne constituent ni un conseil en investissement, ni une recommandation, ni une offre d'achat ou de vente. Les performances passées ne préjugent pas des performances futures.</p>
       </div>
     </section>
 
@@ -834,7 +836,7 @@ acheter = service_hero("Acheter or &amp; argent", "Or &amp; argent d'investissem
 {coin_cards}
         </div>
         {coin_credits()}
-        <aside class="notice"><strong>Bon à savoir :</strong> les prix de l'or et de l'argent varient en permanence et sont affichés en agence, avant même toute proposition. Un investissement comporte un risque de perte en capital et la fiscalité des métaux précieux a ses propres règles : renseignez-vous avant d'acheter.</aside>
+        <aside class="notice"><strong>Bon à savoir :</strong> les prix de l'or et de l'argent varient en permanence et sont affichés en agence, avant même toute proposition. Un investissement comporte un risque de perte en capital et la fiscalité des métaux précieux a ses propres règles : renseignez-vous avant d'acheter. Les informations de ce site ne constituent jamais un conseil en investissement ni une recommandation personnalisée.</aside>
       </div>
     </section>
 
@@ -1140,9 +1142,32 @@ def gold_chart():
           </details>
         </div>'''
 
+# ---------------------------------------------------------------- AVERTISSEMENT (information financière)
+LEGAL_BANNER = '''
+    <section class="legal-banner" aria-label="Avertissement">
+      <div class="container">
+        <p>[[icon:shield-check]]<span><strong>Information générale, jamais un conseil en investissement.</strong> Le contenu de cette page est purement informatif et pédagogique : il ne constitue ni un conseil en investissement, ni une recommandation personnalisée, ni une offre ou une sollicitation d'achat ou de vente, et ne tient pas compte de votre situation personnelle. Investir comporte un risque de perte en capital. <a href="#avertissement">Lire l'avertissement complet</a></span></p>
+      </div>
+    </section>'''
+
+LEGAL_FULL = '''    <section class="section" id="avertissement">
+      <div class="container narrow">
+        <header class="section-head"><p class="eyebrow">Avertissement</p><h2>À lire avant toute décision</h2></header>
+        <ul class="legal-points">
+          <li><strong>Pas un conseil en investissement.</strong> Les informations, chiffres, graphiques, simulations et textes de ce site sont fournis à titre purement informatif et pédagogique. Ils ne constituent en aucun cas un conseil en investissement, une recommandation personnalisée, une offre, une incitation ou une sollicitation d'achat ou de vente d'un produit ou d'un instrument, ni un conseil juridique, fiscal ou comptable.</li>
+          <li><strong>Aucune prise en compte de votre situation.</strong> Ces informations sont générales et identiques pour tous les visiteurs : elles ne tiennent compte ni de vos objectifs, ni de votre horizon de placement, ni de votre patrimoine, ni de votre tolérance au risque.</li>
+          <li><strong>Risque de perte en capital.</strong> Le prix de l'or, de l'argent, des actions, de l'immobilier et de tout autre placement peut baisser, parfois fortement et durablement. Aucun rendement n'est garanti. L'or et l'argent physiques ne versent ni intérêt ni dividende.</li>
+          <li><strong>Les performances passées ne préjugent pas des performances futures.</strong> Les rendements affichés sont des données historiques. Les simulations appliquent un rendement moyen constant à titre d'illustration : ce n'est ni une prévision, ni une projection, ni un engagement.</li>
+          <li><strong>Données indicatives.</strong> Les données proviennent de sources tierces citées sur la page ; certaines sont arrondies ou estimées. Leur exactitude, leur exhaustivité et leur actualité ne sont pas garanties. Les chiffres ne tiennent compte ni des frais, ni des primes, ni de la fiscalité, ni des variations de change. Les cours affichés ne sont pas les prix de rachat ou de vente de l'agence.</li>
+          <li><strong>Fiscalité.</strong> Les règles fiscales applicables à l'or, à l'argent et aux autres placements sont spécifiques et peuvent évoluer. Renseignez-vous auprès de l'administration fiscale ou d'un professionnel.</li>
+          <li><strong>Votre décision vous appartient.</strong> Avant tout investissement, évaluez votre situation personnelle et, si nécessaire, consultez un professionnel qualifié et indépendant (conseiller en investissements financiers, notaire, expert-comptable). Godot &amp; Fils Chartres ne fournit pas de conseil en investissement : l'agence achète et vend des métaux précieux et en explique le fonctionnement, sans recommander de placement.</li>
+        </ul>
+      </div>
+    </section>'''
+
 pourquoi = service_hero("Pourquoi investir dans l'or", "Or d'investissement", "Pourquoi investir dans l'or ?",
     "Valeur refuge, protection du pouvoir d'achat, rendement annuel moyen : les chiffres depuis 2000, l'effet de l'inflation, et les points à connaître avant d'acheter.",
-    "chart-line", [("shield-check", "Valeur refuge", "Réputée en période d'incertitude"), ("chart-line", "+10,6 %/an", "Rendement annuel moyen depuis 2000"), ("scale", "Aussi des risques", "L'or fluctue, parfois fortement")]) + f'''
+    "chart-line", [("shield-check", "Valeur refuge", "Réputée en période d'incertitude"), ("chart-line", "+10,6 %/an", "Rendement annuel moyen depuis 2000"), ("scale", "Aussi des risques", "L'or fluctue, parfois fortement")]) + LEGAL_BANNER + f'''
 
     <section class="section">
       <div class="container">
@@ -1278,6 +1303,8 @@ pourquoi = service_hero("Pourquoi investir dans l'or", "Or d'investissement", "P
       </div>
     </section>
 
+{LEGAL_FULL}
+
 {faq_section("Investir dans l'or", FAQ_G["investir"], cls="section-soft")}'''
 page("pourquoi-investir-or.html", "Pourquoi investir dans l'or ? Rendements historiques, inflation, risques | Godot &amp; Fils Chartres",
      "Pourquoi investir dans l'or : rendement annuel moyen, évolution du prix de l'once depuis 2000, comparaison avec l'inflation en France, valeur refuge, risques et fiscalité. Information générale.", pourquoi)
@@ -1388,7 +1415,7 @@ _infl25 = cmp_cagr(_infl()["returns"], 25)
 
 comparer = service_hero("Comparer les placements", "Comparateur", "Comparer l'or aux autres placements.",
     "Or, actions américaines et françaises, immobilier et Livret A : leurs courbes depuis 2000, avec l'option « inflation déduite » pour lire le pouvoir d'achat réel, et ce que deviendrait votre capital selon le rendement annuel moyen de chacun.",
-    "chart-line", [("chart-line", "5 placements", "Or, S&P 500, CAC 40, immobilier, Livret A"), ("coin-euro", "Option inflation", "Voir le pouvoir d'achat réel"), ("scale", "Votre capital", "Simulez avec votre montant")]) + f'''
+    "chart-line", [("chart-line", "5 placements", "Or, S&P 500, CAC 40, immobilier, Livret A"), ("coin-euro", "Option inflation", "Voir le pouvoir d'achat réel"), ("scale", "Votre capital", "Simulez avec votre montant")]) + LEGAL_BANNER + f'''
 
     <section class="section section-dark" id="courbes">
       <div class="container">
@@ -1486,6 +1513,8 @@ comparer = service_hero("Comparer les placements", "Comparateur", "Comparer l'or
         </div>
       </div>
     </section>
+
+{LEGAL_FULL}
 
 {faq_section("Comparer les placements", FAQ_G["comparer"], cls="section-soft")}'''
 page("comparer.html", "Comparer l'or, les actions, l'immobilier et le Livret A | Godot &amp; Fils Chartres",
@@ -1614,6 +1643,8 @@ legal = '''    <section class="legal">
         Directeur de la publication : <span class="todo">à compléter</span></p>
         <h2>Hébergement</h2>
         <p><span class="todo">Nom, adresse et téléphone de l'hébergeur à compléter.</span></p>
+        <h2>Avertissement : informations financières</h2>
+        <p>Les informations, chiffres, graphiques et simulations présentés sur ce site (notamment les pages « Pourquoi investir dans l'or », « Comparer les placements » et les cours affichés) sont fournis à titre purement informatif et pédagogique. Ils ne constituent en aucun cas un conseil en investissement, une recommandation personnalisée, ni une offre ou une sollicitation d'achat ou de vente. Ils ne tiennent pas compte de la situation personnelle du visiteur. Tout investissement comporte un risque de perte en capital ; les performances passées ne préjugent pas des performances futures. Les données proviennent de sources tierces dont l'exactitude n'est pas garantie. Avant toute décision, consultez un professionnel qualifié et indépendant.</p>
         <h2>Propriété intellectuelle</h2>
         <p>L'ensemble des contenus de ce site (textes, visuels, logos) est protégé par le droit de la propriété intellectuelle. Toute reproduction sans autorisation préalable est interdite.</p>
         <h2>Données personnelles</h2>

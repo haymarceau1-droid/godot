@@ -1524,3 +1524,14 @@ main, .site-footer { overflow-x: clip; }
 .photo-credits a { color: var(--text-1); }
 .photo-credits p { margin: 0; }
 .coin-card .medal { width: 132px; height: 132px; margin: 0 auto 1rem; box-sizing: border-box; }
+
+/* Avertissement : information financière */
+.legal-banner { background: #111; border-bottom: 1px solid var(--line-dark); }
+.legal-banner p { margin: 0; display: flex; gap: .9rem; align-items: flex-start; padding: 1rem 0; font-size: var(--fs-small); line-height: 1.55; color: var(--text-1-muted); }
+.legal-banner strong { color: var(--text-1); }
+.legal-banner .ic { flex: none; width: 22px; height: 22px; color: var(--gold); margin-top: .1rem; }
+.legal-banner a { color: var(--gold); }
+.legal-points { list-style: none; margin: 0; padding: 0; display: grid; gap: 1rem; }
+.legal-points li { padding: 1rem 1.2rem; border: 1px solid var(--line-light); border-radius: var(--radius); background: var(--surface); color: var(--text-2-muted); line-height: 1.6; }
+.legal-points strong { color: var(--text-2); }
+.footer-legal { margin: .4rem 0 0; font-size: .8125rem; color: var(--text-1-muted); max-width: 90ch; }
