@@ -2,5 +2,66 @@
   "lien_google": "https://www.google.com/maps/search/?api=1&query=Godot+et+Fils+Chartres+23+rue+de+la+Pie",
   "note_moyenne": null,
   "nombre_avis": null,
-  "avis": []
+  "avis": [
+    {
+      "auteur": "Pierre Simon",
+      "note": 5,
+      "date": "Mars 2026",
+      "texte": "La meilleure proposition pour l'achat de mon or sur Chartres, très honnête et professionnel, merci Monsieur. Je recommande."
+    },
+    {
+      "auteur": "Christine Frendo",
+      "note": 5,
+      "date": "Février 2026",
+      "texte": "Première expérience pour du rachat de pièces , et très satisfaits , personne très professionnelle, et très bon accueil"
+    },
+    {
+      "auteur": "Antony Weinsanto",
+      "note": 5,
+      "date": "Février 2026",
+      "texte": "Super accueil et de bons conseils, merci !"
+    },
+    {
+      "auteur": "SZ",
+      "note": 5,
+      "date": "Juillet 2025",
+      "texte": "Très belle expérience chez eux je recommande. Accueillant et professionnel"
+    },
+    {
+      "auteur": "Olivia Morlet",
+      "note": 5,
+      "date": "Novembre 2024",
+      "texte": "Honnête aimable et très professionnel le meilleur de Chartres"
+    },
+    {
+      "auteur": "Didier Trion",
+      "note": 5,
+      "date": "Octobre 2024",
+      "texte": "A plusieurs reprises,donc plusieurs passages toujours un accueil agréable souriant des conseils et des réponses sur mes questions et autres très commercial et conseils renseigne toujours au mieux sa clientèles je recommande vivement"
+    },
+    {
+      "auteur": "Pierre-Alain Besnard",
+      "note": 5,
+      "date": "Juillet 2024",
+      "texte": "Le responsable de l'Agence consulté sur des questions ayant trait à la validité de devises étrangères m'a apporté des réponses précises et sourcées. Mon interlocuteur a fait preuve de courtoisie et d'un grand professionnalisme."
+    },
+    {
+      "auteur": "Nathan thyrie",
+      "note": 5,
+      "date": "Février 2024",
+      "texte": "De passage à Chartres j’ai voulu me débarrasser de plusieurs broutilles en or et argent, j’ai fais 2 agence de rachat et c’est ici que l’ont me l’a expertisé au meilleurs prix. Merci à la responsable d’agence pour son accueil !"
+    },
+    {
+      "auteur": "Davidmatheo Dubar",
+      "note": 5,
+      "date": "Janvier 2023",
+      "texte": "Monsieur très professionnel et a l écoute du client au plaisir de revenir Chez vous"
+    },
+    {
+      "auteur": "Florent Lucas",
+      "note": 5,
+      "date": "Mai 2021",
+      "texte": "Très pro, les gérants sont sérieux et s'y connaissent beaucoup ! Je recommande sans hésitation si vous cherchez à avoir de bons conseils ainsi qu'un service de qualité."
+    }
+  ]
 }
