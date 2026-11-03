@@ -597,9 +597,12 @@
   if (!box || !window.fetch) return;
   var timeEl = box.querySelector('[data-prices-time]');
   var nf2 = new Intl.NumberFormat('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-  var nf0 = new Intl.NumberFormat('fr-FR', { maximumFractionDigits: 0 });
+  var pf = new Intl.NumberFormat('fr-FR', { minimumFractionDigits: 1, maximumFractionDigits: 1, signDisplay: 'exceptZero' });
   var tf = new Intl.DateTimeFormat('fr-FR', { hour: '2-digit', minute: '2-digit' });
-  var last = {};
+  var df = { '1m': { day: 'numeric', month: 'short' }, '1y': { day: 'numeric', month: 'short', year: 'numeric' }, '5y': { month: 'short', year: 'numeric' } };
+  var colors = { or: '#e2ab45', argent: '#cfd3d8' };
+  var range = '1m', last = {}, data = null, svgNS = 'http://www.w3.org/2000/svg';
+
   function set(key, text) {
     var el = box.querySelector('[data-p="' + key + '"]');
     if (!el) return;
@@ -609,18 +612,80 @@
     }
     last[key] = text; el.textContent = text;
   }
+
+  function chart(metal) {
+    var host = box.querySelector('[data-pchart="' + metal + '"]');
+    var v = box.querySelector('[data-var="' + metal + '"]');
+    var hist = data && data.history && data.history[metal];
+    if (!hist || hist.length < 2) {
+      host.innerHTML = '<div class="pc-empty">Courbe indisponible pour le moment</div>'; v.textContent = ''; v.className = 'price-var';
+      host.setAttribute('aria-label', 'Courbe indisponible'); return;
+    }
+    var n = hist.length, W = 600, H = 150, pt = 10, pb = 8;
+    var min = Infinity, max = -Infinity;
+    hist.forEach(function (p) { if (p[1] < min) min = p[1]; if (p[1] > max) max = p[1]; });
+    var pad = (max - min) * .12 || max * .01; min -= pad; max += pad;
+    function X(i) { return (i / (n - 1)) * W; }
+    function Y(val) { return pt + (1 - (val - min) / (max - min)) * (H - pt - pb); }
+    var d = hist.map(function (p, i) { return (i ? 'L' : 'M') + X(i).toFixed(1) + ' ' + Y(p[1]).toFixed(1); }).join('');
+    var gid = 'pcg-' + metal;
+    var grid = [0, 1, 2].map(function (g) { var y = pt + g * (H - pt - pb) / 2; return '<line class="pc-grid" x1="0" x2="' + W + '" y1="' + y + '" y2="' + y + '"/>'; }).join('');
+    host.style.setProperty('--c', colors[metal]);
+    host.innerHTML = '<svg viewBox="0 0 ' + W + ' ' + H + '" preserveAspectRatio="none" aria-hidden="true">' +
+      '<defs><linearGradient id="' + gid + '" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="' + colors[metal] + '" stop-opacity=".28"/><stop offset="1" stop-color="' + colors[metal] + '" stop-opacity="0"/></linearGradient></defs>' +
+      grid + '<path d="' + d + 'L' + W + ' ' + H + 'L0 ' + H + 'Z" fill="url(#' + gid + ')"/><path class="pc-line" d="' + d + '"/>' +
+      '<line class="pc-cursor" y1="0" y2="' + H + '" hidden/></svg>' +
+      '<span class="pc-dot" hidden></span><div class="pc-tip" hidden></div>' +
+      '<div class="pc-axis"><span>' + new Date(hist[0][0] * 1000).toLocaleDateString('fr-FR', df[range]) + '</span><span>' + new Date(hist[n - 1][0] * 1000).toLocaleDateString('fr-FR', df[range]) + '</span></div>';
+    var first = hist[0][1], lastv = hist[n - 1][1], pct = (lastv / first - 1) * 100;
+    v.textContent = pf.format(pct) + ' %'; v.className = 'price-var ' + (pct > 0 ? 'up' : pct < 0 ? 'down' : '');
+    host.setAttribute('aria-label', 'Évolution du cours sur la période : ' + pf.format(pct) + ' %, de ' + nf2.format(first) + ' à ' + nf2.format(lastv) + ' euros le gramme');
+
+    var svg = host.querySelector('svg'), cur = svg.querySelector('.pc-cursor'), dot = host.querySelector('.pc-dot'), tip = host.querySelector('.pc-tip');
+    function show(e) {
+      var r = svg.getBoundingClientRect(), x = (e.clientX - r.left) / r.width;
+      var i = Math.max(0, Math.min(n - 1, Math.round(x * (n - 1))));
+      var px = (i / (n - 1)) * r.width, py = (Y(hist[i][1]) / H) * r.height;
+      cur.setAttribute('x1', X(i)); cur.setAttribute('x2', X(i)); cur.removeAttribute('hidden');
+      dot.style.left = px + 'px'; dot.style.top = py + 'px'; dot.hidden = false;
+      tip.innerHTML = nf2.format(hist[i][1]) + ' € / g<small>' + new Date(hist[i][0] * 1000).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' }) + '</small>';
+      tip.hidden = false;
+      tip.style.left = Math.max(60, Math.min(r.width - 60, px)) + 'px';
+    }
+    function hide() { cur.setAttribute('hidden', ''); dot.hidden = true; tip.hidden = true; }
+    host.onpointermove = show; host.onpointerdown = show; host.onpointerleave = hide; host.onpointercancel = hide;
+  }
+
+  function render() {
+    if (!data) return;
+    set('or-g', nf2.format(data.or.eur_g)); set('or-oz', nf2.format(data.or.eur_oz));
+    set('argent-g', nf2.format(data.argent.eur_g)); set('argent-oz', nf2.format(data.argent.eur_oz));
+    timeEl.textContent = 'Mis à jour à ' + tf.format(new Date(data.updatedAt)) + ' · actualisation automatique';
+    chart('or'); chart('argent');
+    box.hidden = false;
+  }
+
   function load() {
-    fetch('/api/cours', { headers: { accept: 'application/json' } })
+    var asked = range;
+    fetch('/api/cours?range=' + asked, { headers: { accept: 'application/json' } })
       .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
       .then(function (d) {
         if (!d || !d.or || !d.argent) throw new Error('format');
-        set('or-g', nf2.format(d.or.eur_g)); set('or-oz', nf2.format(d.or.eur_oz));
-        set('argent-g', nf2.format(d.argent.eur_g)); set('argent-oz', nf2.format(d.argent.eur_oz));
-        timeEl.textContent = 'Mis à jour à ' + tf.format(new Date(d.updatedAt)) + ' · actualisation automatique';
-        box.hidden = false;
+        if (asked !== range) return;
+        data = d; render();
       })
-      .catch(function () {});
+      .catch(function (e) { if (window.console) console.debug('cours', e); });
   }
+
+  Array.prototype.forEach.call(box.querySelectorAll('[data-range]'), function (btn) {
+    btn.addEventListener('click', function () {
+      range = btn.getAttribute('data-range');
+      Array.prototype.forEach.call(box.querySelectorAll('[data-range]'), function (b2) {
+        var on = b2 === btn; b2.classList.toggle('is-on', on); b2.setAttribute('aria-pressed', on ? 'true' : 'false');
+      });
+      load();
+    });
+  });
   load();
   setInterval(function () { if (!document.hidden) load(); }, 60000);
   document.addEventListener('visibilitychange', function () { if (!document.hidden) load(); });

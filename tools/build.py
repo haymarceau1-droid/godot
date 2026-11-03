@@ -442,7 +442,7 @@ def reseau_section():
     </section>'''
 
 # ---------------------------------------------------------------- ACCUEIL
-FAQ_CLS = "section section-soft" if avis_section() else "section"   # alternance des fonds selon la présence des avis
+FAQ_CLS = "section"   # alternance des fonds selon la présence des avis
 TICKER = "".join(f"<span>{w}</span>" for w in ["Achat d'or", "Vente de pièces", "Lingots", "Argent", "Bijoux", "Bureau de change", "Depuis 1933"] * 6)
 home = f'''    <section class="hero hero-photo">
       <picture class="hero-bg" aria-hidden="true">
@@ -475,33 +475,6 @@ home = f'''    <section class="hero hero-photo">
         <div><span class="strip-label">[[icon:clock]]Horaires</span>Lun – Ven · 9h30 – 18h00<br>Sam. matin sur RDV</div>
         <div><span class="strip-label">[[icon:phone-call]]Téléphone</span><a href="tel:{TEL_HREF}">{TEL}</a></div>
         <div class="strip-status" data-open-status><span class="dot"></span><span class="status-text">Horaires d'ouverture</span></div>
-      </div>
-    </section>
-
-    <section class="section section-dark prices" id="cours" aria-labelledby="cours-title" data-prices hidden>
-      <div class="container">
-        <header class="prices-head">
-          <p class="eyebrow">Cours en direct</p>
-          <h2 id="cours-title">L'or et l'argent aujourd'hui</h2>
-          <p class="prices-live"><span class="dot" aria-hidden="true"></span><span data-prices-time>Mise à jour…</span></p>
-        </header>
-        <div class="prices-grid" aria-live="polite">
-          <article class="price-card" data-metal="or">
-            <h3><span class="sw" style="--c:#e2ab45"></span>Or</h3>
-            <p class="price-main"><strong data-p="or-g">—</strong><span>€ / gramme</span></p>
-            <p class="price-sub"><span data-p="or-oz">—</span> € l'once troy</p>
-          </article>
-          <article class="price-card" data-metal="argent">
-            <h3><span class="sw" style="--c:#cfd3d8"></span>Argent</h3>
-            <p class="price-main"><strong data-p="argent-g">—</strong><span>€ / gramme</span></p>
-            <p class="price-sub"><span data-p="argent-oz">—</span> € l'once troy</p>
-          </article>
-          <div class="price-cta">
-            <p>Pour estimer vos bijoux, pièces ou lingots, c'est le poids, le titre et le cours du moment qui comptent.</p>
-            <a class="btn btn-gold" href="vendre-or.html">Faire estimer mon or ou mon argent</a>
-          </div>
-        </div>
-        <p class="note prices-note">Cours spot indicatif des marchés internationaux (métal pur, hors frais et primes), converti en euros. Ce n'est pas le prix de rachat ou de vente de l'agence : le tarif applicable est celui du moment de la transaction.</p>
       </div>
     </section>
 
@@ -555,6 +528,42 @@ home = f'''    <section class="hero hero-photo">
 {reseau_section()}
 
 {avis_section()}
+
+    <section class="section section-dark prices" id="cours" aria-labelledby="cours-title" data-prices hidden>
+      <div class="container">
+        <header class="prices-head">
+          <div>
+            <p class="eyebrow">Cours en direct</p>
+            <h2 id="cours-title">L'or et l'argent aujourd'hui</h2>
+            <p class="prices-live"><span class="dot" aria-hidden="true"></span><span data-prices-time>Mise à jour…</span></p>
+          </div>
+          <div class="seg" role="group" aria-label="Période de la courbe">
+            <button type="button" data-range="1m" class="is-on" aria-pressed="true">1 mois</button>
+            <button type="button" data-range="1y" aria-pressed="false">1 an</button>
+            <button type="button" data-range="5y" aria-pressed="false">5 ans</button>
+          </div>
+        </header>
+        <div class="prices-grid" aria-live="polite">
+          <article class="price-card" data-metal="or">
+            <h3><span class="sw" style="--c:#e2ab45"></span>Or</h3>
+            <p class="price-main"><strong data-p="or-g">—</strong><span>€ / gramme</span><em class="price-var" data-var="or"></em></p>
+            <p class="price-sub"><span data-p="or-oz">—</span> € l'once troy</p>
+            <div class="price-chart" data-pchart="or" role="img" aria-label="Évolution du cours de l'or"></div>
+          </article>
+          <article class="price-card" data-metal="argent">
+            <h3><span class="sw" style="--c:#cfd3d8"></span>Argent</h3>
+            <p class="price-main"><strong data-p="argent-g">—</strong><span>€ / gramme</span><em class="price-var" data-var="argent"></em></p>
+            <p class="price-sub"><span data-p="argent-oz">—</span> € l'once troy</p>
+            <div class="price-chart" data-pchart="argent" role="img" aria-label="Évolution du cours de l'argent"></div>
+          </article>
+        </div>
+        <div class="price-cta">
+          <p>Pour estimer vos bijoux, pièces ou lingots, ce sont le poids, le titre et le cours du moment qui comptent.</p>
+          <a class="btn btn-gold" href="vendre-or.html">Faire estimer mon or ou mon argent</a>
+        </div>
+        <p class="note prices-note">Cours spot indicatif des marchés internationaux (métal pur, hors frais et primes), converti en euros. Ce n'est pas le prix de rachat ou de vente de l'agence : le tarif applicable est celui du moment de la transaction. Les performances passées ne préjugent pas des performances futures.</p>
+      </div>
+    </section>
 
     <section class="{FAQ_CLS}" id="faq">
       <div class="container narrow">
