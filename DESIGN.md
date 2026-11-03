@@ -23,7 +23,7 @@ action claire (boutons or foncé, texte blanc).
 
 ### Accent & Interactive
 - **Primary Accent** `#e2ab45` — focus, filets, icônes et petits textes sur fond sombre (jamais en aplat sous du texte noir) ;
-  les boutons utilisent l'or foncé `#9e6c14` avec texte blanc,
+  les boutons utilisent ce doré en aplat avec un texte brun très sombre `#2a1a05`,
   soulignement des liens d'action, focus. *Aucun bleu n'est utilisé sur le site.*
 
 ### Text & Neutrals
@@ -66,7 +66,8 @@ Choix thématiques : `coin-euro`, `coins`, `diamond(s)`, `scale` (pesée), `exch
 
 - **Rayon `5px`** pour cartes, encadrés, carte, FAQ. **Boutons, pastilles de villes et badges
   entièrement arrondis (pilule, `999px`)**. Éléments circulaires : badge 1933, bouton d'appel flottant.
-- **Bouton principal** : fond or foncé `#9e6c14` (survol `#835a10`), texte blanc 700, hauteur ≥ 48px, padding 0.85em 1.6em.
+- **Bouton principal** : fond or clair `#e2ab45` (survol `#efc062`), texte brun très sombre `#2a1a05` 700, hauteur ≥ 48px, padding 0.85em 1.6em.
+- **Survol « or qui brille »** (boutons pleins) : fond doré métallisé, halo lumineux et reflet diagonal qui traverse le bouton (désactivé si `prefers-reduced-motion`) ; boutons à contour : contour et texte dorés avec halo, ou remplissage doré sur fond clair.
 - **Bouton secondaire** : contour 2px blanc (sur noir) ou noir (sur blanc), inversion au survol.
 - **Carte** : fond blanc, bordure 1px noir à 14 %, padding 32px ; au survol la bordure
   passe à l'or. Icône dans une pastille noire 52px, trait or.
@@ -96,8 +97,8 @@ noir / blanc et des bordures.
 
 ## 7. Do's and Don'ts
 
-- **Do** réserver les boutons en or foncé `#9e6c14` (texte blanc) aux actions principales.
-- **Don't** poser de texte ou d'icône noirs sur un aplat doré : l'or `#e2ab45` reste un accent (texte, filets, icônes) sur fond sombre.
+- **Do** réserver les boutons en or clair `#e2ab45` (texte `#2a1a05`) aux actions principales.
+- **Don't** poser de texte noir pur sur un aplat doré : utiliser le brun très sombre `#2a1a05` (≈ 8:1). L'or foncé `#9e6c14` ne sert plus que pour du texte et des filets sur fond blanc.
 - **Do** utiliser l'or pour signaler la valeur : labels, chiffres, icônes — et en fond des seuls boutons d'action.
 - **Do** écrire labels et navigation en capitales interlettrées.
 - **Don't** utiliser de bleu, d'ombres, ni de dégradés (sauf le voile horizontal du hero photo) ; rayons : 5px (blocs) ou pilule (boutons).
@@ -126,7 +127,7 @@ noir / blanc et des bordures.
    d'ombre ni de dégradé. »
 2. « Génère un formulaire de prise de contact sur surface blanche : libellés en capitales or
    12px, champs bordés 1px noir profond `#111111` à 14 %, rayon 5px, hauteur 48px, focus contour
-   2px or `#e2ab45` ; bouton d'envoi plein or foncé `#9e6c14` texte blanc 700. »
+   2px or `#e2ab45` ; bouton d'envoi plein or `#e2ab45` texte `#2a1a05` 700. »
 3. « Ajoute un bandeau d'avis clients sur fond noir profond `#111111` : citations en Josefin Sans
    19.2px 400 blanc, nom du client en capitales or 12px, séparateurs 1px blanc à 14 %, grille
    3 colonnes repliée en 1 colonne sous 860px. »

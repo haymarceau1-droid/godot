@@ -15,6 +15,9 @@
   --gold: #e2ab45;
   --gold-deep: #9e6c14;        /* or foncé : fonds de boutons, texte blanc dessus (≈ 4,5:1) */
   --gold-deep-hover: #835a10;
+  --btn: #e2ab45;               /* fond des boutons et pastilles actives */
+  --btn-hover: #efc062;
+  --on-btn: #2a1a05;            /* texte sur doré : brun très sombre (≈ 8:1), jamais noir pur */
   --navy: #111111;
 
   /* Dérivés (opacités des tokens, pas de nouvelles teintes) */
@@ -61,7 +64,7 @@ p { margin: 0 0 1em; }
 .narrow { width: min(820px, 100% - 32px); }
 
 .skip { position: absolute; left: -9999px; }
-.skip:focus { left: 16px; top: 16px; z-index: 100; background: var(--gold-deep); color: var(--text-1); padding: .6em 1em; border-radius: var(--radius-btn); }
+.skip:focus { left: 16px; top: 16px; z-index: 100; background: var(--btn); color: var(--on-btn); padding: .6em 1em; border-radius: var(--radius-btn); }
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 
 .eyebrow {
@@ -78,8 +81,8 @@ p { margin: 0 0 1em; }
   transition: background-color .2s, color .2s, border-color .2s;
 }
 .btn-sm { min-height: 40px; padding: .5em 1.1em; font-size: var(--fs-small); }
-.btn-gold, .btn-primary { background: var(--gold-deep); color: var(--text-1); }
-.btn-gold:hover, .btn-primary:hover { background: var(--gold-deep-hover); }
+.btn-gold, .btn-primary { background: var(--btn); color: var(--on-btn); }
+.btn-gold:hover, .btn-primary:hover { background: var(--btn-hover); }
 .btn-ghost { color: var(--text-1); border-color: var(--text-1); }
 .btn-ghost:hover { background: var(--text-1); color: var(--text-2); }
 .btn-outline { border-color: var(--text-2); color: var(--text-2); }
@@ -96,7 +99,7 @@ p { margin: 0 0 1em; }
 .brand-mark {
   width: 42px; height: 42px; border-radius: 50%;
   display: grid; place-items: center; padding-top: 4px;
-  font-size: 1.5rem; font-weight: 700; color: var(--text-1); background: var(--gold-deep);
+  font-size: 1.5rem; font-weight: 700; color: var(--on-btn); background: var(--btn);
 }
 .brand-text { display: flex; flex-direction: column; line-height: 1.15; }
 .brand-name { font-size: 1.35rem; font-weight: 700; letter-spacing: .02em; }
@@ -257,7 +260,7 @@ p { margin: 0 0 1em; }
 /* Bouton d'appel flottant (mobile) */
 .call-fab {
   display: none; position: fixed; right: 16px; bottom: 16px; z-index: 60;
-  width: 56px; height: 56px; border-radius: 50%; background: var(--gold-deep); place-items: center;
+  width: 56px; height: 56px; border-radius: 50%; background: var(--btn); place-items: center;
 }
 .call-fab svg { width: 26px; height: 26px; fill: var(--text-2); }
 
@@ -447,7 +450,7 @@ p { margin: 0 0 1em; }
 .js .panel { display: none; margin-bottom: 0; }
 .js .panel.is-active { display: block; }
 .panel h3 { font-size: 1.6rem; color: var(--text-1); margin-bottom: .2rem; }
-.panel-badge { display: inline-block; background: var(--gold-deep); color: var(--text-1); font-size: var(--fs-label); font-weight: 700; letter-spacing: .14em; text-transform: uppercase; padding: .25em .8em; border-radius: var(--radius-btn); margin: 0 0 .8rem; }
+.panel-badge { display: inline-block; background: var(--btn); color: var(--on-btn); font-size: var(--fs-label); font-weight: 700; letter-spacing: .14em; text-transform: uppercase; padding: .25em .8em; border-radius: var(--radius-btn); margin: 0 0 .8rem; }
 .panel-count { color: var(--gold); font-size: var(--fs-label); letter-spacing: .14em; text-transform: uppercase; font-weight: 700; margin-bottom: 1.2rem; }
 .agences { list-style: none; margin: 0; padding: 0; display: grid; gap: 1rem; }
 .agences li { display: grid; gap: .15rem; padding-top: 1rem; border-top: 1px solid var(--line-dark); font-size: var(--fs-small); color: var(--text-1-muted); }
@@ -460,7 +463,7 @@ p { margin: 0 0 1em; }
 .chips { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: .5rem; }
 .chip { font: inherit; font-size: var(--fs-small); color: var(--text-1); background: transparent; border: 1px solid var(--line-dark); border-radius: var(--radius-btn); padding: .5em 1.1em; min-height: 40px; cursor: pointer; transition: border-color .2s, color .2s, background .2s; }
 .chip:hover { border-color: var(--gold); color: var(--gold); }
-.chip.is-active { background: var(--gold-deep); border-color: var(--gold); color: var(--text-1); font-weight: 700; }
+.chip.is-active { background: var(--btn); border-color: var(--btn); color: var(--on-btn); font-weight: 700; }
 .chip-local { border-color: var(--gold); }
 .map-note { margin-top: 1.6rem; font-size: var(--fs-small); color: var(--text-1-muted); max-width: 52rem; }
 @media (max-width: 860px) { .network { grid-template-columns: 1fr; } }
@@ -480,7 +483,7 @@ p { margin: 0 0 1em; }
 .contact-card .contact-list dt::before { display: none; }
 .foot-lines li { display: flex; align-items: flex-start; gap: .7rem; line-height: 1.45; }
 .foot-lines .ic { width: 18px; height: 18px; stroke: var(--gold); margin-top: .1rem; }
-.call-fab .ic { width: 28px; height: 28px; fill: none; stroke: var(--text-2); stroke-width: 2; }
+.call-fab .ic { width: 28px; height: 28px; fill: none; stroke: var(--on-btn); stroke-width: 2; }
 
 /* =====================================================================
    PAGES SERVICES
@@ -513,8 +516,8 @@ p { margin: 0 0 1em; }
 }
 .subnav a .ic { width: 18px; height: 18px; stroke: var(--gold); }
 .subnav a:hover { border-color: var(--gold); color: var(--gold); }
-.subnav a[aria-current="page"] { background: var(--gold-deep); border-color: var(--gold-deep); color: var(--text-1); font-weight: 700; }
-.subnav a[aria-current="page"] .ic { stroke: var(--text-1); }
+.subnav a[aria-current="page"] { background: var(--btn); border-color: var(--btn); color: var(--on-btn); font-weight: 700; }
+.subnav a[aria-current="page"] .ic { stroke: var(--on-btn); }
 
 /* --- Cartes « fonction » : icône à gauche, texte à droite --- */
 .cards-feature { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25rem; }
@@ -643,7 +646,8 @@ p { margin: 0 0 1em; }
   border-radius: 999px; background: #333; border: 1px solid var(--line-dark); cursor: pointer; transition: background .2s;
 }
 .ck-row input[role="switch"]::after { content: ""; position: absolute; top: 2px; left: 2px; width: 20px; height: 20px; border-radius: 50%; background: var(--text-1); transition: translate .2s; }
-.ck-row input[role="switch"]:checked { background: var(--gold-deep); border-color: var(--gold-deep); }
+.ck-row input[role="switch"]:checked { background: var(--btn); border-color: var(--btn); }
+.ck-row input[role="switch"]:checked::after { background: var(--on-btn); }
 .ck-row input[role="switch"]:checked::after { translate: 20px 0; }
 .ck-row input[role="switch"]:disabled { opacity: .55; cursor: not-allowed; }
 .ck-row input[role="switch"]:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
@@ -774,7 +778,7 @@ button.btn { font-family: var(--font); cursor: pointer; }
 .menu-dd-btn .ic { width: 14px; height: 14px; stroke-width: 2.4; transition: rotate .25s ease; }
 .menu-dd:hover .menu-dd-btn .ic, .menu-dd.open .menu-dd-btn .ic { rotate: 180deg; }
 .menu-links > a:hover, .menu-dd-btn:hover, .menu-dd:hover .menu-dd-btn, .menu-dd.open .menu-dd-btn { background: rgba(255,255,255,.09); color: var(--gold); }
-.menu-links > a[aria-current="page"], .menu-dd-btn.is-current { background: var(--gold-deep); color: var(--text-1); font-weight: 700; }
+.menu-links > a[aria-current="page"], .menu-dd-btn.is-current { background: var(--btn); color: var(--on-btn); font-weight: 700; }
 .menu-cta { gap: .55rem; }
 .menu-cta .ic { width: 18px; height: 18px; stroke-width: 2; }
 .menu-foot { display: none; }
@@ -801,7 +805,7 @@ button.btn { font-family: var(--font); cursor: pointer; }
   .menu-panel .mega-grid a:hover { background: rgba(255,255,255,.05); border-color: var(--line-dark); }
   .menu-panel .mega-grid .ic { flex: none; box-sizing: border-box; width: 46px; height: 46px; padding: 10px; border: 1px solid var(--line-dark); border-radius: 50%; stroke: var(--gold); stroke-width: 1.7; transition: border-color .2s, background-color .2s; }
   .menu-panel .mega-grid a:hover .ic { border-color: var(--gold); }
-  .menu-panel .mega-grid a[aria-current="page"] .ic { background: var(--gold-deep); border-color: var(--gold-deep); stroke: var(--text-1); }
+  .menu-panel .mega-grid a[aria-current="page"] .ic { background: var(--btn); border-color: var(--btn); stroke: var(--on-btn); }
   .menu-panel strong { display: block; font-size: 1.05rem; line-height: 1.2; text-transform: none; letter-spacing: 0; }
   .menu-panel small { display: block; margin-top: .2rem; font-size: .8125rem; line-height: 1.4; color: var(--text-1-muted); text-transform: none; letter-spacing: 0; font-weight: 400; }
   .mega-aside { padding: 1.5rem; border: 1px solid var(--gold); border-radius: var(--radius); background: rgba(255,255,255,.03); text-transform: none; letter-spacing: 0; }
@@ -848,7 +852,7 @@ button.btn { font-family: var(--font); cursor: pointer; }
   .menu-links a:hover .ic { border-color: var(--gold); }
   .menu-links a::after { content: "→"; margin-left: auto; color: var(--gold); opacity: .8; }
   .menu-links a[aria-current="page"] { background: none; color: var(--gold); }
-  .menu-links a[aria-current="page"] .ic { background: var(--gold-deep); border-color: var(--gold-deep); stroke: var(--text-1); }
+  .menu-links a[aria-current="page"] .ic { background: var(--btn); border-color: var(--btn); stroke: var(--on-btn); }
   .menu-cta { width: min(560px, 100%); margin: 1.3rem auto 0; min-height: 54px; font-size: 1.05rem; }
   .menu-foot { display: grid; gap: .7rem; width: min(560px, 100%); margin: auto auto 0; padding-top: 1.6rem; color: var(--text-1-muted); font-size: var(--fs-small); }
   .menu-foot p { display: flex; align-items: flex-start; gap: .7rem; margin: 0; }
@@ -956,3 +960,32 @@ main, .site-footer { overflow-x: clip; }
   .tl-dot { grid-column: 1; }
   .tl-item:nth-child(odd) .tl-card, .tl-item:nth-child(even) .tl-card { grid-column: 2; text-align: left; }
 }
+
+/* =====================================================================
+   BOUTONS : survol « or qui brille »
+   reflet qui traverse le bouton + fond doré métallisé + halo lumineux
+   ===================================================================== */
+.btn-gold, .btn-primary, .btn-outline { position: relative; overflow: hidden; isolation: isolate; }
+.btn-gold::after, .btn-primary::after, .btn-outline::after {
+  content: ""; position: absolute; z-index: -1; top: -30%; bottom: -30%; left: 0; width: 45%; pointer-events: none;
+  background: linear-gradient(100deg, rgba(255,255,255,0) 0%, rgba(255,248,220,.85) 50%, rgba(255,255,255,0) 100%);
+  transform: translateX(-170%) skewX(-22deg);
+}
+@media (hover: hover) {
+  .btn-gold:hover, .btn-primary:hover {
+    background-color: var(--btn-hover);
+    background-image: linear-gradient(135deg, #f6d98c 0%, #e2ab45 48%, #f3cd76 100%);
+    box-shadow: 0 0 0 1px rgba(255,232,163,.55), 0 0 22px rgba(226,171,69,.55);
+  }
+  .btn-outline:hover { background: var(--btn); border-color: var(--btn); color: var(--on-btn); box-shadow: 0 0 18px rgba(226,171,69,.45); }
+  .cta-band .btn-outline:hover { background: var(--btn); color: var(--on-btn); }
+  .btn-ghost:hover { background: transparent; border-color: var(--gold); color: var(--gold); box-shadow: 0 0 18px rgba(226,171,69,.35); }
+}
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .btn { transition: background-color .2s, color .2s, border-color .2s, transform .2s ease, box-shadow .35s ease; }
+  .btn-gold:hover::after, .btn-primary:hover::after, .btn-outline:hover::after {
+    transform: translateX(380%) skewX(-22deg); transition: transform 1.05s cubic-bezier(.45,.1,.3,1);
+  }
+}
+/* Le bouton d'appel flottant et la pastille active brillent aussi au toucher/focus clavier */
+.btn:focus-visible { box-shadow: 0 0 0 3px rgba(226,171,69,.45); }
