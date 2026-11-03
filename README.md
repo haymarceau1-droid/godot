@@ -11,6 +11,7 @@ Design system : voir [`DESIGN.md`](DESIGN.md) (canvas noir, surfaces blanches, o
 | `index.html` | Accueil : services, étapes, la maison, FAQ |
 | `vendre-or.html` | Rachat d'or : objets acceptés, calcul du prix, titres de l'or |
 | `acheter-or.html` | Or d'investissement : pièces, lingots, fiches des références |
+| `pourquoi-investir-or.html` | Pourquoi investir dans l'or : graphique 2000-2025, or vs inflation, risques, sources |
 | `numismatique.html` | Pièces de collection : ce qui fait la valeur, grades, conservation |
 | `argent-bijoux.html` | Argent, platine et bijoux |
 | `change.html` | Bureau de change |
@@ -28,6 +29,9 @@ python3 tools/build.py
 
 Fonctionnalités : responsive (méga menu « Nos services » sur ordinateur, panneau plein écran sous 1220px, bouton d'appel flottant), indicateur « ouvert / fermé » à l'heure de Paris,
 données structurées schema.org, animations respectant `prefers-reduced-motion`.
+
+## Données de la page « Pourquoi investir dans l'or »
+Prix moyens annuels dans `GOLD_AVG` et événements dans `EVENTS` (`tools/build.py`) ; sources listées en bas de la page (LBMA, NMA, INSEE, World Gold Council). À mettre à jour chaque année, puis `python3 tools/build.py`.
 
 ## Avis Google (accueil)
 La section est alimentée par `tools/avis.json` (format dans `tools/avis.exemple.json`) : prénom/nom, note, date et texte **réels** copiés depuis Google. Tant que `avis` est vide, rien ne s'affiche. Après modification : `python3 tools/build.py`. Ne jamais inventer d'avis.

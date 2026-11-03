@@ -42,6 +42,7 @@ FAQ = [
     ("Acheter", [
         ("Puis-je acheter de l'or pour investir ?", "Oui. Nous proposons des pièces et des lingots d'investissement. Contactez l'agence pour connaître les disponibilités et les tarifs du moment."),
         ("Les prix changent-ils dans la journée ?", "Oui. Les prix de l'or et de l'argent suivent les marchés : le tarif applicable est celui du moment de la transaction."),
+        ("L'or protège-t-il vraiment de l'inflation ?", "Sur le long terme, son prix a nettement dépassé l'inflation : en euros, l'once a été multipliée par environ 7 entre 2000 et 2024, contre ×1,5 pour les prix en France. Ce n'est pourtant pas vrai chaque année : en 2022, l'inflation a atteint 5,2 % alors que l'or est resté stable en dollars. Les performances passées ne préjugent pas des performances futures."),
         ("Quelle différence entre une pièce et un lingot ?", "Les pièces sont facilement divisibles et reconnues sur le marché ; les lingots, plus massifs, portent généralement une prime plus faible par gramme. Nous vous aidons à choisir selon votre projet."),
     ]),
     ("Numismatique", [
@@ -62,7 +63,7 @@ def header(active):
     in_svc = active in [h for h, _, _, _ in SERVICES]
     items = "".join(
         f'<a href="{h}"{cur(h)}>[[icon:{ico}]]<span><strong>{t}</strong><small>{d}</small></span></a>' for h, t, ico, d in SERVICES)
-    items += f'<a class="mega-extra" href="faq.html"{cur("faq.html")}>[[icon:zoom-check]]<span><strong>Questions fréquentes</strong><small>Estimation, documents, prix de rachat…</small></span></a>'
+    items += f'<a href="pourquoi-investir-or.html"{cur("pourquoi-investir-or.html")}>[[icon:chart-line]]<span><strong>Pourquoi investir dans l\'or</strong><small>Rendements historiques, inflation, risques…</small></span></a>'
     panel = (
         '<div class="container mega-inner">'
         f'<div class="mega-list"><p class="mega-title">Nos services</p><div class="mega-grid">{items}</div></div>'
@@ -143,6 +144,7 @@ def footer():
         <h3>Informations</h3>
         <ul>
           <li><a href="la-maison.html">La maison</a></li>
+          <li><a href="pourquoi-investir-or.html">Pourquoi investir dans l'or</a></li>
           <li><a href="faq.html">Questions fréquentes</a></li>
           <li><a href="contact.html">Contact &amp; accès</a></li>
           <li><a href="mentions-legales.html">Mentions légales</a></li>
@@ -633,6 +635,7 @@ acheter = service_hero("Acheter de l'or", "Or d'investissement", "Acheter de l'o
           <p class="eyebrow">Pourquoi de l'or physique</p>
           <h2>Un actif tangible, reconnu partout</h2>
           <p>L'or est un métal que l'on peut détenir, transmettre et revendre. Il se prête à la diversification d'une épargne.</p>
+          <p><a class="text-link" href="pourquoi-investir-or.html">Pourquoi investir dans l'or ? Rendements, inflation, risques →</a></p>
         </header>
         <div class="cards-feature cards-feature-3">
           {feature("coins", "Pièces", "Facilement divisibles, reconnues sur le marché, elles s'adaptent aux petits comme aux grands budgets.")}
@@ -907,6 +910,175 @@ def histoire_section():
       </div>
     </section>'''
 
+# ---------------------------------------------------------------- POURQUOI INVESTIR DANS L'OR
+# Données : prix moyen annuel de l'once d'or (fixing LBMA PM, USD, arrondi) — LBMA / NMA / MetalCharts.
+# Inflation : INSEE (coefficients de transformation de l'euro, base 2025 : 66,08 en 2000, 99,07 en 2024 -> ×1,50).
+GOLD_AVG = {2000: 279, 2001: 271, 2002: 310, 2003: 363, 2004: 410, 2005: 445, 2006: 603, 2007: 695, 2008: 872,
+            2009: 972, 2010: 1225, 2011: 1572, 2012: 1669, 2013: 1411, 2014: 1266, 2015: 1160, 2016: 1251,
+            2017: 1257, 2018: 1269, 2019: 1393, 2020: 1770, 2021: 1799, 2022: 1801, 2023: 1941, 2024: 2386, 2025: 3432}
+EVENTS = [(2008, "Crise financière", "L'or termine l'année en hausse (+5,6 % en dollars) alors que les marchés d'actions s'effondrent."),
+          (2011, "Crise de la dette en zone euro", "L'once atteint alors un sommet : la moyenne annuelle dépasse 1 500 $."),
+          (2020, "Pandémie de Covid-19", "Hausse de +25,1 % en dollars sur l'année."),
+          (2022, "Poussée d'inflation", "L'inflation atteint +5,2 % en France, mais l'or reste stable en dollars (−0,4 %) : il ne suit pas l'inflation année après année."),
+          (2025, "Année exceptionnelle", "Hausse d'environ +64 % à +67 % selon les sources ; record historique en janvier 2026, puis net repli.")]
+
+def fr_num(n):
+    return f"{n:,}".replace(",", "&nbsp;")
+
+def gold_chart():
+    W, H, ml, mr, mt, mb = 900, 400, 70, 24, 28, 46
+    ymax = 4000
+    px = lambda yr: ml + (yr - 2000) / 25 * (W - ml - mr)
+    py = lambda v: mt + (1 - v / ymax) * (H - mt - mb)
+    grid = "".join(
+        f'<line class="ch-grid" x1="{ml}" x2="{W - mr}" y1="{py(v):.1f}" y2="{py(v):.1f}"/>'
+        f'<text class="ch-ylab" x="{ml - 10}" y="{py(v) + 4:.1f}" text-anchor="end">{fr_num(v)}</text>' for v in range(0, 4001, 1000))
+    xlab = "".join(f'<text class="ch-xlab" x="{px(y):.1f}" y="{H - mb + 24}" text-anchor="middle">{y}</text>' for y in range(2000, 2026, 5))
+    pts = [(y, v) for y, v in GOLD_AVG.items()]
+    line = "M" + " L".join(f"{px(y):.1f} {py(v):.1f}" for y, v in pts)
+    area = line + f" L{px(2025):.1f} {py(0):.1f} L{px(2000):.1f} {py(0):.1f} Z"
+    ev_years = {e[0]: i + 1 for i, e in enumerate(EVENTS)}
+    dots = ""
+    for y, v in pts:
+        n = ev_years.get(y)
+        label = f"{y} : {fr_num(v)} $ l'once (moyenne annuelle)"
+        dots += (f'<g class="ch-pt{" ch-ev" if n else ""}" tabindex="0" data-label="{label}" transform="translate({px(y):.1f} {py(v):.1f})">'
+                 f'<circle class="ch-hit" r="14"/><circle class="ch-dot" r="{10 if n else 3.5}"/>'
+                 + (f'<text class="ch-num" y="4" text-anchor="middle">{n}</text>' if n else "") + '</g>')
+    svg = (f'<svg class="gold-chart" viewBox="0 0 {W} {H}" role="img" '
+           f'aria-label="Courbe du prix moyen annuel de l\'once d\'or en dollars, de 279 $ en 2000 à 3 432 $ en 2025">'
+           f'{grid}{xlab}<path class="ch-area" d="{area}"/><path class="ch-line" d="{line}" pathLength="1"/>{dots}</svg>')
+    legend = "".join(f'<li><span class="ev-n">{i + 1}</span><div><strong>{y} · {t}</strong><span>{d}</span></div></li>' for i, (y, t, d) in enumerate(EVENTS))
+    rows = "".join(f"<tr><th scope=\"row\">{y}</th><td>{fr_num(v)} $</td></tr>" for y, v in pts)
+    return f'''<div class="chart-card" data-chart>
+          <div class="chart-head"><strong>Prix moyen annuel de l'once d'or</strong><span>en dollars américains · 2000 – 2025</span></div>
+          <div class="chart-wrap">{svg}<div class="chart-tip" role="status" aria-live="polite" hidden></div></div>
+          <ol class="events">{legend}</ol>
+          <details class="chart-data"><summary>Voir les données du graphique</summary>
+            <div class="table-wrap table-dark"><table class="data-table"><thead><tr><th scope="col">Année</th><th scope="col">Prix moyen de l'once</th></tr></thead><tbody>{rows}</tbody></table></div>
+          </details>
+        </div>'''
+
+pourquoi = service_hero("Pourquoi investir dans l'or", "Or d'investissement", "Pourquoi investir dans l'or ?",
+    "Valeur refuge, protection du pouvoir d'achat, diversification : les chiffres depuis 2000, l'effet de l'inflation, et aussi les risques à connaître avant d'acheter.",
+    "chart-line", [("shield-check", "Valeur refuge", "Réputée en période d'incertitude"), ("chart-line", "×8,5 depuis 2000", "Prix moyen de l'once en dollars"), ("scale", "Aussi des risques", "L'or fluctue, parfois fortement")]) + f'''
+
+    <section class="section">
+      <div class="container">
+        <header class="section-head">
+          <p class="eyebrow">Les chiffres clés</p>
+          <h2>Ce que montrent les données</h2>
+          <p>Quelques repères issus de sources publiques (LBMA, INSEE, World Gold Council). Les performances passées ne préjugent pas des performances futures.</p>
+        </header>
+        <div class="stat-grid">
+          <div class="stat"><strong>×8,5</strong><span>Prix moyen de l'once d'or entre 2000 (279 $) et 2024 (2 386 $)</span></div>
+          <div class="stat"><strong>×1,5</strong><span>Hausse des prix à la consommation en France sur la même période (INSEE)</span></div>
+          <div class="stat"><strong>+5,6 %</strong><span>Performance de l'or en 2008, année de la crise financière (en dollars)</span></div>
+          <div class="stat stat-warn"><strong>−70 %</strong><span>Baisse de l'or entre son pic de 1980 (850 $) et son plus bas de 1999 (≈ 252 $)</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-dark">
+      <div class="container">
+        <header class="section-head">
+          <p class="eyebrow">Depuis l'an 2000</p>
+          <h2>Un quart de siècle de hausse… avec des à-coups</h2>
+          <p>Passez la souris sur la courbe (ou naviguez au clavier) pour lire le prix de chaque année. Les points numérotés correspondent aux événements ci-dessous.</p>
+        </header>
+        {gold_chart()}
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <header class="section-head">
+          <p class="eyebrow">Or et inflation</p>
+          <h2>Préserver son pouvoir d'achat sur le long terme</h2>
+          <p>L'inflation grignote la valeur de l'épargne en euros : 1 € de 2000 ne vaut plus que l'équivalent d'environ 0,67 € en 2024. Sur la même période, l'once d'or a nettement mieux résisté.</p>
+        </header>
+        <div class="compare" data-compare>
+          <div class="cmp-row"><div class="cmp-label"><strong>Prix de l'once d'or en euros</strong><span>≈ 302 € en 2000 → ≈ 2 205 € en 2024</span></div>
+            <div class="cmp-bar"><i style="--k:1"></i><b>×7,3</b></div></div>
+          <div class="cmp-row"><div class="cmp-label"><strong>Prix à la consommation en France</strong><span>indice 100 en 2000 → 150 en 2024</span></div>
+            <div class="cmp-bar cmp-bar-grey"><i style="--k:.205"></i><b>×1,5</b></div></div>
+        </div>
+        <p class="note">Or en euros : prix moyen LBMA en dollars converti au taux de change moyen annuel de la BCE (calcul indicatif). Inflation : coefficients de l'INSEE (66,08 en 2000 ; 99,07 en 2024).</p>
+        <aside class="notice notice-light"><strong>Attention au point de départ :</strong> l'année 2000 correspond à un plus bas historique de l'or. Un investisseur qui avait acheté au pic de 1980 a dû attendre plus de vingt ans pour retrouver son prix d'achat en dollars, et bien plus longtemps encore en tenant compte de l'inflation.</aside>
+        <div class="table-wrap table-mt">
+          <table class="data-table">
+            <caption>Or et inflation ces dernières années</caption>
+            <thead><tr><th scope="col">Année</th><th scope="col">Or (en dollars)</th><th scope="col">Inflation en France</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">2022</th><td>−0,4 %</td><td>+5,2 %</td></tr>
+              <tr><th scope="row">2023</th><td>+13,2 %</td><td>+4,9 %</td></tr>
+              <tr><th scope="row">2024</th><td>+27,2 %</td><td>+2,0 %</td></tr>
+              <tr><th scope="row">2025</th><td>≈ +64 % à +67 %</td><td>+0,9 %</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-dark">
+      <div class="container">
+        <header class="section-head">
+          <p class="eyebrow">Pourquoi les investisseurs en détiennent</p>
+          <h2>Quatre raisons souvent avancées</h2>
+        </header>
+        <div class="cards-feature cards-feature-dark">
+          {feature("shield-check", "Une valeur refuge", "Dans les périodes de crise ou d'incertitude, beaucoup d'investisseurs se tournent vers l'or, reconnu partout dans le monde.")}
+          {feature("scale", "Un actif sans émetteur", "L'or n'est la dette de personne : il ne dépend ni d'une entreprise, ni d'un État, ni d'une banque.")}
+          {feature("coins", "Une diversification", "Il évolue différemment des actions et des obligations : il peut équilibrer un patrimoine, sans le remplacer.")}
+          {feature("chart-line", "Un recours contre l'érosion monétaire", "Sur le long terme, son prix a dépassé l'inflation, même si ce n'est pas vrai chaque année.")}
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <header class="section-head">
+          <p class="eyebrow">Avant d'acheter</p>
+          <h2>Ce qu'il faut savoir aussi</h2>
+          <p>L'or n'est pas un placement sans risque. Voici les points à avoir en tête.</p>
+        </header>
+        <div class="cards-feature">
+          {feature("chart-line", "Un prix qui fluctue", "L'or a perdu environ 70 % de sa valeur de 1980 à 1999. Plus récemment, après un record historique fin janvier 2026 (au-dessus de 5 500 $ l'once), il a nettement reculé.")}
+          {feature("cash-banknote", "Aucun revenu", "Contrairement à une action ou une obligation, l'or ne verse ni dividende ni intérêt : le gain ne vient que de la hausse du prix.")}
+          {feature("receipt-euro", "Des frais", "L'écart entre prix d'achat et prix de revente, les éventuels frais de conservation et l'assurance pèsent sur le rendement.")}
+          {feature("file-certificate", "Une fiscalité spécifique", "La vente d'or d'investissement est soumise à des règles particulières : renseignez-vous avant d'acheter, et conservez vos justificatifs.")}
+        </div>
+        <aside class="notice notice-light"><strong>Information générale :</strong> cette page ne constitue ni un conseil en investissement ni une recommandation personnalisée. Investir comporte un risque de perte en capital. L'or est généralement envisagé comme une poche de diversification, et non comme la totalité d'un patrimoine.</aside>
+      </div>
+    </section>
+
+    <section class="section section-soft">
+      <div class="container narrow">
+        <header class="section-head"><p class="eyebrow">Passer à l'action</p><h2>Acheter de l'or à Chartres</h2></header>
+        <p class="lead-dark">Pièces d'investissement (Napoléon, Souverain, Krugerrand, Maple Leaf…) ou lingots : l'agence vous renseigne sur les disponibilités et le tarif du jour, sans engagement.</p>
+        <div class="hero-actions">
+          <a class="btn btn-gold" href="acheter-or.html">Découvrir pièces et lingots</a>
+          <a class="btn btn-ghost" href="contact.html">Nous contacter</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container narrow">
+        <header class="section-head"><p class="eyebrow">Sources</p><h2>D'où viennent ces chiffres</h2></header>
+        <ul class="sources">
+          <li>Prix moyens annuels de l'once : <a href="https://www.lbma.org.uk/prices-and-data/lbma-annual-precious-metals-forecast-survey" target="_blank" rel="noopener">LBMA</a>, <a href="https://nma.org/resources/historical-gold-prices-1833-to-present/" target="_blank" rel="noopener">NMA (série historique)</a>, <a href="https://metalcharts.org/gold-price-history" target="_blank" rel="noopener">MetalCharts</a>.</li>
+          <li>Performances annuelles de l'or : données du <a href="https://www.gold.org/goldhub/data/gold-prices" target="_blank" rel="noopener">World Gold Council</a> relayées par <a href="https://chartrow.com/gold/returns" target="_blank" rel="noopener">Chartrow</a>.</li>
+          <li>Inflation en France : <a href="https://www.insee.fr/fr/statistiques/serie/011813530" target="_blank" rel="noopener">INSEE, coefficients de transformation de l'euro</a> et <a href="https://www.insee.fr/fr/statistiques/8726461" target="_blank" rel="noopener">prix à la consommation 2025</a>.</li>
+          <li>Les valeurs sont arrondies et peuvent différer de quelques dollars selon les sources. Dernière vérification des données : novembre 2026.</li>
+        </ul>
+      </div>
+    </section>
+
+{faq_section("Investir dans l'or", FAQ[2][1], cls="section-soft")}'''
+page("pourquoi-investir-or.html", "Pourquoi investir dans l'or ? Rendements historiques, inflation, risques | Godot &amp; Fils Chartres",
+     "Pourquoi investir dans l'or : évolution du prix de l'once depuis 2000, comparaison avec l'inflation en France, valeur refuge, mais aussi risques et fiscalité. Information générale.", pourquoi)
+
 # ---------------------------------------------------------------- LA MAISON
 maison = hero("La maison", "Depuis 1933", "Une institution du négoce de métaux précieux.",
               "Depuis 1933, la maison Godot & Fils accompagne particuliers et épargnants dans l'achat et la vente d'or, d'argent et de métaux précieux.", actions=False) + '''
@@ -1039,7 +1211,7 @@ legal = '''    <section class="legal">
 page("mentions-legales.html", "Mentions légales — Godot &amp; Fils Chartres", "Mentions légales du site Godot & Fils Chartres.", legal, cta=False, noindex=True)
 
 # ---------------------------------------------------------------- sitemap / robots
-pages = ["index.html"] + [h for h, _ in NAV] + ["faq.html"]
+pages = ["index.html"] + [h for h, _ in NAV] + ["pourquoi-investir-or.html", "faq.html"]
 with open(os.path.join(ROOT, "sitemap.xml"), "w") as f:
     f.write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n')
     for p in pages:

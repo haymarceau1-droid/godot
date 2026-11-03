@@ -275,3 +275,58 @@
   window.addEventListener('resize', update);
   update();
 })();
+
+// ---------------------------------------------------------------- Graphique du prix de l'or + barres de comparaison
+(function () {
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var blocks = document.querySelectorAll('[data-chart], [data-compare]');
+  if (!blocks.length) return;
+
+  // Déclenche le tracé / la croissance des barres quand le bloc entre à l'écran
+  if (reduce || !('IntersectionObserver' in window)) {
+    blocks.forEach(function (b) { b.classList.add('in'); });
+  } else {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } });
+    }, { threshold: 0.3 });
+    blocks.forEach(function (b) { io.observe(b); });
+  }
+
+  // Infobulle : survol (souris/tactile) et focus clavier
+  document.querySelectorAll('[data-chart]').forEach(function (card) {
+    var wrap = card.querySelector('.chart-wrap'), tip = card.querySelector('.chart-tip');
+    var pts = Array.prototype.slice.call(card.querySelectorAll('.ch-pt'));
+    var current = null;
+    function show(pt) {
+      if (current && current !== pt) current.classList.remove('is-hot');
+      current = pt; pt.classList.add('is-hot');
+      var r = pt.getBoundingClientRect(), w = wrap.getBoundingClientRect();
+      tip.textContent = pt.getAttribute('data-label');
+      tip.hidden = false;
+      var x = r.left + r.width / 2 - w.left;
+      var half = tip.offsetWidth / 2;
+      x = Math.max(half, Math.min(w.width - half, x));
+      tip.style.left = x + 'px';
+      tip.style.top = (r.top + r.height / 2 - w.top) + 'px';
+    }
+    function hide() { if (current) current.classList.remove('is-hot'); current = null; tip.hidden = true; }
+    wrap.addEventListener('pointermove', function (e) {
+      var best = null, bd = 1e9;
+      pts.forEach(function (p) {
+        var r = p.getBoundingClientRect(), d = Math.abs(e.clientX - (r.left + r.width / 2));
+        if (d < bd) { bd = d; best = p; }
+      });
+      if (best) show(best);
+    });
+    wrap.addEventListener('pointerleave', hide);
+    pts.forEach(function (p) {
+      p.addEventListener('focus', function () { show(p); });
+      p.addEventListener('blur', hide);
+      p.addEventListener('keydown', function (e) {
+        var i = pts.indexOf(p);
+        if (e.key === 'ArrowRight' && pts[i + 1]) { e.preventDefault(); pts[i + 1].focus(); }
+        if (e.key === 'ArrowLeft' && pts[i - 1]) { e.preventDefault(); pts[i - 1].focus(); }
+      });
+    });
+  });
+})();
