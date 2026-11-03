@@ -692,3 +692,12 @@
   setInterval(function () { if (!document.hidden) load(); }, 60000);
   document.addEventListener('visibilitychange', function () { if (!document.hidden) load(); });
 })();
+
+
+// Gélules des pages services : la page active est centrée dans la rangée défilante (mobile)
+(function () {
+  var ul = document.querySelector('.subnav ul');
+  var cur = ul && ul.querySelector('[aria-current="page"]');
+  if (!cur || ul.scrollWidth <= ul.clientWidth) return;
+  ul.scrollLeft = cur.offsetLeft - (ul.clientWidth - cur.offsetWidth) / 2;
+})();
