@@ -599,7 +599,7 @@
   var nf2 = new Intl.NumberFormat('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
   var pf = new Intl.NumberFormat('fr-FR', { minimumFractionDigits: 1, maximumFractionDigits: 1, signDisplay: 'exceptZero' });
   var tf = new Intl.DateTimeFormat('fr-FR', { hour: '2-digit', minute: '2-digit' });
-  var df = { '1m': { day: 'numeric', month: 'short' }, '1y': { day: 'numeric', month: 'short', year: 'numeric' }, '5y': { month: 'short', year: 'numeric' } };
+  var df = { '1d': { hour: '2-digit', minute: '2-digit' }, '7d': { weekday: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }, '1m': { day: 'numeric', month: 'short' }, '1y': { day: 'numeric', month: 'short', year: 'numeric' }, '5y': { month: 'short', year: 'numeric' } };
   var colors = { or: '#e2ab45', argent: '#cfd3d8' };
   var range = '1m', last = {}, data = null, svgNS = 'http://www.w3.org/2000/svg';
 
@@ -636,7 +636,7 @@
       grid + '<path d="' + d + 'L' + W + ' ' + H + 'L0 ' + H + 'Z" fill="url(#' + gid + ')"/><path class="pc-line" d="' + d + '"/>' +
       '<line class="pc-cursor" y1="0" y2="' + H + '" hidden/></svg>' +
       '<span class="pc-dot" hidden></span><div class="pc-tip" hidden></div>' +
-      '<div class="pc-axis"><span>' + new Date(hist[0][0] * 1000).toLocaleDateString('fr-FR', df[range]) + '</span><span>' + new Date(hist[n - 1][0] * 1000).toLocaleDateString('fr-FR', df[range]) + '</span></div>';
+      '<div class="pc-axis"><span>' + new Date(hist[0][0] * 1000).toLocaleString('fr-FR', df[range]) + '</span><span>' + new Date(hist[n - 1][0] * 1000).toLocaleString('fr-FR', df[range]) + '</span></div>';
     var first = hist[0][1], lastv = hist[n - 1][1], pct = (lastv / first - 1) * 100;
     v.textContent = pf.format(pct) + ' %'; v.className = 'price-var ' + (pct > 0 ? 'up' : pct < 0 ? 'down' : '');
     host.setAttribute('aria-label', 'Évolution du cours sur la période : ' + pf.format(pct) + ' %, de ' + nf2.format(first) + ' à ' + nf2.format(lastv) + ' euros le gramme');
@@ -648,7 +648,7 @@
       var px = (i / (n - 1)) * r.width, py = (Y(hist[i][1]) / H) * r.height;
       cur.setAttribute('x1', X(i)); cur.setAttribute('x2', X(i)); cur.removeAttribute('hidden');
       dot.style.left = px + 'px'; dot.style.top = py + 'px'; dot.hidden = false;
-      tip.innerHTML = nf2.format(hist[i][1]) + ' € / g<small>' + new Date(hist[i][0] * 1000).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' }) + '</small>';
+      tip.innerHTML = nf2.format(hist[i][1]) + ' € / g<small>' + new Date(hist[i][0] * 1000).toLocaleString('fr-FR', (range === '1d' || range === '7d') ? { weekday: 'long', day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit' } : { day: 'numeric', month: 'long', year: 'numeric' }) + '</small>';
       tip.hidden = false;
       tip.style.left = Math.max(60, Math.min(r.width - 60, px)) + 'px';
     }

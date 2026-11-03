@@ -5,7 +5,7 @@
 //   - historique quotidien : Stooq (xauusd / xagusd), secours Yahoo Finance (GC=F / SI=F)
 //   - taux USD→EUR : Frankfurter / BCE (instantané et historique), secours open.er-api.com
 const OZ = 31.1034768; // grammes dans une once troy
-const DAYS = { '1m': 31, '1y': 366, '5y': 1827 };
+const DAYS = { '1d': 1, '7d': 7, '1m': 31, '1y': 366, '5y': 1827 };
 const MAX_POINTS = 120;
 
 async function get(url, ms = 6000, text = false) {
@@ -66,7 +66,21 @@ function sample(points) {
   return out;
 }
 
+// Intraday (1 j, 7 j) : Yahoo Finance, sans clé. Taux de change : celui du moment (il varie peu sur une semaine).
+async function intraday(yahoo, range, rate, livePerG, now) {
+  const q = range === '1d'
+    ? 'range=1d&interval=5m'
+    : `period1=${Math.floor(now / 1000) - 7 * 86400}&period2=${Math.floor(now / 1000)}&interval=60m`;
+  const y = await get(`https://query1.finance.yahoo.com/v8/finance/chart/${yahoo}?${q}`, 8000);
+  const r = y.chart.result[0], close = r.indicators.quote[0].close;
+  const pts = r.timestamp.map((t, i) => [t, (close[i] * rate) / OZ]).filter((p) => p[1] > 0);
+  const out = sample(pts);
+  if (out.length) out[out.length - 1] = [Math.floor(now / 1000), livePerG];
+  return out;
+}
+
 async function history(stooq, yahoo, range, rate, livePerG, now) {
+  if (range === '1d' || range === '7d') return intraday(yahoo, range, rate, livePerG, now);
   const from = new Date(now - DAYS[range] * 864e5);
   const usd = await usdHistory(stooq, yahoo, from, new Date(now));
   const pts = usd.map(([t, p]) => [t, (p * rate(new Date(t * 1000))) / OZ]).filter((p) => p[1] > 0);
@@ -91,7 +105,7 @@ module.exports = async (req, res) => {
     // L'historique est facultatif : s'il échoue, les prix s'affichent quand même.
     let hist = { or: null, argent: null };
     try {
-      const rateAt = await fxSeries(new Date(now - DAYS[range] * 864e5), new Date(now));
+      const rateAt = (range === '1d' || range === '7d') ? rate : await fxSeries(new Date(now - DAYS[range] * 864e5), new Date(now));
       const [h1, h2] = await Promise.all([
         history('xauusd', 'GC=F', range, rateAt, or.eur_g, now).catch((e) => { if (process.env.COURS_DEBUG) console.error(e); return null; }),
         history('xagusd', 'SI=F', range, rateAt, argent.eur_g, now).catch(() => null),

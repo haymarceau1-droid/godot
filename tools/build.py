@@ -538,6 +538,8 @@ home = f'''    <section class="hero hero-photo">
             <p class="prices-live"><span class="dot" aria-hidden="true"></span><span data-prices-time>Mise à jour…</span></p>
           </div>
           <div class="seg" role="group" aria-label="Période de la courbe">
+            <button type="button" data-range="1d" aria-pressed="false">1 j</button>
+            <button type="button" data-range="7d" aria-pressed="false">7 j</button>
             <button type="button" data-range="1m" class="is-on" aria-pressed="true">1 mois</button>
             <button type="button" data-range="1y" aria-pressed="false">1 an</button>
             <button type="button" data-range="5y" aria-pressed="false">5 ans</button>
