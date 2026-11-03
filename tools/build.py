@@ -196,6 +196,84 @@ ICON = {
  "change": '<svg viewBox="0 0 48 48"><path d="M8 16h26l-6-6"/><path d="M40 32H14l6 6"/></svg>',
 }
 
+# ---------------------------------------------------------------- RÉSEAU (carte de France)
+import unicodedata
+def slug(t):
+    t = unicodedata.normalize("NFKD", t).encode("ascii", "ignore").decode()
+    return "".join(c if c.isalnum() else "-" for c in t.lower()).strip("-")
+
+GROUP_TITLES = {"Île-de-France": "Paris &amp; Île-de-France", "Hauts-de-France": "Hauts-de-France", "Savoie": "Savoie"}
+
+def reseau_section():
+    m = json.load(open(os.path.join(ROOT, "tools", "geo", "france-map.json"), encoding="utf-8"))
+    groups = {}
+    for v in m["villes"]:
+        key = v.get("pin", v["ville"])
+        g = groups.setdefault(key, {"titre": GROUP_TITLES.get(key, key), "x": v["x"], "y": v["y"], "local": False, "agences": []})
+        g["local"] = g["local"] or v.get("local", False)
+        g["agences"] += v["agences"]
+    n_ag = sum(len(g["agences"]) for g in groups.values())
+    n_vi = len(m["villes"])
+    pins, chips, panels = [], [], []
+    for key, g in sorted(groups.items(), key=lambda kv: kv[1]["titre"].replace("Î", "I")):
+        sid, n = "p-" + slug(key), len(g["agences"])
+        r = min(6 + (n - 1) * 1.1, 12)
+        cls = "pin pin-local" if g["local"] else "pin"
+        label = f'{g["titre"]}, {n} agence{"s" if n > 1 else ""}'.replace("&amp;", "et")
+        pins.append(f'''          <g class="{cls}" data-target="{sid}" tabindex="0" role="button" aria-label="{label}" transform="translate({g["x"]} {g["y"]})">
+            <circle class="pin-hit" r="18"/><circle class="pin-halo" r="{r + 5:.1f}"/><circle class="pin-dot" r="{r:.1f}"/>
+            <title>{g["titre"]}</title>
+          </g>''')
+        chips.append(f'<li><button type="button" class="chip{" chip-local" if g["local"] else ""}" data-target="{sid}">{g["titre"]}</button></li>')
+        items = []
+        for a in g["agences"]:
+            adr = a.get("adresse") or "Adresse à confirmer auprès de l'agence"
+            adr = adr.replace("&", "&amp;")
+            tel = f'<a href="tel:+33{a["tel"].replace(" ", "")[1:]}">{a["tel"]}</a>' if a.get("tel") else ""
+            ext = a.get("url")
+            link = ""
+            if ext:
+                ext_attr = "" if ext.endswith(".html") and not ext.startswith("http") else ' target="_blank" rel="noopener"'
+                link = f'<a class="text-link-light" href="{ext}"{ext_attr}>Voir l\'agence</a>'
+            items.append(f'<li><strong>{a["nom"]}</strong><span>{adr}</span>{(" " + tel) if tel else ""}{link}</li>')
+        badge = '<p class="panel-badge">Notre agence</p>' if g["local"] else ""
+        panels.append(f'''        <div class="panel" id="{sid}">
+          {badge}<h3>{g["titre"]}</h3>
+          <p class="panel-count">{n} agence{"s" if n > 1 else ""}</p>
+          <ul class="agences">{"".join(items)}</ul>
+        </div>''')
+    local_id = next("p-" + slug(k) for k, g in groups.items() if g["local"])
+    return f'''    <section class="section section-dark" id="reseau" data-default="{local_id}">
+      <div class="container">
+        <header class="section-head">
+          <p class="eyebrow">Notre réseau</p>
+          <h2>Des agences partout en France</h2>
+          <p>Godot &amp; Fils, ce sont des agences de proximité reliées par une même exigence. Cliquez sur une ville pour découvrir l'agence la plus proche de vous.</p>
+        </header>
+        <div class="network">
+          <div class="map-france">
+            <svg viewBox="{m["viewBox"]}" role="group" aria-label="Carte de France des agences Godot &amp; Fils">
+              <path class="fr-land" d="{m["path"]}"/>
+              <g class="pins">
+{chr(10).join(pins)}
+              </g>
+            </svg>
+            <p class="map-legend"><span class="legend-dot"></span> Agence &nbsp;·&nbsp; <span class="legend-dot legend-local"></span> Chartres, notre agence</p>
+          </div>
+          <div class="network-side">
+            <div class="panels" aria-live="polite">
+{chr(10).join(panels)}
+            </div>
+          </div>
+        </div>
+        <h3 class="chips-title">Toutes les villes</h3>
+        <ul class="chips">
+{chr(10).join(chips)}
+        </ul>
+        <p class="map-note">{n_vi} villes et {n_ag} agences référencées. Liste établie à partir de sources publiques : le réseau évolue, retrouvez la <a class="text-link-light" href="{m["officielle"]}" target="_blank" rel="noopener">liste officielle des agences</a>.</p>
+      </div>
+    </section>'''
+
 # ---------------------------------------------------------------- ACCUEIL
 home = f'''    <section class="hero hero-photo">
       <div class="container hero-grid">
@@ -272,7 +350,9 @@ home = f'''    <section class="hero hero-photo">
       </div>
     </section>
 
-    <section class="section section-soft" id="faq">
+{reseau_section()}
+
+    <section class="section" id="faq">
       <div class="container narrow">
         <header class="section-head">
           <p class="eyebrow">Questions fréquentes</p>
@@ -519,84 +599,6 @@ change = hero("Change", "Bureau de change", "Changer vos devises à Chartres, si
 page("change.html", "Bureau de change à Chartres — Devises | Godot &amp; Fils",
      "Bureau de change à Chartres : achat et vente de devises étrangères chez Godot & Fils, 23 rue de la Pie. Renseignez-vous par téléphone sur la devise souhaitée.", change)
 
-
-# ---------------------------------------------------------------- RÉSEAU (carte de France)
-import unicodedata
-def slug(t):
-    t = unicodedata.normalize("NFKD", t).encode("ascii", "ignore").decode()
-    return "".join(c if c.isalnum() else "-" for c in t.lower()).strip("-")
-
-GROUP_TITLES = {"Île-de-France": "Paris &amp; Île-de-France", "Hauts-de-France": "Hauts-de-France", "Savoie": "Savoie"}
-
-def reseau_section():
-    m = json.load(open(os.path.join(ROOT, "tools", "geo", "france-map.json"), encoding="utf-8"))
-    groups = {}
-    for v in m["villes"]:
-        key = v.get("pin", v["ville"])
-        g = groups.setdefault(key, {"titre": GROUP_TITLES.get(key, key), "x": v["x"], "y": v["y"], "local": False, "agences": []})
-        g["local"] = g["local"] or v.get("local", False)
-        g["agences"] += v["agences"]
-    n_ag = sum(len(g["agences"]) for g in groups.values())
-    n_vi = len(m["villes"])
-    pins, chips, panels = [], [], []
-    for key, g in sorted(groups.items(), key=lambda kv: kv[1]["titre"].replace("Î", "I")):
-        sid, n = "p-" + slug(key), len(g["agences"])
-        r = min(6 + (n - 1) * 1.1, 12)
-        cls = "pin pin-local" if g["local"] else "pin"
-        label = f'{g["titre"]}, {n} agence{"s" if n > 1 else ""}'.replace("&amp;", "et")
-        pins.append(f'''          <g class="{cls}" data-target="{sid}" tabindex="0" role="button" aria-label="{label}" transform="translate({g["x"]} {g["y"]})">
-            <circle class="pin-hit" r="18"/><circle class="pin-halo" r="{r + 5:.1f}"/><circle class="pin-dot" r="{r:.1f}"/>
-            <title>{g["titre"]}</title>
-          </g>''')
-        chips.append(f'<li><button type="button" class="chip{" chip-local" if g["local"] else ""}" data-target="{sid}">{g["titre"]}</button></li>')
-        items = []
-        for a in g["agences"]:
-            adr = a.get("adresse") or "Adresse à confirmer auprès de l'agence"
-            adr = adr.replace("&", "&amp;")
-            tel = f'<a href="tel:+33{a["tel"].replace(" ", "")[1:]}">{a["tel"]}</a>' if a.get("tel") else ""
-            ext = a.get("url")
-            link = ""
-            if ext:
-                ext_attr = "" if ext.endswith(".html") and not ext.startswith("http") else ' target="_blank" rel="noopener"'
-                link = f'<a class="text-link-light" href="{ext}"{ext_attr}>Voir l\'agence</a>'
-            items.append(f'<li><strong>{a["nom"]}</strong><span>{adr}</span>{(" " + tel) if tel else ""}{link}</li>')
-        badge = '<p class="panel-badge">Notre agence</p>' if g["local"] else ""
-        panels.append(f'''        <div class="panel" id="{sid}">
-          {badge}<h3>{g["titre"]}</h3>
-          <p class="panel-count">{n} agence{"s" if n > 1 else ""}</p>
-          <ul class="agences">{"".join(items)}</ul>
-        </div>''')
-    local_id = next("p-" + slug(k) for k, g in groups.items() if g["local"])
-    return f'''    <section class="section section-dark" id="reseau" data-default="{local_id}">
-      <div class="container">
-        <header class="section-head">
-          <p class="eyebrow">Notre réseau</p>
-          <h2>Des agences partout en France</h2>
-          <p>Godot &amp; Fils, ce sont des agences de proximité reliées par une même exigence. Cliquez sur une ville pour découvrir l'agence la plus proche de vous.</p>
-        </header>
-        <div class="network">
-          <div class="map-france">
-            <svg viewBox="{m["viewBox"]}" role="group" aria-label="Carte de France des agences Godot &amp; Fils">
-              <path class="fr-land" d="{m["path"]}"/>
-              <g class="pins">
-{chr(10).join(pins)}
-              </g>
-            </svg>
-            <p class="map-legend"><span class="legend-dot"></span> Agence &nbsp;·&nbsp; <span class="legend-dot legend-local"></span> Chartres, notre agence</p>
-          </div>
-          <div class="network-side">
-            <div class="panels" aria-live="polite">
-{chr(10).join(panels)}
-            </div>
-          </div>
-        </div>
-        <h3 class="chips-title">Toutes les villes</h3>
-        <ul class="chips">
-{chr(10).join(chips)}
-        </ul>
-        <p class="map-note">{n_vi} villes et {n_ag} agences référencées. Liste établie à partir de sources publiques : le réseau évolue, retrouvez la <a class="text-link-light" href="{m["officielle"]}" target="_blank" rel="noopener">liste officielle des agences</a>.</p>
-      </div>
-    </section>'''
 
 # ---------------------------------------------------------------- LA MAISON
 maison = hero("La maison", "Depuis 1933", "Une institution du négoce de métaux précieux.",
