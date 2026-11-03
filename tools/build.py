@@ -378,9 +378,81 @@ page("index.html", "Godot &amp; Fils Chartres — Achat et vente d'or, d'argent 
      "Agence Godot & Fils à Chartres, 23 rue de la Pie : achat et vente d'or, d'argent, de pièces, de lingots et de bijoux, bureau de change. Estimation gratuite, sans engagement et sans rendez-vous.",
      home, ld=LD_STORE)
 
+# ================================================================ PAGES SERVICES
+SERVICES = [
+    ("vendre-or.html", "Vendre mon or", "coin-euro", "Faites estimer et rachetez vos objets en or, sans rendez-vous."),
+    ("acheter-or.html", "Acheter de l'or", "coins", "Pièces et lingots d'investissement, avec conseil personnalisé."),
+    ("argent-bijoux.html", "Argent &amp; bijoux", "diamond", "Argenterie, platine et bijoux anciens estimés avec soin."),
+    ("change.html", "Bureau de change", "exchange", "Devises étrangères pour vos voyages, achat et vente."),
+]
+
+def subnav(active):
+    items = "".join(
+        f'<li><a href="{h}"{" aria-current=\"page\"" if h == active else ""}>[[icon:{ico}]]<span>{t}</span></a></li>'
+        for h, t, ico, _ in SERVICES)
+    return f'''    <div class="subnav" aria-label="Nos services">
+      <div class="container"><ul>{items}</ul></div>
+    </div>'''
+
+def service_hero(crumb, eyebrow, h1, lead, icon, facts):
+    fl = "".join(f'<li>[[icon:{i_}]]<div><strong>{big}</strong><span>{small}</span></div></li>' for i_, big, small in facts)
+    return f'''    <section class="page-hero service-hero">
+      <div class="container service-hero-grid">
+        <div>
+          <nav class="crumbs" aria-label="Fil d'Ariane"><a href="index.html">Accueil</a> <span aria-hidden="true">/</span> <span>{crumb}</span></nav>
+          <p class="eyebrow">{eyebrow}</p>
+          <h1>{h1}</h1>
+          <p class="lead">{lead}</p>
+          <div class="hero-actions">
+            <a class="btn btn-gold" href="contact.html">Venir à l'agence</a>
+            <a class="btn btn-ghost" href="tel:{TEL_HREF}">Appeler l'agence</a>
+          </div>
+        </div>
+        <aside class="facts-card" aria-label="L'essentiel">
+          <div class="facts-mark" aria-hidden="true">[[icon:{icon}]]</div>
+          <ul>{fl}</ul>
+        </aside>
+      </div>
+    </section>'''
+
+def others(active, cls=""):
+    cards = "".join(
+        f'<a class="other-card" href="{h}"><span class="card-icon" aria-hidden="true">[[icon:{ico}]]</span><h3>{t}</h3><p>{d}</p><span class="link-more">Découvrir</span></a>'
+        for h, t, ico, d in SERVICES if h != active)
+    return f'''    <section class="section {cls} others">
+      <div class="container">
+        <header class="section-head"><p class="eyebrow">Nos autres services</p><h2>Ce que nous pouvons aussi faire pour vous</h2></header>
+        <div class="cards cards-3">{cards}</div>
+      </div>
+    </section>'''
+
+def feature(icon, title, text):
+    return f'<article class="card-row"><span class="card-icon" aria-hidden="true">[[icon:{icon}]]</span><div><h3>{title}</h3><p>{text}</p></div></article>'
+
+def faq_section(title, items, cls="section-soft"):
+    return f'''    <section class="section {cls}">
+      <div class="container narrow">
+        <header class="section-head"><p class="eyebrow">Questions fréquentes</p><h2>{title}</h2></header>
+        <div class="faq">
+{faq_block(items)}
+        </div>
+      </div>
+    </section>'''
+
+FORMULA = '''        <div class="formula" role="img" aria-label="Poids multiplié par pureté multiplié par cours du jour égale votre offre">
+          <div class="f-box">[[icon:scale]]<strong>Poids</strong><span>pesée sur place</span></div>
+          <span class="f-op" aria-hidden="true">[[icon:x]]</span>
+          <div class="f-box">[[icon:diamond]]<strong>Pureté</strong><span>titre du poinçon</span></div>
+          <span class="f-op" aria-hidden="true">[[icon:x]]</span>
+          <div class="f-box">[[icon:chart-line]]<strong>Cours du jour</strong><span>au moment de la vente</span></div>
+          <span class="f-op" aria-hidden="true">[[icon:equal]]</span>
+          <div class="f-box f-result">[[icon:receipt-euro]]<strong>Votre offre</strong><span>détaillée et expliquée</span></div>
+        </div>'''
+
 # ---------------------------------------------------------------- VENDRE
-vendre = hero("Vendre mon or", "Rachat d'or à Chartres", "Vendre mon or à Chartres, au meilleur prix du jour.",
-              "Bijoux, alliances, or dentaire, pièces, lingots : faites estimer vos objets gratuitement, sous vos yeux, sans rendez-vous et sans engagement.") + f'''
+vendre = service_hero("Vendre mon or", "Rachat d'or à Chartres", "Vendre mon or à Chartres, au prix du jour.",
+    "Bijoux, alliances, or dentaire, pièces, lingots : faites estimer vos objets gratuitement, sous vos yeux, sans rendez-vous et sans engagement.",
+    "coin-euro", [("coin-euro", "0 €", "Estimation gratuite"), ("building-store", "Sans RDV", "Du lundi au vendredi"), ("scale", "Sous vos yeux", "Pesée et contrôle du titre")]) + "\n" + subnav("vendre-or.html") + f'''
 
     <section class="section">
       <div class="container">
@@ -389,13 +461,13 @@ vendre = hero("Vendre mon or", "Rachat d'or à Chartres", "Vendre mon or à Char
           <h2>Tout objet contenant de l'or</h2>
           <p>L'état n'a pas d'importance : le prix repose sur le poids et la pureté du métal.</p>
         </header>
-        <div class="cards">
-          <article class="card"><div class="card-icon" aria-hidden="true">[[icon:diamond]]</div><h3>Bijoux</h3><p>Bagues, colliers, bracelets, chaînes, médailles, boucles d'oreilles, même cassés, démodés ou dépareillés.</p></article>
-          <article class="card"><div class="card-icon" aria-hidden="true">[[icon:heart-handshake]]</div><h3>Alliances &amp; gourmettes</h3><p>Alliances anciennes, bagues de famille, gourmettes et chevalières dont vous n'avez plus l'usage.</p></article>
-          <article class="card"><div class="card-icon" aria-hidden="true">[[icon:dental]]</div><h3>Or dentaire</h3><p>Couronnes, bridges et autres pièces dentaires en or sont estimés selon leur teneur en métal précieux.</p></article>
-          <article class="card"><div class="card-icon" aria-hidden="true">[[icon:coins]]</div><h3>Pièces d'or</h3><p>Napoléon, Souverain, Krugerrand, 50 pesos et autres pièces d'or de collection ou d'investissement.</p></article>
-          <article class="card"><div class="card-icon" aria-hidden="true">[[icon:scale]]</div><h3>Lingots &amp; lingotins</h3><p>Lingots de toutes tailles : estimation au poids et au titre, avec vos justificatifs si vous les avez.</p></article>
-          <article class="card card-accent"><h3>Un doute ?</h3><p>Apportez l'objet : nous vous disons gratuitement ce qu'il vaut.</p><a class="link-arrow" href="contact.html">Venir à l'agence</a></article>
+        <div class="cards-feature">
+          {feature("diamond", "Bijoux", "Bagues, colliers, bracelets, chaînes, médailles, boucles d'oreilles, même cassés, démodés ou dépareillés.")}
+          {feature("heart-handshake", "Alliances &amp; gourmettes", "Alliances anciennes, bagues de famille, gourmettes et chevalières dont vous n'avez plus l'usage.")}
+          {feature("dental", "Or dentaire", "Couronnes, bridges et autres pièces dentaires en or sont estimés selon leur teneur en métal précieux.")}
+          {feature("coins", "Pièces d'or", "Napoléon, Souverain, Krugerrand, 50 pesos et autres pièces d'or de collection ou d'investissement.")}
+          {feature("scale", "Lingots &amp; lingotins", "Lingots de toutes tailles : estimation au poids et au titre, avec vos justificatifs si vous les avez.")}
+          <article class="card-row card-row-accent"><div><h3>Un doute ?</h3><p>Apportez l'objet : nous vous disons gratuitement ce qu'il vaut.</p><a class="link-arrow" href="contact.html">Venir à l'agence</a></div></article>
         </div>
       </div>
     </section>
@@ -413,50 +485,62 @@ vendre = hero("Vendre mon or", "Rachat d'or à Chartres", "Vendre mon or à Char
     </section>
 
     <section class="section">
-      <div class="container split">
-        <div class="split-copy">
+      <div class="container">
+        <header class="section-head">
           <p class="eyebrow">Comment est fixé le prix</p>
-          <h2>Poids, pureté et cours du jour</h2>
-          <p>Le prix de rachat dépend de trois éléments : le <strong>poids</strong> de l'objet, son <strong>titre</strong> (la proportion d'or pur, gravée par un poinçon) et le <strong>cours de l'or</strong> au moment de la transaction.</p>
-          <p>Les pièces de collection peuvent en plus avoir une valeur numismatique. Toutes ces informations vous sont expliquées avant que vous décidiez.</p>
-          <ul class="checks">
-            <li>Pesée et contrôle du titre devant vous</li>
-            <li>Offre détaillée et expliquée</li>
-            <li>Aucune obligation d'accepter</li>
-          </ul>
-        </div>
-        <div>
-          <div class="table-wrap">
-            <table class="data-table">
-              <caption>Les titres de l'or les plus courants</caption>
-              <thead><tr><th scope="col">Carats</th><th scope="col">Titre (pureté)</th><th scope="col">Teneur en or</th></tr></thead>
-              <tbody>
-                <tr><th scope="row">24 carats</th><td>999 ‰</td><td>99,9 %</td></tr>
-                <tr><th scope="row">18 carats</th><td>750 ‰</td><td>75 %</td></tr>
-                <tr><th scope="row">14 carats</th><td>585 ‰</td><td>58,5 %</td></tr>
-                <tr><th scope="row">9 carats</th><td>375 ‰</td><td>37,5 %</td></tr>
-              </tbody>
-            </table>
+          <h2>Un calcul simple, expliqué avant de décider</h2>
+          <p>Le prix de rachat dépend du poids de l'objet, de son titre (la proportion d'or pur, gravée par un poinçon) et du cours de l'or au moment de la transaction.</p>
+        </header>
+{FORMULA}
+        <div class="split split-top">
+          <div class="split-copy">
+            <p>Les pièces de collection peuvent en plus avoir une valeur numismatique. Toutes ces informations vous sont expliquées avant que vous décidiez.</p>
+            <ul class="checks">
+              <li>Pesée et contrôle du titre devant vous</li>
+              <li>Offre détaillée et expliquée</li>
+              <li>Aucune obligation d'accepter</li>
+            </ul>
           </div>
-          <p class="note">En France, l'or 18 carats (750 ‰) est le plus répandu en bijouterie.</p>
+          <div>
+            <div class="table-wrap">
+              <table class="data-table">
+                <caption>Les titres de l'or les plus courants</caption>
+                <thead><tr><th scope="col">Carats</th><th scope="col">Titre (pureté)</th><th scope="col">Teneur en or</th></tr></thead>
+                <tbody>
+                  <tr><th scope="row">24 carats</th><td>999 ‰</td><td>99,9 %</td></tr>
+                  <tr><th scope="row">18 carats</th><td>750 ‰</td><td>75 %</td></tr>
+                  <tr><th scope="row">14 carats</th><td>585 ‰</td><td>58,5 %</td></tr>
+                  <tr><th scope="row">9 carats</th><td>375 ‰</td><td>37,5 %</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="note">En France, l'or 18 carats (750 ‰) est le plus répandu en bijouterie.</p>
+          </div>
         </div>
       </div>
     </section>
 
-    <section class="section section-soft">
-      <div class="container narrow">
-        <header class="section-head"><p class="eyebrow">Questions fréquentes</p><h2>Vendre son or</h2></header>
-        <div class="faq">
-{faq_block(FAQ[0][1][2:] + FAQ[1][1])}
-        </div>
-      </div>
-    </section>'''
+{faq_section("Vendre son or", FAQ[0][1][2:] + FAQ[1][1])}
+
+{others("vendre-or.html")}'''
 page("vendre-or.html", "Vendre son or à Chartres — Rachat d'or, bijoux et pièces | Godot &amp; Fils",
      "Vendez votre or à Chartres : bijoux, alliances, or dentaire, pièces et lingots. Estimation gratuite et sans rendez-vous chez Godot & Fils, 23 rue de la Pie.", vendre)
 
 # ---------------------------------------------------------------- ACHETER
-acheter = hero("Acheter de l'or", "Or d'investissement", "Acheter de l'or physique : pièces et lingots.",
-               "Une épargne tangible, détenue en main propre. L'agence vous conseille selon votre projet et les disponibilités du moment.") + '''
+COINS = [
+    ("20 francs Napoléon", "France", "900 ‰", "5,81"),
+    ("Souverain", "Royaume-Uni", "916,7 ‰", "7,32"),
+    ("Krugerrand (1 once)", "Afrique du Sud", "916,7 ‰", "31,1"),
+    ("Maple Leaf (1 once)", "Canada", "999,9 ‰", "31,1"),
+    ("Philharmonique (1 once)", "Autriche", "999,9 ‰", "31,1"),
+]
+coin_cards = "\n".join(
+    f'''          <article class="coin-card"><div class="medal"><strong>{g}</strong><span>g d'or fin</span></div><h3>{n}</h3><dl><div><dt>Origine</dt><dd>{o}</dd></div><div><dt>Titre</dt><dd>{t}</dd></div></dl></article>'''
+    for n, o, t, g in COINS)
+
+acheter = service_hero("Acheter de l'or", "Or d'investissement", "Acheter de l'or physique : pièces et lingots.",
+    "Une épargne tangible, détenue en main propre. L'agence vous conseille selon votre projet et les disponibilités du moment.",
+    "coins", [("coins", "Pièces &amp; lingots", "Selon les disponibilités"), ("shield-check", "Conseil", "Personnalisé, sans pression"), ("phone-call", "Tarif du jour", "Sur simple appel")]) + "\n" + subnav("acheter-or.html") + f'''
 
     <section class="section">
       <div class="container">
@@ -465,10 +549,10 @@ acheter = hero("Acheter de l'or", "Or d'investissement", "Acheter de l'or physiq
           <h2>Un actif tangible, reconnu partout</h2>
           <p>L'or est un métal que l'on peut détenir, transmettre et revendre. Il se prête à la diversification d'une épargne.</p>
         </header>
-        <div class="cards">
-          <article class="card"><div class="card-icon" aria-hidden="true">[[icon:coins]]</div><h3>Pièces</h3><p>Facilement divisibles, reconnues sur le marché, elles s'adaptent aux petits comme aux grands budgets.</p></article>
-          <article class="card"><div class="card-icon" aria-hidden="true">[[icon:scale]]</div><h3>Lingots &amp; lingotins</h3><p>Du petit lingotin au lingot massif : une prime généralement plus faible par gramme pour les formats importants.</p></article>
-          <article class="card card-accent"><h3>Conseil personnalisé</h3><p>Dites-nous votre projet, nous vous orientons vers le produit le plus adapté.</p><a class="link-arrow" href="contact.html">Nous contacter</a></article>
+        <div class="cards-feature cards-feature-3">
+          {feature("coins", "Pièces", "Facilement divisibles, reconnues sur le marché, elles s'adaptent aux petits comme aux grands budgets.")}
+          {feature("scale", "Lingots &amp; lingotins", "Du petit lingotin au lingot massif : une prime généralement plus faible par gramme pour les formats importants.")}
+          <article class="card-row card-row-accent"><div><h3>Conseil personnalisé</h3><p>Dites-nous votre projet, nous vous orientons vers le produit le plus adapté.</p><a class="link-arrow" href="contact.html">Nous contacter</a></div></article>
         </div>
       </div>
     </section>
@@ -480,17 +564,8 @@ acheter = hero("Acheter de l'or", "Or d'investissement", "Acheter de l'or physiq
           <h2>Les références du marché</h2>
           <p>Caractéristiques indicatives. Les disponibilités et les tarifs varient : appelez l'agence pour les connaître.</p>
         </header>
-        <div class="table-wrap table-dark">
-          <table class="data-table">
-            <thead><tr><th scope="col">Pièce</th><th scope="col">Origine</th><th scope="col">Titre</th><th scope="col">Poids d'or fin</th></tr></thead>
-            <tbody>
-              <tr><th scope="row">20 francs Napoléon</th><td>France</td><td>900 ‰</td><td>≈ 5,81 g</td></tr>
-              <tr><th scope="row">Souverain</th><td>Royaume-Uni</td><td>916,7 ‰</td><td>≈ 7,32 g</td></tr>
-              <tr><th scope="row">Krugerrand (1 once)</th><td>Afrique du Sud</td><td>916,7 ‰</td><td>31,1 g</td></tr>
-              <tr><th scope="row">Maple Leaf (1 once)</th><td>Canada</td><td>999,9 ‰</td><td>31,1 g</td></tr>
-              <tr><th scope="row">Philharmonique (1 once)</th><td>Autriche</td><td>999,9 ‰</td><td>31,1 g</td></tr>
-            </tbody>
-          </table>
+        <div class="coin-grid">
+{coin_cards}
         </div>
         <aside class="notice"><strong>Bon à savoir :</strong> le prix de l'or varie en permanence. Un investissement comporte un risque de perte en capital et la fiscalité de l'or a ses propres règles : renseignez-vous avant d'acheter.</aside>
       </div>
@@ -507,20 +582,16 @@ acheter = hero("Acheter de l'or", "Or d'investissement", "Acheter de l'or physiq
       </div>
     </section>
 
-    <section class="section section-soft">
-      <div class="container narrow">
-        <header class="section-head"><p class="eyebrow">Questions fréquentes</p><h2>Acheter de l'or</h2></header>
-        <div class="faq">
-''' + faq_block(FAQ[2][1]) + '''
-        </div>
-      </div>
-    </section>'''
+{faq_section("Acheter de l'or", FAQ[2][1])}
+
+{others("acheter-or.html")}'''
 page("acheter-or.html", "Acheter de l'or à Chartres — Pièces et lingots d'investissement | Godot &amp; Fils",
      "Achetez de l'or physique à Chartres : Napoléon, Souverain, Krugerrand, Maple Leaf, lingots et lingotins. Conseils personnalisés chez Godot & Fils.", acheter)
 
 # ---------------------------------------------------------------- ARGENT & BIJOUX
-argent = hero("Argent &amp; bijoux", "Argent · Platine · Bijoux", "Argent, platine et bijoux : une expertise pour chaque pièce.",
-              "Argenterie, pièces d'argent, platine, bijoux anciens ou démodés : nous les estimons avec soin, gratuitement et sans engagement.") + '''
+argent = service_hero("Argent &amp; bijoux", "Argent · Platine · Bijoux", "Argent, platine et bijoux : une expertise pour chaque pièce.",
+    "Argenterie, pièces d'argent, platine, bijoux anciens ou démodés : nous les estimons avec soin, gratuitement et sans engagement.",
+    "diamond", [("diamond", "Expertise", "Chaque pièce est examinée"), ("coin-euro", "0 €", "Estimation gratuite"), ("id", "Pièce d'identité", "Requise pour vendre")]) + "\n" + subnav("argent-bijoux.html") + f'''
 
     <section class="section">
       <div class="container">
@@ -529,10 +600,11 @@ argent = hero("Argent &amp; bijoux", "Argent · Platine · Bijoux", "Argent, pla
           <h2>Au-delà de l'or</h2>
           <p>Les autres métaux précieux et les bijoux méritent la même attention.</p>
         </header>
-        <div class="cards">
-          <article class="card"><div class="card-icon" aria-hidden="true">''' + "[[icon:tools-kitchen-2]]" + '''</div><h3>Argent</h3><p>Pièces d'argent, argenterie, couverts, ménagères, objets en argent massif : estimés selon leur poids et leur titre.</p></article>
-          <article class="card"><div class="card-icon" aria-hidden="true">''' + "[[icon:diamonds]]" + '''</div><h3>Platine</h3><p>Bijoux et lingots de platine, un métal rare et dense, estimés selon leur pureté et le cours du jour.</p></article>
-          <article class="card"><div class="card-icon" aria-hidden="true">''' + "[[icon:diamond]]" + '''</div><h3>Bijoux anciens</h3><p>Pièces de famille, bijoux démodés ou dépareillés : nous distinguons la valeur du métal de celle de la création.</p></article>
+        <div class="cards-feature">
+          {feature("tools-kitchen-2", "Argent", "Pièces d'argent, argenterie, couverts, ménagères, objets en argent massif : estimés selon leur poids et leur titre.")}
+          {feature("diamonds", "Platine", "Bijoux et lingots de platine, un métal rare et dense, estimés selon leur pureté et le cours du jour.")}
+          {feature("diamond", "Bijoux anciens", "Pièces de famille, bijoux démodés ou dépareillés : nous distinguons la valeur du métal de celle de la création.")}
+          <article class="card-row card-row-accent"><div><h3>Un objet, un doute ?</h3><p>Montrez-le-nous : l'estimation est gratuite.</p><a class="link-arrow" href="contact.html">Venir à l'agence</a></div></article>
         </div>
       </div>
     </section>
@@ -560,55 +632,57 @@ argent = hero("Argent &amp; bijoux", "Argent · Platine · Bijoux", "Argent, pla
     </section>
 
     <section class="section">
-      <div class="container narrow">
+      <div class="container">
         <header class="section-head"><p class="eyebrow">Conseils</p><h2>Avant de venir</h2></header>
-        <ul class="checks checks-lg">
-          <li>Ne nettoyez pas vos objets : l'estimation se fait sur l'état d'origine.</li>
-          <li>Apportez tout, même ce qui est cassé, tordu ou dépareillé.</li>
-          <li>Si vous les avez, apportez les factures, certificats ou écrins d'origine.</li>
-          <li>Pensez à votre pièce d'identité en cours de validité.</li>
-        </ul>
+        <ol class="tips">
+          <li><span class="tip-ico">[[icon:diamond]]</span><div><h3>Ne nettoyez pas</h3><p>L'estimation se fait sur l'état d'origine de l'objet.</p></div></li>
+          <li><span class="tip-ico">[[icon:coins]]</span><div><h3>Apportez tout</h3><p>Même ce qui est cassé, tordu ou dépareillé.</p></div></li>
+          <li><span class="tip-ico">[[icon:file-certificate]]</span><div><h3>Vos justificatifs</h3><p>Factures, certificats ou écrins d'origine, si vous les avez.</p></div></li>
+          <li><span class="tip-ico">[[icon:id]]</span><div><h3>Une pièce d'identité</h3><p>En cours de validité, obligatoire pour toute vente.</p></div></li>
+        </ol>
       </div>
-    </section>'''
+    </section>
+
+{others("argent-bijoux.html", "section-soft")}'''
 page("argent-bijoux.html", "Argent, platine et bijoux à Chartres — Estimation gratuite | Godot &amp; Fils",
      "Faites estimer gratuitement votre argenterie, vos pièces d'argent, votre platine et vos bijoux anciens à Chartres chez Godot & Fils.", argent)
 
 # ---------------------------------------------------------------- CHANGE
-change = hero("Change", "Bureau de change", "Changer vos devises à Chartres, simplement.",
-              "Achat et vente de devises étrangères à l'agence, avant votre départ ou à votre retour de voyage.") + '''
+change = service_hero("Change", "Bureau de change", "Changer vos devises à Chartres, simplement.",
+    "Achat et vente de devises étrangères à l'agence, avant votre départ ou à votre retour de voyage.",
+    "exchange", [("exchange", "Devises", "Achat et vente"), ("phone-call", "Appelez d'abord", "Pour confirmer la devise"), ("id", "Pièce d'identité", "À présenter au guichet")]) + "\n" + subnav("change.html") + f'''
 
     <section class="section">
-      <div class="container split">
-        <div class="split-copy">
+      <div class="container">
+        <header class="section-head">
           <p class="eyebrow">Notre service</p>
           <h2>Un change simple, sur place</h2>
-          <p>Avant un voyage ou après un séjour à l'étranger, l'agence vous accueille pour changer vos euros en devises, ou vos devises en euros.</p>
-          <p>Les devises disponibles varient selon les périodes : appelez-nous avant de venir pour confirmer celle dont vous avez besoin et le tarif du moment.</p>
-          <ul class="checks">
-            <li>Service au guichet, sans rendez-vous</li>
-            <li>Taux communiqué avant la transaction</li>
-            <li>Pièce d'identité à présenter</li>
-          </ul>
-          <p class="mt"><a class="btn btn-gold" href="tel:''' + TEL_HREF + '''">Appeler pour une devise</a></p>
-        </div>
-        <div class="cards cards-1">
-          <article class="card"><div class="card-icon" aria-hidden="true">''' + "[[icon:plane-departure]]" + '''</div><h3>Avant de partir</h3><p>Anticipez : certaines devises peuvent nécessiter un délai. Un appel suffit pour vérifier.</p></article>
-          <article class="card"><div class="card-icon" aria-hidden="true">''' + "[[icon:plane-arrival]]" + '''</div><h3>Au retour</h3><p>Reprenez vos devises restantes en euros, billets de banque étrangers inclus selon disponibilité.</p></article>
+          <p>Avant un voyage ou après un séjour à l'étranger, l'agence vous accueille pour changer vos euros en devises, ou vos devises en euros. Les devises disponibles varient selon les périodes.</p>
+        </header>
+        <div class="cards-feature">
+          {feature("plane-departure", "Avant de partir", "Anticipez : certaines devises peuvent nécessiter un délai. Un appel suffit pour vérifier.")}
+          {feature("plane-arrival", "Au retour", "Reprenez vos devises restantes en euros, billets de banque étrangers inclus selon disponibilité.")}
         </div>
       </div>
     </section>
 
-    <section class="section section-soft">
-      <div class="container narrow">
-        <header class="section-head"><p class="eyebrow">Questions fréquentes</p><h2>Le change</h2></header>
-        <div class="faq">
-''' + faq_block(FAQ[3][1] + FAQ[0][1][:1]) + '''
-        </div>
+    <section class="section section-dark">
+      <div class="container">
+        <header class="section-head"><p class="eyebrow">Comment ça marche</p><h2>En trois temps</h2></header>
+        <ol class="steps steps-3">
+          <li><span class="step-head"><span class="step-num">1</span>[[icon:phone-call]]</span><h3>Vous appelez</h3><p>Pour confirmer que la devise est disponible et connaître le tarif du moment.</p></li>
+          <li><span class="step-head"><span class="step-num">2</span>[[icon:id]]</span><h3>Vous passez à l'agence</h3><p>Du lundi au vendredi, sans rendez-vous, avec une pièce d'identité.</p></li>
+          <li><span class="step-head"><span class="step-num">3</span>[[icon:exchange]]</span><h3>Vous repartez avec vos devises</h3><p>Le taux vous est communiqué avant la transaction.</p></li>
+        </ol>
+        <p class="mt"><a class="btn btn-gold" href="tel:{TEL_HREF}">Appeler pour une devise</a></p>
       </div>
-    </section>'''
+    </section>
+
+{faq_section("Le change", FAQ[3][1] + FAQ[0][1][:1], cls="")}
+
+{others("change.html", "section-soft")}'''
 page("change.html", "Bureau de change à Chartres — Devises | Godot &amp; Fils",
      "Bureau de change à Chartres : achat et vente de devises étrangères chez Godot & Fils, 23 rue de la Pie. Renseignez-vous par téléphone sur la devise souhaitée.", change)
-
 
 # ---------------------------------------------------------------- LA MAISON
 maison = hero("La maison", "Depuis 1933", "Une institution du négoce de métaux précieux.",
