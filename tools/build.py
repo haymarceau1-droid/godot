@@ -6,14 +6,14 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SITE = "https://www.godotetfils-chartres.fr"
 TEL, TEL_HREF = "02 37 83 49 77", "+33237834977"
 
-NAV = [
-    ("vendre-or.html", "Vendre mon or"),
-    ("acheter-or.html", "Acheter de l'or"),
-    ("argent-bijoux.html", "Argent &amp; bijoux"),
-    ("change.html", "Change"),
-    ("la-maison.html", "La maison"),
-    ("contact.html", "Contact"),
+SERVICES = [
+    ("vendre-or.html", "Vendre mon or", "coin-euro", "Faites estimer et rachetez vos objets en or, sans rendez-vous."),
+    ("acheter-or.html", "Acheter de l'or", "coins", "Pièces et lingots d'investissement, avec conseil personnalisé."),
+    ("numismatique.html", "Numismatique", "medal", "Pièces de collection : valeur du métal et valeur numismatique."),
+    ("argent-bijoux.html", "Argent &amp; bijoux", "diamond", "Argenterie, platine et bijoux anciens estimés avec soin."),
+    ("change.html", "Bureau de change", "exchange", "Devises étrangères pour vos voyages, achat et vente."),
 ]
+NAV = [(h, t) for h, t, _, _ in SERVICES] + [("la-maison.html", "La maison"), ("contact.html", "Contact")]
 
 LD_STORE = {
     "@context": "https://schema.org", "@type": "JewelryStore",
@@ -29,7 +29,7 @@ LD_STORE = {
 
 FAQ = [
     ("Avant de venir", [
-        ("Faut-il prendre rendez-vous ?", "Non. Vous pouvez venir à l'agence sans rendez-vous, du lundi au vendredi de 9h30 à 18h00. Pour un lot important, un appel au 02 37 83 49 77 nous permet de mieux vous recevoir."),
+        ("Faut-il prendre rendez-vous ?", "Non, du lundi au vendredi de 9h30 à 18h00 : venez à l'agence sans rendez-vous. Le samedi matin, l'agence reçoit sur rendez-vous : appelez le 02 37 83 49 77. Pour un lot important, un appel au 02 37 83 49 77 nous permet de mieux vous recevoir."),
         ("L'estimation est-elle vraiment gratuite ?", "Oui. L'estimation et les conseils sont gratuits et sans engagement : vous êtes libre d'accepter ou non notre offre."),
         ("Quels documents dois-je apporter ?", "Une pièce d'identité en cours de validité, obligatoire pour toute vente de métaux précieux. Pour les pièces et lingots, apportez aussi les factures ou certificats d'achat si vous en avez : ils peuvent avoir une incidence sur la fiscalité applicable."),
     ]),
@@ -44,6 +44,12 @@ FAQ = [
         ("Les prix changent-ils dans la journée ?", "Oui. Les prix de l'or et de l'argent suivent les marchés : le tarif applicable est celui du moment de la transaction."),
         ("Quelle différence entre une pièce et un lingot ?", "Les pièces sont facilement divisibles et reconnues sur le marché ; les lingots, plus massifs, portent généralement une prime plus faible par gramme. Nous vous aidons à choisir selon votre projet."),
     ]),
+    ("Numismatique", [
+        ("Une pièce rare vaut-elle plus que son poids d'or ?", "Parfois, oui. Au-delà du métal, la valeur numismatique dépend de la rareté (tirage, millésime), de l'état de conservation et de la demande des collectionneurs. Beaucoup de pièces courantes ne valent cependant que leur métal."),
+        ("Dois-je nettoyer mes pièces avant de venir ?", "Non, jamais. Le nettoyage raye la surface et peut faire perdre une grande part de la valeur d'une pièce de collection. Apportez-la telle quelle."),
+        ("Comment connaître la valeur de ma collection ?", "Apportez vos pièces à l'agence : l'estimation est gratuite et sans engagement. Elle distingue la valeur du métal et, le cas échéant, une valeur de collection."),
+        ("Comment tenir et conserver mes pièces ?", "Tenez-les par la tranche, sans toucher les faces, et conservez-les à l'abri de l'humidité dans des capsules ou des écrins adaptés."),
+    ]),
     ("Change", [
         ("Puis-je changer des devises à l'agence ?", "Oui, l'agence est aussi bureau de change. Les devises disponibles varient : appelez-nous avant de venir pour confirmer celle dont vous avez besoin."),
     ]),
@@ -51,12 +57,21 @@ FAQ = [
 
 def esc_json(o): return json.dumps(o, ensure_ascii=False, indent=2)
 
-MENU_ICONS = {"vendre-or.html": "coin-euro", "acheter-or.html": "coins", "argent-bijoux.html": "diamond",
-              "change.html": "exchange", "la-maison.html": "building-store", "contact.html": "map-pin"}
-
 def header(active):
-    links = "\n".join(
-        f'          <a href="{h}"{" aria-current=\"page\"" if h == active else ""}>[[icon:{MENU_ICONS[h]}]]<span>{t}</span></a>' for h, t in NAV)
+    cur = lambda h: ' aria-current="page"' if h == active else ""
+    in_svc = active in [h for h, _, _, _ in SERVICES]
+    items = "".join(
+        f'<a href="{h}"{cur(h)}>[[icon:{ico}]]<span><strong>{t}</strong><small>{d}</small></span></a>' for h, t, ico, d in SERVICES)
+    items += f'<a class="mega-extra" href="faq.html"{cur("faq.html")}>[[icon:zoom-check]]<span><strong>Questions fréquentes</strong><small>Estimation, documents, prix de rachat…</small></span></a>'
+    panel = (
+        '<div class="container mega-inner">'
+        f'<div class="mega-list"><p class="mega-title">Nos services</p><div class="mega-grid">{items}</div></div>'
+        '<aside class="mega-aside"><p class="mega-title">Estimation gratuite</p>'
+        '<p>Sans rendez-vous du lundi au vendredi, de 9h30 à 18h00. Le samedi matin, sur rendez-vous.</p>'
+        f'<a class="btn btn-gold btn-sm" href="tel:{TEL_HREF}">[[icon:phone-call]]<span>{TEL}</span></a>'
+        '<a class="link-more" href="contact.html">Venir à l\'agence</a></aside>'
+        '</div>')
+    dd_cls = " is-current" if in_svc else ""
     return f'''  <a class="skip" href="#contenu">Aller au contenu</a>
   <header class="site-header" id="haut">
     <div class="container header-inner">
@@ -68,12 +83,17 @@ def header(active):
       </button>
       <nav id="nav" class="menu" aria-label="Navigation principale">
         <div class="menu-links">
-{links}
+          <div class="menu-dd">
+            <button type="button" class="menu-dd-btn{dd_cls}" aria-expanded="false" aria-haspopup="true" aria-controls="menu-panel"><span>Nos services</span>[[icon:chevron-down]]</button>
+            <div class="menu-panel" id="menu-panel" role="group" aria-label="Nos services">{panel}</div>
+          </div>
+          <a href="la-maison.html"{cur("la-maison.html")}>[[icon:building-store]]<span>La maison</span></a>
+          <a href="contact.html"{cur("contact.html")}>[[icon:map-pin]]<span>Contact</span></a>
         </div>
         <a class="btn btn-gold btn-sm menu-cta" href="tel:{TEL_HREF}">[[icon:phone-call]]<span>{TEL}</span></a>
         <div class="menu-foot">
           <p>[[icon:map-pin]]<span>23 rue de la Pie, 28000 Chartres</span></p>
-          <p>[[icon:clock]]<span>Lun – Ven · 9h30 – 18h00</span></p>
+          <p>[[icon:clock]]<span>Lun – Ven · 9h30 – 18h00<br>Samedi matin sur rendez-vous</span></p>
         </div>
       </nav>
     </div>
@@ -84,7 +104,7 @@ def cta_band():
       <div class="container cta-inner">
         <div>
           <h2>Estimation gratuite, sans rendez-vous.</h2>
-          <p>Passez nous voir au 23 rue de la Pie, du lundi au vendredi de 9h30 à 18h00.</p>
+          <p>Passez nous voir au 23 rue de la Pie, du lundi au vendredi de 9h30 à 18h00, et le samedi matin sur rendez-vous.</p>
         </div>
         <div class="cta-actions">
           <a class="btn btn-gold" href="contact.html">Venir à l'agence</a>
@@ -94,7 +114,7 @@ def cta_band():
     </section>'''
 
 def footer():
-    svc = "\n".join(f'          <li><a href="{h}">{t}</a></li>' for h, t in NAV[:4])
+    svc = "\n".join(f'          <li><a href="{h}">{t}</a></li>' for h, t, _, _ in SERVICES)
     return f'''  <footer class="site-footer">
     <div class="container footer-grid">
       <div>
@@ -108,7 +128,7 @@ def footer():
         <ul class="foot-lines">
           <li>[[icon:map-pin]]<span>23 rue de la Pie<br>28000 Chartres</span></li>
           <li>[[icon:phone-call]]<a href="tel:{TEL_HREF}">{TEL}</a></li>
-          <li>[[icon:clock]]<span>Lun – Ven · 9h30 – 18h00</span></li>
+          <li>[[icon:clock]]<span>Lun – Ven · 9h30 – 18h00<br>Samedi matin sur rendez-vous</span></li>
         </ul>
       </div>
       <div>
@@ -320,7 +340,7 @@ home = f'''    <section class="hero hero-photo">
     <section class="strip" aria-label="Informations pratiques">
       <div class="container strip-grid">
         <div><span class="strip-label">[[icon:map-pin]]Adresse</span>23 rue de la Pie, 28000 Chartres</div>
-        <div><span class="strip-label">[[icon:clock]]Horaires</span>Lun – Ven · 9h30 – 18h00</div>
+        <div><span class="strip-label">[[icon:clock]]Horaires</span>Lun – Ven · 9h30 – 18h00<br>Sam. matin sur RDV</div>
         <div><span class="strip-label">[[icon:phone-call]]Téléphone</span><a href="tel:{TEL_HREF}">{TEL}</a></div>
         <div class="strip-status" data-open-status><span class="dot"></span><span class="status-text">Horaires d'ouverture</span></div>
       </div>
@@ -375,7 +395,28 @@ home = f'''    <section class="hero hero-photo">
 
 {reseau_section()}
 
-    <section class="section" id="faq">
+    <section class="section" id="numismatique">
+      <div class="container split">
+        <div class="numis-visual" aria-hidden="true">
+          <div class="nv-medal">[[icon:medal]]</div>
+          <span class="nv-chip nv-1">TTB</span><span class="nv-chip nv-2">SUP</span><span class="nv-chip nv-3">FDC</span>
+          <p>Rareté · État · Demande</p>
+        </div>
+        <div class="split-copy">
+          <p class="eyebrow">Numismatique</p>
+          <h2>Une pièce peut valoir plus que son poids de métal</h2>
+          <p>Napoléon, Hercule, Semeuse, louis d'or… Certaines pièces ont une valeur de collection qui s'ajoute à leur métal. Apportez-les sans les nettoyer : l'estimation est gratuite.</p>
+          <ul class="checks">
+            <li>Valeur du métal et valeur numismatique distinguées</li>
+            <li>Explication du grade et de la rareté</li>
+            <li>Aucune obligation de vendre</li>
+          </ul>
+          <p class="mt"><a class="btn btn-outline" href="numismatique.html">Découvrir la numismatique</a></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-soft" id="faq">
       <div class="container narrow">
         <header class="section-head">
           <p class="eyebrow">Questions fréquentes</p>
@@ -392,12 +433,6 @@ page("index.html", "Godot &amp; Fils Chartres — Achat et vente d'or, d'argent 
      home, ld=LD_STORE)
 
 # ================================================================ PAGES SERVICES
-SERVICES = [
-    ("vendre-or.html", "Vendre mon or", "coin-euro", "Faites estimer et rachetez vos objets en or, sans rendez-vous."),
-    ("acheter-or.html", "Acheter de l'or", "coins", "Pièces et lingots d'investissement, avec conseil personnalisé."),
-    ("argent-bijoux.html", "Argent &amp; bijoux", "diamond", "Argenterie, platine et bijoux anciens estimés avec soin."),
-    ("change.html", "Bureau de change", "exchange", "Devises étrangères pour vos voyages, achat et vente."),
-]
 
 def subnav(active):
     items = "".join(
@@ -435,7 +470,7 @@ def others(active, cls=""):
     return f'''    <section class="section {cls} others">
       <div class="container">
         <header class="section-head"><p class="eyebrow">Nos autres services</p><h2>Ce que nous pouvons aussi faire pour vous</h2></header>
-        <div class="cards cards-3">{cards}</div>
+        <div class="cards cards-auto">{cards}</div>
       </div>
     </section>'''
 
@@ -697,6 +732,108 @@ change = service_hero("Change", "Bureau de change", "Changer vos devises à Char
 page("change.html", "Bureau de change à Chartres — Devises | Godot &amp; Fils",
      "Bureau de change à Chartres : achat et vente de devises étrangères chez Godot & Fils, 23 rue de la Pie. Renseignez-vous par téléphone sur la devise souhaitée.", change)
 
+# ---------------------------------------------------------------- NUMISMATIQUE
+FORMULA_NUMIS = '''        <div class="formula formula-5" role="img" aria-label="Métal plus rareté plus état plus demande égale valeur">
+          <div class="f-box">[[icon:scale]]<strong>Métal</strong><span>poids et titre</span></div>
+          <span class="f-op" aria-hidden="true">[[icon:plus]]</span>
+          <div class="f-box">[[icon:diamond]]<strong>Rareté</strong><span>tirage, millésime</span></div>
+          <span class="f-op" aria-hidden="true">[[icon:plus]]</span>
+          <div class="f-box">[[icon:eye-check]]<strong>État</strong><span>grade de conservation</span></div>
+          <span class="f-op" aria-hidden="true">[[icon:plus]]</span>
+          <div class="f-box">[[icon:chart-line]]<strong>Demande</strong><span>intérêt des collectionneurs</span></div>
+          <span class="f-op" aria-hidden="true">[[icon:equal]]</span>
+          <div class="f-box f-result">[[icon:medal]]<strong>Valeur</strong><span>métal + prime de collection</span></div>
+        </div>'''
+
+GRADES = [("B", "Beau", "Pièce très usée, reliefs presque effacés."),
+          ("TB", "Très beau", "Usure nette, mais les détails principaux restent lisibles."),
+          ("TTB", "Très très beau", "Légère usure sur les points hauts du relief."),
+          ("SUP", "Superbe", "Quelques traces de frottement, brillance d'origine en partie conservée."),
+          ("SPL", "Splendide", "Presque neuve, infimes marques de manipulation."),
+          ("FDC", "Fleur de coin", "État de frappe, sans aucune usure.")]
+grade_rows = "\n".join(
+    f'              <tr><th scope="row"><span class="grade">{a}</span></th><td>{n}</td><td>{d}</td></tr>' for a, n, d in GRADES)
+
+numis = service_hero("Numismatique", "Pièces de collection", "Numismatique : quand une pièce vaut plus que son métal.",
+    "Napoléon, Hercule, Semeuse, louis d'or… Faites estimer vos pièces de collection : nous distinguons la valeur du métal de la valeur numismatique.",
+    "medal", [("medal", "Collection", "Valeur numismatique"), ("coin-euro", "0 €", "Estimation gratuite"), ("scale", "Métal + prime", "Estimation détaillée")]) + "\n" + subnav("numismatique.html") + f'''
+
+    <section class="section">
+      <div class="container">
+        <header class="section-head">
+          <p class="eyebrow">Ce qui fait la valeur</p>
+          <h2>Au-delà du métal</h2>
+          <p>Une pièce de collection vaut d'abord par son métal, puis par ce qui la rend recherchée. Quatre éléments entrent en jeu.</p>
+        </header>
+{FORMULA_NUMIS}
+      </div>
+    </section>
+
+    <section class="section section-dark">
+      <div class="container">
+        <header class="section-head">
+          <p class="eyebrow">Les grandes familles</p>
+          <h2>Quelles pièces pouvez-vous nous montrer ?</h2>
+          <p>Toutes les pièces sont les bienvenues, des plus courantes aux plus anciennes.</p>
+        </header>
+        <div class="cards-feature cards-feature-dark">
+          {feature("coins", "Pièces d'or françaises", "Napoléon (20 francs or), Coq, Génie, Semeuse et autres pièces d'or de la période du franc.")}
+          {feature("diamond", "Pièces d'argent", "Hercule, Semeuse, Turin et autres pièces de 5, 10 ou 50 francs en argent.")}
+          {feature("hourglass", "Monnaies anciennes", "Louis d'or, écus et monnaies royales ou impériales.")}
+          {feature("exchange", "Pièces étrangères", "Souverain, Krugerrand, 50 pesos et autres pièces d'or ou d'argent du monde entier.")}
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container split split-top">
+        <div class="split-copy">
+          <p class="eyebrow">L'état de conservation</p>
+          <h2>Le grade change tout</h2>
+          <p>Pour une même pièce, l'écart de prix peut être important entre un exemplaire usé et un exemplaire presque neuf. Les numismates utilisent une échelle de grades, du plus usé au plus beau.</p>
+          <aside class="notice notice-light"><strong>Bon à savoir :</strong> la valeur de collection dépend du marché. Pour une pièce très rare, un avis spécialisé complémentaire peut être recommandé.</aside>
+        </div>
+        <div class="table-wrap">
+          <table class="data-table">
+            <caption>Les grades usuels</caption>
+            <thead><tr><th scope="col">Grade</th><th scope="col">Signification</th><th scope="col">Aspect</th></tr></thead>
+            <tbody>
+{grade_rows}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-dark">
+      <div class="container">
+        <header class="section-head"><p class="eyebrow">Conservation</p><h2>Protéger la valeur de vos pièces</h2></header>
+        <ol class="tips tips-dark">
+          <li><span class="tip-ico">[[icon:eye-check]]</span><div><h3>Ne nettoyez jamais</h3><p>Un nettoyage raye la surface et fait perdre une grande part de la valeur.</p></div></li>
+          <li><span class="tip-ico">[[icon:coins]]</span><div><h3>Tenez par la tranche</h3><p>Évitez de toucher les faces : la peau laisse des traces durables.</p></div></li>
+          <li><span class="tip-ico">[[icon:shield-check]]</span><div><h3>Protégez-les</h3><p>Capsules ou écrins, à l'abri de l'humidité et des chocs.</p></div></li>
+          <li><span class="tip-ico">[[icon:file-certificate]]</span><div><h3>Gardez l'historique</h3><p>Factures, certificats ou notes de famille éclairent l'origine d'une pièce.</p></div></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <header class="section-head"><p class="eyebrow">Comment ça marche</p><h2>Faire estimer ses pièces</h2></header>
+        <ol class="steps steps-3 steps-light">
+          <li><span class="step-head"><span class="step-num">1</span>[[icon:coins]]</span><h3>Vous apportez vos pièces</h3><p>À l'agence, telles qu'elles sont : sans les nettoyer.</p></li>
+          <li><span class="step-head"><span class="step-num">2</span>[[icon:scale]]</span><h3>Nous les examinons</h3><p>Identification, pesée, contrôle du titre et appréciation de l'état.</p></li>
+          <li><span class="step-head"><span class="step-num">3</span>[[icon:receipt-euro]]</span><h3>Vous recevez une estimation</h3><p>Valeur du métal et, le cas échéant, valeur de collection. Vous décidez ensuite.</p></li>
+        </ol>
+      </div>
+    </section>
+
+{faq_section("La numismatique", FAQ[4][1])}
+
+{others("numismatique.html")}'''
+page("numismatique.html", "Numismatique à Chartres — Estimation de pièces de collection | Godot &amp; Fils",
+     "Pièces de collection à Chartres : Napoléon, Hercule, Semeuse, louis d'or. Valeur du métal et valeur numismatique, estimation gratuite chez Godot & Fils.", numis)
+
 # ---------------------------------------------------------------- LA MAISON
 maison = hero("La maison", "Depuis 1933", "Une institution du négoce de métaux précieux.",
               "Depuis 1933, la maison Godot & Fils accompagne particuliers et épargnants dans l'achat et la vente d'or, d'argent et de métaux précieux.", actions=False) + '''
@@ -762,7 +899,7 @@ page("faq.html", "Questions fréquentes — Godot &amp; Fils Chartres",
 
 # ---------------------------------------------------------------- CONTACT
 contact = hero("Contact", "Votre agence", "Nous rendre visite à Chartres.",
-               "Du lundi au vendredi, sans rendez-vous. Pour un lot important ou une devise précise, un appel nous permet de mieux vous recevoir.", actions=False) + f'''
+               "Du lundi au vendredi, sans rendez-vous ; le samedi matin, sur rendez-vous. Pour un lot important ou une devise précise, un appel nous permet de mieux vous recevoir.", actions=False) + f'''
 
     <section class="section">
       <div class="container contact-grid">
@@ -781,7 +918,7 @@ contact = hero("Contact", "Votre agence", "Nous rendre visite à Chartres.",
                   <tr data-day="3"><th scope="row">Mercredi</th><td>9h30 – 18h00</td></tr>
                   <tr data-day="4"><th scope="row">Jeudi</th><td>9h30 – 18h00</td></tr>
                   <tr data-day="5"><th scope="row">Vendredi</th><td>9h30 – 18h00</td></tr>
-                  <tr data-day="6"><th scope="row">Samedi</th><td>Fermé</td></tr>
+                  <tr data-day="6"><th scope="row">Samedi</th><td>Matin, sur rendez-vous</td></tr>
                   <tr data-day="0"><th scope="row">Dimanche</th><td>Fermé</td></tr>
                 </tbody></table>
               </dd>
@@ -818,7 +955,7 @@ contact = hero("Contact", "Votre agence", "Nous rendre visite à Chartres.",
       </div>
     </section>'''
 page("contact.html", "Contact et accès — Godot &amp; Fils Chartres, 23 rue de la Pie",
-     "Agence Godot & Fils Chartres : 23 rue de la Pie, 28000 Chartres. Ouvert du lundi au vendredi de 9h30 à 18h00. Tél. 02 37 83 49 77.", contact, ld=LD_STORE, cta=False)
+     "Agence Godot & Fils Chartres : 23 rue de la Pie, 28000 Chartres. Ouvert du lundi au vendredi de 9h30 à 18h00, samedi matin sur rendez-vous. Tél. 02 37 83 49 77.", contact, ld=LD_STORE, cta=False)
 
 # ---------------------------------------------------------------- MENTIONS LÉGALES
 legal = '''    <section class="legal">

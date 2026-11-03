@@ -19,6 +19,26 @@
     window.addEventListener('resize', function () { if (window.innerWidth > 1220 && nav.classList.contains('open')) setMenu(false); });
   }
 
+
+  // Méga menu « Nos services » (ordinateur) : survol avec court délai, clic, clavier
+  var dd = document.querySelector('.menu-dd');
+  if (dd) {
+    var ddBtn = dd.querySelector('.menu-dd-btn'), timer = null;
+    var wideMenu = function () { return window.innerWidth > 1220; };
+    var setDD = function (o) {
+      dd.classList.toggle('open', o);
+      ddBtn.setAttribute('aria-expanded', String(o));
+      document.body.classList.toggle('mega-open', o && wideMenu());
+    };
+    ddBtn.addEventListener('click', function () { setDD(!dd.classList.contains('open')); });
+    dd.addEventListener('mouseenter', function () { if (!wideMenu()) return; clearTimeout(timer); setDD(true); });
+    dd.addEventListener('mouseleave', function () { clearTimeout(timer); timer = setTimeout(function () { setDD(false); }, 220); });
+    dd.addEventListener('focusout', function (e) { if (!dd.contains(e.relatedTarget)) setDD(false); });
+    document.addEventListener('click', function (e) { if (!dd.contains(e.target)) setDD(false); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && dd.classList.contains('open')) { setDD(false); ddBtn.focus(); } });
+    window.addEventListener('resize', function () { if (!wideMenu()) setDD(false); });
+  }
+
   // ---------------------------------------------------------------- Statut ouvert / fermé (heure de Paris, lun–ven 9h30–18h00)
   var HOURS = { 1: [570, 1080], 2: [570, 1080], 3: [570, 1080], 4: [570, 1080], 5: [570, 1080] };
   function parisNow() {
@@ -36,10 +56,11 @@
     var open = slot && now.minutes >= slot[0] && now.minutes < slot[1];
     var status = document.querySelector('[data-open-status]');
     if (status) {
-      status.classList.add(open ? 'is-open' : 'is-closed');
+      var sat = now.day === 6;
+      status.classList.add(open ? 'is-open' : (sat ? 'is-rdv' : 'is-closed'));
       status.querySelector('.status-text').textContent = open
         ? "Ouvert en ce moment · jusqu'à 18h00"
-        : 'Fermé actuellement · ouvert du lundi au vendredi';
+        : (sat ? 'Samedi matin : sur rendez-vous' : 'Fermé actuellement · ouvert du lundi au vendredi');
     }
     var row = document.querySelector('.hours tr[data-day="' + now.day + '"]');
     if (row) row.classList.add('today');

@@ -10,7 +10,8 @@ Design system : voir [`DESIGN.md`](DESIGN.md) (canvas noir, surfaces blanches, o
 |---|---|
 | `index.html` | Accueil : services, étapes, la maison, FAQ |
 | `vendre-or.html` | Rachat d'or : objets acceptés, calcul du prix, titres de l'or |
-| `acheter-or.html` | Or d'investissement : pièces, lingots, tableau des références |
+| `acheter-or.html` | Or d'investissement : pièces, lingots, fiches des références |
+| `numismatique.html` | Pièces de collection : ce qui fait la valeur, grades, conservation |
 | `argent-bijoux.html` | Argent, platine et bijoux |
 | `change.html` | Bureau de change |
 | `la-maison.html` | Histoire et engagements (depuis 1933) |
@@ -25,7 +26,7 @@ python3 tools/build.py
 ```
 `sitemap.xml` et `robots.txt` sont régénérés au passage. Styles : `assets/css/style.css`, script : `assets/js/main.js`.
 
-Fonctionnalités : responsive (menu burger sous 1100px, bouton d'appel flottant), indicateur « ouvert / fermé » à l'heure de Paris,
+Fonctionnalités : responsive (méga menu « Nos services » sur ordinateur, panneau plein écran sous 1220px, bouton d'appel flottant), indicateur « ouvert / fermé » à l'heure de Paris,
 données structurées schema.org, animations respectant `prefers-reduced-motion`.
 
 ## Cookies et vie privée
