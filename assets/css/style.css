@@ -1377,3 +1377,14 @@ main, .site-footer { overflow-x: clip; }
 .facts-over span { display: block; font-size: var(--fs-small); color: var(--text-1-muted); }
 .motion .facts-photo { animation: rise .8s cubic-bezier(.2,.7,.2,1) .4s both; }
 @media (max-width: 1024px) { .facts-photo { aspect-ratio: 16 / 11; } }
+
+/* Photo sans cadre : les bords se fondent dans le fond de la section */
+.facts-photo { border: 0; border-radius: 0; background: none; overflow: visible; }
+.facts-photo img {
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 22%, #000 78%, transparent 100%), linear-gradient(180deg, transparent 0, #000 20%, #000 72%, transparent 100%);
+  mask-image: linear-gradient(90deg, transparent 0, #000 22%, #000 78%, transparent 100%), linear-gradient(180deg, transparent 0, #000 20%, #000 72%, transparent 100%);
+  -webkit-mask-composite: source-in; mask-composite: intersect;
+}
+.facts-over { background: none; padding-top: 0; inset: auto 0 .5rem 0; }
+.facts-over li strong, .facts-over li span { text-shadow: 0 1px 10px #000, 0 0 3px #000; }
+.facts-over { background: linear-gradient(0deg, rgba(0,0,0,.7) 0%, rgba(0,0,0,.45) 60%, transparent 100%); padding-top: 2.5rem; inset: auto 8% .8rem 8%; }
