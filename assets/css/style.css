@@ -1552,3 +1552,7 @@ main, .site-footer { overflow-x: clip; }
 .site-footer .social { display: flex; flex-direction: row; flex-wrap: wrap; align-items: center; gap: .6rem; }
 .site-footer .social li { margin: 0; }
 .footer-refs img { opacity: .9; }
+/* Boutons du carrousel d'avis : ronds, jamais écrasés */
+.round-btn { flex: none; width: 46px; height: 46px; min-width: 46px; padding: 0; }
+.reviews-nav .btn { flex: 1 1 auto; min-width: 0; text-align: center; }
+@media (max-width: 380px) { .reviews-nav { flex-wrap: wrap; } .reviews-nav .btn { flex-basis: 100%; order: 3; } }
