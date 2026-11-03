@@ -788,7 +788,7 @@ button.btn { font-family: var(--font); cursor: pointer; }
 .menu-links > a, .menu-dd-btn {
   position: relative; z-index: 1; display: inline-flex; align-items: center; gap: .4rem; white-space: nowrap; text-decoration: none; color: var(--text-1);
   padding: .55em 1em; border: 0; border-radius: 999px; background: transparent; cursor: pointer;
-  font-family: inherit; text-transform: uppercase; letter-spacing: .07em; font-size: .8125rem;
+  font-family: inherit; text-transform: none; letter-spacing: .01em; font-size: .9375rem;
   transition: background-color .2s, color .2s;
 }
 .menu-links > a .ic { display: none; }
@@ -814,7 +814,7 @@ button.btn { font-family: var(--font); cursor: pointer; }
   .menu-dd.open .menu-panel,
   html:not(.js) .menu-dd:hover .menu-panel, html:not(.js) .menu-dd:focus-within .menu-panel { opacity: 1; visibility: visible; translate: 0 0; transition-delay: 0s; }
   .mega-inner { display: grid; grid-template-columns: 1fr 320px; gap: 2.5rem; align-items: start; }
-  .mega-title { margin: 0 0 1rem; font-size: var(--fs-label); font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--gold); }
+  .mega-title { margin: 0 0 1rem; font-size: var(--fs-label); font-weight: 700; letter-spacing: .04em; text-transform: none; color: var(--gold); }
   .mega-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: .3rem .8rem; }
   .menu-panel .mega-grid a {
     display: flex; align-items: center; gap: 1rem; padding: .85rem 1rem; border: 1px solid transparent; border-radius: 8px;
