@@ -195,7 +195,7 @@ def page(slug, title, desc, body, ld=None, cta=True, noindex=False):
 </body>
 </html>
 '''
-    html = re.sub(r"\[\[icon:([a-z0-9-]+)\]\]", lambda m: ic(m.group(1)), html)
+    html = re.sub(r"\[\[icon:([a-z0-9-]+)(?::(thin))?\]\]", lambda m: ic(m.group(1), m.group(2) or "light"), html)
     with open(os.path.join(ROOT, slug), "w", encoding="utf-8") as f:
         f.write(html)
     print("écrit", slug)
@@ -220,20 +220,21 @@ def faq_block(items):
 
 def steps_block():
     return '''        <ol class="steps">
-          <li><span class="step-head"><span class="step-num">1</span>[[icon:building-store]]</span><h3>Vous passez à l'agence</h3><p>Sans rendez-vous, du lundi au vendredi, avec vos bijoux, pièces ou lingots.</p></li>
-          <li><span class="step-head"><span class="step-num">2</span>[[icon:scale]]</span><h3>Nous examinons devant vous</h3><p>Contrôle du titre et pesée de chaque objet, sous vos yeux.</p></li>
-          <li><span class="step-head"><span class="step-num">3</span>[[icon:receipt-euro]]</span><h3>Nous vous faisons une offre</h3><p>Une proposition détaillée, fondée sur le cours du jour. Vous restez libre de refuser.</p></li>
-          <li><span class="step-head"><span class="step-num">4</span>[[icon:cash-banknote]]</span><h3>Vous êtes payé</h3><p>Si vous acceptez, la transaction est finalisée avec un bordereau d'achat conforme à la réglementation.</p></li>
+          <li><span class="step-head"><span class="step-num">1</span>[[icon:building-store:thin]]</span><h3>Vous passez à l'agence</h3><p>Sans rendez-vous, du lundi au vendredi, avec vos bijoux, pièces ou lingots.</p></li>
+          <li><span class="step-head"><span class="step-num">2</span>[[icon:scale:thin]]</span><h3>Nous examinons devant vous</h3><p>Contrôle du titre et pesée de chaque objet, sous vos yeux.</p></li>
+          <li><span class="step-head"><span class="step-num">3</span>[[icon:receipt-euro:thin]]</span><h3>Nous vous faisons une offre</h3><p>Une proposition détaillée, fondée sur le cours du jour. Vous restez libre de refuser.</p></li>
+          <li><span class="step-head"><span class="step-num">4</span>[[icon:cash-banknote:thin]]</span><h3>Vous êtes payé</h3><p>Si vous acceptez, la transaction est finalisée avec un bordereau d'achat conforme à la réglementation.</p></li>
         </ol>'''
 
-def ic(name, cls="ic"):
-    """Inline un SVG Tabler Icons (assets/icons/<name>.svg, licence MIT)."""
-    raw = open(os.path.join(ROOT, "assets", "icons", name + ".svg"), encoding="utf-8").read()
-    inner = raw[raw.index(">", raw.index("<svg")) + 1: raw.rindex("</svg>")]
-    inner = inner.replace('<path stroke="none" d="M0 0h24v24H0z" fill="none"/>', "")
-    inner = " ".join(l.strip() for l in inner.strip().splitlines())
-    return (f'<svg class="{cls}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" '
-            f'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">{inner}</svg>')
+ICON_ALIAS = {'coin-euro': 'currency-eur', 'coins': 'coins', 'diamond': 'sketch-logo', 'diamonds': 'diamonds-four', 'exchange': 'swap', 'medal': 'coin', 'building-store': 'storefront', 'map-pin': 'map-pin', 'phone-call': 'phone-call', 'clock': 'clock', 'id': 'identification-card', 'file-certificate': 'certificate', 'eye-check': 'eye', 'heart-handshake': 'handshake', 'shield-check': 'shield-check', 'scale': 'scales', 'receipt-euro': 'receipt', 'cash-banknote': 'money', 'chart-line': 'chart-line-up', 'plus': 'plus', 'equal': 'equals', 'x': 'x', 'chevron-down': 'caret-down', 'chevron-left': 'caret-left', 'chevron-right': 'caret-right', 'star': 'star', 'zoom-check': 'magnifying-glass', 'world': 'globe-hemisphere-west', 'hourglass': 'hourglass', 'dental': 'tooth', 'tools-kitchen-2': 'fork-knife', 'plane-departure': 'airplane-takeoff', 'plane-arrival': 'airplane-landing', 'star-fill': 'star-fill'}
+
+def ic(name, weight="light", cls="ic"):
+    """Inline un SVG Phosphor Icons (assets/icons/, licence MIT). weight : light (défaut) ou thin (grands pictogrammes)."""
+    target = ICON_ALIAS[name]
+    fname = "star-fill-fill" if target == "star-fill" else f"{target}-{weight}"
+    raw = open(os.path.join(ROOT, "assets", "icons", fname + ".svg"), encoding="utf-8").read()
+    inner = raw[raw.index(">", raw.index("<svg")) + 1: raw.rindex("</svg>")].strip()
+    return f'<svg class="{cls}" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true">{inner}</svg>'
 
 # Dans les gabarits, [[icon:nom]] est remplacé par le SVG correspondant (voir page())
 ICON = {"or": "[[icon:coin-euro]]", "pieces": "[[icon:coins]]", "argent": "[[icon:diamond]]", "change": "[[icon:exchange]]"}
@@ -250,7 +251,7 @@ def avis_section():
     if not avis:
         return ""
     esc = lambda t: str(t).replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
-    stars = lambda n: "".join(f'<span class="star{" star-on" if i < n else ""}">[[icon:star]]</span>' for i in range(5))
+    stars = lambda n: "".join(f'<span class="star{" star-on" if i < n else ""}">[[icon:{"star-fill" if i < n else "star"}]]</span>' for i in range(5))
     cards = []
     for a in avis:
         n = max(1, min(5, int(a.get("note", 5))))
@@ -479,7 +480,7 @@ def subnav(active):
     </div>'''
 
 def service_hero(crumb, eyebrow, h1, lead, icon, facts):
-    fl = "".join(f'<li>[[icon:{i_}]]<div><strong>{big}</strong><span>{small}</span></div></li>' for i_, big, small in facts)
+    fl = "".join(f'<li>[[icon:{i_}:thin]]<div><strong>{big}</strong><span>{small}</span></div></li>' for i_, big, small in facts)
     return f'''    <section class="page-hero service-hero">
       <div class="container service-hero-grid">
         <div>
@@ -493,7 +494,7 @@ def service_hero(crumb, eyebrow, h1, lead, icon, facts):
           </div>
         </div>
         <aside class="facts-card" aria-label="L'essentiel">
-          <div class="facts-mark" aria-hidden="true">[[icon:{icon}]]</div>
+          <div class="facts-mark" aria-hidden="true">[[icon:{icon}:thin]]</div>
           <ul>{fl}</ul>
         </aside>
       </div>
@@ -524,13 +525,13 @@ def faq_section(title, items, cls="section-soft"):
     </section>'''
 
 FORMULA = '''        <div class="formula" role="img" aria-label="Poids multiplié par pureté multiplié par cours du jour égale votre offre">
-          <div class="f-box">[[icon:scale]]<strong>Poids</strong><span>pesée sur place</span></div>
+          <div class="f-box">[[icon:scale:thin]]<strong>Poids</strong><span>pesée sur place</span></div>
           <span class="f-op" aria-hidden="true">[[icon:x]]</span>
-          <div class="f-box">[[icon:diamond]]<strong>Pureté</strong><span>titre du poinçon</span></div>
+          <div class="f-box">[[icon:diamond:thin]]<strong>Pureté</strong><span>titre du poinçon</span></div>
           <span class="f-op" aria-hidden="true">[[icon:x]]</span>
-          <div class="f-box">[[icon:chart-line]]<strong>Cours du jour</strong><span>au moment de la vente</span></div>
+          <div class="f-box">[[icon:chart-line:thin]]<strong>Cours du jour</strong><span>au moment de la vente</span></div>
           <span class="f-op" aria-hidden="true">[[icon:equal]]</span>
-          <div class="f-box f-result">[[icon:receipt-euro]]<strong>Votre offre</strong><span>détaillée et expliquée</span></div>
+          <div class="f-box f-result">[[icon:receipt-euro:thin]]<strong>Votre offre</strong><span>détaillée et expliquée</span></div>
         </div>'''
 
 # ---------------------------------------------------------------- VENDRE
@@ -659,9 +660,9 @@ acheter = service_hero("Acheter de l'or", "Or d'investissement", "Acheter de l'o
       <div class="container">
         <header class="section-head"><p class="eyebrow">Comment acheter</p><h2>Simple, sur place</h2></header>
         <ol class="steps steps-3 steps-light">
-          <li><span class="step-head"><span class="step-num">1</span>[[icon:phone-call]]</span><h3>Vous nous contactez</h3><p>Par téléphone ou directement à l'agence, pour connaître les produits disponibles et les tarifs du moment.</p></li>
-          <li><span class="step-head"><span class="step-num">2</span>[[icon:shield-check]]</span><h3>Nous vous conseillons</h3><p>Pièces ou lingots, budget, horizon : nous vous aidons à choisir sans pression.</p></li>
-          <li><span class="step-head"><span class="step-num">3</span>[[icon:coins]]</span><h3>Vous repartez avec votre or</h3><p>La transaction est finalisée à l'agence, avec les documents réglementaires. Une pièce d'identité est requise.</p></li>
+          <li><span class="step-head"><span class="step-num">1</span>[[icon:phone-call:thin]]</span><h3>Vous nous contactez</h3><p>Par téléphone ou directement à l'agence, pour connaître les produits disponibles et les tarifs du moment.</p></li>
+          <li><span class="step-head"><span class="step-num">2</span>[[icon:shield-check:thin]]</span><h3>Nous vous conseillons</h3><p>Pièces ou lingots, budget, horizon : nous vous aidons à choisir sans pression.</p></li>
+          <li><span class="step-head"><span class="step-num">3</span>[[icon:coins:thin]]</span><h3>Vous repartez avec votre or</h3><p>La transaction est finalisée à l'agence, avec les documents réglementaires. Une pièce d'identité est requise.</p></li>
         </ol>
       </div>
     </section>
@@ -754,9 +755,9 @@ change = service_hero("Change", "Bureau de change", "Changer vos devises à Char
       <div class="container">
         <header class="section-head"><p class="eyebrow">Comment ça marche</p><h2>En trois temps</h2></header>
         <ol class="steps steps-3">
-          <li><span class="step-head"><span class="step-num">1</span>[[icon:phone-call]]</span><h3>Vous appelez</h3><p>Pour confirmer que la devise est disponible et connaître le tarif du moment.</p></li>
-          <li><span class="step-head"><span class="step-num">2</span>[[icon:id]]</span><h3>Vous passez à l'agence</h3><p>Du lundi au vendredi, sans rendez-vous, avec une pièce d'identité.</p></li>
-          <li><span class="step-head"><span class="step-num">3</span>[[icon:exchange]]</span><h3>Vous repartez avec vos devises</h3><p>Le taux vous est communiqué avant la transaction.</p></li>
+          <li><span class="step-head"><span class="step-num">1</span>[[icon:phone-call:thin]]</span><h3>Vous appelez</h3><p>Pour confirmer que la devise est disponible et connaître le tarif du moment.</p></li>
+          <li><span class="step-head"><span class="step-num">2</span>[[icon:id:thin]]</span><h3>Vous passez à l'agence</h3><p>Du lundi au vendredi, sans rendez-vous, avec une pièce d'identité.</p></li>
+          <li><span class="step-head"><span class="step-num">3</span>[[icon:exchange:thin]]</span><h3>Vous repartez avec vos devises</h3><p>Le taux vous est communiqué avant la transaction.</p></li>
         </ol>
         <p class="mt"><a class="btn btn-gold" href="tel:{TEL_HREF}">Appeler pour une devise</a></p>
       </div>
@@ -770,15 +771,15 @@ page("change.html", "Bureau de change à Chartres — Devises | Godot &amp; Fils
 
 # ---------------------------------------------------------------- NUMISMATIQUE
 FORMULA_NUMIS = '''        <div class="formula formula-5" role="img" aria-label="Métal plus rareté plus état plus demande égale valeur">
-          <div class="f-box">[[icon:scale]]<strong>Métal</strong><span>poids et titre</span></div>
+          <div class="f-box">[[icon:scale:thin]]<strong>Métal</strong><span>poids et titre</span></div>
           <span class="f-op" aria-hidden="true">[[icon:plus]]</span>
-          <div class="f-box">[[icon:diamond]]<strong>Rareté</strong><span>tirage, millésime</span></div>
+          <div class="f-box">[[icon:diamond:thin]]<strong>Rareté</strong><span>tirage, millésime</span></div>
           <span class="f-op" aria-hidden="true">[[icon:plus]]</span>
-          <div class="f-box">[[icon:eye-check]]<strong>État</strong><span>grade de conservation</span></div>
+          <div class="f-box">[[icon:eye-check:thin]]<strong>État</strong><span>grade de conservation</span></div>
           <span class="f-op" aria-hidden="true">[[icon:plus]]</span>
-          <div class="f-box">[[icon:chart-line]]<strong>Demande</strong><span>intérêt des collectionneurs</span></div>
+          <div class="f-box">[[icon:chart-line:thin]]<strong>Demande</strong><span>intérêt des collectionneurs</span></div>
           <span class="f-op" aria-hidden="true">[[icon:equal]]</span>
-          <div class="f-box f-result">[[icon:medal]]<strong>Valeur</strong><span>métal + prime de collection</span></div>
+          <div class="f-box f-result">[[icon:medal:thin]]<strong>Valeur</strong><span>métal + prime de collection</span></div>
         </div>'''
 
 GRADES = [("B", "Beau", "Pièce très usée, reliefs presque effacés."),
@@ -857,9 +858,9 @@ numis = service_hero("Numismatique", "Pièces de collection", "Numismatique : qu
       <div class="container">
         <header class="section-head"><p class="eyebrow">Comment ça marche</p><h2>Faire estimer ses pièces</h2></header>
         <ol class="steps steps-3 steps-light">
-          <li><span class="step-head"><span class="step-num">1</span>[[icon:coins]]</span><h3>Vous apportez vos pièces</h3><p>À l'agence, telles qu'elles sont : sans les nettoyer.</p></li>
-          <li><span class="step-head"><span class="step-num">2</span>[[icon:scale]]</span><h3>Nous les examinons</h3><p>Identification, pesée, contrôle du titre et appréciation de l'état.</p></li>
-          <li><span class="step-head"><span class="step-num">3</span>[[icon:receipt-euro]]</span><h3>Vous recevez une estimation</h3><p>Valeur du métal et, le cas échéant, valeur de collection. Vous décidez ensuite.</p></li>
+          <li><span class="step-head"><span class="step-num">1</span>[[icon:coins:thin]]</span><h3>Vous apportez vos pièces</h3><p>À l'agence, telles qu'elles sont : sans les nettoyer.</p></li>
+          <li><span class="step-head"><span class="step-num">2</span>[[icon:scale:thin]]</span><h3>Nous les examinons</h3><p>Identification, pesée, contrôle du titre et appréciation de l'état.</p></li>
+          <li><span class="step-head"><span class="step-num">3</span>[[icon:receipt-euro:thin]]</span><h3>Vous recevez une estimation</h3><p>Valeur du métal et, le cas échéant, valeur de collection. Vous décidez ensuite.</p></li>
         </ol>
       </div>
     </section>
@@ -994,7 +995,7 @@ contact = hero("Contact", "Votre agence", "Nous rendre visite à Chartres.",
         <div class="map" data-map-consent>
           <iframe title="Plan d'accès à l'agence Godot &amp; Fils Chartres" data-src="https://maps.google.com/maps?q=23%20rue%20de%20la%20Pie%2C%2028000%20Chartres&amp;z=16&amp;output=embed" loading="lazy" hidden></iframe>
           <div class="map-placeholder">
-            [[icon:map-pin]]
+            [[icon:map-pin:thin]]
             <h3>Plan d'accès</h3>
             <p>Le plan est fourni par Google Maps, qui peut déposer des cookies. Il ne s'affiche qu'avec votre accord.</p>
             <div class="hero-actions">

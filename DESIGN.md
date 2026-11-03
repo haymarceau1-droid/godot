@@ -56,11 +56,7 @@ jamais de nouvelles teintes.
 
 ## 4. Icônes
 
-**Tabler Icons** (outline, MIT) : trait de 2px à bouts arrondis, `currentColor`, fichiers dans
-`assets/icons/` et injectés en SVG inline par `tools/build.py` via `[[icon:nom]]`.
-Or `#e2ab45` sur pastille noire (cartes blanches) ou pastille translucide (cartes sombres).
-Choix thématiques : `coin-euro`, `coins`, `diamond(s)`, `scale` (pesée), `exchange` (change),
-`cash-banknote`, `receipt-euro`, `id`, `file-certificate`, `map-pin`, `phone-call`, `clock`.
+**Phosphor Icons** (MIT), graisse **Light** par défaut, **Thin** pour les grands pictogrammes (≥ 32px) : traits très fins, remplissage par `currentColor`. Fichiers dans `assets/icons/`, injectés en SVG inline par `tools/build.py` via `[[icon:nom]]`. Or `#e2ab45` sur pastille noire (cartes blanches) ou translucide (cartes sombres).
 
 ## 4bis. Component Stylings
 
