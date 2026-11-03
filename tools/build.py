@@ -523,6 +523,7 @@ HERO_IMG = {
     "Acheter or &amp; argent": ("or-lingots-pieces", "Tas de lingots d'or d'un kilo et de pièces d'investissement sur fond noir", "45% 55%"),
     "Argenterie &amp; bijoux": ("argent-lingot-100-onces", "Lingot d'argent pur de 100 onces posé sur des lingots d'argent bruts", "45% 50%"),
     "Pourquoi investir dans l'or": ("or-lingots-gros-plan", "Gros plan sur des lingots d'or fin 999,9", "50% 50%"),
+    "Change": ("change-billets-devises", "Billets de nombreuses devises étrangères : dollars, pesos, yuans, roupies", "50% 50%"),
     "Comparer les placements": ("argent-lingotins", "Lingots et lingotins d'argent fin de plusieurs formats", "50% 50%"),
 }
 
