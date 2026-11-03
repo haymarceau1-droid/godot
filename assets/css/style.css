@@ -1132,7 +1132,7 @@ main, .site-footer { overflow-x: clip; }
 .cmp-label strong { display: block; font-size: 1.05rem; color: var(--text-2); }
 .cmp-label span { display: block; font-size: var(--fs-small); color: var(--text-2-muted); }
 .cmp-bar { display: flex; align-items: center; gap: .9rem; }
-.cmp-bar i { display: block; flex: none; height: 36px; border-radius: 999px; background: var(--btn); width: calc((100% - 5rem) * var(--k)); min-width: 36px; transform-origin: left; transition: transform 1.4s cubic-bezier(.3,.6,.3,1); }
+.cmp-bar i { display: block; flex: none; height: 36px; border-radius: 999px; background: var(--btn); width: calc((100% - 9.5rem) * var(--k)); min-width: 36px; transform-origin: left; transition: transform 1.4s cubic-bezier(.3,.6,.3,1); }
 .cmp-bar-grey i { background: #8d8d8d; }
 .cmp-bar b { font-size: 1.7rem; font-weight: 400; color: var(--gold-deep); white-space: nowrap; }
 .cmp-bar-grey b { color: var(--text-2-muted); }
@@ -1147,3 +1147,10 @@ main, .site-footer { overflow-x: clip; }
 @media (max-width: 1024px) { .stat-grid { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 860px) { .events { grid-template-columns: 1fr; } .cmp-row { grid-template-columns: 1fr; } }
 @media (max-width: 560px) { .stat-grid { grid-template-columns: 1fr; } .ch-ylab, .ch-xlab { font-size: 17px; } .ch-num { font-size: 14px; } }
+
+/* Rendement annuel moyen */
+.sub-head { margin-top: 4.5rem; }
+.sub-title { margin: 3rem 0 1.2rem; font-size: 1.25rem; color: var(--text-2); }
+.stat-grid-3 { grid-template-columns: repeat(3, 1fr); }
+.stat-grey strong { color: var(--text-2-muted); }
+@media (max-width: 860px) { .stat-grid-3 { grid-template-columns: 1fr; } .sub-head { margin-top: 3.2rem; } }
