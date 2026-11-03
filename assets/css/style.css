@@ -1496,3 +1496,17 @@ main, .site-footer { overflow-x: clip; }
   .subnav a { padding: .55em 1em; min-height: 42px; font-size: .875rem; white-space: nowrap; }
   .subnav a .ic { width: 16px; height: 16px; }
 }
+
+/* Avis : logo Google dans les cartes, et défilement bord à bord sur mobile */
+.review-top { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+.review-g { flex: none; width: 22px; height: 22px; }
+@media (max-width: 760px) {
+  .reviews-head { gap: .5rem; }
+  .reviews-head .section-head { margin-bottom: 1.4rem; }
+  .reviews-track { margin-inline: -16px; padding-inline: 16px; scroll-padding-inline: 16px; gap: .9rem; align-items: flex-start; }
+  .review { flex: 0 0 82vw; max-width: 360px; padding: 1.3rem; gap: .8rem; }
+  .review blockquote { flex: none; }
+  .review blockquote p { font-size: .9375rem; line-height: 1.55; }
+  .review-avatar { width: 38px; height: 38px; }
+  .reviews-nav { margin-top: .2rem; }
+}
