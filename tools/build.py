@@ -873,6 +873,25 @@ def coin_card(n, o, t, g, metal):
 
 coin_cards = "\n".join(coin_card(n, o, t, g, m) for m, lst in (("d'or", COINS), ("d'argent", COINS_AG)) for n, o, t, g in lst)
 
+CLASSIQUES_OR = ["Pièces Napoléon 20 F or (effigies Napoléon ou Marianne-Coq)",
+                 "Lingots et lingotins des fondeurs suisses : 5 g, 10 g, 20 g, 50 g, 100 g, 250 g, 500 g et 1 kg",
+                 "Pièce Krugerrand 1 once", "Pièce Souverain britannique", "Pièce Croix Suisse", "Pièce Union Latine",
+                 "Pièces 20 dollars US, 10 dollars US", "Maple Leaf, once moderne neuve", "Philharmonique, once moderne neuve",
+                 "… et bien d'autres"]
+CLASSIQUES_AG = ["Pièces françaises : Semeuse 1 F, 2 F, 5 F, Hercule 10 F, 50 F, Turin, moderne 100 F",
+                 "Maple Leaf, once moderne neuve", "Philharmonique, once moderne neuve", "Silver Eagle, once moderne neuve",
+                 "Lingots 500 g et 1 kg"]
+
+def classiques():
+    li = lambda items: "".join(f"<li>{t}</li>" for t in items)
+    return f'''<div class="classics">
+          <h3 class="classics-title">Tous les classiques de l'or et de l'argent « boursables »</h3>
+          <div class="classics-grid">
+            <div class="classics-col"><h4><span class="sw" style="--c:#e2ab45"></span>L'or</h4><ul class="checks">{li(CLASSIQUES_OR)}</ul></div>
+            <div class="classics-col"><h4><span class="sw" style="--c:#cfd3d8"></span>L'argent</h4><ul class="checks">{li(CLASSIQUES_AG)}</ul></div>
+          </div>
+        </div>'''
+
 def coin_credits():
     if not COIN_CREDITS:
         return ""
@@ -914,6 +933,7 @@ acheter = service_hero("Acheter or &amp; argent", "Or &amp; argent d'investissem
         <div class="coin-grid">
 {coin_cards}
         </div>
+        {classiques()}
         {coin_credits()}
         <aside class="notice"><strong>Bon à savoir :</strong> les prix de l'or et de l'argent varient en permanence et sont affichés en agence, avant même toute proposition. Un investissement comporte un risque de perte en capital et la fiscalité des métaux précieux a ses propres règles : renseignez-vous avant d'acheter. Les informations de ce site ne constituent jamais un conseil en investissement ni une recommandation personnalisée.</aside>
       </div>
