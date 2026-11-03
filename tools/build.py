@@ -27,34 +27,67 @@ LD_STORE = {
         "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], "opens": "09:30", "closes": "18:00"}],
 }
 
+FAQ_G = {
+ "avant": [
+  ("Faut-il prendre rendez-vous ?", "Non, du lundi au vendredi de 9h30 à 18h00 : venez à l'agence sans rendez-vous. Le samedi matin, l'agence reçoit sur rendez-vous : appelez le 02 37 83 49 77. Pour un lot important, un appel au 02 37 83 49 77 nous permet de mieux vous recevoir."),
+  ("L'estimation est-elle vraiment gratuite ?", "Oui. L'estimation et les conseils sont gratuits et sans engagement : vous êtes libre d'accepter ou non notre offre."),
+  ("Quels documents dois-je apporter ?", "Une pièce d'identité en cours de validité, obligatoire pour toute vente de métaux précieux. Pour les pièces et lingots, apportez aussi les factures ou certificats d'achat si vous en avez : ils peuvent avoir une incidence sur la fiscalité applicable."),
+ ],
+ "vendre": [
+  ("Comment est calculé le prix de rachat ?", "Le prix dépend du poids, du titre (pureté) du métal et du cours de l'or ou de l'argent au jour de la transaction. Pour certaines pièces de collection, la valeur numismatique peut également être prise en compte."),
+  ("Rachetez-vous l'or et l'argent cassés ou abîmés ?", "Oui. Bijoux cassés, chaînes emmêlées, boucles d'oreilles orphelines, or dentaire, argenterie bosselée : tout est estimé selon sa teneur en métal précieux."),
+  ("Puis-je vendre des lingots et des pièces d'investissement ?", "Oui. Les lingots, lingotins et pièces (Napoléon, Souverain, Krugerrand, Maple Leaf…) sont estimés au poids et au titre. Apportez vos justificatifs d'achat si vous les avez."),
+  ("Que se passe-t-il si je refuse l'offre ?", "Rien : vous repartez avec vos objets, sans frais. L'estimation est faite devant vous, la décision vous appartient."),
+  ("Mes bijoux sont-ils fondus ?", "Les bijoux rachetés pour leur métal sont généralement destinés au recyclage. Si vous souhaitez conserver une pièce de valeur, dites-le lors de l'estimation."),
+ ],
+ "acheter": [
+  ("Puis-je acheter de l'or ou de l'argent pour investir ?", "Oui. Nous proposons des pièces et des lingots d'investissement en or et en argent. Contactez l'agence pour connaître les disponibilités et les tarifs du moment."),
+  ("Quelle différence entre une pièce et un lingot ?", "Les pièces sont facilement divisibles et reconnues sur le marché ; les lingots, plus massifs, portent généralement une prime plus faible par gramme. Nous vous aidons à choisir selon votre projet."),
+  ("Or ou argent : que choisir ?", "L'argent coûte moins cher au gramme, ce qui permet de démarrer avec un petit budget, mais son prix est en général plus volatil que celui de l'or. Les deux peuvent se combiner : nous vous conseillons selon votre projet."),
+  ("Les prix changent-ils dans la journée ?", "Oui. Les prix de l'or et de l'argent suivent les marchés : le tarif applicable est celui du moment de la transaction. Appelez l'agence pour connaître le tarif du jour."),
+  ("Puis-je revendre mes pièces ou lingots plus tard ?", "Oui : l'or et l'argent physiques se revendent, au cours du moment. Conservez vos factures et certificats d'achat : ils peuvent avoir une incidence sur la fiscalité, dont les règles sont spécifiques."),
+ ],
+ "argent": [
+  ("Rachetez-vous l'argenterie, même bosselée ou dépareillée ?", "Oui. Couverts, ménagères, plateaux et objets en argent massif sont estimés selon leur poids et leur titre, quel que soit leur état."),
+  ("Comment savoir si mon objet est en argent massif ou en métal argenté ?", "Cherchez les poinçons : un titre (925 ou 800 par exemple) indique de l'argent massif. Un objet en « métal argenté » n'est qu'une fine couche d'argent sur un autre métal et vaut très peu pour son métal. En cas de doute, apportez-le : le contrôle est gratuit."),
+  ("Estimez-vous aussi le platine ?", "Oui. Le platine est estimé comme les autres métaux précieux : au poids, au titre et au cours du jour."),
+  ("Mon bijou n'a pas de poinçon, peut-il être estimé ?", "Oui. Le titre est contrôlé sur place, sous vos yeux, avant toute proposition."),
+  ("Mes bijoux sont-ils fondus ?", "Les bijoux rachetés pour leur métal sont généralement destinés au recyclage. Si vous souhaitez conserver une pièce de valeur ou ancienne, dites-le lors de l'estimation."),
+ ],
+ "numis": [
+  ("Une pièce rare vaut-elle plus que son poids d'or ?", "Parfois, oui. Au-delà du métal, la valeur numismatique dépend de la rareté (tirage, millésime), de l'état de conservation et de la demande des collectionneurs. Beaucoup de pièces courantes ne valent cependant que leur métal."),
+  ("Dois-je nettoyer mes pièces avant de venir ?", "Non, jamais. Le nettoyage raye la surface et peut faire perdre une grande part de la valeur d'une pièce de collection. Apportez-la telle quelle."),
+  ("Comment connaître la valeur de ma collection ?", "Apportez vos pièces à l'agence : l'estimation est gratuite et sans engagement. Elle distingue la valeur du métal et, le cas échéant, une valeur de collection."),
+  ("Comment tenir et conserver mes pièces ?", "Tenez-les par la tranche, sans toucher les faces, et conservez-les à l'abri de l'humidité dans des capsules ou des écrins adaptés."),
+ ],
+ "change": [
+  ("Puis-je changer des devises à l'agence ?", "Oui, l'agence est aussi bureau de change : achat et vente de devises étrangères, avant votre départ comme à votre retour de voyage."),
+  ("Quelles devises sont disponibles ?", "Les devises disponibles varient : appelez-nous avant de venir pour confirmer celle dont vous avez besoin, au 02 37 83 49 77."),
+  ("Quel taux de change appliquez-vous ?", "Les taux suivent les marchés et évoluent : appelez l'agence pour connaître le taux du jour avant de vous déplacer."),
+  ("Faut-il une pièce d'identité pour changer ?", "Oui, une pièce d'identité est à présenter au guichet."),
+ ],
+ "investir": [
+  ("Quel est le rendement annuel moyen de l'or ?", "Entre 2000 et 2025, le prix moyen de l'once a progressé d'environ 10,6 % par an en dollars (environ 8,5 % par an depuis 1971). Ce rendement varie fortement selon la période (environ +3,8 % par an entre 2010 et 2020), il ne tient compte ni des frais ni de la fiscalité, et les performances passées ne préjugent pas des performances futures."),
+  ("L'or protège-t-il vraiment de l'inflation ?", "Sur le long terme, son prix a nettement dépassé l'inflation : en euros, l'once a été multipliée par environ 7 entre 2000 et 2024, contre ×1,5 pour les prix en France. Ce n'est pourtant pas vrai chaque année : en 2022, l'inflation a atteint 5,2 % alors que l'or est resté stable en dollars. Les performances passées ne préjugent pas des performances futures."),
+  ("L'or est-il un placement sans risque ?", "Non. Son prix fluctue et peut stagner ou reculer pendant des années ; il ne verse ni dividende ni intérêt, et un investissement comporte un risque de perte en capital. Cette page est une information générale, pas un conseil en investissement."),
+  ("Puis-je acheter de l'or physique à Chartres ?", "Oui. L'agence propose des pièces et des lingots d'investissement, selon les disponibilités : contactez-nous pour connaître les tarifs du moment."),
+ ],
+ "comparer": [
+  ("Pourquoi déduire l'inflation ?", "Les prix augmentent d'année en année : 1 € d'aujourd'hui n'achète plus ce qu'il achetait en 2000. En déduisant l'inflation (indice des prix de l'Insee), on mesure l'évolution du pouvoir d'achat, et pas seulement du prix. L'option est décochée par défaut : cochez-la pour lire les rendements réels."),
+  ("Comment est calculé le rendement annuel moyen ?", "C'est le taux de croissance annualisé sur la période choisie : le taux constant qui, appliqué chaque année, donnerait le même résultat final que les rendements réellement observés."),
+  ("Pourquoi l'échelle logarithmique ?", "Elle rend lisibles des courbes très différentes sur un même graphique : à chaque graduation, la valeur double ou presque. Vous pouvez repasser en échelle linéaire à tout moment."),
+  ("Ces résultats sont-ils garantis ?", "Non. Le simulateur applique un rendement moyen constant, ce qui ne se produit jamais en réalité : les bonnes et les mauvaises années alternent. Les performances passées ne préjugent pas des performances futures, et cet outil n'est pas un conseil en investissement."),
+  ("D'où viennent les données ?", "Des sources citées en bas de page (LBMA, Insee, Notaires-Insee, Euronext…). Certaines séries (immobilier, Livret A, CAC 40 de 2002 à 2007) sont des estimations arrondies, signalées par le signe ≈."),
+ ],
+}
 FAQ = [
-    ("Avant de venir", [
-        ("Faut-il prendre rendez-vous ?", "Non, du lundi au vendredi de 9h30 à 18h00 : venez à l'agence sans rendez-vous. Le samedi matin, l'agence reçoit sur rendez-vous : appelez le 02 37 83 49 77. Pour un lot important, un appel au 02 37 83 49 77 nous permet de mieux vous recevoir."),
-        ("L'estimation est-elle vraiment gratuite ?", "Oui. L'estimation et les conseils sont gratuits et sans engagement : vous êtes libre d'accepter ou non notre offre."),
-        ("Quels documents dois-je apporter ?", "Une pièce d'identité en cours de validité, obligatoire pour toute vente de métaux précieux. Pour les pièces et lingots, apportez aussi les factures ou certificats d'achat si vous en avez : ils peuvent avoir une incidence sur la fiscalité applicable."),
-    ]),
-    ("Vendre", [
-        ("Comment est calculé le prix de rachat ?", "Le prix dépend du poids, du titre (pureté) du métal et du cours de l'or ou de l'argent au jour de la transaction. Pour certaines pièces de collection, la valeur numismatique peut également être prise en compte."),
-        ("Rachetez-vous l'or et l'argent cassés ou abîmés ?", "Oui. Bijoux cassés, chaînes emmêlées, boucles d'oreilles orphelines, or dentaire, argenterie bosselée : tout est estimé selon sa teneur en métal précieux."),
-        ("Que se passe-t-il si je refuse l'offre ?", "Rien : vous repartez avec vos objets, sans frais. L'estimation est faite devant vous, la décision vous appartient."),
-        ("Mes bijoux sont-ils fondus ?", "Les bijoux rachetés pour leur métal sont généralement destinés au recyclage. Si vous souhaitez conserver une pièce de valeur, dites-le lors de l'estimation."),
-    ]),
-    ("Acheter", [
-        ("Puis-je acheter de l'or ou de l'argent pour investir ?", "Oui. Nous proposons des pièces et des lingots d'investissement en or et en argent. Contactez l'agence pour connaître les disponibilités et les tarifs du moment."),
-        ("Les prix changent-ils dans la journée ?", "Oui. Les prix de l'or et de l'argent suivent les marchés : le tarif applicable est celui du moment de la transaction."),
-        ("Quel est le rendement annuel moyen de l'or ?", "Entre 2000 et 2025, le prix moyen de l'once a progressé d'environ 10,6 % par an en dollars (environ 8,5 % par an depuis 1971). Ce rendement varie fortement selon la période (environ +3,8 % par an entre 2010 et 2020), il ne tient compte ni des frais ni de la fiscalité, et les performances passées ne préjugent pas des performances futures."),
-        ("L'or protège-t-il vraiment de l'inflation ?", "Sur le long terme, son prix a nettement dépassé l'inflation : en euros, l'once a été multipliée par environ 7 entre 2000 et 2024, contre ×1,5 pour les prix en France. Ce n'est pourtant pas vrai chaque année : en 2022, l'inflation a atteint 5,2 % alors que l'or est resté stable en dollars. Les performances passées ne préjugent pas des performances futures."),
-        ("Quelle différence entre une pièce et un lingot ?", "Les pièces sont facilement divisibles et reconnues sur le marché ; les lingots, plus massifs, portent généralement une prime plus faible par gramme. Nous vous aidons à choisir selon votre projet."),
-    ]),
-    ("Numismatique", [
-        ("Une pièce rare vaut-elle plus que son poids d'or ?", "Parfois, oui. Au-delà du métal, la valeur numismatique dépend de la rareté (tirage, millésime), de l'état de conservation et de la demande des collectionneurs. Beaucoup de pièces courantes ne valent cependant que leur métal."),
-        ("Dois-je nettoyer mes pièces avant de venir ?", "Non, jamais. Le nettoyage raye la surface et peut faire perdre une grande part de la valeur d'une pièce de collection. Apportez-la telle quelle."),
-        ("Comment connaître la valeur de ma collection ?", "Apportez vos pièces à l'agence : l'estimation est gratuite et sans engagement. Elle distingue la valeur du métal et, le cas échéant, une valeur de collection."),
-        ("Comment tenir et conserver mes pièces ?", "Tenez-les par la tranche, sans toucher les faces, et conservez-les à l'abri de l'humidité dans des capsules ou des écrins adaptés."),
-    ]),
-    ("Change", [
-        ("Puis-je changer des devises à l'agence ?", "Oui, l'agence est aussi bureau de change. Les devises disponibles varient : appelez-nous avant de venir pour confirmer celle dont vous avez besoin."),
-    ]),
+    ("Avant de venir", FAQ_G["avant"]),
+    ("Vendre", FAQ_G["vendre"]),
+    ("Acheter", FAQ_G["acheter"]),
+    ("Argenterie et bijoux", FAQ_G["argent"]),
+    ("Numismatique", FAQ_G["numis"]),
+    ("Change", FAQ_G["change"]),
+    ("Investir et comparer", FAQ_G["investir"] + FAQ_G["comparer"][:2]),
 ]
 
 def esc_json(o): return json.dumps(o, ensure_ascii=False, indent=2)
@@ -504,7 +537,7 @@ home = f'''    <section class="hero hero-photo">
           <h2>Vous vous posez des questions ?</h2>
         </header>
         <div class="faq">
-{faq_block(FAQ[0][1] + FAQ[1][1][:1])}
+{faq_block(FAQ_G["avant"] + FAQ_G["vendre"][:1])}
         </div>
         <p class="mt"><a class="btn btn-ghost" href="faq.html">Toutes les questions</a></p>
       </div>
@@ -668,7 +701,7 @@ vendre = service_hero("Vendre or &amp; argent", "Rachat d'or et d'argent à Char
       </div>
     </section>
 
-{faq_section("Vendre son or et son argent", FAQ[0][1][2:] + FAQ[1][1])}
+{faq_section("Vendre son or et son argent", FAQ_G["avant"][:1] + FAQ_G["avant"][2:] + FAQ_G["vendre"])}
 
 {others("vendre-or.html")}'''
 page("vendre-or.html", "Vendre son or et son argent à Chartres — Rachat d'or, d'argent, bijoux et pièces | Godot &amp; Fils",
@@ -737,7 +770,7 @@ acheter = service_hero("Acheter or &amp; argent", "Or &amp; argent d'investissem
       </div>
     </section>
 
-{faq_section("Acheter or et argent", FAQ[2][1])}
+{faq_section("Acheter or et argent", FAQ_G["acheter"] + FAQ_G["avant"][2:])}
 
 {others("acheter-or.html")}'''
 page("acheter-or.html", "Acheter or et argent à Chartres — Pièces et lingots d'investissement | Godot &amp; Fils",
@@ -798,7 +831,9 @@ argent = service_hero("Argenterie &amp; bijoux", "Argent · Platine · Bijoux", 
       </div>
     </section>
 
-{others("argent-bijoux.html", "section-soft")}'''
+{faq_section("Argenterie, platine et bijoux", FAQ_G["argent"], cls="section-dark")}
+
+{others("argent-bijoux.html")}'''
 page("argent-bijoux.html", "Argent, platine et bijoux à Chartres — Estimation gratuite | Godot &amp; Fils",
      "Faites estimer gratuitement votre argenterie, vos pièces d'argent, votre platine et vos bijoux anciens à Chartres chez Godot & Fils.", argent)
 
@@ -833,7 +868,7 @@ change = service_hero("Change", "Bureau de change", "Changer vos devises à Char
       </div>
     </section>
 
-{faq_section("Le change", FAQ[3][1] + FAQ[0][1][:1], cls="")}
+{faq_section("Le change", FAQ_G["change"] + FAQ_G["avant"][:1], cls="")}
 
 {others("change.html", "section-soft")}'''
 page("change.html", "Bureau de change à Chartres — Devises | Godot &amp; Fils",
@@ -935,7 +970,7 @@ numis = service_hero("Numismatique", "Pièces de collection", "Numismatique : qu
       </div>
     </section>
 
-{faq_section("La numismatique", FAQ[4][1])}
+{faq_section("La numismatique", FAQ_G["numis"] + FAQ_G["avant"][:1])}
 
 {others("numismatique.html")}'''
 page("numismatique.html", "Numismatique à Chartres — Estimation de pièces de collection | Godot &amp; Fils",
@@ -1164,7 +1199,7 @@ pourquoi = service_hero("Pourquoi investir dans l'or", "Or d'investissement", "P
       </div>
     </section>
 
-{faq_section("Investir dans l'or", FAQ[2][1], cls="section-soft")}'''
+{faq_section("Investir dans l'or", FAQ_G["investir"], cls="section-soft")}'''
 page("pourquoi-investir-or.html", "Pourquoi investir dans l'or ? Rendements historiques, inflation, risques | Godot &amp; Fils Chartres",
      "Pourquoi investir dans l'or : rendement annuel moyen, évolution du prix de l'once depuis 2000, comparaison avec l'inflation en France, valeur refuge, risques et fiscalité. Information générale.", pourquoi)
 
@@ -1371,7 +1406,9 @@ comparer = service_hero("Comparer les placements", "Comparateur", "Comparer l'or
           <a class="btn btn-outline" href="acheter-or.html">Acheter or &amp; argent</a>
         </div>
       </div>
-    </section>'''
+    </section>
+
+{faq_section("Comparer les placements", FAQ_G["comparer"], cls="section-soft")}'''
 page("comparer.html", "Comparer l'or, les actions, l'immobilier et le Livret A | Godot &amp; Fils Chartres",
      "Comparateur de placements : courbes de l'or, du S&P 500, de l'immobilier, du Livret A et de l'inflation depuis 2000, et simulateur de capital selon le rendement annuel moyen historique.", comparer)
 
