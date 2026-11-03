@@ -19,7 +19,7 @@ LD_STORE = {
     "@context": "https://schema.org", "@type": "JewelryStore",
     "name": "Godot & Fils Chartres",
     "description": "Achat et vente d'or, d'argent, de pièces, de lingots et de bijoux. Bureau de change.",
-    "url": SITE + "/", "telephone": TEL_HREF, "foundingDate": "1933",
+    "url": SITE + "/", "telephone": TEL_HREF, "foundingDate": "2020",
     "logo": SITE + "/assets/img/logo-noir.png",
     "address": {"@type": "PostalAddress", "streetAddress": "23 rue de la Pie", "postalCode": "28000",
                 "addressLocality": "Chartres", "addressCountry": "FR"},
@@ -111,7 +111,7 @@ def header(active):
   <header class="site-header" id="haut">
     <div class="container header-inner">
       <a class="brand" href="index.html" aria-label="Godot &amp; Fils Chartres, accueil">
-        <img src="assets/img/logo-blanc.png" width="650" height="133" alt="Godot &amp; Fils, depuis 1933">
+        <img src="assets/img/logo-blanc.png" width="650" height="133" alt="Godot &amp; Fils">
       </a>
       <button class="nav-toggle" aria-expanded="false" aria-controls="nav" aria-label="Ouvrir le menu">
         <span></span><span></span>
@@ -157,7 +157,7 @@ def footer():
     <div class="container footer-grid">
       <div>
         <a class="brand brand-footer" href="index.html">
-          <img src="assets/img/logo-blanc.png" width="650" height="133" alt="Godot &amp; Fils, depuis 1933">
+          <img src="assets/img/logo-blanc.png" width="650" height="133" alt="Godot &amp; Fils">
         </a>
         <p>Achat et vente d'or, d'argent et de métaux précieux. Bureau de change.</p>
       </div>
@@ -443,7 +443,7 @@ def reseau_section():
 
 # ---------------------------------------------------------------- ACCUEIL
 FAQ_CLS = "section"   # alternance des fonds selon la présence des avis
-TICKER = "".join(f"<span>{w}</span>" for w in ["Achat d'or", "Vente de pièces", "Lingots", "Argent", "Bijoux", "Bureau de change", "Depuis 1933"] * 6)
+TICKER = "".join(f"<span>{w}</span>" for w in ["Achat d'or", "Vente de pièces", "Lingots", "Argent", "Bijoux", "Bureau de change"] * 6)
 home = f'''    <section class="hero hero-photo">
       <picture class="hero-bg" aria-hidden="true">
         <img src="assets/img/devanture.webp" srcset="assets/img/devanture-1280.webp 1280w, assets/img/devanture.webp 1920w" sizes="100vw" width="1920" height="800" alt="" fetchpriority="high" decoding="async">
@@ -453,7 +453,7 @@ home = f'''    <section class="hero hero-photo">
         <div class="hero-copy">
           <p class="eyebrow">Or · Argent · Pièces · Lingots · Bijoux · Change</p>
           <h1>Votre or et votre argent estimés à leur <em>juste valeur</em>, au cœur de Chartres.</h1>
-          <p class="lead">Achat et vente de métaux précieux par une maison fondée en 1933. Estimation gratuite, sans engagement et sans rendez-vous.</p>
+          <p class="lead">Achat et vente d'or, d'argent et de métaux précieux à Chartres. Estimation gratuite, sans engagement et sans rendez-vous.</p>
           <div class="hero-actions">
             <a class="btn btn-gold" href="contact.html">Venir à l'agence</a>
             <a class="btn btn-ghost" href="tel:{TEL_HREF}">Appeler l'agence</a>
@@ -511,7 +511,7 @@ home = f'''    <section class="hero hero-photo">
         <div class="split-copy">
           <p class="eyebrow">La maison</p>
           <h2>Une institution du négoce de métaux précieux</h2>
-          <p>Fondée en 1933, la maison Godot &amp; Fils s'est imposée comme une référence du négoce de l'or, de l'argent et des métaux précieux. Son réseau d'agences est présent dans de nombreuses villes, de Paris à Versailles en passant par Saint-Germain-en-Laye.</p>
+          <p>La maison Godot &amp; Fils s'est imposée comme une référence du négoce de l'or, de l'argent et des métaux précieux. Son réseau d'agences est présent dans de nombreuses villes, de Paris à Versailles en passant par Saint-Germain-en-Laye.</p>
           <p>À Chartres, notre agence perpétue ce savoir-faire : une expertise rigoureuse, des conseils personnalisés et un accueil de proximité.</p>
           <ul class="checks">
             <li>Expertise réalisée sur place, sous vos yeux</li>
@@ -1450,8 +1450,8 @@ page("comparer.html", "Comparer l'or, les actions, l'immobilier et le Livret A |
      "Comparateur de placements : courbes de l'or, du S&P 500, de l'immobilier, du Livret A et de l'inflation depuis 2000, et simulateur de capital selon le rendement annuel moyen historique.", comparer)
 
 # ---------------------------------------------------------------- LA MAISON
-maison = hero("La maison", "Depuis 1933", "Une institution du négoce de métaux précieux.",
-              "Depuis 1933, la maison Godot & Fils accompagne particuliers et épargnants dans l'achat et la vente d'or, d'argent et de métaux précieux.", actions=False) + '''
+maison = hero("La maison", "Négoce de métaux précieux", "Une institution du négoce de métaux précieux.",
+              "La maison Godot & Fils accompagne particuliers et épargnants dans l'achat et la vente d'or, d'argent et de métaux précieux.", actions=False) + '''
 
 ''' + histoire_section() + '\n\n' + agence_gallery(True) + '''
 
@@ -1482,8 +1482,8 @@ maison = hero("La maison", "Depuis 1933", "Une institution du négoce de métaux
         </ul>
       </div>
     </section>'''
-page("la-maison.html", "La maison Godot &amp; Fils — Négoce de métaux précieux depuis 1933",
-     "Godot & Fils, institution du négoce d'or et de métaux précieux depuis 1933. Découvrez l'histoire, les engagements et l'agence de Chartres.", maison)
+page("la-maison.html", "La maison Godot &amp; Fils — Négoce de métaux précieux",
+     "Godot & Fils, institution du négoce d'or et de métaux précieux. Découvrez l'histoire, les engagements et l'agence de Chartres.", maison)
 
 # ---------------------------------------------------------------- FAQ
 faq_sections = "\n".join(f'''    <section class="section{" section-soft" if i % 2 else ""}">

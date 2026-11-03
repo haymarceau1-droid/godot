@@ -42,7 +42,7 @@
     el.setAttribute('aria-describedby', 'ck-text');
     el.innerHTML =
       '<div class="cookie-head">' +
-        '<img src="assets/img/logo-blanc.png" width="650" height="133" alt="Godot &amp; Fils, depuis 1933">' +
+        '<img src="assets/img/logo-blanc.png" width="650" height="133" alt="Godot &amp; Fils">' +
       '</div>' +
       '<h2 id="ck-title">Votre vie privée compte</h2>' +
       '<p id="ck-text">Aucun cookie de suivi sur ce site. Seul le plan d’accès (Google Maps) peut en déposer, et uniquement avec votre accord. Modifiable à tout moment depuis le pied de page.</p>' +
