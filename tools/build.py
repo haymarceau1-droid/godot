@@ -342,7 +342,16 @@ def hero(crumb, eyebrow, h1, lead, actions=True):
 def faq_block(items):
     return "\n".join(f"          <details>\n            <summary>{q}</summary>\n            <p>{a}</p>\n          </details>" for q, a in items)
 
-def steps_block():
+STEPS_TIMELINE = '''        <ol class="tsteps">
+          <li><span class="ts-node">[[icon:building-store:thin]]</span><span class="ts-num" aria-hidden="true">01</span><h3>Vous passez à l'agence</h3><p>Sans rendez-vous, du lundi au vendredi, avec vos bijoux, pièces ou lingots.</p></li>
+          <li><span class="ts-node">[[icon:scale:thin]]</span><span class="ts-num" aria-hidden="true">02</span><h3>Nous examinons devant vous</h3><p>Contrôle du titre et pesée de chaque objet, sous vos yeux.</p></li>
+          <li><span class="ts-node">[[icon:receipt-euro:thin]]</span><span class="ts-num" aria-hidden="true">03</span><h3>Nous vous faisons une offre</h3><p>Une proposition détaillée, fondée sur le cours du jour. Vous restez libre de refuser.</p></li>
+          <li><span class="ts-node">[[icon:cash-banknote:thin]]</span><span class="ts-num" aria-hidden="true">04</span><h3>Vous êtes payé</h3><p>Si vous acceptez, la transaction est finalisée avec un bordereau d'achat conforme à la réglementation.</p></li>
+        </ol>'''
+
+def steps_block(timeline=False):
+    if timeline:
+        return STEPS_TIMELINE
     return '''        <ol class="steps">
           <li><span class="step-head"><span class="step-num">1</span>[[icon:building-store:thin]]</span><h3>Vous passez à l'agence</h3><p>Sans rendez-vous, du lundi au vendredi, avec vos bijoux, pièces ou lingots.</p></li>
           <li><span class="step-head"><span class="step-num">2</span>[[icon:scale:thin]]</span><h3>Nous examinons devant vous</h3><p>Contrôle du titre et pesée de chaque objet, sous vos yeux.</p></li>
@@ -581,11 +590,43 @@ home = f'''    <section class="hero hero-photo">
           <h2>Tout ce qui brille, et bien plus encore.</h2>
           <p>Que vous souhaitiez vendre des bijoux hérités, investir dans l'or et l'argent physiques ou préparer un voyage, l'agence vous reçoit et vous conseille.</p>
         </header>
-        <div class="cards cards-4">
-          <article class="card"><div class="card-icon" aria-hidden="true">{ICON["or"]}</div><h3>Vendre or &amp; argent</h3><p>Bijoux, débris, alliances, chaînes, argenterie, pièces et lingots : nous rachetons votre or et votre argent, quel que soit leur état.</p><a class="link-more" href="vendre-or.html">Vendre or &amp; argent</a></article>
-          <article class="card"><div class="card-icon" aria-hidden="true">{ICON["pieces"]}</div><h3>Acheter or &amp; argent</h3><p>Napoléon, Souverain, Krugerrand, Maple Leaf argent, lingots et lingotins : constituez une épargne tangible, conseillé par des spécialistes.</p><a class="link-more" href="acheter-or.html">Acheter or &amp; argent</a></article>
-          <article class="card"><div class="card-icon" aria-hidden="true">{ICON["argent"]}</div><h3>Argenterie &amp; bijoux</h3><p>Argenterie, pièces d'argent, platine, bijoux anciens ou démodés : une expertise attentive pour chaque pièce.</p><a class="link-more" href="argent-bijoux.html">Argenterie &amp; bijoux</a></article>
-          <article class="card"><div class="card-icon" aria-hidden="true">{ICON["change"]}</div><h3>Bureau de change</h3><p>Achat et vente de devises étrangères pour vos voyages ou au retour : un service simple, sur place.</p><a class="link-more" href="change.html">Bureau de change</a></article>
+        <div class="bento">
+          <a class="bento-card bento-vendre" href="vendre-or.html">
+            <img class="bento-img" src="assets/img/or-pieces-lingots-gros-plan.webp" alt="" width="1000" height="667" loading="lazy" decoding="async">
+            <span class="bento-body">
+              <span class="bento-top"><span class="bento-num" aria-hidden="true">01</span><span class="bento-ic" aria-hidden="true">{ICON["or"]}</span></span>
+              <h3>Vendre or &amp; argent</h3>
+              <p>Bijoux, débris, alliances, chaînes, argenterie, pièces et lingots : nous rachetons votre or et votre argent, quel que soit leur état.</p>
+              <span class="bento-more">Découvrir <span aria-hidden="true">→</span></span>
+            </span>
+          </a>
+          <a class="bento-card bento-acheter" href="acheter-or.html">
+            <img class="bento-img" src="assets/img/or-lingots-pieces.webp" alt="" width="1000" height="667" loading="lazy" decoding="async">
+            <span class="bento-body">
+              <span class="bento-top"><span class="bento-num" aria-hidden="true">02</span><span class="bento-ic" aria-hidden="true">{ICON["pieces"]}</span></span>
+              <h3>Acheter or &amp; argent</h3>
+              <p>Napoléon, Souverain, Krugerrand, Maple Leaf argent, lingots et lingotins : constituez une épargne tangible, conseillé par des spécialistes.</p>
+              <span class="bento-more">Découvrir <span aria-hidden="true">→</span></span>
+            </span>
+          </a>
+          <a class="bento-card bento-argent" href="argent-bijoux.html">
+            <img class="bento-img" src="assets/img/argent-lingot-100-onces.webp" alt="" width="1000" height="667" loading="lazy" decoding="async">
+            <span class="bento-body">
+              <span class="bento-top"><span class="bento-num" aria-hidden="true">03</span><span class="bento-ic" aria-hidden="true">{ICON["argent"]}</span></span>
+              <h3>Argenterie &amp; bijoux</h3>
+              <p>Argenterie, pièces d'argent, platine, bijoux anciens ou démodés : une expertise attentive pour chaque pièce.</p>
+              <span class="bento-more">Découvrir <span aria-hidden="true">→</span></span>
+            </span>
+          </a>
+          <a class="bento-card bento-change" href="change.html">
+            <img class="bento-img" src="assets/img/change-billets-devises.webp" alt="" width="1000" height="667" loading="lazy" decoding="async">
+            <span class="bento-body">
+              <span class="bento-top"><span class="bento-num" aria-hidden="true">04</span><span class="bento-ic" aria-hidden="true">{ICON["change"]}</span></span>
+              <h3>Bureau de change</h3>
+              <p>Achat et vente de devises étrangères pour vos voyages ou au retour : un service simple, sur place.</p>
+              <span class="bento-more">Découvrir <span aria-hidden="true">→</span></span>
+            </span>
+          </a>
         </div>
       </div>
     </section>
@@ -597,7 +638,7 @@ home = f'''    <section class="hero hero-photo">
           <h2>Vendre votre or ou votre argent en quatre étapes</h2>
           <p>Un parcours transparent, en face à face, pour que vous décidiez en toute sérénité.</p>
         </header>
-{steps_block()}
+{steps_block(True)}
         <aside class="notice"><strong>À prévoir :</strong> une pièce d'identité en cours de validité est obligatoire pour toute vente de métaux précieux.</aside>
       </div>
     </section>

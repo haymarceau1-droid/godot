@@ -116,7 +116,7 @@
   // ---------------------------------------------------------------- Apparition au défilement (décalée, directionnelle)
   var SEL = '.section-head, .card, .card-row, .other-card, .coin-card, .tips li, .steps li, .formula > *, ' +
             '.faq details, .contact-grid > *, .split > *, .network > *, .notice, .table-wrap, ' +
-            '.cta-inner > *, .footer-grid > *, .checks li, .tl-card, .history-stats > div';
+            '.cta-inner > *, .footer-grid > *, .checks li, .tl-card, .history-stats > div, .bento-card, .tsteps li';
   if (!reduce && 'IntersectionObserver' in window) {
     var wide = window.matchMedia('(min-width: 861px)').matches;
     var items = Array.prototype.slice.call(document.querySelectorAll(SEL));
@@ -145,7 +145,7 @@
     items.forEach(function (el) {
       el.classList.add('reveal');
       if (wide && el.matches('.split > *')) el.classList.add(el === el.parentNode.firstElementChild ? 'reveal-left' : 'reveal-right');
-      else if (el.matches('.coin-card, .f-box, .tips li, .steps li')) el.classList.add('reveal-pop');
+      else if (el.matches('.coin-card, .f-box, .tips li, .steps li, .tsteps li, .bento-card')) el.classList.add('reveal-pop');
       io.observe(el);
     });
   }
