@@ -137,7 +137,7 @@ def header(active):
         <div class="menu-links">
           <span class="menu-glide" aria-hidden="true"></span>
           <div class="menu-dd">
-            <button type="button" class="menu-dd-btn{dd_cls}" aria-expanded="false" aria-haspopup="true" aria-controls="menu-panel"><span>Nos services</span></button>
+            <button type="button" class="menu-dd-btn{dd_cls}" aria-expanded="false" aria-haspopup="true" aria-controls="menu-panel"><span>Nos services</span>[[icon:chevron-down]]</button>
             <div class="menu-panel" id="menu-panel" role="group" aria-label="Nos services">{panel}</div>
           </div>
           <a href="pourquoi-investir-or.html"{cur("pourquoi-investir-or.html")}>[[icon:chart-line]]<span>Pourquoi investir ?</span></a>
