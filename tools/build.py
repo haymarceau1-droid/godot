@@ -723,7 +723,7 @@ page("index.html", "Godot &amp; Fils Chartres — Achat et vente d'or, d'argent 
 
 def subnav(active):
     items = "".join(
-        f'<li><a href="{h}"{" aria-current=\"page\"" if h == active else ""}><span>{t}</span></a></li>'
+        f'<li><a href="{h}"{" aria-current=\"page\"" if h == active else ""}>[[icon:{ico}]]<span>{t}</span></a></li>'
         for h, t, ico, _ in SERVICES)
     return f'''    <div class="subnav" aria-label="Nos services">
       <div class="container"><ul>{items}</ul></div>
