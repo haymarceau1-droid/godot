@@ -178,7 +178,7 @@ p { margin: 0 0 1em; }
 .card-accent h3 { color: var(--gold); }
 .card-accent p { color: var(--text-1-muted); margin-bottom: 1.2rem; }
 .link-arrow { color: var(--text-1); font-weight: 700; text-decoration: none; border-bottom: 2px solid var(--gold); align-self: flex-start; padding-bottom: 2px; }
-.link-arrow::after { content: " →"; }
+
 
 /* Étapes */
 .steps { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.25rem; }
@@ -319,7 +319,7 @@ p { margin: 0 0 1em; }
 .cards-4 { grid-template-columns: repeat(4, 1fr); }
 .cards-1 { grid-template-columns: 1fr; }
 .link-more { display: inline-block; margin-top: 1.2rem; font-weight: 700; font-size: var(--fs-small); color: var(--text-2); text-decoration: none; border-bottom: 2px solid var(--gold); padding-bottom: 2px; }
-.link-more::after { content: " →"; }
+
 .link-more:hover { color: var(--gold); }
 .card h3 + p { margin-top: .2rem; }
 .card-dark { background: var(--canvas); border-color: var(--line-dark); }
@@ -868,7 +868,7 @@ button.btn { font-family: var(--font); cursor: pointer; }
   .menu-links a:hover { background: none; color: var(--gold); }
   .menu-links a .ic { display: block; flex: none; box-sizing: border-box; width: 40px; height: 40px; padding: 9px; margin-right: 1rem; border: 1px solid var(--line-dark); border-radius: 50%; color: var(--gold); transition: border-color .2s, background-color .2s; }
   .menu-links a:hover .ic { border-color: var(--gold); }
-  .menu-links a::after { content: "→"; margin-left: auto; color: var(--gold); opacity: .8; }
+  
   .menu-links a[aria-current="page"] { background: none; color: var(--gold); }
   .menu-links a[aria-current="page"] .ic { background: var(--btn); border-color: var(--btn); color: var(--on-btn); }
   .menu-cta { width: min(560px, 100%); margin: 1.3rem auto 0; min-height: 54px; font-size: 1.05rem; }

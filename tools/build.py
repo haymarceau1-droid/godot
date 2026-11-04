@@ -604,7 +604,7 @@ home = f'''    <section class="hero hero-photo">
               <span class="bento-top"><span class="bento-num" aria-hidden="true">02</span><span class="bento-ic" aria-hidden="true">{ICON["pieces"]}</span></span>
               <h3>Acheter or &amp; argent</h3>
               <p>Napoléon, Souverain, Krugerrand, Maple Leaf argent, lingots et lingotins : constituez une épargne tangible, conseillé par des spécialistes.</p>
-              <span class="bento-more">Découvrir <span aria-hidden="true">→</span></span>
+              <span class="bento-more">Découvrir</span>
             </span>
           </a>
           <a class="bento-card bento-argent" href="argent-bijoux.html">
@@ -613,7 +613,7 @@ home = f'''    <section class="hero hero-photo">
               <span class="bento-top"><span class="bento-num" aria-hidden="true">03</span><span class="bento-ic" aria-hidden="true">{ICON["argent"]}</span></span>
               <h3>Argenterie &amp; bijoux</h3>
               <p>Argenterie, pièces d'argent, platine, bijoux anciens ou démodés : une expertise attentive pour chaque pièce.</p>
-              <span class="bento-more">Découvrir <span aria-hidden="true">→</span></span>
+              <span class="bento-more">Découvrir</span>
             </span>
           </a>
           <a class="bento-card bento-change" href="change.html">
@@ -622,7 +622,7 @@ home = f'''    <section class="hero hero-photo">
               <span class="bento-top"><span class="bento-num" aria-hidden="true">04</span><span class="bento-ic" aria-hidden="true">{ICON["change"]}</span></span>
               <h3>Bureau de change</h3>
               <p>Achat et vente de devises étrangères pour vos voyages ou au retour : un service simple, sur place.</p>
-              <span class="bento-more">Découvrir <span aria-hidden="true">→</span></span>
+              <span class="bento-more">Découvrir</span>
             </span>
           </a>
         </div>
@@ -952,7 +952,7 @@ acheter = service_hero("Acheter or &amp; argent", "Or &amp; argent d'investissem
           <p class="eyebrow">Pourquoi de l'or et de l'argent physiques</p>
           <h2>Un actif tangible, reconnu partout</h2>
           <p>L'or et l'argent sont des métaux que l'on peut détenir, transmettre et revendre. Ils se prêtent à la diversification d'une épargne.</p>
-          <p><a class="text-link" href="pourquoi-investir-or.html">Pourquoi investir dans l'or ? Rendements, inflation, risques →</a></p>
+          <p><a class="text-link" href="pourquoi-investir-or.html">Pourquoi investir dans l'or ? Rendements, inflation, risques</a></p>
         </header>
         <div class="cards-feature cards-feature-3">
           {feature("coins", "Pièces", "Facilement divisibles, reconnues sur le marché, elles s'adaptent aux petits comme aux grands budgets.")}
