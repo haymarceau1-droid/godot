@@ -137,7 +137,7 @@ def header(active):
         <div class="menu-links">
           <span class="menu-glide" aria-hidden="true"></span>
           <div class="menu-dd">
-            <button type="button" class="menu-dd-btn{dd_cls}" aria-expanded="false" aria-haspopup="true" aria-controls="menu-panel"><span>Nos services</span>[[icon:chevron-down]]</button>
+            <button type="button" class="menu-dd-btn{dd_cls}" aria-expanded="false" aria-haspopup="true" aria-controls="menu-panel"><span>Nos services</span></button>
             <div class="menu-panel" id="menu-panel" role="group" aria-label="Nos services">{panel}</div>
           </div>
           <a href="pourquoi-investir-or.html"{cur("pourquoi-investir-or.html")}>[[icon:chart-line]]<span>Pourquoi investir ?</span></a>
@@ -184,7 +184,7 @@ def footer():
       <ul>{tiles}</ul>
       <p>Les logos et marques cités appartiennent à leurs titulaires respectifs.</p>
     </div>'''
-    social = "".join(f'<li><a href="{u}" target="_blank" rel="noopener" aria-label="{n} (nouvelle fenêtre)">[[icon:{i}]]</a></li>' for i, n, u in SOCIAL)
+    social = "".join(f'<li><a href="{u}" target="_blank" rel="noopener" aria-label="{n} (nouvelle fenêtre)">{n}</a></li>' for i, n, u in SOCIAL)
     svc = "\n".join(f'          <li><a href="{h}">{t}</a></li>' for h, t, _, _ in SERVICES)
     return f'''  <footer class="site-footer">
     <div class="container footer-grid">
@@ -228,9 +228,7 @@ def footer():
       <p class="footer-legal">Les informations de ce site sont données à titre indicatif et ne constituent jamais un conseil en investissement. Investir comporte un risque de perte en capital.</p>
     </div>
   </footer>
-  <a class="call-fab" href="tel:{TEL_HREF}" aria-label="Appeler l'agence au {TEL}">
-    [[icon:phone-call]]
-  </a>
+  <a class="call-fab" href="tel:{TEL_HREF}" aria-label="Appeler l'agence au {TEL}">Appeler</a>
   <script src="assets/js/consent.js?v={ASSET_V}" defer></script>
   <script src="assets/js/main.js?v={ASSET_V}" defer></script>'''
 
@@ -451,8 +449,8 @@ def avis_section():
         <div class="reviews" data-reviews>
           <div class="reviews-track" tabindex="0" role="region" aria-label="Avis clients, défilement horizontal">{"".join(cards)}</div>
           <div class="reviews-nav">
-            <button type="button" class="round-btn" data-rev="prev" aria-label="Avis précédents">[[icon:chevron-left]]</button>
-            <button type="button" class="round-btn" data-rev="next" aria-label="Avis suivants">[[icon:chevron-right]]</button>
+            <button type="button" class="round-btn" data-rev="prev" aria-label="Avis précédents"><span aria-hidden="true">←</span></button>
+            <button type="button" class="round-btn" data-rev="next" aria-label="Avis suivants"><span aria-hidden="true">→</span></button>
             <a class="btn btn-outline btn-sm" href="{lien}" target="_blank" rel="noopener">Voir tous les avis sur Google</a>
           </div>
         </div>
@@ -597,7 +595,7 @@ home = f'''    <section class="hero hero-photo">
               <span class="bento-top"><span class="bento-num" aria-hidden="true">01</span><span class="bento-ic" aria-hidden="true">{ICON["or"]}</span></span>
               <h3>Vendre or &amp; argent</h3>
               <p>Bijoux, débris, alliances, chaînes, argenterie, pièces et lingots : nous rachetons votre or et votre argent, quel que soit leur état.</p>
-              <span class="bento-more">Découvrir <span aria-hidden="true">→</span></span>
+              <span class="bento-more">Découvrir</span>
             </span>
           </a>
           <a class="bento-card bento-acheter" href="acheter-or.html">
@@ -725,7 +723,7 @@ page("index.html", "Godot &amp; Fils Chartres — Achat et vente d'or, d'argent 
 
 def subnav(active):
     items = "".join(
-        f'<li><a href="{h}"{" aria-current=\"page\"" if h == active else ""}>[[icon:{ico}]]<span>{t}</span></a></li>'
+        f'<li><a href="{h}"{" aria-current=\"page\"" if h == active else ""}><span>{t}</span></a></li>'
         for h, t, ico, _ in SERVICES)
     return f'''    <div class="subnav" aria-label="Nos services">
       <div class="container"><ul>{items}</ul></div>

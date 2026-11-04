@@ -1650,3 +1650,11 @@ main, .site-footer { overflow-x: clip; }
 
 .bento-card h3, .bento-card p { text-shadow: 0 1px 12px rgba(0,0,0,.6); }
 .bento-card p { color: rgba(255,255,255,.92); }
+
+/* Plus aucun bouton avec pictogramme : textes seuls */
+.call-fab { width: auto; height: auto; min-height: 48px; padding: .7em 1.5em; border-radius: 999px; place-items: center; font-weight: 700; font-size: var(--fs-small); color: var(--on-btn); text-decoration: none; letter-spacing: .02em; box-shadow: 0 8px 24px rgba(0,0,0,.35); }
+.social a { width: auto; height: 40px; padding: 0 1.1rem; border-radius: 999px; font-size: var(--fs-small); }
+.round-btn span { font-size: 1.3rem; line-height: 1; }
+.subnav a { gap: 0; }
+.call-fab { transition: opacity .25s ease, translate .25s ease; }
+.call-fab.fab-off { opacity: 0; pointer-events: none; translate: 0 12px; }

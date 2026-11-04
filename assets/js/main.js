@@ -712,3 +712,16 @@
   }, { threshold: 0.3 });
   io.observe(ol);
 })();
+
+// Bouton « Appeler » flottant : masqué quand un bouton d'appel est déjà visible à l'écran
+(function () {
+  var fab = document.querySelector('.call-fab');
+  var zones = document.querySelectorAll('.hero-actions, .cta-band');
+  if (!fab || !zones.length || !('IntersectionObserver' in window)) return;
+  var seen = new Set();
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) { if (e.isIntersecting) seen.add(e.target); else seen.delete(e.target); });
+    fab.classList.toggle('fab-off', seen.size > 0);
+  });
+  zones.forEach(function (z) { io.observe(z); });
+})();
