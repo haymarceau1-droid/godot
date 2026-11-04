@@ -449,8 +449,8 @@ def avis_section():
         <div class="reviews" data-reviews>
           <div class="reviews-track" tabindex="0" role="region" aria-label="Avis clients, défilement horizontal">{"".join(cards)}</div>
           <div class="reviews-nav">
-            <button type="button" class="round-btn" data-rev="prev" aria-label="Avis précédents"><span aria-hidden="true">←</span></button>
-            <button type="button" class="round-btn" data-rev="next" aria-label="Avis suivants"><span aria-hidden="true">→</span></button>
+            <button type="button" class="round-btn" data-rev="prev" aria-label="Avis précédents">[[icon:chevron-left]]</button>
+            <button type="button" class="round-btn" data-rev="next" aria-label="Avis suivants">[[icon:chevron-right]]</button>
             <a class="btn btn-outline btn-sm" href="{lien}" target="_blank" rel="noopener">Voir tous les avis sur Google</a>
           </div>
         </div>
