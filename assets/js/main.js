@@ -701,15 +701,3 @@
   if (!cur || ul.scrollWidth <= ul.clientWidth) return;
   ul.scrollLeft = cur.offsetLeft - (ul.clientWidth - cur.offsetWidth) / 2;
 })();
-
-
-// Étapes de l'accueil : le tracé se dessine et les étapes apparaissent l'une après l'autre
-(function () {
-  var ol = document.querySelector('.tsteps');
-  if (!ol || !('IntersectionObserver' in window) || !document.documentElement.classList.contains('motion')) return;
-  ol.classList.add('tsteps-armed');
-  var io = new IntersectionObserver(function (en) {
-    if (en[0].isIntersecting) { ol.classList.add('tsteps-go'); io.disconnect(); }
-  }, { threshold: 0.25 });
-  io.observe(ol);
-})();

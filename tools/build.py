@@ -343,10 +343,10 @@ def faq_block(items):
     return "\n".join(f"          <details>\n            <summary>{q}</summary>\n            <p>{a}</p>\n          </details>" for q, a in items)
 
 STEPS_TIMELINE = '''        <ol class="tsteps">
-          <li><span class="ts-node">[[icon:building-store:thin]]</span><span class="ts-num" aria-hidden="true">01</span><h3>Vous passez à l'agence</h3><p>Sans rendez-vous, du lundi au vendredi, avec vos bijoux, pièces ou lingots.</p><span class="ts-tag">Sans rendez-vous</span></li>
-          <li><span class="ts-node">[[icon:scale:thin]]</span><span class="ts-num" aria-hidden="true">02</span><h3>Nous examinons devant vous</h3><p>Contrôle du titre et pesée de chaque objet, sous vos yeux.</p><span class="ts-tag">Pesée sur place</span></li>
-          <li><span class="ts-node">[[icon:receipt-euro:thin]]</span><span class="ts-num" aria-hidden="true">03</span><h3>Nous vous faisons une offre</h3><p>Une proposition détaillée, fondée sur le cours du jour. Vous restez libre de refuser.</p><span class="ts-tag">Libre de refuser</span></li>
-          <li><span class="ts-node">[[icon:cash-banknote:thin]]</span><span class="ts-num" aria-hidden="true">04</span><h3>Vous êtes payé</h3><p>Si vous acceptez, la transaction est finalisée avec un bordereau d'achat conforme à la réglementation.</p><span class="ts-tag">Bordereau remis</span></li>
+          <li><span class="ts-label">Étape 1</span><h3>Vous passez à l'agence</h3><p>Sans rendez-vous, du lundi au vendredi, avec vos bijoux, pièces ou lingots.</p></li>
+          <li><span class="ts-label">Étape 2</span><h3>Nous examinons devant vous</h3><p>Contrôle du titre et pesée de chaque objet, sous vos yeux.</p></li>
+          <li><span class="ts-label">Étape 3</span><h3>Nous vous faisons une offre</h3><p>Une proposition détaillée, fondée sur le cours du jour. Vous restez libre de refuser.</p></li>
+          <li><span class="ts-label">Étape 4</span><h3>Vous êtes payé</h3><p>Si vous acceptez, la transaction est finalisée avec un bordereau d'achat conforme à la réglementation.</p></li>
         </ol>'''
 
 def steps_block(timeline=False):
@@ -639,11 +639,7 @@ home = f'''    <section class="hero hero-photo">
           <p>Un parcours transparent, en face à face, pour que vous décidiez en toute sérénité.</p>
         </header>
 {steps_block(True)}
-        <aside class="notice notice-id">[[icon:id:thin]]<p><strong>À prévoir :</strong> une pièce d'identité en cours de validité est obligatoire pour toute vente de métaux précieux.</p></aside>
-        <div class="steps-cta">
-          <p><strong>Prêt à faire estimer vos objets ?</strong> Passez à l'agence, sans rendez-vous, du lundi au vendredi.</p>
-          <div class="hero-actions"><a class="btn btn-gold" href="contact.html">Venir à l'agence</a><a class="btn btn-ghost" href="tel:{TEL_HREF}">{TEL}</a></div>
-        </div>
+        <p class="steps-note"><strong>À prévoir :</strong> une pièce d'identité en cours de validité est obligatoire pour toute vente de métaux précieux.</p>
       </div>
     </section>
 
