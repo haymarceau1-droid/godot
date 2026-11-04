@@ -184,7 +184,7 @@ def footer():
       <ul>{tiles}</ul>
       <p>Les logos et marques cités appartiennent à leurs titulaires respectifs.</p>
     </div>'''
-    social = "".join(f'<li><a href="{u}" target="_blank" rel="noopener" aria-label="{n} (nouvelle fenêtre)">{n}</a></li>' for i, n, u in SOCIAL)
+    social = "".join(f'<li><a href="{u}" target="_blank" rel="noopener" aria-label="{n} (nouvelle fenêtre)">[[icon:{i}]]</a></li>' for i, n, u in SOCIAL)
     svc = "\n".join(f'          <li><a href="{h}">{t}</a></li>' for h, t, _, _ in SERVICES)
     return f'''  <footer class="site-footer">
     <div class="container footer-grid">

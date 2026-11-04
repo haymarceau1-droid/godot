@@ -1653,7 +1653,7 @@ main, .site-footer { overflow-x: clip; }
 
 /* Plus aucun bouton avec pictogramme : textes seuls */
 .call-fab { width: auto; height: auto; min-height: 48px; padding: .7em 1.5em; border-radius: 999px; place-items: center; font-weight: 700; font-size: var(--fs-small); color: var(--on-btn); text-decoration: none; letter-spacing: .02em; box-shadow: 0 8px 24px rgba(0,0,0,.35); }
-.social a { width: auto; height: 40px; padding: 0 1.1rem; border-radius: 999px; font-size: var(--fs-small); }
+.social a { width: 42px; height: 42px; padding: 0; border-radius: 50%; }
 .round-btn span { font-size: 1.3rem; line-height: 1; }
 .subnav a { gap: .5rem; }
 .call-fab { transition: opacity .25s ease, translate .25s ease; }
