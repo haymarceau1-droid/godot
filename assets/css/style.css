@@ -1658,3 +1658,6 @@ main, .site-footer { overflow-x: clip; }
 .subnav a { gap: .5rem; }
 .call-fab { transition: opacity .25s ease, translate .25s ease; }
 .call-fab.fab-off { opacity: 0; pointer-events: none; translate: 0 12px; }
+
+/* Titres : espacement des lettres réduit de 5 % (-0,05 em) */
+h1, h2, h3 { letter-spacing: -0.05em; }
