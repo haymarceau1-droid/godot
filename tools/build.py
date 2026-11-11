@@ -1739,6 +1739,8 @@ contact = hero("Contact", "Votre agence", "Nous rendre visite à Chartres.",
                   <tr data-day="6"><th scope="row">Samedi</th><td>Matin, sur rendez-vous</td></tr>
                   <tr data-day="0"><th scope="row">Dimanche</th><td>Fermé</td></tr>
                 </tbody></table>
+                <p class="note hours-note">L'agence est fermée les jours fériés.</p>
+                <p class="note hours-note hours-today" data-holiday-note hidden></p>
               </dd>
             </div>
           </dl>

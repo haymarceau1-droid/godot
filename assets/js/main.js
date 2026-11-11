@@ -81,32 +81,53 @@
     });
   }
 
-  // ---------------------------------------------------------------- Statut ouvert / fermé (heure de Paris, lun–ven 9h30–18h00)
+  // ---------------------------------------------------------------- Statut ouvert / fermé (heure de Paris, lun–ven 9h30–18h00, fermé les jours fériés)
   var HOURS = { 1: [570, 1080], 2: [570, 1080], 3: [570, 1080], 4: [570, 1080], 5: [570, 1080] };
   function parisNow() {
     var parts = new Intl.DateTimeFormat('en-GB', {
-      timeZone: 'Europe/Paris', weekday: 'short', hour: '2-digit', minute: '2-digit', hour12: false
+      timeZone: 'Europe/Paris', weekday: 'short', year: 'numeric', month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit', hour12: false
     }).formatToParts(new Date());
     var map = {};
     parts.forEach(function (p) { map[p.type] = p.value; });
     var days = { Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6 };
-    return { day: days[map.weekday], minutes: (parseInt(map.hour, 10) % 24) * 60 + parseInt(map.minute, 10) };
+    return { day: days[map.weekday], year: parseInt(map.year, 10), month: parseInt(map.month, 10), date: parseInt(map.day, 10),
+             minutes: (parseInt(map.hour, 10) % 24) * 60 + parseInt(map.minute, 10) };
+  }
+  // Jours fériés français (métropole) : fixes + dépendant de Pâques (algorithme de Meeus / Jones / Butcher)
+  function easter(y) {
+    var a = y % 19, b = Math.floor(y / 100), c = y % 100, d = Math.floor(b / 4), e = b % 4, f = Math.floor((b + 8) / 25),
+        g = Math.floor((b - f + 1) / 3), h = (19 * a + b - d - g + 15) % 30, i = Math.floor(c / 4), k = c % 4,
+        l = (32 + 2 * e + 2 * i - h - k) % 7, m = Math.floor((a + 11 * h + 22 * l) / 451),
+        month = Math.floor((h + l - 7 * m + 114) / 31), day = ((h + l - 7 * m + 114) % 31) + 1;
+    return new Date(Date.UTC(y, month - 1, day));
+  }
+  function holidayName(y, m, d) {
+    var fixed = { '1-1': "Jour de l'An", '5-1': 'Fête du Travail', '5-8': 'Victoire 1945', '7-14': 'Fête nationale',
+                  '8-15': 'Assomption', '11-1': 'Toussaint', '11-11': 'Armistice', '12-25': 'Noël' };
+    if (fixed[m + '-' + d]) return fixed[m + '-' + d];
+    var p = easter(y), shift = function (n) { var x = new Date(p.getTime() + n * 86400000); return (x.getUTCMonth() + 1) + '-' + x.getUTCDate(); };
+    var movable = {}; movable[shift(1)] = 'Lundi de Pâques'; movable[shift(39)] = "Jeudi de l'Ascension"; movable[shift(50)] = 'Lundi de Pentecôte';
+    return movable[m + '-' + d] || '';
   }
   try {
     var now = parisNow();
-    var slot = HOURS[now.day];
+    var holiday = holidayName(now.year, now.month, now.date);
+    var slot = holiday ? null : HOURS[now.day];
     var open = slot && now.minutes >= slot[0] && now.minutes < slot[1];
-    var sat = now.day === 6;
+    var sat = now.day === 6 && !holiday;
     document.querySelectorAll('[data-open-status]').forEach(function (status) {
       var short = status.hasAttribute('data-short');
       status.classList.add(open ? 'is-open' : (sat ? 'is-rdv' : 'is-closed'));
-      status.querySelector('.status-text').textContent = open
+      status.querySelector('.status-text').textContent = holiday
+        ? (short ? 'Fermé · jour férié' : 'Fermé aujourd\'hui · jour férié (' + holiday + ')')
+        : open
         ? (short ? "Ouvert · jusqu'à 18h" : "Ouvert en ce moment · jusqu'à 18h00")
         : (sat ? (short ? 'Sam. matin sur RDV' : 'Samedi matin : sur rendez-vous')
                : (short ? 'Fermé · lun–ven 9h30–18h' : 'Fermé actuellement · ouvert du lundi au vendredi'));
     });
     var row = document.querySelector('.hours tr[data-day="' + now.day + '"]');
     if (row) row.classList.add('today');
+    if (holiday) document.querySelectorAll('[data-holiday-note]').forEach(function (n) { n.hidden = false; n.textContent = 'Aujourd\'hui, jour férié (' + holiday + ') : l\'agence est fermée.'; });
   } catch (e) { /* navigateur sans Intl : on garde le texte par défaut */ }
 
   // Année du pied de page

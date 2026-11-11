@@ -1661,3 +1661,6 @@ main, .site-footer { overflow-x: clip; }
 
 /* Titres : espacement des lettres réduit de 5 % (-0,05 em) */
 h1, h2, h3 { letter-spacing: -0.05em; }
+.hours-note { margin: .8rem 0 0; font-size: var(--fs-small); color: var(--text-2-muted); }
+.hours-today { color: var(--gold-deep); font-weight: 700; }
+.hours-today[hidden] { display: none; }
