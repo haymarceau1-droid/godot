@@ -93,3 +93,7 @@ puis ouvrir http://localhost:8000
 
 Le site est volontairement **non indexable** tant que `INDEXABLE = False` dans `tools/build.py` : balise `noindex, nofollow` sur chaque page, `robots.txt` en `Disallow: /`, en-tête `X-Robots-Tag` (via `vercel.json`) et aucun sitemap.
 Pour ouvrir le site aux moteurs de recherche : passer `INDEXABLE = True`, relancer `python3 tools/build.py` et déployer (sitemap, canoniques et `robots.txt` autorisant l'exploration sont alors générés ; la page Mentions légales reste en `noindex`).
+
+## Images de partage (Open Graph)
+
+Chaque page a sa propre image 1200×630 (titre, photo, logo), dans `assets/img/og/`. Pour les régénérer après avoir changé un titre ou une photo : modifier la liste `PAGES` de `tools/make-og.mjs`, puis `node tools/make-og.mjs` (nécessite Playwright), puis `python3 tools/build.py`.

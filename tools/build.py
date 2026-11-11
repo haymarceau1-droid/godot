@@ -271,6 +271,8 @@ def page(slug, title, desc, body, ld=None, cta=True, noindex=False):
         lds.append({"@context": "https://schema.org", "@type": "Service", "name": service, "serviceType": service,
                     "provider": {"@id": SITE + "/#agence"}, "areaServed": {"@type": "City", "name": "Chartres"},
                     "url": f"{SITE}/{slug}", "description": re.sub(r"&amp;", "&", desc)})
+    _og = os.path.join(ROOT, "assets", "img", "og", slug.replace(".html", "") + ".jpg")
+    og_img = f"{SITE}/assets/img/og/{slug.replace('.html', '')}.jpg" if os.path.exists(_og) else OG_IMG
     ld_tag = "".join(f'\n  <script type="application/ld+json">\n{esc_json(x)}\n  </script>' for x in lds)
     noindex = noindex or not INDEXABLE
     robots = '\n  <meta name="robots" content="noindex, nofollow">' if noindex else ""
@@ -288,11 +290,13 @@ def page(slug, title, desc, body, ld=None, cta=True, noindex=False):
   <meta property="og:locale" content="fr_FR">
   <meta property="og:site_name" content="Godot &amp; Fils Chartres">
   <meta property="og:url" content="{SITE}/{"" if slug == "index.html" else slug}">
-  <meta property="og:image" content="{OG_IMG}">
+  <meta property="og:image" content="{og_img}">
+  <meta property="og:image:type" content="image/jpeg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Devanture de l'agence Godot &amp; Fils, 23 rue de la Pie à Chartres">
+  <meta property="og:image:alt" content="{title}">
   <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="{og_img}">
   <meta name="theme-color" content="#000000">
   <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
   <link rel="preload" href="assets/fonts/josefin-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
