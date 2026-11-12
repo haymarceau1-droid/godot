@@ -227,6 +227,7 @@ def footer():
       <p>© <span data-year>2026</span> Godot &amp; Fils Chartres. Tous droits réservés.</p>
       <p class="footer-legal">Les informations de ce site sont données à titre indicatif et ne constituent jamais un conseil en investissement. Investir comporte un risque de perte en capital.</p>
     </div>
+    <div class="credit-band"><p>Site designé et développé par <a href="https://oswaldsolutions.fr" target="_blank" rel="noopener">oswaldsolutions.fr</a></p></div>
   </footer>
   <a class="call-fab" href="tel:{TEL_HREF}" aria-label="Appeler l'agence au {TEL}">Appeler</a>
   <script src="assets/js/consent.js?v={ASSET_V}" defer></script>

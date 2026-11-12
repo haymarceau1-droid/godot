@@ -1664,3 +1664,10 @@ h1, h2, h3 { letter-spacing: -0.05em; }
 .hours-note { margin: .8rem 0 0; font-size: var(--fs-small); color: var(--text-2-muted); }
 .hours-today { color: var(--gold-deep); font-weight: 700; }
 .hours-today[hidden] { display: none; }
+
+/* Bandeau de crédit tout en bas du pied de page */
+.credit-band { background: #0d0d0d; border-top: 1px solid var(--line-dark); padding: .9rem 16px; text-align: center; font-size: .8125rem; color: var(--text-1-muted); }
+.credit-band p { margin: 0; }
+.credit-band a { color: var(--text-1); text-decoration: none; font-weight: 700; border-bottom: 1px solid rgba(226,171,69,.6); }
+.credit-band a:hover { color: var(--gold); }
+@media (max-width: 860px) { .credit-band { padding-bottom: 4.5rem; } }
